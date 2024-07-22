@@ -90,6 +90,40 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className={`${styles["work"]}`}>
+        <h2>Selected Work</h2>
+      </div>
+      <div className={`${styles["footer-container"]} text-body-1`}>
+        <div className={`${styles["footer-top"]}`}>
+          <div>
+            <h3>Pacific Time:</h3>
+            <p>3:21 AM,</p>
+            <p>Vancouver,</p>
+            <p>Canada</p>
+          </div>
+          <div>
+            <h3>Social:</h3>
+            <p>LinkedIn,</p>
+            <p>Instagram,</p>
+            <p>Dribbble</p>
+          </div>
+          <div>
+            <h3>Colophon:</h3>
+            <p>Fonts by Type.Weltkern</p>
+            <p>and Monotype.</p>
+          </div>
+        </div>
+        <div className={`${styles["footer-bottom"]}`}>
+          <div>
+            <div className="text-body-3">
+              <p>2024 ©</p>
+            </div>
+          </div>
+          <div className="text-body-3">
+            <p>Privacy Policy</p>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

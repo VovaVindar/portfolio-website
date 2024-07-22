@@ -54,6 +54,7 @@ h2 {
   font-family: var(--lausanne);
   font-weight: 600;
   letter-spacing: var(--token-letter-spacing-2);
+  height: 2rlh;
 }
 h3 {
   font-size: var(--token-font-size-4);
@@ -103,7 +104,8 @@ h3 {
   font-family: var(--lausanne);
   font-weight: 600;
   letter-spacing: var(--token-letter-spacing-4);
-  line-height: 1rlh;
+  height: 1rlh;
+  line-height: 70%;
 }
 .text-body-1 p,
 .text-body-1-uppercase p,
