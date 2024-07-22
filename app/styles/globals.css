@@ -1,0 +1,129 @@
+/* CSS Reset by amazing Andy Bell
+https://andy-bell.co.uk/a-more-modern-css-reset/
+*/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core body defaults and improve font rendering (custom by me) */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-os-font-smoothing: grayscale;
+  font-smooth: never;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* Balance text wrapping on headings */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Buttons reset (custom by me) */
+button {
+  border: none;
+  text-decoration: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* Avoid text overflows (custom by me) */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Remove link style (by me) */
+a {
+  text-decoration: none;
+  color: inherit;
+  width: fit-content;
+}
+
+/* CSS Reset end */
+
+html {
+  line-height: 23px;
+  font-family: var(--lausanne);
+}
+main {
+  /* Full height */
+  height: 100vh;
+  /* Create a linear gradient that repeats every 22px */
+  background-image: linear-gradient(to bottom, #000 1px, transparent 1px);
+  background-size: 100% 1rlh;
+}
+h3 {
+  font-family: var(--timesnew);
+  letter-spacing: -0.01em;
+  font-style: italic;
+  font-size: 18px;
+}
