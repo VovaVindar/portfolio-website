@@ -1,3 +1,4 @@
+import "./styles/design-system.css";
 import "./styles/globals.css";
 import localFont from "next/font/local";
 
@@ -9,8 +10,8 @@ const lausanne = localFont({
       style: "normal",
     },
     {
-      path: "./fonts/TWKLausanne-700.woff2",
-      weight: "700",
+      path: "./fonts/TWKLausanne-600.woff2",
+      weight: "600",
       style: "normal",
     },
   ],

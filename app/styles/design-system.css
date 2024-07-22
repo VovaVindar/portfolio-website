@@ -21,46 +21,108 @@
   --token-color-surface-contrast: var(--primitive-color-vova-0);
 
   /* Letter Spacing */
-  --token-letter-spacing-1: -0.017em;
-  --token-letter-spacing-2: -0.01em;
-  --token-letter-spacing-3: -0.005em;
-  --token-letter-spacing-4: 0em;
-  --token-letter-spacing-5: 0.005em;
+  --token-letter-spacing-1: -0.046em;
+  --token-letter-spacing-2: -0.032em;
+  --token-letter-spacing-3: -0.024em;
+  --token-letter-spacing-4: -0.02em;
+  --token-letter-spacing-5: -0.015em;
+  --token-letter-spacing-6: -0.01em;
 
   /* Font Size */
-  --token-font-size-1: clamp(
-    4rem,
-    -0.0002rem + 5.7294vw,
-    9.1669rem
-  ); /* 110px at 1920, 146px at 2560, 79px at 1386, 64px at 1150, 40px at 375 */
-  --token-font-size-2: clamp(
-    3.6094rem,
-    -0.0002rem + 4.167vw,
-    6.6669rem
-  ); /* 80px at 1920, 106.67px at 2560, 57.75px at 1386, 40px at 375 */
-  --token-font-size-3: clamp(
-    2.5269rem,
-    0.0004rem + 2.9165vw,
-    4.6669rem
-  ); /* 56px at 1920, 74.67px at 2560,  40.43px at 1386, ?? at 375 */
-  --token-font-size-4: clamp(
-    1.3538rem,
-    0.0005rem + 1.5622vw,
-    2.5rem
-  ); /* 30px at 1920, 40px at 2560, 21.66px at 1386, ?? at 375 */
-  --token-font-size-5: clamp(
-    0.9925rem,
-    0.0001rem + 1.1457vw,
-    1.8331rem
-  ); /* 22px at 1920, 29.33px at 2560, 15.88px at 1386, 18px at 375 */
-  --token-font-size-6: clamp(
-    0.8125rem,
-    0.0009rem + 0.937vw,
-    1.5rem
-  ); /* 18px at 1920, 24px at 2560, 13px at 1386, 14px at 375 */
-  --token-font-size-7: clamp(
-    0.8125rem,
-    0.3181rem + 0.5707vw,
-    1.2313rem
-  ); /* 16px at 1920, 19.6px at 2560, 13px at 1386, 14px at 375 */
+  --token-font-size-1: 95.4px;
+  --token-font-size-2: 63px;
+  --token-font-size-3: 23px;
+  --token-font-size-4: 18px;
+}
+
+/* Typography */
+/*
+Fluid typographu calculator:
+@link https://utopia.fyi/type/calculator?c=1386,13,0,2560,24,1.25,0,0,1920&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
+but replace 'vi' with 'vw'
+*/
+h1 {
+  font-size: var(--token-font-size-1);
+  font-family: var(--lausanne);
+  font-weight: 600;
+  letter-spacing: var(--token-letter-spacing-1);
+  height: 3rlh;
+  line-height: 70%;
+}
+h2 {
+  font-size: var(--token-font-size-2);
+  font-family: var(--lausanne);
+  font-weight: 600;
+  letter-spacing: var(--token-letter-spacing-2);
+}
+h3 {
+  font-size: var(--token-font-size-4);
+  font-family: var(--timesnew);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: var(--token-letter-spacing-6);
+  line-height: 68%;
+  padding-left: 1px;
+}
+.text-body-1 {
+  font-size: var(--token-font-size-3);
+  font-family: var(--lausanne);
+  font-weight: 600;
+  letter-spacing: var(--token-letter-spacing-3);
+}
+.text-body-1 {
+  line-height: 70%;
+}
+.text-body-1-uppercase {
+  font-size: var(--token-font-size-3);
+  font-family: var(--lausanne);
+  font-weight: 600;
+  letter-spacing: var(--token-letter-spacing-4);
+  text-transform: uppercase;
+}
+.text-body-1-uppercase p {
+  line-height: 70%;
+}
+.text-body-2 {
+  font-size: var(--token-font-size-3);
+  font-family: var(--lausanne);
+  font-weight: 400;
+  letter-spacing: var(--token-letter-spacing-4);
+}
+.text-body-2 p {
+  line-height: 51%;
+}
+.text-body-1 p,
+.text-body-1-uppercase p,
+.text-body-2 p,
+h3 {
+  height: 1rlh;
+}
+.text-body-3 {
+  font-size: var(--token-font-size-4);
+  font-family: var(--lausanne);
+  font-weight: 600;
+  letter-spacing: var(--token-letter-spacing-4);
+  line-height: 1rlh;
+}
+.text-body-1 p,
+.text-body-1-uppercase p,
+.text-body-2 p,
+h1,
+h2,
+h3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Surfaces */
+.surface-color-primary {
+  background-color: var(--token-color-surface-primary);
+}
+.surface-color-secondary {
+  background-color: var(--token-color-surface-secondary);
+}
+.surface-color-contrast {
+  background-color: var(--token-color-surface-contrast);
 }

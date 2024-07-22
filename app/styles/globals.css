@@ -113,17 +113,18 @@ a {
 html {
   line-height: 23px;
   font-family: var(--lausanne);
+  color: var(--token-color-text-primary);
+  background-color: var(--token-surface-color-primary);
 }
 main {
-  /* Full height */
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   /* Create a linear gradient that repeats every 22px */
-  background-image: linear-gradient(to bottom, #000 1px, transparent 1px);
+  background-image: linear-gradient(
+    to bottom,
+    var(--primitive-color-vova-0) 1px,
+    transparent 1px
+  );
   background-size: 100% 1rlh;
-}
-h3 {
-  font-family: var(--timesnew);
-  letter-spacing: -0.01em;
-  font-style: italic;
-  font-size: 18px;
+  padding: 0 1rlh;
 }
