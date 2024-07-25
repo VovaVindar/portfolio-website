@@ -33,6 +33,16 @@
   --token-font-size-2: 2.73913rlh; /* 63px */
   --token-font-size-3: 1rlh; /* 23px */
   --token-font-size-4: 0.782608rlh; /* 18px */
+
+  /* Sizes */
+  --columns-gap: 5.173913rlh; /* 119px */
+  --columns-canvas-margin: 2.173913rlh; /* 50px */
+  --first-column-width: calc(
+    11.3542ch + var(--columns-canvas-margin) + (6rlh - 1px)
+  );
+  --second-column-width: calc(
+    6.8935ch + var(--columns-canvas-margin) + (6rlh - 1px)
+  );
 }
 
 /* Typography */
