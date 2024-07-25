@@ -2,52 +2,73 @@ import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <main>
+    <main className={`${styles["home-container"]}`}>
       <div className={`${styles["contact-scroller"]} text-body-1-uppercase`}>
         <p>Contact</p>
       </div>
-      <div className={`${styles["skills"]} text-body-1`}>
-        <div className={`${styles["chair-container"]}`}>
-          <div>
-            <h3>Digital Designer:</h3>
-            <p>Art Direction,</p>
-            <p>Website Design,</p>
-            <p>Product Design,</p>
-            <p>Brand Identity</p>
+      <div className={`${styles["hero-container"]}`}>
+        <div className={`${styles["skills"]} text-body-1`}>
+          <div className={`${styles["chair-container"]}`}>
+            <div>
+              <h3>Digital Designer:</h3>
+              <p>Art Direction,</p>
+              <p>Website Design,</p>
+              <p>Product Design,</p>
+              <p>Brand Identity</p>
+            </div>
+            <div className={`${styles["chair"]}`}></div>
           </div>
-          <div className={`${styles["chair"]}`}></div>
-        </div>
-        <div className={`${styles["chair-container"]}`}>
-          <div>
-            <h3>& Developer:</h3>
-            <p>Websites,</p>
-            <p>WebGL,</p>
-            <p>NextJS</p>
+          <div className={`${styles["chair-container"]}`}>
+            <div>
+              <h3>& Developer:</h3>
+              <p>Websites,</p>
+              <p>WebGL,</p>
+              <p>NextJS</p>
+            </div>
+            <div className={`${styles["chair"]}`}></div>
           </div>
-          <div className={`${styles["chair"]}`}></div>
+          <div>
+            <h3>Specializing In:</h3>
+            <p>AI,</p>
+            <p>Fintech,</p>
+            <p>Technology</p>
+          </div>
         </div>
-        <div>
-          <h3>Specializing In:</h3>
-          <p>AI,</p>
-          <p>Fintech,</p>
-          <p>Technology</p>
+        <div className={`${styles["description"]} text-body-2`}>
+          <div className={`${styles["timeline"]}`}>
+            <h3>From 2019</h3>
+            <div></div>
+            <h3>To Present</h3>
+          </div>
+          <div className={`${styles["desktop"]}`}>
+            <p>I’m a detail-oriented designer-developer based</p>{" "}
+            <p>in Vancouver, obsessed with creating immersive</p>{" "}
+            <p>websites and intuitive digital interfaces.</p>
+            <br />
+            <p>During my career, I’ve had the privilege of working</p>{" "}
+            <p>with clients like UNIT9, Twitch, Dolce & Gabbana,</p>{" "}
+            <p>Paradigm, and Cognition, helping them explore</p>{" "}
+            <p>new business ideas, shape their identity, and</p>{" "}
+            <p> secure early-stage funding.</p>
+          </div>
+          <div className={`${styles["mobile"]}`}>
+            <p>I’m a detail-oriented designer-developer</p>{" "}
+            <p>based in Vancouver, obsessed with</p>{" "}
+            <p>creating immersive websites and</p>{" "}
+            <p className={`${styles["align-left"]}`}>
+              intuitive digital interfaces.
+            </p>
+            <br />
+            <p>During my career, I’ve had the privilege</p>{" "}
+            <p>of working with clients like UNIT9,</p>{" "}
+            <p>Twitch, Dolce & Gabbana, Paradigm, and</p>{" "}
+            <p>Cognition, helping them explore new</p>{" "}
+            <p>business ideas, shape their identity, and</p>{" "}
+            <p className={`${styles["align-left"]}`}>
+              secure early-stage funding.
+            </p>
+          </div>
         </div>
-      </div>
-      <div className={`${styles["description"]} text-body-2`}>
-        <div className={`${styles["timeline"]}`}>
-          <h3>From 2019</h3>
-          <div></div>
-          <h3>To Present</h3>
-        </div>
-        <p>I’m a detail-oriented designer-developer based</p>{" "}
-        <p>in Vancouver, obsessed with creating immersive</p>{" "}
-        <p>websites and intuitive digital interfaces.</p>
-        <br />
-        <p>During my career, I’ve had the privilege of working</p>{" "}
-        <p>with clients like UNIT9, Twitch, Dolce & Gabbana,</p>{" "}
-        <p>Paradigm, and Cognition, helping them explore</p>{" "}
-        <p>new business ideas, shape their identity, and</p>{" "}
-        <p> secure early-stage funding.</p>
       </div>
       <div className={`${styles["marquee-container"]}`}>
         <div className={`${styles["marquee"]}`}>
