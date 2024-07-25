@@ -29,10 +29,10 @@
   --token-letter-spacing-6: -0.01em;
 
   /* Font Size */
-  --token-font-size-1: 95.4px;
-  --token-font-size-2: 63px;
-  --token-font-size-3: 23px;
-  --token-font-size-4: 18px;
+  --token-font-size-1: 4.147826rlh; /* 95.4px */
+  --token-font-size-2: 2.73913rlh; /* 63px */
+  --token-font-size-3: 1rlh; /* 23px */
+  --token-font-size-4: 0.782608rlh; /* 18px */
 }
 
 /* Typography */
@@ -41,27 +41,33 @@ Fluid typographu calculator:
 @link https://utopia.fyi/type/calculator?c=1386,13,0,2560,24,1.25,0,0,1920&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
 but replace 'vi' with 'vw'
 */
-h1 {
+h1,
+.text-header-1 {
   font-size: var(--token-font-size-1);
   font-family: var(--lausanne);
   font-weight: 600;
   letter-spacing: var(--token-letter-spacing-1);
+  text-transform: none;
   height: 3rlh;
   line-height: 70%;
 }
-h2 {
+h2,
+.text-header-2 {
   font-size: var(--token-font-size-2);
   font-family: var(--lausanne);
   font-weight: 600;
   letter-spacing: var(--token-letter-spacing-2);
+  text-transform: none;
   height: 2rlh;
 }
-h3 {
+h3,
+.text-header-3 {
   font-size: var(--token-font-size-4);
   font-family: var(--timesnew);
   font-weight: 400;
   font-style: italic;
   letter-spacing: var(--token-letter-spacing-6);
+  text-transform: none;
   line-height: 68%;
   padding-left: 1px;
 }
@@ -70,9 +76,8 @@ h3 {
   font-family: var(--lausanne);
   font-weight: 600;
   letter-spacing: var(--token-letter-spacing-3);
-}
-.text-body-1 {
-  line-height: 70%;
+  text-transform: none;
+  line-height: 69.5%;
 }
 .text-body-1-uppercase {
   font-size: var(--token-font-size-3);
@@ -80,8 +85,6 @@ h3 {
   font-weight: 600;
   letter-spacing: var(--token-letter-spacing-4);
   text-transform: uppercase;
-}
-.text-body-1-uppercase p {
   line-height: 70%;
 }
 .text-body-2 {
@@ -89,6 +92,7 @@ h3 {
   font-family: var(--lausanne);
   font-weight: 400;
   letter-spacing: var(--token-letter-spacing-4);
+  text-transform: none;
 }
 .text-body-2 p {
   line-height: 51%;

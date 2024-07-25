@@ -3,6 +3,9 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <main>
+      <div className={`${styles["contact-scroller"]} text-body-1-uppercase`}>
+        <p>Contact</p>
+      </div>
       <div className={`${styles["skills"]} text-body-1`}>
         <div className={`${styles["chair-container"]}`}>
           <div>
@@ -51,6 +54,8 @@ export default function Home() {
           <div></div>
           <div></div>
           <div></div>
+          <div></div>
+          <div></div>
         </div>
       </div>
       <div className={`${styles["clients"]}`}>
@@ -90,8 +95,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className={`${styles["work"]}`}>
+      <div className={`${styles["work"]} text-body-1-uppercase`}>
         <h2>Selected Work</h2>
+        <div className={`text-body-1`}></div>
+        <div className={`text-header-1`}></div>
       </div>
       <div className={`${styles["footer-container"]} text-body-1`}>
         <div className={`${styles["footer-top"]}`}>

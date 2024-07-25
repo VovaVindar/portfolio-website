@@ -90,17 +90,6 @@ button {
   scroll-margin-block: 5ex;
 }
 
-/* Avoid text overflows (custom by me) */
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-}
-
 /* Remove link style (by me) */
 a {
   text-decoration: none;
@@ -111,20 +100,37 @@ a {
 /* CSS Reset end */
 
 html {
-  line-height: 23px;
+  line-height: clamp(18px, 1.5972vw, 36px);
   font-family: var(--lausanne);
   color: var(--token-color-text-primary);
-  background-color: var(--token-surface-color-primary);
+  background-color: var(--token-color-surface-primary);
+  text-wrap: nowrap;
+  overflow-x: hidden;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Create a linear gradient that repeats every 22px */
+  background-image: linear-gradient(
+    to bottom,
+    var(--token-color-surface-contrast) 1px,
+    transparent 1px
+  );
+  background-size: 100vw 1rlh;
 }
 main {
   min-height: 100vh;
   height: 100%;
-  /* Create a linear gradient that repeats every 22px */
-  background-image: linear-gradient(
-    to bottom,
-    var(--primitive-color-vova-0) 1px,
-    transparent 1px
-  );
-  background-size: 100% 1rlh;
   padding: 0 1rlh;
+  width: 100%;
+  max-width: 2560px;
+  position: relative;
+}
+h1,
+h2,
+h3,
+p {
+  text-wrap: nowrap;
 }
