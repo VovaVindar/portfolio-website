@@ -1,4 +1,5 @@
 import styles from "./page.module.css";
+import Marquee from "../components/marquee";
 
 export default function Home() {
   return (
@@ -70,15 +71,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className={`${styles["marquee-container"]}`}>
-        <div className={`${styles["marquee"]}`}>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
+      <Marquee />
       <div className={`${styles["clients"]}`}>
         <div className={`text-body-1`}>
           <div className={`text-body-2`}>
@@ -149,7 +142,9 @@ export default function Home() {
           </div>
           <div className="text-body-3">
             <p>
-              Privacy <span>Policy</span>
+              <span>
+                Privacy <span>Policy</span>
+              </span>
             </p>
           </div>
         </div>
