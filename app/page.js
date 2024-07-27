@@ -148,7 +148,9 @@ export default function Home() {
             </div>
           </div>
           <div className="text-body-3">
-            <p>Privacy Policy</p>
+            <p>
+              Privacy <span>Policy</span>
+            </p>
           </div>
         </div>
       </div>
