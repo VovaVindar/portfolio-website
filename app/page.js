@@ -1,12 +1,11 @@
 import styles from "./page.module.css";
-import Marquee from "../components/marquee";
+import Scrollbar from "@/components/scrollbar";
+import Marquee from "@/components/marquee";
 
 export default function Home() {
   return (
     <main className={`${styles["home-container"]}`}>
-      <div className={`${styles["contact-scroller"]} text-body-1-uppercase`}>
-        <p>Contact</p>
-      </div>
+      <Scrollbar text={"Contact"} />
       <div className={`${styles["hero-container"]}`}>
         <div className={`${styles["skills"]} text-body-1`}>
           <div className={`${styles["chair-container"]}`}>

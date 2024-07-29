@@ -1,0 +1,19 @@
+.scrollbar-container {
+  position: absolute;
+  mix-blend-mode: difference;
+  z-index: 1;
+}
+.scrollbar-container p {
+  position: fixed;
+  right: 1rlh;
+  top: 1rlh;
+  color: var(--token-color-surface-secondary);
+}
+
+@media all and (max-width: 820px) {
+  .scrollbar-container p {
+    right: auto;
+    left: 1rlh;
+    top: 1rlh;
+  }
+}
