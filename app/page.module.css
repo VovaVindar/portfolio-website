@@ -21,7 +21,7 @@
   height: calc(6rlh - 1px);
   background-color: var(--token-color-surface-secondary);
 }
-.skills div h3 {
+.skills div span {
   margin-bottom: 1rlh;
 }
 
@@ -80,37 +80,14 @@
 .clients .client-container:last-of-type {
   margin-bottom: 0;
 }
-.clients .client-container h3 {
+.clients .client-container span {
   margin-left: 0.347826rlh; /* 8px */
 }
-.clients .client-container.rove h3 {
+.clients .client-container.rove span {
   margin-left: 0.434782rlh; /* 10px */
 }
-.clients .client-container.jpw h3 {
+.clients .client-container.jpw span {
   margin-left: 0.391304rlh; /* 9px */
-}
-
-.work {
-  margin-top: calc(4rlh + 1px);
-  height: calc(30rlh - 1px);
-  width: fit-content;
-  background-color: var(--token-color-surface-secondary);
-  display: flex;
-  position: relative;
-}
-.work div:nth-of-type(1) {
-  width: calc(var(--first-column-width) + var(--columns-gap));
-}
-.work div:nth-of-type(2) {
-  width: 12.71ch;
-}
-.work h2 {
-  color: var(--token-color-surface-primary);
-  mix-blend-mode: difference;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(calc(-50% - 0.5rlh));
 }
 
 .footer-container {
@@ -128,7 +105,7 @@
 .footer-top > div:nth-of-type(2) {
   width: var(--second-column-width);
 }
-.footer-top div h3 {
+.footer-top div span {
   margin-bottom: 1rlh;
 }
 .footer-bottom {
@@ -211,23 +188,17 @@
     margin-bottom: 0rlh;
     align-items: flex-end;
   }
-  .clients .client-container h3 {
+  .clients .client-container span {
     margin-bottom: 0.5px;
   }
-  .clients .client-container h3 {
+  .clients .client-container span {
     margin-left: 0.23rlh;
   }
-  .clients .client-container.rove h3 {
+  .clients .client-container.rove span {
     margin-left: 0.23rlh;
   }
-  .clients .client-container.jpw h3 {
+  .clients .client-container.jpw span {
     margin-left: 0.2rlh;
-  }
-
-  .work {
-    max-width: var(--mobile-max-width); /* 319px on mobile */
-    width: 100%;
-    height: calc(32rlh - 1px);
   }
 
   .footer-container {

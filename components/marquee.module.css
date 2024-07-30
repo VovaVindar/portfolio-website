@@ -3,7 +3,6 @@
   width: calc(100% + 2rlh);
   margin-left: -1rlh;
   justify-content: flex-start;
-  background-color: var(--token-color-surface-primary);
   overflow: hidden;
   cursor: grab;
 }
@@ -13,12 +12,41 @@
   flex-direction: row;
   gap: 0.086956rlh; /* 2px */
   width: fit-content;
+  transform: translate3d(-1px, 0, 0);
+  background-color: var(--token-color-surface-primary);
+  opacity: 0;
+  transition: opacity 0.5s;
+  transition-timing-function: cubic-bezier(0.38, 0.005, 0.215, 1);
 }
 .marquee-container .marquee-track > div {
   background-color: var(--token-color-surface-contrast);
   height: calc(23rlh + 2px);
   width: calc(23rlh + 2px);
   color: #fff;
+  opacity: 0;
+  transition: opacity 1s;
+  transition-timing-function: cubic-bezier(0.38, 0.005, 0.215, 1);
+}
+.marquee-container .marquee-track > div:nth-of-type(2) {
+  transition-delay: 0.05s;
+}
+.marquee-container .marquee-track > div:nth-of-type(3) {
+  transition-delay: 0.1s;
+}
+.marquee-container .marquee-track > div:nth-of-type(4) {
+  transition-delay: 0.15s;
+}
+.marquee-container .marquee-track > div:nth-of-type(5) {
+  transition-delay: 0.2s;
+}
+.marquee-container .marquee-track > div:nth-of-type(6) {
+  transition-delay: 0.25s;
+}
+.marquee-container .marquee-track > div:nth-of-type(7) {
+  transition-delay: 0.3s;
+}
+.marquee-container .marquee-track > div:nth-of-type(8) {
+  transition-delay: 0.35s;
 }
 
 @media all and (max-width: 820px) {

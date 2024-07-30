@@ -1,6 +1,7 @@
 import styles from "./page.module.css";
 import Scrollbar from "@/components/scrollbar";
 import Marquee from "@/components/marquee";
+import Work from "@/components/work";
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
         <div className={`${styles["skills"]} text-body-1`}>
           <div className={`${styles["chair-container"]}`}>
             <div>
-              <h3>Digital Designer:</h3>
+              <span className="text-header-3">Digital Designer:</span>
               <p>Art Direction,</p>
               <p>Website Design,</p>
               <p>Product Design,</p>
@@ -20,7 +21,7 @@ export default function Home() {
           </div>
           <div className={`${styles["chair-container"]}`}>
             <div>
-              <h3>& Developer:</h3>
+              <span className="text-header-3">& Developer:</span>
               <p>Websites,</p>
               <p>WebGL,</p>
               <p>NextJS</p>
@@ -28,7 +29,7 @@ export default function Home() {
             <div className={`${styles["chair"]}`}></div>
           </div>
           <div>
-            <h3>Specializing In:</h3>
+            <span className="text-header-3">Specializing In:</span>
             <p>AI,</p>
             <p>Fintech,</p>
             <p>Technology</p>
@@ -36,9 +37,9 @@ export default function Home() {
         </div>
         <div className={`${styles["description"]} text-body-2`}>
           <div className={`${styles["timeline"]}`}>
-            <h3>From 2019</h3>
+            <span className="text-header-3">From 2019</span>
             <div></div>
-            <h3>To Present</h3>
+            <span className="text-header-3">To Present</span>
           </div>
           <div className={`${styles["desktop"]}`}>
             <p>I’m a detail-oriented designer-developer based</p>{" "}
@@ -80,55 +81,53 @@ export default function Home() {
         <div>
           <div className={`${styles["client-container"]}`}>
             <h1>Paradigm</h1>
-            <h3>Web, Product, Brand, Deck, Dev</h3>
+            <span className="text-header-3">
+              Web, Product, Brand, Deck, Dev
+            </span>
           </div>
           <div className={`${styles["client-container"]}`}>
             <h1>Cognition</h1>
-            <h3>Web</h3>
+            <span className="text-header-3">Web</span>
           </div>
           <div className={`${styles["client-container"]} ${styles["rove"]}`}>
             <h1>Rove Card</h1>
-            <h3>Web, Graphic, App, Deck</h3>
+            <span className="text-header-3">Web, Graphic, App, Deck</span>
           </div>
           <div className={`${styles["client-container"]}`}>
             <h1>Dolce & Gabbana</h1>
-            <h3>Web, Metaverse</h3>
+            <span className="text-header-3">Web, Metaverse</span>
           </div>
           <div className={`${styles["client-container"]}`}>
             <h1>PRJCTR Institute</h1>
-            <h3>Mentoring</h3>
+            <span className="text-header-3">Mentoring</span>
           </div>
           <div className={`${styles["client-container"]}`}>
             <h1>Twitch</h1>
-            <h3>Game UI, Graphic</h3>
+            <span className="text-header-3">Game UI, Graphic</span>
           </div>
           <div className={`${styles["client-container"]} ${styles["jpw"]}`}>
             <h1>Jon-Paul Wheatley</h1>
-            <h3>Web</h3>
+            <span className="text-header-3">Web</span>
           </div>
         </div>
       </div>
-      <div className={`${styles["work"]} text-body-1-uppercase`}>
-        <h2>Selected Work</h2>
-        <div className={`text-body-1`}></div>
-        <div className={`text-header-1`}></div>
-      </div>
+      <Work />
       <div className={`${styles["footer-container"]} text-body-1`}>
         <div className={`${styles["footer-top"]}`}>
           <div>
-            <h3>Pacific Time:</h3>
+            <span className="text-header-3">Pacific Time:</span>
             <p>3:21 AM,</p>
             <p>Vancouver,</p>
             <p>Canada</p>
           </div>
           <div>
-            <h3>Social:</h3>
+            <span className="text-header-3">Social:</span>
             <p>LinkedIn,</p>
             <p>Instagram,</p>
             <p>Dribbble</p>
           </div>
           <div>
-            <h3>Colophon:</h3>
+            <span className="text-header-3">Colophon:</span>
             <p>Fonts by Type.Weltkern</p>
             <p>and Monotype.</p>
           </div>

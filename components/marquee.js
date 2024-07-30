@@ -10,7 +10,7 @@ const Marquee = () => {
   const [dragXStart, setDragXStart] = useState(0);
   const [speed, setSpeed] = useState(0.4);
   const marqueeTrackRef = useRef(null);
-  const marqueeElementRef = useRef(null);
+  const marqueeElementsRef = useRef([]);
   const animationRef = useRef(null);
 
   useEffect(() => {
@@ -30,10 +30,16 @@ const Marquee = () => {
   }, []);
 
   useEffect(() => {
+    // Set opacity to 1 for all marquee elements
+    marqueeTrackRef.current.style.opacity = "1";
+    marqueeElementsRef.current.forEach((el) => {
+      if (el) el.style.opacity = "1";
+    });
+
     const animate = () => {
       const trackWidth =
         marqueeTrackRef.current.scrollWidth -
-        marqueeElementRef.current.offsetWidth * 3;
+        marqueeElementsRef.current[0].offsetWidth * 3;
 
       setX((prevX) => {
         var nextX = prevX + speed + dragSpeed;
@@ -85,14 +91,15 @@ const Marquee = () => {
         ref={marqueeTrackRef}
         style={{ transform: `translate3d(-${x}px, 0, 0)` }}
       >
-        <div ref={marqueeElementRef}>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
+        {[1, 2, 3, 4, 5, 1, 2, 3].map((item, index) => (
+          <div
+            key={index}
+            ref={(el) => (marqueeElementsRef.current[index] = el)}
+            style={{ opacity: 0 }} // Initial opacity
+          >
+            {item}
+          </div>
+        ))}
       </div>
     </div>
   );
