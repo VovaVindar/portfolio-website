@@ -18,7 +18,7 @@ const Marquee = () => {
       if (window.innerWidth <= 820) {
         setSpeed(0.7);
       } else {
-        setSpeed(0.4);
+        setSpeed(0.35);
       }
     };
 

@@ -138,6 +138,7 @@ html {
   background-color: var(--token-color-surface-primary);
   text-wrap: nowrap;
   overflow-x: hidden;
+  overscroll-behavior: none;
 }
 body {
   display: flex;
@@ -145,11 +146,11 @@ body {
   align-items: center;
 
   /* Create a linear gradient that repeats every 22px */
-  background-image: linear-gradient(
+  /*background-image: linear-gradient(
     to bottom,
     var(--token-color-surface-contrast) 1px,
     transparent 1px
-  );
+  );*/
   background-size: 100vw 1rlh;
 }
 main {
