@@ -80,12 +80,12 @@ h2,
 }
 .text-header-3 {
   font-size: var(--token-font-size-4);
-  font-family: var(--timesnew);
+  font-family: var(--oldstandard);
   font-weight: 400;
   font-style: italic;
   letter-spacing: var(--token-letter-spacing-6);
   text-transform: none;
-  line-height: 68%;
+  line-height: 54.5%;
   padding-left: 1px;
 }
 .text-body-1 {
@@ -163,12 +163,7 @@ h2,
     height: 2rlh;
   }
   .text-header-3 {
-    line-height: 67%;
-  }
-}
-@media all and (max-width: 470px) {
-  .text-header-3 {
-    line-height: 69%;
+    line-height: 51.5%;
   }
 }
 @media all and (max-width: 390px) {
@@ -180,9 +175,6 @@ h2,
   }
 }
 @media all and (max-width: 335px) {
-  .text-header-3 {
-    line-height: 66%;
-  }
   :root {
     --token-font-size-1: 1.65rlh;
     --token-font-size-2: 1.65rlh;

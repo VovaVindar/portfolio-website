@@ -21,10 +21,10 @@ const lausanne = localFont({
   variable: "--lausanne",
 });
 
-const timesnew = localFont({
+const oldstandard = localFont({
   src: [
     {
-      path: "./fonts/TimesNewRomanItalic.woff2",
+      path: "./fonts/OldStandardTT-Italic.woff2",
       weight: "400",
       style: "italic",
     },
@@ -32,12 +32,12 @@ const timesnew = localFont({
   adjustFontFallback: "Times New Roman",
   preload: true,
   display: "swap",
-  variable: "--timesnew",
+  variable: "--oldstandard",
 });
 
 function MyApp({ Component, pageProps }) {
   return (
-    <main className={`${lausanne.variable} ${timesnew.variable}`}>
+    <main className={`${lausanne.variable} ${oldstandard.variable}`}>
       <Component {...pageProps} />
     </main>
   );
