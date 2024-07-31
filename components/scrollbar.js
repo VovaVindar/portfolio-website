@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Scrollbar.module.css";
+import Link from "next/link";
 
-const Scrollbar = ({ text = "" }) => {
+const Scrollbar = ({ text = "", href = "/" }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [opacity, setOpacity] = useState(0);
 
@@ -34,7 +35,9 @@ const Scrollbar = ({ text = "" }) => {
 
   return (
     <div className={`${styles["scrollbar-container"]} text-body-1-uppercase`}>
-      <p style={pStyle}>{text}</p>
+      <Link href={href} style={pStyle} scroll={false}>
+        {text}
+      </Link>
     </div>
   );
 };

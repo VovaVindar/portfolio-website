@@ -3,7 +3,7 @@
   mix-blend-mode: difference;
   z-index: 1;
 }
-.scrollbar-container p {
+.scrollbar-container a {
   position: fixed;
   right: 1rlh;
   top: 1rlh;
@@ -14,7 +14,7 @@
 }
 
 @media all and (max-width: 820px) {
-  .scrollbar-container p {
+  .scrollbar-container a {
     right: auto;
     left: 50%;
     transform: translateX(-50%);

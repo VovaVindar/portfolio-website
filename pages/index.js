@@ -3,15 +3,34 @@ import styles from "./Home.module.css";
 import Scrollbar from "@/components/scrollbar";
 import Marquee from "@/components/marquee";
 import Work from "@/components/work";
+import { useGSAP } from "@gsap/react";
+import { TransitionContext } from "@/context/TransitionContext";
+import gsap from "gsap";
+import { useContext, useRef, useEffect } from "react";
 
 export default function Home() {
+  const { timeline } = useContext(TransitionContext);
+  const container = useRef(null);
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        container.current,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1 }
+      );
+      timeline.add(gsap.to(container.current, { opacity: 0 }));
+    },
+    { scope: container }
+  );
+
   return (
     <>
       <Head>
         <title>Vova Vindar</title>
       </Head>
-      <div className={`${styles["home-container"]}`}>
-        <Scrollbar text={"Contact"} />
+      <Scrollbar text={"Contact"} href="/contact" />
+      <div ref={container} className={`${styles["home-container"]}`}>
         <div className={`${styles["hero-container"]}`}>
           <div className={`${styles["skills"]} text-body-1`}>
             <div className={`${styles["chair-container"]}`}>

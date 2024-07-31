@@ -1,6 +1,9 @@
 import "./styles/design-system.css";
 import "./styles/globals.css";
 import localFont from "next/font/local";
+import { TransitionProvider } from "@/context/TransitionContext";
+import Transition from "@/components/Transition";
+import Scrollbar from "@/components/scrollbar";
 
 const lausanne = localFont({
   src: [
@@ -35,11 +38,18 @@ const oldstandard = localFont({
   variable: "--oldstandard",
 });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
   return (
-    <main className={`${lausanne.variable} ${oldstandard.variable}`}>
-      <Component {...pageProps} />
-    </main>
+    <TransitionProvider>
+      <Transition>
+        <main
+          key={router.route}
+          className={`${lausanne.variable} ${oldstandard.variable}`}
+        >
+          <Component {...pageProps} />
+        </main>
+      </Transition>
+    </TransitionProvider>
   );
 }
 
