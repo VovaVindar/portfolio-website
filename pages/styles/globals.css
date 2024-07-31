@@ -158,7 +158,7 @@ main {
   height: 100%;
   padding: 0 1rlh;
   width: 100%;
-  max-width: 2560px;
+  max-width: min(2560px, 100vw);
   position: relative;
 }
 h1,

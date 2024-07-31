@@ -16,7 +16,8 @@
 @media all and (max-width: 820px) {
   .scrollbar-container p {
     right: auto;
-    left: 1rlh;
+    left: 50%;
+    transform: translateX(-50%);
     top: 1rlh;
   }
 }

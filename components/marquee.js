@@ -1,7 +1,5 @@
-"use client";
-
-import React, { useState, useEffect, useRef } from "react";
-import styles from "./marquee.module.css";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import styles from "./Marquee.module.css";
 
 const Marquee = () => {
   const [x, setX] = useState(0);
@@ -9,54 +7,68 @@ const Marquee = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragXStart, setDragXStart] = useState(0);
   const [speed, setSpeed] = useState(0.4);
+  const [trackWidth, setTrackWidth] = useState(0);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
   const marqueeTrackRef = useRef(null);
   const marqueeElementsRef = useRef([]);
   const animationRef = useRef(null);
+  const copiesCount = 5;
 
   useEffect(() => {
     const updateSpeed = () => {
-      if (window.innerWidth <= 820) {
-        setSpeed(0.7);
-      } else {
-        setSpeed(0.35);
-      }
+      setSpeed(window.innerWidth <= 820 ? 0.7 : 0.35);
     };
 
     updateSpeed();
-
     window.addEventListener("resize", updateSpeed);
 
     return () => window.removeEventListener("resize", updateSpeed);
   }, []);
 
+  const calculateTrackWidth = useCallback(() => {
+    if (marqueeElementsRef.current[0] && marqueeTrackRef.current) {
+      const elementWidth = marqueeElementsRef.current[0].offsetWidth;
+      const newTrackWidth =
+        marqueeTrackRef.current.scrollWidth - elementWidth * copiesCount;
+      setTrackWidth(newTrackWidth);
+      setShouldAnimate(newTrackWidth > window.innerWidth);
+      console.log(newTrackWidth, window.innerWidth);
+    }
+  });
+
   useEffect(() => {
-    // Set opacity to 1 for all marquee elements
+    calculateTrackWidth();
     marqueeTrackRef.current.style.opacity = "1";
     marqueeElementsRef.current.forEach((el) => {
       if (el) el.style.opacity = "1";
     });
 
-    const animate = () => {
-      const trackWidth =
-        marqueeTrackRef.current.scrollWidth -
-        marqueeElementsRef.current[0].offsetWidth * 3;
+    // Debounced resize handler
+    const handleResize = debounce(calculateTrackWidth, 100);
+    window.addEventListener("resize", handleResize);
 
+    return () => window.removeEventListener("resize", handleResize);
+  }, [calculateTrackWidth]);
+
+  useEffect(() => {
+    if (!shouldAnimate) return; // Only animate if needed
+
+    const animate = () => {
       setX((prevX) => {
-        var nextX = prevX + speed + dragSpeed;
+        let nextX = prevX + speed + dragSpeed;
         if (nextX >= trackWidth) nextX = 1;
         if (nextX < 1) nextX = trackWidth;
         return nextX;
       });
 
       setDragSpeed((prevSpeed) => prevSpeed * 0.92);
-
       animationRef.current = requestAnimationFrame(animate);
     };
 
     animationRef.current = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationRef.current);
-  }, [dragSpeed]);
+  }, [dragSpeed, trackWidth, shouldAnimate]);
 
   const onDragStart = (t) => {
     setIsDragging(true);
@@ -91,7 +103,7 @@ const Marquee = () => {
         ref={marqueeTrackRef}
         style={{ transform: `translate3d(-${x}px, 0, 0)` }}
       >
-        {[1, 2, 3, 4, 5, 1, 2, 3].map((item, index) => (
+        {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, index) => (
           <div
             key={index}
             ref={(el) => (marqueeElementsRef.current[index] = el)}
@@ -104,5 +116,14 @@ const Marquee = () => {
     </div>
   );
 };
+
+// Debounce function to limit how often calculateTrackWidth runs
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
 
 export default Marquee;

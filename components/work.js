@@ -1,7 +1,5 @@
-"use client";
-
 import React, { useState } from "react";
-import styles from "./work.module.css";
+import styles from "./Work.module.css";
 
 const Work = () => {
   const [activeIndex, setActiveIndex] = useState(0);

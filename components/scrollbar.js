@@ -1,7 +1,5 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
-import styles from "./scrollbar.module.css";
+import styles from "./Scrollbar.module.css";
 
 const Scrollbar = ({ text = "" }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -13,8 +11,10 @@ const Scrollbar = ({ text = "" }) => {
       const docHeight =
         document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = (scrollTop / docHeight) * 100;
+
       setScrollPosition(scrollPercent);
 
+      // Set opacity to 1 after calculating scroll position
       setOpacity(1);
     };
 
