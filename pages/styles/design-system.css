@@ -80,12 +80,12 @@ h2,
 }
 .text-header-3 {
   font-size: var(--token-font-size-4);
-  font-family: var(--oldstandard);
+  font-family: var(--timesnew);
   font-weight: 400;
   font-style: italic;
   letter-spacing: var(--token-letter-spacing-6);
   text-transform: none;
-  line-height: 54.5%;
+  line-height: 66%;
   padding-left: 1px;
 }
 .text-body-1 {
@@ -163,7 +163,12 @@ h2,
     height: 2rlh;
   }
   .text-header-3 {
-    line-height: 51.5%;
+    line-height: 67%;
+  }
+}
+@media all and (max-width: 470px) {
+  .text-header-3 {
+    line-height: 69%;
   }
 }
 @media all and (max-width: 390px) {

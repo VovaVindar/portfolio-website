@@ -3,7 +3,6 @@ import "./styles/globals.css";
 import localFont from "next/font/local";
 import { TransitionProvider } from "@/context/TransitionContext";
 import Transition from "@/components/Transition";
-import Scrollbar from "@/components/scrollbar";
 
 const lausanne = localFont({
   src: [
@@ -24,10 +23,10 @@ const lausanne = localFont({
   variable: "--lausanne",
 });
 
-const oldstandard = localFont({
+const timesnew = localFont({
   src: [
     {
-      path: "./fonts/OldStandardTT-Italic.woff2",
+      path: "./fonts/TimesNewRomanItalic.woff2",
       weight: "400",
       style: "italic",
     },
@@ -35,7 +34,7 @@ const oldstandard = localFont({
   adjustFontFallback: "Times New Roman",
   preload: true,
   display: "swap",
-  variable: "--oldstandard",
+  variable: "--timesnew",
 });
 
 function MyApp({ Component, pageProps, router }) {
@@ -44,7 +43,7 @@ function MyApp({ Component, pageProps, router }) {
       <Transition>
         <main
           key={router.route}
-          className={`${lausanne.variable} ${oldstandard.variable}`}
+          className={`${lausanne.variable} ${timesnew.variable}`}
         >
           <Component {...pageProps} />
         </main>
