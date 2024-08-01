@@ -76,7 +76,24 @@ function MyApp({ Component, pageProps, router }) {
         setBarComplete(true);
       });
 
-      return () => clearInterval(intervalId);
+      imgLoad.on("fail", () => {
+        console.error("Image loading failed");
+        setBarComplete(true);
+
+        setTimeout(() => {
+          setExitAnimation(true);
+          clearInterval(intervalId);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 700);
+        }, 300);
+      });
+
+      return () => {
+        clearInterval(intervalId);
+        imgLoad.off("always");
+        imgLoad.off("fail");
+      };
     }
   }, []);
 
