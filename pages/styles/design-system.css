@@ -115,7 +115,7 @@ h2,
   line-height: 50.5%;
 }
 .text-body-1 p,
-.text-body-1-uppercase p,
+.text-body-1-uppercase a,
 .text-body-2 p,
 .text-header-3 {
   height: 1rlh;
@@ -129,7 +129,7 @@ h2,
   line-height: 70%;
 }
 .text-body-1 p,
-.text-body-1-uppercase p,
+.text-body-1-uppercase a,
 .text-body-2 p,
 h1,
 h2,
