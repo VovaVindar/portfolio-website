@@ -32,7 +32,6 @@ const Marquee = () => {
         marqueeTrackRef.current.scrollWidth - elementWidth * copiesCount;
       setTrackWidth(newTrackWidth);
       setShouldAnimate(newTrackWidth > window.innerWidth);
-      console.log(newTrackWidth, window.innerWidth);
     }
   });
 

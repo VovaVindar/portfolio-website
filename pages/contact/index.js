@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Scrollbar from "@/components/scrollbar";
+import Scrollbar from "@/components/Scrollbar";
 import { useGSAP } from "@gsap/react";
 import { TransitionContext } from "@/context/TransitionContext";
 import gsap from "gsap";

@@ -1,8 +1,9 @@
 import Head from "next/head";
 import styles from "./Home.module.css";
-import Scrollbar from "@/components/scrollbar";
-import Marquee from "@/components/marquee";
-import Work from "@/components/work";
+import Scrollbar from "@/components/Scrollbar";
+import Marquee from "@/components/Marquee";
+import Work from "@/components/Work";
+import Footer from "@/components/Footer";
 import { useGSAP } from "@gsap/react";
 import { TransitionContext } from "@/context/TransitionContext";
 import gsap from "gsap";
@@ -136,41 +137,7 @@ export default function Home() {
           </div>
         </div>
         <Work />
-        <div className={`${styles["footer-container"]} text-body-1`}>
-          <div className={`${styles["footer-top"]}`}>
-            <div>
-              <span className="text-header-3">Pacific Time:</span>
-              <p>3:21 AM,</p>
-              <p>Vancouver,</p>
-              <p>Canada</p>
-            </div>
-            <div>
-              <span className="text-header-3">Social:</span>
-              <p>LinkedIn,</p>
-              <p>Instagram,</p>
-              <p>Dribbble</p>
-            </div>
-            <div>
-              <span className="text-header-3">Colophon:</span>
-              <p>Fonts by Type.Weltkern</p>
-              <p>and Monotype.</p>
-            </div>
-          </div>
-          <div className={`${styles["footer-bottom"]}`}>
-            <div>
-              <div className="text-body-3">
-                <p>2024 ©</p>
-              </div>
-            </div>
-            <div className="text-body-3">
-              <p>
-                <span>
-                  Privacy <span>Policy</span>
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
+        <Footer />
       </div>
     </>
   );
