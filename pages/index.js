@@ -60,8 +60,11 @@ export default function Home() {
               <p>Technology</p>
             </div>
           </div>
-          <div className={`${styles["description"]} text-body-2`}>
-            <div className={`${styles["timeline"]}`}>
+          <div
+            className={`${styles["description"]} text-body-2`}
+            style={{ "--progress-width": `100%` }}
+          >
+            <div className="timeline">
               <span className="text-header-3">From 2019</span>
               <div></div>
               <span className="text-header-3">To Present</span>

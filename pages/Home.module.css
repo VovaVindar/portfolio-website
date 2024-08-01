@@ -36,27 +36,6 @@
   flex-direction: column;
   align-items: center;
 }
-.description .timeline {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 1rlh;
-  align-items: flex-end;
-}
-.description .timeline div {
-  height: calc(var(--token-font-size-4) * 0.68);
-  width: 4.782608rlh; /* 110px */
-  margin-left: 0.434782rlh; /* 10px */
-  margin-right: 0.347826rlh; /* 8px */
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-.description .timeline div::after {
-  content: "";
-  height: 1px;
-  width: 100%;
-  background-color: var(--token-color-text-primary);
-}
 .description .desktop {
   display: block;
 }

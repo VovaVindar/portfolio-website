@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
+import Image from "next/image";
 
 const Marquee = () => {
   const [x, setX] = useState(0);
@@ -108,7 +109,12 @@ const Marquee = () => {
             ref={(el) => (marqueeElementsRef.current[index] = el)}
             style={{ opacity: 0 }} // Initial opacity
           >
-            {item}
+            <Image
+              src="/marquee.png"
+              fill
+              alt="Picture of the author"
+              priority
+            />
           </div>
         ))}
       </div>

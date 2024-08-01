@@ -167,6 +167,67 @@ h3,
 p {
   text-wrap: nowrap;
 }
+
+/* Preloader */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--token-color-surface-primary);
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.7s ease-out;
+}
+.preloader.complete {
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  opacity: 0;
+}
+.preloader.complete p {
+  display: none;
+}
+.timeline {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rlh;
+  align-items: flex-end;
+  pointer-events: all;
+  user-select: all;
+}
+.timeline div {
+  height: calc(var(--token-font-size-4) * 0.68);
+  width: 4.782608rlh; /* 110px */
+  margin-left: 0.434782rlh; /* 10px */
+  margin-right: 0.347826rlh; /* 8px */
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.timeline div::after {
+  content: "";
+  height: 1px;
+  width: var(--progress-width);
+  background-color: var(--token-color-text-primary);
+  transition: width 0.06s linear;
+}
+.timeline div.complete::after {
+  width: 100%;
+  transition: width 0.9s cubic-bezier(0, 0, 0.35, 1); /* strong ease-out */
+}
+html:has(.preloader),
+body:has(.preloader) {
+  overflow-y: hidden;
+}
+html:has(.preloader.complete),
+body:has(.preloader.complete) {
+  overflow-y: auto;
+}
+
 @media all and (max-width: 820px) {
   main {
     padding: 0 5px;

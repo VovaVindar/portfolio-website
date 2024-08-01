@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { TransitionContext } from "@/context/TransitionContext";
 import gsap from "gsap";
 import { useContext, useRef } from "react";
+import Image from "next/image";
 
 export default function Contact() {
   const { timeline } = useContext(TransitionContext);
@@ -29,6 +30,13 @@ export default function Contact() {
       <Scrollbar text={"Home"} href="/" />
       <div ref={container} style={{ height: "200vh" }}>
         <h1>Contact</h1>
+        <Image
+          src="/marquee.png"
+          width={200}
+          height={200}
+          alt="Picture of the author"
+          priority
+        />
       </div>
     </>
   );
