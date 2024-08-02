@@ -42,8 +42,8 @@ const timesNew = localFont({
 
 function MyApp({ Component, pageProps, router }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
-  const [exitAnimation, setExitAnimation] = useState(false);
+  const [followerProgress, setFollowerProgress] = useState(0);
+  const [linesAnimation, setLinesAnimation] = useState(false);
   const [barComplete, setBarComplete] = useState(false);
   const mainRef = useRef(null);
 
@@ -64,31 +64,29 @@ function MyApp({ Component, pageProps, router }) {
         if (newProgress > currentProgress) {
           const increment = Math.min(newProgress - currentProgress, 7);
           currentProgress += increment;
-          setProgress(currentProgress);
+          setFollowerProgress(currentProgress);
         } else if (currentProgress === 100) {
+          setLinesAnimation(true);
           setTimeout(() => {
-            setExitAnimation(true);
             clearInterval(intervalId);
             setTimeout(() => {
-              setIsLoading(false);
+              //setIsLoading(false);
             }, exitAnimationDuration);
           }, exitAnimationDelay);
         }
       }, intervalDuration);
 
       imgLoad.on("always", () => {
-        setBarComplete(true);
+        setLinesAnimation(true);
       });
 
       imgLoad.on("fail", () => {
         console.error("Image loading failed");
-        setBarComplete(true);
-
+        setLinesAnimation(true);
         setTimeout(() => {
-          setExitAnimation(true);
           clearInterval(intervalId);
           setTimeout(() => {
-            setIsLoading(false);
+            //setIsLoading(false);
           }, exitAnimationDuration);
         }, exitAnimationDelay);
       });
@@ -105,9 +103,8 @@ function MyApp({ Component, pageProps, router }) {
     <>
       {isLoading && (
         <Preloader
-          progress={progress.toFixed(0)}
-          exitAnimation={exitAnimation}
-          barComplete={barComplete}
+          followerProgress={followerProgress.toFixed(0)}
+          linesAnimation={linesAnimation}
           className={`${timesNew.variable} ${lausanne.variable}`}
         />
       )}

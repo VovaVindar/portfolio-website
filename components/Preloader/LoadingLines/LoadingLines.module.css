@@ -1,0 +1,15 @@
+.line-container {
+  position: absolute;
+  width: 100%;
+  z-index: 98;
+  top: 1rlh;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(1rlh - 1px);
+}
+.line {
+  width: 0;
+  height: 1px;
+  background-color: var(--token-color-surface-contrast);
+}

@@ -36,6 +36,29 @@
   flex-direction: column;
   align-items: center;
 }
+.timeline {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rlh;
+  align-items: flex-end;
+  pointer-events: all;
+  user-select: all;
+}
+.timeline > div {
+  height: calc(var(--token-font-size-4) * 0.68);
+  width: 4.782608rlh; /* 110px */
+  margin-left: 0.434782rlh; /* 10px */
+  margin-right: 0.347826rlh; /* 8px */
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.timeline > div::after {
+  content: "";
+  height: 1px;
+  background-color: var(--token-color-text-primary);
+  width: 100%;
+}
 .description .desktop {
   display: block;
 }

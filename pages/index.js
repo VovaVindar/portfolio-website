@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { useGSAP } from "@gsap/react";
 import { TransitionContext } from "@/context/TransitionContext";
 import gsap from "gsap";
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef } from "react";
 
 export default function Home() {
   const { timeline } = useContext(TransitionContext);
@@ -17,8 +17,8 @@ export default function Home() {
     () => {
       gsap.fromTo(
         container.current,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1 }
+        { opacity: 0 },
+        { opacity: 1, duration: 2, delay: 5 }
       );
       timeline.add(gsap.to(container.current, { opacity: 0 }));
     },
@@ -64,7 +64,7 @@ export default function Home() {
             className={`${styles["description"]} text-body-2`}
             style={{ "--progress-width": `100%` }}
           >
-            <div className="timeline">
+            <div className={`${styles["timeline"]}`}>
               <span className="text-header-3">From 2019</span>
               <div></div>
               <span className="text-header-3">To Present</span>

@@ -1,24 +1,18 @@
 import MouseFollower from "@/components/MouseFollower";
+import LoadingLines from "@/components/Preloader/LoadingLines";
 
-const Preloader = ({ progress, exitAnimation, barComplete, className }) => {
+const Preloader = ({ followerProgress, linesAnimation, className }) => {
   return (
     <>
       <div
-        className={`preloader ${exitAnimation ? "complete" : ""}  ${className}`}
-        style={{ "--progress-width": `${progress}%` }}
+        className={`preloader ${linesAnimation ? "complete" : ""} ${className}`}
       >
-        <MouseFollower type="text" text={progress} className={className} />
-        <div
-          className="timeline"
-          style={{
-            position: "absolute",
-            top: "12rlh",
-          }}
-        >
-          <span className="text-header-3">From 2019</span>
-          <div className={`${barComplete ? "complete" : ""}`}></div>
-          <span className="text-header-3">To Present</span>
-        </div>
+        <MouseFollower
+          type="text"
+          text={followerProgress}
+          className={`${className} ${followerProgress >= 100 ? "hidden" : ""}`}
+        />
+        <LoadingLines linesAnimation={linesAnimation} />
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 .marquee-container {
-  margin-top: calc(6rlh - 1px);
+  margin-top: 6rlh;
   width: 100vw;
   display: flex;
   justify-content: flex-start;
@@ -20,8 +20,8 @@
 }
 .marquee-container .marquee-track > div {
   background-color: black;
-  height: calc(23rlh + 2px);
-  width: calc(23rlh + 2px);
+  height: calc(23rlh + 1px);
+  width: calc(23rlh + 1px);
   opacity: 0;
   transition: opacity 1s;
   transition-timing-function: cubic-bezier(0.38, 0.005, 0.215, 1);

@@ -33,7 +33,7 @@ const MouseFollower = ({ type, text = "", className = "" }) => {
 
   return (
     <>
-      <div ref={followerRef} className={`cursor text-body-3 ${className}`}>
+      <div ref={followerRef} className={`cursor text-body-1 ${className}`}>
         {type === "text" && <p>{text}</p>}
       </div>
     </>
