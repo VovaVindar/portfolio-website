@@ -44,11 +44,10 @@ function MyApp({ Component, pageProps, router }) {
   const [isLoading, setIsLoading] = useState(true);
   const [numbersProgress, setNumbersProgress] = useState(0);
   const [linesAnimation, setLinesAnimation] = useState(false);
-  const [barComplete, setBarComplete] = useState(false);
   const mainRef = useRef(null);
 
   const exitAnimationDuration = 1310;
-  const intervalDuration = 58;
+  const intervalDuration = 62;
 
   useEffect(() => {
     if (mainRef.current) {
@@ -61,7 +60,7 @@ function MyApp({ Component, pageProps, router }) {
         const newProgress =
           (imgLoad.progressedCount / imgLoad.images.length) * 100;
         if (newProgress > currentProgress) {
-          const increment = Math.min(newProgress - currentProgress, 7);
+          const increment = Math.min(newProgress - currentProgress, 8);
           currentProgress += increment;
           setNumbersProgress(currentProgress);
         } else if (currentProgress === 100) {
@@ -95,7 +94,7 @@ function MyApp({ Component, pageProps, router }) {
             key={router.route}
             className={`${lausanne.variable} ${timesNew.variable}`}
           >
-            <Component {...pageProps} />
+            <Component firstLoadAnimation={linesAnimation} {...pageProps} />
           </main>
         </Transition>
       </TransitionProvider>

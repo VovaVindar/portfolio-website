@@ -1,10 +1,10 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { TransitionContext } from "@/context/TransitionContext";
 gsap.registerPlugin(useGSAP);
 
-export default function TransitionLayout({ children }) {
+export default function TransitionLayout({ children, ...props }) {
   const [displayChildren, setDisplayChildren] = useState(children);
   const { timeline } = useContext(TransitionContext);
   const { contextSafe } = useGSAP();
@@ -17,12 +17,14 @@ export default function TransitionLayout({ children }) {
     });
   });
 
-  useGSAP(() => {
-    //if page is not the current page
+  useEffect(() => {
     if (children.key !== displayChildren.key) {
       exit();
     }
   }, [children]);
 
-  return <div>{displayChildren}</div>;
+  // Clone the child component and pass all props to it
+  const childrenWithProps = React.cloneElement(children, { ...props });
+
+  return <div>{childrenWithProps}</div>;
 }

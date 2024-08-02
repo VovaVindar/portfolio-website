@@ -8,10 +8,6 @@
   right: 1rlh;
   top: 1rlh;
   color: var(--token-color-surface-secondary);
-  opacity: 0;
-  transition: opacity 0.7s;
-  transition-timing-function: cubic-bezier(0.38, 0.005, 0.215, 1);
-  transition-delay: 30s;
 }
 
 @media all and (max-width: 820px) {

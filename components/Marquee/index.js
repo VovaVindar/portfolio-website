@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
 import Image from "next/image";
 
-const Marquee = () => {
+const Marquee = ({ style }) => {
   const [x, setX] = useState(0);
   const [dragSpeed, setDragSpeed] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -97,6 +97,7 @@ const Marquee = () => {
       onTouchStart={onDragStart}
       onTouchMove={onDrag}
       onTouchEnd={onDragEnd}
+      style={style}
     >
       <div
         className={styles["marquee-track"]}
