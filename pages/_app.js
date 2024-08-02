@@ -47,6 +47,10 @@ function MyApp({ Component, pageProps, router }) {
   const [barComplete, setBarComplete] = useState(false);
   const mainRef = useRef(null);
 
+  const exitAnimationDuration = 1010;
+  const exitAnimationDelay = 300;
+  const intervalDuration = 58;
+
   useEffect(() => {
     if (mainRef.current) {
       window.scrollTo(0, 0);
@@ -67,10 +71,10 @@ function MyApp({ Component, pageProps, router }) {
             clearInterval(intervalId);
             setTimeout(() => {
               setIsLoading(false);
-            }, 700);
-          }, 300);
+            }, exitAnimationDuration);
+          }, exitAnimationDelay);
         }
-      }, 60);
+      }, intervalDuration);
 
       imgLoad.on("always", () => {
         setBarComplete(true);
@@ -85,8 +89,8 @@ function MyApp({ Component, pageProps, router }) {
           clearInterval(intervalId);
           setTimeout(() => {
             setIsLoading(false);
-          }, 700);
-        }, 300);
+          }, exitAnimationDuration);
+        }, exitAnimationDelay);
       });
 
       return () => {
@@ -104,7 +108,7 @@ function MyApp({ Component, pageProps, router }) {
           progress={progress.toFixed(0)}
           exitAnimation={exitAnimation}
           barComplete={barComplete}
-          className={`${timesNew.variable}`}
+          className={`${timesNew.variable} ${lausanne.variable}`}
         />
       )}
       <TransitionProvider>
