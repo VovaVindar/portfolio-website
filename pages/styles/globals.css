@@ -197,6 +197,14 @@ body:hover .cursor.hidden {
   z-index: 99;
   pointer-events: none;
   user-select: none;
+  display: flex;
+  justify-content: center;
+  padding-top: 1rlh;
+}
+.preloader .counter {
+  height: 1rlh;
+  position: absolute;
+  bottom: 1rlh;
 }
 .preloader.complete {
   position: absolute;

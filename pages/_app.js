@@ -42,13 +42,12 @@ const timesNew = localFont({
 
 function MyApp({ Component, pageProps, router }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [followerProgress, setFollowerProgress] = useState(0);
+  const [numbersProgress, setNumbersProgress] = useState(0);
   const [linesAnimation, setLinesAnimation] = useState(false);
   const [barComplete, setBarComplete] = useState(false);
   const mainRef = useRef(null);
 
-  const exitAnimationDuration = 1010;
-  const exitAnimationDelay = 300;
+  const exitAnimationDuration = 1310;
   const intervalDuration = 58;
 
   useEffect(() => {
@@ -64,37 +63,18 @@ function MyApp({ Component, pageProps, router }) {
         if (newProgress > currentProgress) {
           const increment = Math.min(newProgress - currentProgress, 7);
           currentProgress += increment;
-          setFollowerProgress(currentProgress);
+          setNumbersProgress(currentProgress);
         } else if (currentProgress === 100) {
           setLinesAnimation(true);
-          setTimeout(() => {
-            clearInterval(intervalId);
-            setTimeout(() => {
-              //setIsLoading(false);
-            }, exitAnimationDuration);
-          }, exitAnimationDelay);
-        }
-      }, intervalDuration);
-
-      imgLoad.on("always", () => {
-        setLinesAnimation(true);
-      });
-
-      imgLoad.on("fail", () => {
-        console.error("Image loading failed");
-        setLinesAnimation(true);
-        setTimeout(() => {
           clearInterval(intervalId);
           setTimeout(() => {
             //setIsLoading(false);
           }, exitAnimationDuration);
-        }, exitAnimationDelay);
-      });
+        }
+      }, intervalDuration);
 
       return () => {
         clearInterval(intervalId);
-        imgLoad.off("always");
-        imgLoad.off("fail");
       };
     }
   }, []);
@@ -103,7 +83,7 @@ function MyApp({ Component, pageProps, router }) {
     <>
       {isLoading && (
         <Preloader
-          followerProgress={followerProgress.toFixed(0)}
+          numbersProgress={numbersProgress.toFixed(0)}
           linesAnimation={linesAnimation}
           className={`${timesNew.variable} ${lausanne.variable}`}
         />

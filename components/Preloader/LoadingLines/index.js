@@ -27,21 +27,39 @@ const LoadingLines = ({ linesAnimation }) => {
   }, []);
 
   useGSAP(() => {
-    const lines = lineContainerRef.current.children;
-    gsap.fromTo(
-      lines,
-      { width: 0 },
-      {
-        width: `${linesAnimation ? "100" : "0"}%`,
-        duration: 1.6,
-        ease: "power4.out",
-        stagger: {
-          each: 0.02,
-          from: "start",
-        },
-      }
-    );
-  }, [lines, linesAnimation]);
+    if (lineContainerRef.current) {
+      const lines = lineContainerRef.current.children;
+      const timeline = gsap.timeline();
+
+      timeline
+        .fromTo(
+          lines,
+          { scaleX: 0, transformOrigin: "center" },
+          {
+            scaleX: `${linesAnimation ? 1 : 0}`,
+            duration: 1.2,
+            ease: "sine.in",
+            stagger: {
+              each: 0.025,
+              from: "start",
+            },
+          }
+        )
+        .to(
+          lines,
+          {
+            opacity: 0,
+            duration: 1,
+            ease: "power4.out",
+            stagger: {
+              each: 0.025,
+              from: "start",
+            },
+          },
+          "+=0.3" // Optional delay before opacity animation starts
+        );
+    }
+  }, [lines, linesAnimation, lineContainerRef]);
 
   return (
     <div className={`${styles["line-container"]}`} ref={lineContainerRef}>

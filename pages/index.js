@@ -18,7 +18,7 @@ export default function Home() {
       gsap.fromTo(
         container.current,
         { opacity: 0 },
-        { opacity: 1, duration: 2, delay: 5 }
+        { opacity: 1, duration: 2, delay: 30 }
       );
       timeline.add(gsap.to(container.current, { opacity: 0 }));
     },
