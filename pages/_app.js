@@ -45,6 +45,7 @@ function MyApp({ Component, pageProps, router }) {
   const [isLoading, setIsLoading] = useState(true);
   const [numbersProgress, setNumbersProgress] = useState(0);
   const [linesAnimation, setLinesAnimation] = useState(false);
+  const [textAnimation, setTextAnimation] = useState(false);
   const mainRef = useRef(null);
 
   const intervalDuration = 60;
@@ -65,6 +66,9 @@ function MyApp({ Component, pageProps, router }) {
           setNumbersProgress(currentProgress);
         } else if (currentProgress === 100) {
           setLinesAnimation(true);
+          setTimeout(() => {
+            setTextAnimation(true);
+          }, 300);
           clearInterval(intervalId);
         }
       }, intervalDuration);
@@ -82,6 +86,7 @@ function MyApp({ Component, pageProps, router }) {
           numbersProgress={numbersProgress.toFixed(0)}
           linesAnimation={linesAnimation}
           className={`${timesNew.variable} ${lausanne.variable}`}
+          onLoadingComplete={() => setIsLoading(false)}
         />
       )}
       <TransitionProvider>
@@ -92,9 +97,8 @@ function MyApp({ Component, pageProps, router }) {
             className={`${lausanne.variable} ${timesNew.variable}`}
           >
             <Component
+              firstLoadAnimation={textAnimation}
               isLoading={isLoading}
-              firstLoadAnimation={linesAnimation}
-              onLoadingComplete={() => setIsLoading(false)}
               {...pageProps}
             />
           </main>

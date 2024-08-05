@@ -14,19 +14,14 @@ const Marquee = ({ firstLoadAnimation }) => {
   const marqueeElementsRef = useRef([]);
   const animationRef = useRef(null);
   const copiesCount = 5;
-  const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
     if (firstLoadAnimation) {
       setTimeout(() => {
         marqueeElementsRef.current.forEach((el) => {
-          if (el) el.style.opacity = "1";
+          if (el) el.classList.add(`${styles["visible"]}`);
         });
-      }, 15 * 85 + 200);
-    } else {
-      marqueeElementsRef.current.forEach((el) => {
-        if (el) el.style.opacity = "0";
-      });
+      }, 17 * 85 + 350);
     }
   }, [firstLoadAnimation]);
 
@@ -119,7 +114,6 @@ const Marquee = ({ firstLoadAnimation }) => {
           <div
             key={index}
             ref={(el) => (marqueeElementsRef.current[index] = el)}
-            style={{ opacity: 0 }} // Initial opacity
           >
             <Image
               src="/marquee.png"

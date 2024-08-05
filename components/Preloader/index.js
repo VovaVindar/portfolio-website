@@ -1,7 +1,12 @@
 import MouseFollower from "@/components/MouseFollower";
 import LoadingLines from "@/components/Preloader/LoadingLines";
 
-const Preloader = ({ numbersProgress, linesAnimation, className }) => {
+const Preloader = ({
+  numbersProgress,
+  linesAnimation,
+  className,
+  onLoadingComplete,
+}) => {
   return (
     <>
       <div className={`preloader ${className}`}>
@@ -12,7 +17,10 @@ const Preloader = ({ numbersProgress, linesAnimation, className }) => {
             numbersProgress >= 100 ? "hidden" : ""
           }`}
         />
-        <LoadingLines linesAnimation={linesAnimation} />
+        <LoadingLines
+          linesAnimation={linesAnimation}
+          onAnimationComplete={onLoadingComplete}
+        />
       </div>
     </>
   );

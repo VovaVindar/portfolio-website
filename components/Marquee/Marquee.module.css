@@ -23,34 +23,50 @@
   height: calc(23rlh + 1px);
   width: calc(23rlh + 1px);
   opacity: 0;
-  transition: opacity 1.5s cubic-bezier(0.8, 0, 0.8, 1);
+  transition: opacity 1.75s cubic-bezier(0.15, 0.35, 0.35, 1);
   position: relative;
+  overflow: hidden;
+}
+.marquee-container .marquee-track > .visible {
+  opacity: 1;
 }
 .marquee-container .marquee-track > div img {
   object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
+  transform: scale(1.2);
+  transition: transform 1.75s cubic-bezier(0.15, 0.35, 0.35, 1); /* power2.out */
 }
-.marquee-container .marquee-track > div:nth-of-type(2) {
+.marquee-container .marquee-track > div.visible img {
+  transform: scale(1);
+}
+.marquee-container .marquee-track > div:nth-of-type(2),
+.marquee-container .marquee-track > div img:nth-of-type(2) {
   transition-delay: 0.085s;
 }
-.marquee-container .marquee-track > div:nth-of-type(3) {
+.marquee-container .marquee-track > div:nth-of-type(3),
+.marquee-container .marquee-track > div img:nth-of-type(3) {
   transition-delay: 0.17s;
 }
-.marquee-container .marquee-track > div:nth-of-type(4) {
+.marquee-container .marquee-track > div:nth-of-type(4),
+.marquee-container .marquee-track > div img:nth-of-type(4) {
   transition-delay: 0.255s;
 }
-.marquee-container .marquee-track > div:nth-of-type(5) {
+.marquee-container .marquee-track > div:nth-of-type(5),
+.marquee-container .marquee-track > div img:nth-of-type(5) {
   transition-delay: 0.34s;
 }
-.marquee-container .marquee-track > div:nth-of-type(6) {
+.marquee-container .marquee-track > div:nth-of-type(6),
+.marquee-container .marquee-track > div img:nth-of-type(6) {
   transition-delay: 0.425s;
 }
-.marquee-container .marquee-track > div:nth-of-type(7) {
+.marquee-container .marquee-track > div:nth-of-type(7),
+.marquee-container .marquee-track > div img:nth-of-type(7) {
   transition-delay: 0.51s;
 }
-.marquee-container .marquee-track > div:nth-of-type(8) {
+.marquee-container .marquee-track > div:nth-of-type(8),
+.marquee-container .marquee-track > div img:nth-of-type(8) {
   transition-delay: 0.595s;
 }
 

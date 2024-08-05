@@ -12,12 +12,8 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Home({
-  firstLoadAnimation,
-  isLoading,
-  onLoadingComplete,
-}) {
-  const { timeline } = useContext(TransitionContext);
+export default function Home({ firstLoadAnimation, isLoading }) {
+  //const { timeline } = useContext(TransitionContext);
   const container = useRef(null);
   const onloadRefs = useRef([]);
 
@@ -28,50 +24,42 @@ export default function Home({
     );
   }, []);
 
-  useGSAP(
-    () => {
-      if (container.current) {
-        //timeline.add(gsap.to(container.current, { opacity: 0 }));
-      }
-    },
-    { scope: container }
-  );
-
   useGSAP(() => {
-    if (isLoading && onloadRefs.current.length) {
-      const loadingTimeline = gsap.timeline({
-        onComplete: onLoadingComplete,
-      });
+    if (onloadRefs.current.length) {
       var staggerInterval = 0.085;
       var duration = 1.5;
 
-      loadingTimeline.fromTo(
-        onloadRefs.current,
-        { opacity: 0 },
-        {
-          opacity: `${firstLoadAnimation ? 1 : 0}`,
-          duration: duration,
-          delay: 0.2,
-          ease: "power4.inOut",
-          stagger: function (index, target, list) {
-            if (index <= 2) {
-              return 0;
-            } else if (index >= 3 && index <= 7) {
-              return 1 * staggerInterval;
-            } else if (index >= 8 && index <= 10) {
-              return 2 * staggerInterval;
-            } else if (index >= 11 && index <= 13) {
-              return 3 * staggerInterval;
-            } else if (index < 35) {
-              return (index - 9) * staggerInterval;
-            } else if (index >= 35 && index <= 36) {
-              return 26 * staggerInterval;
-            } else {
-              return (index - 10) * staggerInterval;
+      ScrollTrigger.batch(onloadRefs.current, {
+        onEnter: (elements) => {
+          gsap.fromTo(
+            elements,
+            { autoAlpha: 0 },
+            {
+              autoAlpha: firstLoadAnimation ? 1 : 0,
+              duration: duration,
+              ease: "power4.inOut",
+              stagger: function (index, target, list) {
+                if (index <= 2) {
+                  return 0;
+                } else if (index >= 3 && index <= 7) {
+                  return 1 * staggerInterval;
+                } else if (index >= 8 && index <= 10) {
+                  return 2 * staggerInterval;
+                } else if (index >= 11 && index <= 13) {
+                  return 3 * staggerInterval;
+                } else if (index < 35) {
+                  return (index - 9) * staggerInterval;
+                } else if (index >= 35 && index <= 36) {
+                  return 26 * staggerInterval;
+                } else {
+                  return (index - 10) * staggerInterval;
+                }
+              },
             }
-          },
-        }
-      );
+          );
+        },
+        once: true,
+      });
     }
   }, [firstLoadAnimation]);
 
