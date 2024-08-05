@@ -41,13 +41,13 @@ const timesNew = localFont({
 });
 
 function MyApp({ Component, pageProps, router }) {
+  const [isFirstSession, setIsFirstSession] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [numbersProgress, setNumbersProgress] = useState(0);
   const [linesAnimation, setLinesAnimation] = useState(false);
   const mainRef = useRef(null);
 
-  const exitAnimationDuration = 1310;
-  const intervalDuration = 62;
+  const intervalDuration = 60;
 
   useEffect(() => {
     if (mainRef.current) {
@@ -66,9 +66,6 @@ function MyApp({ Component, pageProps, router }) {
         } else if (currentProgress === 100) {
           setLinesAnimation(true);
           clearInterval(intervalId);
-          setTimeout(() => {
-            //setIsLoading(false);
-          }, exitAnimationDuration);
         }
       }, intervalDuration);
 
@@ -94,7 +91,12 @@ function MyApp({ Component, pageProps, router }) {
             key={router.route}
             className={`${lausanne.variable} ${timesNew.variable}`}
           >
-            <Component firstLoadAnimation={linesAnimation} {...pageProps} />
+            <Component
+              isLoading={isLoading}
+              firstLoadAnimation={linesAnimation}
+              onLoadingComplete={() => setIsLoading(false)}
+              {...pageProps}
+            />
           </main>
         </Transition>
       </TransitionProvider>

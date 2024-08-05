@@ -8,7 +8,7 @@ const LoadingLines = ({ linesAnimation }) => {
   const lineContainerRef = useRef(null);
   const linesReadyRef = useRef(false);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const generateLines = () => {
       const height = window.innerHeight;
       const rlh = parseInt(
@@ -31,10 +31,10 @@ const LoadingLines = ({ linesAnimation }) => {
   useGSAP(() => {
     if (linesReadyRef.current && lineContainerRef.current) {
       const lines = lineContainerRef.current.children;
-      const timeline = gsap.timeline();
+      const timeline = gsap.timeline({});
 
-      var staggerInterval = 0.05;
-      var duration = 2;
+      var staggerInterval = 0.045;
+      var duration = 1.3;
 
       timeline.fromTo(
         lines,
@@ -51,7 +51,7 @@ const LoadingLines = ({ linesAnimation }) => {
         }
       );
     }
-  }, [linesAnimation]);
+  }, [linesAnimation]);*/
 
   return (
     <div className={`${styles["line-container"]}`} ref={lineContainerRef}>

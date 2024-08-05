@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import styles from "./Scrollbar.module.css";
 import Link from "next/link";
 
-const Scrollbar = ({ text = "", href = "/" }) => {
+const Scrollbar = ({ text = "", href = "/", isLoading }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [opacity, setOpacity] = useState(0);
+  const [opacity, setOpacity] = useState(1);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,8 +15,11 @@ const Scrollbar = ({ text = "", href = "/" }) => {
 
       setScrollPosition(scrollPercent);
 
-      // Set opacity to 1 after calculating scroll position
-      setOpacity(1);
+      if (!isLoading) {
+        setOpacity(1);
+      } else {
+        setOpacity(0);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -26,7 +29,7 @@ const Scrollbar = ({ text = "", href = "/" }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isLoading]);
 
   const pStyle = {
     opacity: opacity,

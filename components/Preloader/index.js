@@ -4,9 +4,7 @@ import LoadingLines from "@/components/Preloader/LoadingLines";
 const Preloader = ({ numbersProgress, linesAnimation, className }) => {
   return (
     <>
-      <div
-        className={`preloader ${linesAnimation ? "complete" : ""} ${className}`}
-      >
+      <div className={`preloader ${className}`}>
         <MouseFollower
           type="text"
           text={numbersProgress}

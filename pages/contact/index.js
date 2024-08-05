@@ -17,7 +17,7 @@ export default function Contact() {
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1 }
       );
-      timeline.add(gsap.to(container.current, { opacity: 0 }));
+      //timeline.add(gsap.to(container.current, { opacity: 0 }));
     },
     { scope: container }
   );

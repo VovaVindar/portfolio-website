@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
 import Image from "next/image";
 
-const Marquee = ({ style }) => {
+const Marquee = ({ firstLoadAnimation }) => {
   const [x, setX] = useState(0);
   const [dragSpeed, setDragSpeed] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -14,6 +14,21 @@ const Marquee = ({ style }) => {
   const marqueeElementsRef = useRef([]);
   const animationRef = useRef(null);
   const copiesCount = 5;
+  const [opacity, setOpacity] = useState(0);
+
+  useEffect(() => {
+    if (firstLoadAnimation) {
+      setTimeout(() => {
+        marqueeElementsRef.current.forEach((el) => {
+          if (el) el.style.opacity = "1";
+        });
+      }, 15 * 85 + 200);
+    } else {
+      marqueeElementsRef.current.forEach((el) => {
+        if (el) el.style.opacity = "0";
+      });
+    }
+  }, [firstLoadAnimation]);
 
   useEffect(() => {
     const updateSpeed = () => {
@@ -38,10 +53,6 @@ const Marquee = ({ style }) => {
 
   useEffect(() => {
     calculateTrackWidth();
-    marqueeTrackRef.current.style.opacity = "1";
-    marqueeElementsRef.current.forEach((el) => {
-      if (el) el.style.opacity = "1";
-    });
 
     // Debounced resize handler
     const handleResize = debounce(calculateTrackWidth, 100);
@@ -97,7 +108,7 @@ const Marquee = ({ style }) => {
       onTouchStart={onDragStart}
       onTouchMove={onDrag}
       onTouchEnd={onDragEnd}
-      style={style}
+      //style={{ opacity: opacity }}
     >
       <div
         className={styles["marquee-track"]}
