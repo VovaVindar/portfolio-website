@@ -9,19 +9,18 @@ const MouseFollower = forwardRef(
     const handleMouseMove = (event) => {
       const keyframes = {
         transform: `translate3d(${event.clientX}px, ${event.clientY}px, 0)`,
-        opacity: "1",
+        //opacity: "1",
       };
 
       if (followerRef.current) {
         if (!initialMovement) {
           setInitialMovement(true);
-          followerRef.current.style.transform = keyframes.transform; // Set initial position
-          followerRef.current.classList.add("visible");
+          followerRef.current.style.transform = `translate3d(0px, 0px, 0)`; // Set initial position
         }
 
         followerRef.current.animate(keyframes, {
-          duration: 1000,
-          easing: "ease",
+          duration: 950,
+          easing: "ease-in-out",
           fill: "forwards",
         });
       }
