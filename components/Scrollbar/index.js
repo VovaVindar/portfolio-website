@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import styles from "./Scrollbar.module.css";
 import Link from "next/link";
 
-const Scrollbar = ({ text = "", href = "/", isLoading }) => {
+const Scrollbar = ({ text = "", href = "/", isAnimating }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [opacity, setOpacity] = useState(1);
+  const [blur, setBlur] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,10 +16,12 @@ const Scrollbar = ({ text = "", href = "/", isLoading }) => {
 
       setScrollPosition(scrollPercent);
 
-      if (!isLoading) {
+      if (!isAnimating) {
         setOpacity(1);
+        setBlur(0);
       } else {
         setOpacity(0);
+        setBlur(1.5);
       }
     };
 
@@ -29,10 +32,11 @@ const Scrollbar = ({ text = "", href = "/", isLoading }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isLoading]);
+  }, [isAnimating]);
 
   const pStyle = {
     opacity: opacity,
+    filter: `blur(${blur}px)`,
     top: `clamp(1rlh, ${scrollPosition}%, calc(100% - 2rlh))`,
   };
 

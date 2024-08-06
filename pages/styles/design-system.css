@@ -15,6 +15,7 @@
 :root {
   /* Color Tokens */
   --token-color-text-primary: var(--primitive-color-vova-0);
+  --token-color-text-contrast: var(--primitive-color-vova-200);
 
   --token-color-surface-primary: var(--primitive-color-vova-200);
   --token-color-surface-secondary: var(--primitive-color-vova-100);

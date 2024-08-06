@@ -1,0 +1,8 @@
+.cursor-container {
+  position: fixed;
+  left: calc(1rlh + 2px);
+  top: 1rlh;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 1;
+}

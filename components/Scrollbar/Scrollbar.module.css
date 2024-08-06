@@ -9,7 +9,9 @@
   top: 1rlh;
   color: var(--token-color-surface-secondary);
   opacity: 1;
-  transition: opacity 0.85s cubic-bezier(0.6, 0.4, 0.7, 0.5);
+  filter: blur(0px);
+  transition: opacity 0.85s cubic-bezier(0.6, 0.4, 0.7, 0.5),
+    filter 0.85s cubic-bezier(0.6, 0.4, 0.7, 0.5);
   transition-delay: 0s;
 }
 

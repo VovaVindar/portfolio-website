@@ -41,11 +41,11 @@ const timesNew = localFont({
 });
 
 function MyApp({ Component, pageProps, router }) {
-  const [isFirstSession, setIsFirstSession] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(true);
   const [numbersProgress, setNumbersProgress] = useState(0);
-  const [linesAnimation, setLinesAnimation] = useState(false);
-  const [textAnimation, setTextAnimation] = useState(false);
+  const [startLinesAnimation, setStartLinesAnimation] = useState(false);
+  const [startPageAnimation, setstartPageAnimation] = useState(false);
   const mainRef = useRef(null);
 
   const intervalDuration = 60;
@@ -65,10 +65,10 @@ function MyApp({ Component, pageProps, router }) {
           currentProgress += increment;
           setNumbersProgress(currentProgress);
         } else if (currentProgress === 100) {
-          setLinesAnimation(true);
+          setStartLinesAnimation(true);
           setTimeout(() => {
-            setTextAnimation(true);
-          }, 300);
+            setstartPageAnimation(true);
+          }, 250);
           clearInterval(intervalId);
         }
       }, intervalDuration);
@@ -84,21 +84,26 @@ function MyApp({ Component, pageProps, router }) {
       {isLoading && (
         <Preloader
           numbersProgress={numbersProgress.toFixed(0)}
-          linesAnimation={linesAnimation}
           className={`${timesNew.variable} ${lausanne.variable}`}
-          onLoadingComplete={() => setIsLoading(false)}
+          //onLoadingComplete={() => setIsLoading(false)}
         />
       )}
       <TransitionProvider>
-        <Transition>
+        <Transition
+          startLinesAnimation={startLinesAnimation}
+          onLoadingComplete={() => {
+            setIsAnimating(false);
+            setIsLoading(false);
+          }}
+        >
           <main
             ref={mainRef}
             key={router.route}
             className={`${lausanne.variable} ${timesNew.variable}`}
           >
             <Component
-              firstLoadAnimation={textAnimation}
-              isLoading={isLoading}
+              startPageAnimation={startPageAnimation}
+              isAnimating={isAnimating}
               {...pageProps}
             />
           </main>

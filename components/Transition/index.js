@@ -3,8 +3,14 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { TransitionContext } from "@/context/TransitionContext";
 gsap.registerPlugin(useGSAP);
+import LoadingLines from "@/components/Transition/TransitionLines";
 
-export default function TransitionLayout({ children, ...props }) {
+export default function TransitionLayout({
+  children,
+  startLinesAnimation,
+  onLoadingComplete,
+  ...props
+}) {
   const [displayChildren, setDisplayChildren] = useState(children);
   const { timeline } = useContext(TransitionContext);
   const { contextSafe } = useGSAP();
@@ -26,5 +32,13 @@ export default function TransitionLayout({ children, ...props }) {
   // Clone the child component and pass all props to it
   const childrenWithProps = React.cloneElement(children, { ...props });
 
-  return <div>{childrenWithProps}</div>;
+  return (
+    <div>
+      <LoadingLines
+        startLinesAnimation={startLinesAnimation}
+        onLoadingComplete={onLoadingComplete}
+      />
+      {childrenWithProps}
+    </div>
+  );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
 import Image from "next/image";
 
-const Marquee = ({ firstLoadAnimation }) => {
+const Marquee = ({ startPageAnimation }) => {
   const [x, setX] = useState(0);
   const [dragSpeed, setDragSpeed] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -16,14 +16,14 @@ const Marquee = ({ firstLoadAnimation }) => {
   const copiesCount = 5;
 
   useEffect(() => {
-    if (firstLoadAnimation) {
+    if (startPageAnimation) {
       setTimeout(() => {
         marqueeElementsRef.current.forEach((el) => {
           if (el) el.classList.add(`${styles["visible"]}`);
         });
-      }, 17 * 85 + 350);
+      }, 17 * 85 + 250);
     }
-  }, [firstLoadAnimation]);
+  }, [startPageAnimation]);
 
   useEffect(() => {
     const updateSpeed = () => {

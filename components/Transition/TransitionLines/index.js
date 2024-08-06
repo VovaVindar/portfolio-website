@@ -1,9 +1,9 @@
-import styles from "./LoadingLines.module.css";
+import styles from "./TransitionLines.module.css";
 import React, { useEffect, useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-const LoadingLines = ({ linesAnimation, onAnimationComplete }) => {
+const LoadingLines = ({ startLinesAnimation, onLoadingComplete }) => {
   const [lines, setLines] = useState([]);
   const lineContainerRef = useRef(null);
   const linesReadyRef = useRef(false);
@@ -32,17 +32,21 @@ const LoadingLines = ({ linesAnimation, onAnimationComplete }) => {
     if (linesReadyRef.current && lineContainerRef.current) {
       const lines = lineContainerRef.current.children;
       const timeline = gsap.timeline({
-        onComplete: onAnimationComplete,
+        onComplete: () => {
+          setTimeout(() => {
+            //onAnimationComplete();
+          }, 3000);
+        },
       });
 
-      var staggerInterval = 0.045;
-      var duration = 1.3;
+      var staggerInterval = 0.04;
+      var duration = 1.25;
 
       timeline.fromTo(
         lines,
         { scaleY: 1, transformOrigin: "bottom" },
         {
-          scaleY: `${linesAnimation ? 0 : 1}`,
+          scaleY: `${startLinesAnimation ? 0 : 1}`,
           duration: duration,
           delay: 0.05,
           ease: "power4.inOut",
@@ -50,10 +54,24 @@ const LoadingLines = ({ linesAnimation, onAnimationComplete }) => {
             each: staggerInterval,
             from: "start",
           },
+          onComplete: onLoadingComplete,
         }
       );
+
+      /*timeline.to(
+        lines,
+        {
+          scaleY: 1,
+          transformOrigin: "top",
+          delay: 0,
+          duration: duration,
+          ease: "power4.in",
+          stagger: { each: staggerInterval, from: "start" },
+        },
+        "+=0.35"
+      );*/
     }
-  }, [linesAnimation]);
+  }, [startLinesAnimation]);
 
   return (
     <div className={`${styles["line-container"]}`} ref={lineContainerRef}>

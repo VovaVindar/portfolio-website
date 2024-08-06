@@ -12,10 +12,17 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Home({ firstLoadAnimation, isLoading }) {
-  //const { timeline } = useContext(TransitionContext);
+export default function Home({ startPageAnimation, isAnimating }) {
+  const { timeline } = useContext(TransitionContext);
   const container = useRef(null);
   const onloadRefs = useRef([]);
+
+  /*useGSAP(
+    () => {
+      timeline.add(gsap.to(container.current, { y: 10, scale: 0.8 }));
+    },
+    { scope: container }
+  );*/
 
   useEffect(() => {
     onloadRefs.current = onloadRefs.current.slice(
@@ -33,9 +40,10 @@ export default function Home({ firstLoadAnimation, isLoading }) {
         onEnter: (elements) => {
           gsap.fromTo(
             elements,
-            { autoAlpha: 0 },
+            { autoAlpha: 0, filter: "blur(1.5px)" },
             {
-              autoAlpha: firstLoadAnimation ? 1 : 0,
+              autoAlpha: startPageAnimation ? 1 : 0,
+              filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
               duration: duration,
               ease: "power4.inOut",
               stagger: function (index, target, list) {
@@ -61,14 +69,14 @@ export default function Home({ firstLoadAnimation, isLoading }) {
         once: true,
       });
     }
-  }, [firstLoadAnimation]);
+  }, [startPageAnimation]);
 
   return (
     <>
       <Head>
         <title>Vova Vindar</title>
       </Head>
-      <Scrollbar text={"Contact"} href="/contact" isLoading={isLoading} />
+      <Scrollbar text={"Contact"} href="/contact" isAnimating={isAnimating} />
       <div ref={container} className={`${styles["home-container"]}`}>
         <div className={`${styles["hero-container"]}`}>
           <div className={`${styles["skills"]} text-body-1`}>
@@ -203,7 +211,7 @@ export default function Home({ firstLoadAnimation, isLoading }) {
             </div>
           </div>
         </div>
-        <Marquee firstLoadAnimation={firstLoadAnimation} />
+        <Marquee startPageAnimation={startPageAnimation} />
         <div className={`${styles["clients"]}`}>
           <div className={`text-body-1`}>
             <div className={`text-body-2`}>
