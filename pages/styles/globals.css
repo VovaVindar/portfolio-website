@@ -1,4 +1,4 @@
-/* CSS Reset by amazing Andy Bell
+/* CSS Reset by amazing Andy Bell (customized)
 https://andy-bell.co.uk/a-more-modern-css-reset/
 */
 
@@ -14,6 +14,53 @@ html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+  overflow-x: hidden;
+}
+
+/* Set core body defaults and improve font rendering (custom by me) */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-os-font-smoothing: grayscale;
+  font-smooth: never;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+html:has(.preloader),
+body:has(.preloader) {
+  overflow-y: hidden;
+}
+
+/* Hidden Scrollbar */
+::-webkit-scrollbar {
+  height: 0rem;
+  width: 0px;
+}
+::-webkit-scrollbar:horizontal {
+  height: 0px;
+  width: 0rem;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-color: transparent;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border: none;
+  border-radius: 0px;
+}
+.scrollbar-hidden::-webkit-scrollbar-thumb {
+  visibility: hidden;
+}
+.scrollbar-hidden:hover::-webkit-scrollbar-thumb {
+  visibility: hidden;
+}
+::-webkit-scrollbar-corner {
+  display: none;
+}
+::-webkit-resizer {
+  display: none;
 }
 
 /* Remove default margin in favour of better control in authored CSS */
@@ -37,15 +84,6 @@ dd {
 ul[role="list"],
 ol[role="list"] {
   list-style: none;
-}
-
-/* Set core body defaults and improve font rendering (custom by me) */
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-os-font-smoothing: grayscale;
-  font-smooth: never;
-  overflow-x: hidden;
-  margin: 0;
 }
 
 /* Balance text wrapping on headings */
@@ -99,45 +137,12 @@ a {
 
 /* CSS Reset end */
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  height: 0rem;
-  width: 0px;
-}
-::-webkit-scrollbar:horizontal {
-  height: 9px;
-  width: 1rem;
-}
-::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-color: transparent;
-  border-radius: 0px;
-}
-::-webkit-scrollbar-track {
-  background-color: transparent;
-  border: none;
-  border-radius: 0px;
-}
-.scrollbar-hidden::-webkit-scrollbar-thumb {
-  visibility: hidden;
-}
-.scrollbar-hidden:hover::-webkit-scrollbar-thumb {
-  visibility: hidden;
-}
-::-webkit-scrollbar-corner {
-  display: none;
-}
-::-webkit-resizer {
-  display: none;
-}
-
 html {
   line-height: clamp(18px, 1.5972vw, 36px);
   font-family: var(--lausanne);
   color: var(--token-color-text-primary);
   background-color: var(--token-color-surface-primary);
   text-wrap: nowrap;
-  overflow-x: hidden;
   overscroll-behavior: none;
 }
 body {
@@ -193,10 +198,6 @@ p {
 }
 .preloader.complete {
   position: absolute;
-}
-html:has(.preloader),
-body:has(.preloader) {
-  overflow-y: hidden;
 }
 
 @media all and (max-width: 820px) {

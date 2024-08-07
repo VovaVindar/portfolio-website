@@ -9,6 +9,7 @@ import { useContext, useRef, useEffect } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import MouseFollower from "@/components/MouseFollower";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -78,6 +79,7 @@ export default function Home({ startPageAnimation, isAnimating }) {
       </Head>
       <Scrollbar text={"Contact"} href="/contact" isAnimating={isAnimating} />
       <div ref={container} className={`${styles["home-container"]}`}>
+        <MouseFollower type="lines" />
         <div className={`${styles["hero-container"]}`}>
           <div className={`${styles["skills"]} text-body-1`}>
             <div className={`${styles["chair-container"]}`}>

@@ -7,6 +7,7 @@ const LoadingLines = ({ startLinesAnimation, onLoadingComplete }) => {
   const [lines, setLines] = useState([]);
   const lineContainerRef = useRef(null);
   const linesReadyRef = useRef(false);
+  var totalLines = 0;
 
   useEffect(() => {
     const generateLines = () => {
@@ -15,13 +16,14 @@ const LoadingLines = ({ startLinesAnimation, onLoadingComplete }) => {
         getComputedStyle(document.documentElement).lineHeight
       );
       const lineHeight = 1;
-      const totalLines = Math.floor(height / (rlh - lineHeight)) - 1;
+      totalLines = Math.floor(height / (rlh - lineHeight)) - 1;
 
       const linesArray = [];
       for (let i = 0; i < totalLines; i++) {
         linesArray.push(<div key={i} className={`${styles["line"]}`}></div>);
       }
       setLines(linesArray);
+      lineContainerRef.current.style.backgroundColor = "transparent";
       linesReadyRef.current = true;
     };
 
@@ -39,7 +41,7 @@ const LoadingLines = ({ startLinesAnimation, onLoadingComplete }) => {
         },
       });
 
-      var staggerInterval = 0.04;
+      var staggerInterval = totalLines <= 50 ? 0.04 : 0.02;
       var duration = 1.25;
 
       timeline.fromTo(

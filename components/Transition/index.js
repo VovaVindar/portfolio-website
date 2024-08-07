@@ -33,12 +33,12 @@ export default function TransitionLayout({
   const childrenWithProps = React.cloneElement(children, { ...props });
 
   return (
-    <div>
+    <>
       <LoadingLines
         startLinesAnimation={startLinesAnimation}
         onLoadingComplete={onLoadingComplete}
       />
       {childrenWithProps}
-    </div>
+    </>
   );
 }
