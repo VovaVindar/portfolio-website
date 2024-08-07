@@ -6,6 +6,8 @@
   left: 0;
   overflow: hidden;
   user-select: none;
+  transition: opacity 0.6s cubic-bezier(0.6, 0.4, 0.7, 0.5);
+  transition-delay: 0.4s;
 }
 .background-lines {
   width: 100vw;
@@ -27,10 +29,10 @@
   transition: opacity 0.6s cubic-bezier(0.6, 0.4, 0.7, 0.5);
 }
 .lines-gradient {
-  height: 2rlh;
-  width: 2rlh;
-  margin-left: -1rlh;
-  margin-top: -1rlh;
+  height: 2.4rlh;
+  width: 2.4rlh;
+  margin-left: -1.2rlh;
+  margin-top: -1.2rlh;
   border-radius: 0%;
   background: radial-gradient(
     circle at 50% 50%,

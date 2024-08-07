@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, forwardRef } from "react";
+import React, { useState, useEffect, useRef, forwardRef } from "react";
 import styles from "./MouseFollower.module.css";
 
 const MouseFollower = forwardRef(
@@ -6,16 +6,21 @@ const MouseFollower = forwardRef(
     const followerRef = useRef(null);
     const maskRef = useRef(null);
     const maskGradientRef = useRef(null);
+    const [opacity, setOpacity] = useState(0);
 
     const handleMouseMove = (event) => {
       const { clientX: x, clientY: y } = event;
+
+      if (x !== 0 && y !== 0) {
+        setOpacity(1);
+      }
 
       const keyframes = {
         transform: `translate3d(${x}px, ${y}px, 0)`,
       };
 
       const clipPathKeyframes = {
-        clipPath: `circle(1rlh at ${x}px ${y}px)`,
+        clipPath: `circle(1.2rlh at ${x}px ${y}px)`,
       };
 
       if (followerRef.current) {
@@ -25,6 +30,7 @@ const MouseFollower = forwardRef(
           fill: "forwards",
         });
       }
+
       if (maskRef.current && maskGradientRef.current) {
         maskRef.current.animate(clipPathKeyframes, {
           duration: 950,
@@ -58,7 +64,7 @@ const MouseFollower = forwardRef(
     }, []);
 
     return (
-      <div className={styles["cursor-container"]}>
+      <div className={styles["cursor-container"]} style={{ opacity: opacity }}>
         {type === "lines" && (
           <>
             <div className={styles["background-lines"]} ref={maskRef} />
