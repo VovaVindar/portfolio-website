@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { TransitionContext } from "@/context/TransitionContext";
 gsap.registerPlugin(useGSAP);
-import LoadingLines from "@/components/Transition/TransitionLines";
+import TransitionLines from "@/components/Transition/TransitionLines";
 
 export default function TransitionLayout({
   children,
@@ -12,14 +12,14 @@ export default function TransitionLayout({
   ...props
 }) {
   const [displayChildren, setDisplayChildren] = useState(children);
-  const { timeline } = useContext(TransitionContext);
+  const { timelineExit } = useContext(TransitionContext);
   const { contextSafe } = useGSAP();
 
   const exit = contextSafe(() => {
-    timeline.play().then(() => {
+    timelineExit.play().then(() => {
       window.scrollTo(0, 0);
       setDisplayChildren(children);
-      timeline.pause().clear();
+      timelineExit.pause().clear();
     });
   });
 
@@ -34,7 +34,7 @@ export default function TransitionLayout({
 
   return (
     <>
-      <LoadingLines
+      <TransitionLines
         startLinesAnimation={startLinesAnimation}
         onLoadingComplete={onLoadingComplete}
       />

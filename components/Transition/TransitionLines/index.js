@@ -1,5 +1,6 @@
 import styles from "./TransitionLines.module.css";
-import React, { useEffect, useState, useRef } from "react";
+import { TransitionContext } from "@/context/TransitionContext";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
@@ -8,6 +9,9 @@ const LoadingLines = ({ startLinesAnimation, onLoadingComplete }) => {
   const lineContainerRef = useRef(null);
   const linesReadyRef = useRef(false);
   var totalLines = 0;
+
+  const timelineIntro = gsap.timeline({});
+  const { timelineExit } = useContext(TransitionContext);
 
   useEffect(() => {
     const generateLines = () => {
@@ -33,22 +37,20 @@ const LoadingLines = ({ startLinesAnimation, onLoadingComplete }) => {
   useGSAP(() => {
     if (linesReadyRef.current && lineContainerRef.current) {
       const lines = lineContainerRef.current.children;
-      const timeline = gsap.timeline({
-        onComplete: () => {
-          setTimeout(() => {
-            //onAnimationComplete();
-          }, 3000);
-        },
-      });
 
       var staggerInterval = totalLines <= 50 ? 0.04 : 0.02;
       var duration = 1.25;
 
-      timeline.fromTo(
+      timelineIntro.fromTo(
         lines,
-        { scaleY: 1, transformOrigin: "bottom" },
+        {
+          scaleY: 1,
+          transformOrigin: "bottom",
+          backgroundColor: "#0F1010",
+        },
         {
           scaleY: `${startLinesAnimation ? 0 : 1}`,
+          backgroundColor: `${startLinesAnimation ? `#C34356` : `#0F1010`}`,
           duration: duration,
           delay: 0.05,
           ease: "power4.inOut",
@@ -60,18 +62,29 @@ const LoadingLines = ({ startLinesAnimation, onLoadingComplete }) => {
         }
       );
 
-      /*timeline.to(
-        lines,
-        {
-          scaleY: 1,
-          transformOrigin: "top",
-          delay: 0,
-          duration: duration,
-          ease: "power4.in",
-          stagger: { each: staggerInterval, from: "start" },
-        },
-        "+=0.35"
-      );*/
+      timelineExit
+        .add(
+          gsap.to(lines, {
+            scaleY: 1,
+            transformOrigin: "top",
+            delay: 0,
+            duration: duration,
+            ease: "power4.in",
+            stagger: { each: staggerInterval, from: "start" },
+          })
+        )
+        .add(
+          gsap.to(lines, {
+            scaleY: 0,
+            duration: duration,
+            delay: 0.2,
+            ease: "power4.inOut",
+            stagger: {
+              each: staggerInterval,
+              from: "start",
+            },
+          })
+        );
     }
   }, [startLinesAnimation]);
 

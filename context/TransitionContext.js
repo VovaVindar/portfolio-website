@@ -4,15 +4,15 @@ import gsap from "gsap";
 const TransitionContext = createContext({});
 
 const TransitionProvider = ({ children }) => {
-  const [timeline, setTimeline] = useState(() =>
+  const [timelineExit, setTimelineExit] = useState(() =>
     gsap.timeline({ paused: true })
   );
 
   return (
     <TransitionContext.Provider
       value={{
-        timeline,
-        setTimeline,
+        timelineExit,
+        setTimelineExit,
       }}
     >
       {children}

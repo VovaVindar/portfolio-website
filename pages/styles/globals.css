@@ -180,24 +180,14 @@ p {
   left: 0;
   width: 100vw;
   min-height: 100vh;
-  background-color: transparent;
+  background-color: var(--token-color-surface-primary);
   z-index: 99;
   pointer-events: none;
   user-select: none;
   display: flex;
   justify-content: center;
   padding-top: 1rlh;
-}
-.preloader .counter {
-  height: 1rlh;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--token-color-surface-primary);
-  z-index: 99;
-}
-.preloader.complete {
-  position: absolute;
+  background-color: transparent;
 }
 
 @media all and (max-width: 820px) {

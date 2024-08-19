@@ -18,13 +18,6 @@ export default function Home({ startPageAnimation, isAnimating }) {
   const container = useRef(null);
   const onloadRefs = useRef([]);
 
-  /*useGSAP(
-    () => {
-      timeline.add(gsap.to(container.current, { y: 10, scale: 0.8 }));
-    },
-    { scope: container }
-  );*/
-
   useEffect(() => {
     onloadRefs.current = onloadRefs.current.slice(
       0,
@@ -41,10 +34,11 @@ export default function Home({ startPageAnimation, isAnimating }) {
         onEnter: (elements) => {
           gsap.fromTo(
             elements,
-            { autoAlpha: 0, filter: "blur(1.5px)" },
+            { autoAlpha: 0, filter: "blur(1.5px)", color: "red" },
             {
               autoAlpha: startPageAnimation ? 1 : 0,
               filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
+              color: "#0F1010",
               duration: duration,
               ease: "power4.inOut",
               stagger: function (index, target, list) {
