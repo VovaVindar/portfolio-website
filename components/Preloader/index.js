@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-const Preloader = ({ numbersProgress, className, onLoadingComplete }) => {
+const Preloader = ({ numbersProgress, className }) => {
   const mouseFollowerRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
 

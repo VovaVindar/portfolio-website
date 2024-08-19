@@ -43,8 +43,6 @@ const timesNew = localFont({
 function MyApp({ Component, pageProps, router }) {
   const [isAnimating, setIsAnimating] = useState(true);
   const [numbersProgress, setNumbersProgress] = useState(0);
-  const [startLinesAnimation, setStartLinesAnimation] = useState(false);
-  const [startPageAnimation, setStartPageAnimation] = useState(false);
   const mainRef = useRef(null);
 
   const intervalDuration = 60;
@@ -62,11 +60,8 @@ function MyApp({ Component, pageProps, router }) {
         if (newProgress > currentProgress) {
           const increment = Math.min(newProgress - currentProgress, 8);
           currentProgress += increment;
-          setNumbersProgress(currentProgress);
+          setNumbersProgress(currentProgress.toFixed(0));
         } else if (currentProgress === 100) {
-          setStartLinesAnimation(true);
-          setTimeout(() => setStartPageAnimation(true), 250);
-
           clearInterval(intervalId);
         }
       }, intervalDuration);
@@ -80,12 +75,12 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <>
       <Preloader
-        numbersProgress={numbersProgress.toFixed(0)}
+        numbersProgress={numbersProgress}
         className={`${lausanne.variable}`}
       />
       <TransitionProvider>
         <Transition
-          startLinesAnimation={startLinesAnimation}
+          numbersProgress={numbersProgress}
           onLoadingComplete={() => {
             setIsAnimating(false);
           }}
@@ -96,7 +91,7 @@ function MyApp({ Component, pageProps, router }) {
             className={`${lausanne.variable} ${timesNew.variable}`}
           >
             <Component
-              startPageAnimation={startPageAnimation}
+              numbersProgress={numbersProgress}
               isAnimating={isAnimating}
               {...pageProps}
             />

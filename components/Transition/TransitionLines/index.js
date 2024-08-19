@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-const LoadingLines = ({ startLinesAnimation, onLoadingComplete }) => {
+const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
   const [lines, setLines] = useState([]);
   const lineContainerRef = useRef(null);
   const linesReadyRef = useRef(false);
@@ -49,8 +49,8 @@ const LoadingLines = ({ startLinesAnimation, onLoadingComplete }) => {
           backgroundColor: "#0F1010",
         },
         {
-          scaleY: `${startLinesAnimation ? 0 : 1}`,
-          backgroundColor: `${startLinesAnimation ? `#C34356` : `#0F1010`}`,
+          scaleY: `${numbersProgress >= 100 ? 0 : 1}`,
+          backgroundColor: `${numbersProgress >= 100 ? `#C34356` : `#0F1010`}`,
           duration: duration,
           delay: 0.05,
           ease: "power4.inOut",
@@ -86,7 +86,7 @@ const LoadingLines = ({ startLinesAnimation, onLoadingComplete }) => {
           })
         );
     }
-  }, [startLinesAnimation]);
+  }, [numbersProgress]);
 
   return (
     <div className={`${styles["line-container"]}`} ref={lineContainerRef}>

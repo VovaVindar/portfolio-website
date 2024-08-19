@@ -5,7 +5,7 @@ import Marquee from "@/components/Marquee";
 import Work from "@/components/Work";
 import Footer from "@/components/Footer";
 import { TransitionContext } from "@/context/TransitionContext";
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef, useEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -13,8 +13,9 @@ import MouseFollower from "@/components/MouseFollower";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Home({ startPageAnimation, isAnimating }) {
+export default function Home({ isAnimating, numbersProgress }) {
   const { timeline } = useContext(TransitionContext);
+  const [startPageAnimation, setStartPageAnimation] = useState(false);
   const container = useRef(null);
   const onloadRefs = useRef([]);
 
@@ -24,6 +25,12 @@ export default function Home({ startPageAnimation, isAnimating }) {
       document.querySelectorAll("[data-gsap]").length
     );
   }, []);
+
+  useEffect(() => {
+    if (numbersProgress >= 100) {
+      setTimeout(() => setStartPageAnimation(true), 250);
+    }
+  }, [numbersProgress]);
 
   useGSAP(() => {
     if (onloadRefs.current.length) {
@@ -41,23 +48,7 @@ export default function Home({ startPageAnimation, isAnimating }) {
               color: "#0F1010",
               duration: duration,
               ease: "power4.inOut",
-              stagger: function (index, target, list) {
-                if (index <= 2) {
-                  return 0;
-                } else if (index >= 3 && index <= 7) {
-                  return 1 * staggerInterval;
-                } else if (index >= 8 && index <= 10) {
-                  return 2 * staggerInterval;
-                } else if (index >= 11 && index <= 13) {
-                  return 3 * staggerInterval;
-                } else if (index < 35) {
-                  return (index - 9) * staggerInterval;
-                } else if (index >= 35 && index <= 36) {
-                  return 26 * staggerInterval;
-                } else {
-                  return (index - 10) * staggerInterval;
-                }
-              },
+              stagger: (index) => calculateStagger(index, staggerInterval),
             }
           );
         },
@@ -65,6 +56,16 @@ export default function Home({ startPageAnimation, isAnimating }) {
       });
     }
   }, [startPageAnimation]);
+
+  const calculateStagger = (index, interval) => {
+    if (index <= 2) return 0;
+    if (index >= 3 && index <= 7) return 1 * interval;
+    if (index >= 8 && index <= 10) return 2 * interval;
+    if (index >= 11 && index <= 13) return 3 * interval;
+    if (index < 35) return (index - 9) * interval;
+    if (index >= 35 && index <= 36) return 26 * interval;
+    return (index - 10) * interval;
+  };
 
   return (
     <>

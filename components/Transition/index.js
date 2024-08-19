@@ -7,8 +7,8 @@ import TransitionLines from "@/components/Transition/TransitionLines";
 
 export default function TransitionLayout({
   children,
-  startLinesAnimation,
   onLoadingComplete,
+  numbersProgress,
   ...props
 }) {
   const [displayChildren, setDisplayChildren] = useState(children);
@@ -35,7 +35,7 @@ export default function TransitionLayout({
   return (
     <>
       <TransitionLines
-        startLinesAnimation={startLinesAnimation}
+        numbersProgress={numbersProgress}
         onLoadingComplete={onLoadingComplete}
       />
       {childrenWithProps}
