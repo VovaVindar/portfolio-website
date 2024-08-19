@@ -1,9 +1,39 @@
 import MouseFollower from "@/components/MouseFollower";
 import React, { useRef, useState, useEffect } from "react";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import imagesLoaded from "imagesLoaded";
 
-const Preloader = ({ numbersProgress, className }) => {
+const Preloader = ({
+  numbersProgress,
+  mainRef,
+  setNumbersProgress,
+  className,
+}) => {
+  const intervalDuration = 60;
+
+  useEffect(() => {
+    if (mainRef.current) {
+      const imgLoad = imagesLoaded(mainRef.current, { background: true });
+
+      let currentProgress = 0;
+      const intervalId = setInterval(() => {
+        const newProgress =
+          (imgLoad.progressedCount / imgLoad.images.length) * 100;
+        if (newProgress > currentProgress) {
+          const increment = Math.min(newProgress - currentProgress, 8);
+          currentProgress += increment;
+          setNumbersProgress(currentProgress.toFixed(0));
+        } else if (currentProgress === 100) {
+          clearInterval(intervalId);
+        }
+      }, intervalDuration);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [mainRef, setNumbersProgress]);
+
   const mouseFollowerRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
 

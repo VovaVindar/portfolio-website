@@ -1,9 +1,8 @@
 import "./styles/globals.css";
 import "./styles/design-system.css";
 import localFont from "next/font/local";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import Preloader from "@/components/Preloader";
-import imagesLoaded from "imagesLoaded";
 import { TransitionProvider } from "@/context/TransitionContext";
 import Transition from "@/components/Transition";
 
@@ -45,37 +44,24 @@ function MyApp({ Component, pageProps, router }) {
   const [numbersProgress, setNumbersProgress] = useState(0);
   const mainRef = useRef(null);
 
-  const intervalDuration = 60;
-
+  // Scroll to top when mainRef changes
   useEffect(() => {
     if (mainRef.current) {
       window.scrollTo(0, 0);
-
-      const imgLoad = imagesLoaded(mainRef.current, { background: true });
-
-      let currentProgress = 0;
-      const intervalId = setInterval(() => {
-        const newProgress =
-          (imgLoad.progressedCount / imgLoad.images.length) * 100;
-        if (newProgress > currentProgress) {
-          const increment = Math.min(newProgress - currentProgress, 8);
-          currentProgress += increment;
-          setNumbersProgress(currentProgress.toFixed(0));
-        } else if (currentProgress === 100) {
-          clearInterval(intervalId);
-        }
-      }, intervalDuration);
-
-      return () => {
-        clearInterval(intervalId);
-      };
     }
-  }, [mainRef]);
+  }, [router.route]);
+
+  // Use useCallback to ensure setNumbersProgress does not change on re-renders
+  const updateProgress = useCallback((progress) => {
+    setNumbersProgress(progress);
+  }, []);
 
   return (
     <>
       <Preloader
         numbersProgress={numbersProgress}
+        mainRef={mainRef}
+        setNumbersProgress={updateProgress}
         className={`${lausanne.variable}`}
       />
       <TransitionProvider>
