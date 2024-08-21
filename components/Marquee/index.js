@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
-import Image from "next/image";
+import MagneticImage from "./MagneticImage";
 
 const Marquee = ({ startPageAnimation }) => {
   const [x, setX] = useState(0);
@@ -115,12 +115,7 @@ const Marquee = ({ startPageAnimation }) => {
             key={index}
             ref={(el) => (marqueeElementsRef.current[index] = el)}
           >
-            <Image
-              src="/marquee.png"
-              fill
-              alt="Picture of the author"
-              priority
-            />
+            <MagneticImage />
           </div>
         ))}
       </div>

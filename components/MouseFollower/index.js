@@ -20,7 +20,7 @@ const MouseFollower = forwardRef(
       };
 
       const clipPathKeyframes = {
-        clipPath: `circle(1.2rlh at ${x}px ${y}px)`,
+        clipPath: `circle(0.5rlh at ${x}px ${y}px)`,
       };
 
       if (followerRef.current) {

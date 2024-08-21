@@ -22,6 +22,8 @@
     var(--token-color-surface-contrast) 1px,
     transparent 1px
   );
+  background-color: red;
+
   background-size: 100vw 1rlh;
   pointer-events: none;
   user-select: none;
@@ -29,16 +31,11 @@
   transition: opacity 0.6s cubic-bezier(0.6, 0.4, 0.7, 0.5);
 }
 .lines-gradient {
-  height: 2.4rlh;
-  width: 2.4rlh;
-  margin-left: -1.2rlh;
-  margin-top: -1.2rlh;
+  height: 1rlh;
+  width: 1rlh;
+  margin-left: -0.5rlh;
+  margin-top: -0.5rlh;
   border-radius: 0%;
-  background: radial-gradient(
-    circle at 50% 50%,
-    transparent 0%,
-    var(--token-color-surface-primary) 95%
-  );
   opacity: 1;
   z-index: -1;
   position: fixed;
