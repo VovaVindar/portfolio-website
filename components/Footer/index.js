@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Footer.module.css";
-import Link from "next/link";
+import SocialLinks from "./SocialLinks";
+import MagneticLink from "@/components/MagneticLink";
 
 const Footer = () => {
   const [time, setTime] = useState({ hours: "", minutes: "" });
@@ -41,17 +42,7 @@ const Footer = () => {
         </div>
         <div>
           <span className="text-header-3">Social:</span>
-          <p>
-            <Link href="https://www.linkedin.com/in/vovavindar/">
-              LinkedIn,
-            </Link>
-          </p>
-          <p>
-            <Link href="https://www.instagram.com/vovavindar/">Instagram,</Link>
-          </p>
-          <p>
-            <Link href="https://dribbble.com/VovaVindar">Dribbble</Link>
-          </p>
+          <SocialLinks />
         </div>
         <div>
           <span className="text-header-3">Colophon:</span>
@@ -67,9 +58,9 @@ const Footer = () => {
         </div>
         <div className="text-body-3">
           <p>
-            <span>
+            <MagneticLink href={"/privacy"}>
               Privacy <span>Policy</span>
-            </span>
+            </MagneticLink>
           </p>
         </div>
       </div>

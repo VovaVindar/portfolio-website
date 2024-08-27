@@ -1,0 +1,7 @@
+.social-links p {
+  width: fit-content;
+  transition: opacity 0.35s cubic-bezier(0.45, 0, 0.55, 1);
+}
+.social-links p.faded {
+  opacity: 0.3;
+}

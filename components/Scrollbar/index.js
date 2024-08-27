@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Scrollbar.module.css";
-import Link from "next/link";
+import MagneticLink from "@/components/MagneticLink";
 
 const Scrollbar = ({ text = "", href = "/", isAnimating }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -42,9 +42,9 @@ const Scrollbar = ({ text = "", href = "/", isAnimating }) => {
 
   return (
     <div className={`${styles["scrollbar-container"]} text-body-1-uppercase`}>
-      <Link href={href} style={pStyle} scroll={false}>
+      <MagneticLink href={href} style={pStyle} scroll={false}>
         {text}
-      </Link>
+      </MagneticLink>
     </div>
   );
 };
