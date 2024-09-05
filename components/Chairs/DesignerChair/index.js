@@ -38,7 +38,7 @@ const DesignerChair = () => {
       controls.maxPolarAngle = Math.PI / 2; // Limit vertical rotation
       controls.minPolarAngle = Math.PI / 2; // Limit vertical rotation
       controls.autoRotate = true; // Enable auto-rotation
-      controls.autoRotateSpeed = 1; // Speed of auto-rotation
+      controls.autoRotateSpeed = -1; // Speed of auto-rotation
     }
 
     function addLighting() {

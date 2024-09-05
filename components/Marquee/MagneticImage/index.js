@@ -4,7 +4,9 @@ import gsap from "gsap";
 
 const MagneticImage = () => {
   const magneticAreaRef = useRef(null);
-  const [scale, setScale] = useState(1.025);
+  const maxScale = 1.025;
+  const minScale = 0.975;
+  const [scale, setScale] = useState(maxScale);
 
   useEffect(() => {
     const mArea = magneticAreaRef.current;
@@ -31,7 +33,7 @@ const MagneticImage = () => {
     const handleMouseMove = (e) => parallaxIt(e, scale);
 
     const handleMouseLeave = () => {
-      setScale(1.03);
+      setScale(maxScale);
       gsap.to(mArea, {
         scale: 1,
         x: 0,
@@ -42,13 +44,13 @@ const MagneticImage = () => {
     };
 
     const handleMouseDown = (e) => {
-      setScale(0.97);
-      parallaxIt(e, 0.97);
+      setScale(minScale);
+      parallaxIt(e, minScale);
     };
 
     const handleMouseUp = (e) => {
-      setScale(1.025);
-      parallaxIt(e, 1.025);
+      setScale(maxScale);
+      parallaxIt(e, maxScale);
     };
 
     mArea.addEventListener("mousemove", handleMouseMove);

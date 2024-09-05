@@ -73,7 +73,11 @@ export default function Home({ isAnimating, numbersProgress }) {
       <Head>
         <title>Vova Vindar</title>
       </Head>
-      <Scrollbar text={"Contact"} href="/contact" isAnimating={isAnimating} />
+      <Scrollbar
+        text={"Contact"}
+        href="mailto:vovavindar@gmail.com"
+        isAnimating={isAnimating}
+      />
       <div ref={container} className={`${styles["home-container"]}`}>
         {/*<MouseFollower type="lines" />*/}
         <div className={`${styles["hero-container"]}`}>

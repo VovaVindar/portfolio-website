@@ -7,13 +7,16 @@ const Marquee = ({ startPageAnimation }) => {
   const [dragSpeed, setDragSpeed] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragXStart, setDragXStart] = useState(0);
-  const [speed, setSpeed] = useState(0.4);
+  const [speed, setSpeed] = useState(0);
+  const desktopSpeed = 0.2;
+  const mobileSpeed = 0.7;
   const [trackWidth, setTrackWidth] = useState(0);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const marqueeTrackRef = useRef(null);
   const marqueeElementsRef = useRef([]);
   const animationRef = useRef(null);
   const copiesCount = 5;
+  const dragMultiply = 1.15;
 
   useEffect(() => {
     if (startPageAnimation) {
@@ -27,7 +30,7 @@ const Marquee = ({ startPageAnimation }) => {
 
   useEffect(() => {
     const updateSpeed = () => {
-      setSpeed(window.innerWidth <= 820 ? 0.7 : 0.35);
+      setSpeed(window.innerWidth <= 820 ? mobileSpeed : desktopSpeed);
     };
 
     updateSpeed();
@@ -88,7 +91,7 @@ const Marquee = ({ startPageAnimation }) => {
   const onDrag = (t) => {
     if (isDragging) {
       const clientX = t.clientX || (t.touches ? t.touches[0].clientX : 0);
-      setDragSpeed(dragXStart - clientX);
+      setDragSpeed((dragXStart - clientX) * dragMultiply);
       setDragXStart(clientX);
     }
   };

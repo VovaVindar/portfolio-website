@@ -56,13 +56,13 @@ const Footer = () => {
             <p>2024 ©</p>
           </div>
         </div>
-        <div className="text-body-3">
+        {/*<div className="text-body-3">
           <p>
             <MagneticLink href={"/privacy"}>
               Privacy <span>Policy</span>
             </MagneticLink>
           </p>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

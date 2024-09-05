@@ -1,5 +1,4 @@
 .work {
-  margin-top: calc(4rlh + 1px);
   height: calc(30rlh - 1px);
   width: fit-content;
   background-color: var(--token-color-surface-secondary);

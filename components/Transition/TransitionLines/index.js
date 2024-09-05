@@ -11,7 +11,7 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
   var totalLines = 0;
 
   const timelineIntro = gsap.timeline({});
-  const { timelineExit } = useContext(TransitionContext);
+  //const { timelineExit } = useContext(TransitionContext);
 
   useEffect(() => {
     const generateLines = () => {
@@ -62,7 +62,7 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
         }
       );
 
-      timelineExit
+      /*timelineExit
         .add(
           gsap.to(lines, {
             scaleY: 1,
@@ -84,7 +84,7 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
               from: "start",
             },
           })
-        );
+        );*/
     }
   }, [numbersProgress]);
 
