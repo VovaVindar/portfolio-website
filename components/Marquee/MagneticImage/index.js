@@ -4,7 +4,7 @@ import gsap from "gsap";
 
 const MagneticImage = () => {
   const magneticAreaRef = useRef(null);
-  const maxScale = 1.025;
+  const maxScale = 1.018;
   const minScale = 0.975;
   const [scale, setScale] = useState(maxScale);
 

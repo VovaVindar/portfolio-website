@@ -123,7 +123,9 @@ export default function Home({ isAnimating, numbersProgress }) {
               <div
                 className={`${styles["chair"]}`}
                 ref={(el) => (onloadRefs.current[6] = el)}
-              ></div>
+              >
+                <DesignerChair />
+              </div>
             </div>
             <div>
               <span

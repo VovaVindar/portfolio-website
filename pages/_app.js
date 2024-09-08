@@ -62,7 +62,7 @@ function MyApp({ Component, pageProps, router }) {
         numbersProgress={numbersProgress}
         mainRef={mainRef}
         setNumbersProgress={updateProgress}
-        className={`${lausanne.variable}`}
+        className={`${lausanne.variable} ${timesNew.variable}`}
       />
       <TransitionProvider>
         <Transition

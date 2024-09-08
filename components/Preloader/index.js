@@ -1,4 +1,3 @@
-import MouseFollower from "@/components/MouseFollower";
 import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import imagesLoaded from "imagesLoaded";
@@ -9,7 +8,7 @@ const Preloader = ({
   setNumbersProgress,
   className,
 }) => {
-  const intervalDuration = 60;
+  const intervalDuration = 140;
 
   useEffect(() => {
     if (mainRef.current) {
@@ -20,7 +19,7 @@ const Preloader = ({
         const newProgress =
           (imgLoad.progressedCount / imgLoad.images.length) * 100;
         if (newProgress > currentProgress) {
-          const increment = Math.min(newProgress - currentProgress, 8);
+          const increment = Math.min(newProgress - currentProgress, 10);
           currentProgress += increment;
           setNumbersProgress(currentProgress.toFixed(0));
         } else if (currentProgress === 100) {
@@ -34,14 +33,17 @@ const Preloader = ({
     }
   }, [mainRef, setNumbersProgress]);
 
-  const mouseFollowerRef = useRef(null);
+  const containerRef = useRef(null);
+  const progressIndicatorRef = useRef(null);
+  const magneticAreaRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (mouseFollowerRef.current) {
-      gsap.to(mouseFollowerRef.current, {
+    if (containerRef.current) {
+      gsap.to(containerRef.current, {
         autoAlpha: `${numbersProgress >= 100 ? 0 : 1}`,
         filter: `blur(${numbersProgress >= 100 ? 2 : 0}px)`,
+        color: `${numbersProgress >= 100 ? "red" : "white"}`,
         duration: 1,
         delay: 0.1,
         ease: "power4.out",
@@ -50,19 +52,33 @@ const Preloader = ({
         },
       });
     }
+    if (progressIndicatorRef.current) {
+      gsap.to(progressIndicatorRef.current, {
+        paddingLeft: `calc(${numbersProgress}% - 3ch)`,
+        duration: 1,
+        ease: "power4.out",
+      });
+    }
   }, [numbersProgress]);
 
   return (
     <>
       {isLoading && (
         <div className={`preloader ${className}`}>
-          <MouseFollower
-            ref={mouseFollowerRef}
-            type="text"
-            text={numbersProgress}
-            className={`${className}`}
-            style={{ color: "var(--token-color-text-contrast)" }}
-          />
+          <div className={`text-container`} ref={containerRef}>
+            <div>
+              <p className={`text-body-3 red`}>Vova Vindar</p>
+              <p className={`text-header-3 bracket red`}>{"("}</p>
+            </div>
+            <div>
+              <p className={`text-body-3`} ref={progressIndicatorRef}>
+                {numbersProgress}
+              </p>
+            </div>
+            <div>
+              <p className={`text-header-3 bracket red`}>{"    )"}</p>
+            </div>
+          </div>
         </div>
       )}
     </>
