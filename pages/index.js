@@ -79,7 +79,7 @@ export default function Home({ isAnimating, numbersProgress }) {
         isAnimating={isAnimating}
       />
       <div ref={container} className={`${styles["home-container"]}`}>
-        {/*<MouseFollower type="lines" />*/}
+        <MouseFollower type="lines" />
         <div className={`${styles["hero-container"]}`}>
           <div className={`${styles["skills"]} text-body-1`}>
             <div className={`${styles["chair-container"]}`}>

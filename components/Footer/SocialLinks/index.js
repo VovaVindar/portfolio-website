@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import styles from "./SocialLinks.module.css";
 import MagneticLink from "@/components/MagneticLink";
 

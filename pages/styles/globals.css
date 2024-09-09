@@ -204,7 +204,7 @@ p {
 }
 .preloader .text-container .red {
   filter: blur(1.4px);
-  opacity: 0.8;
+  opacity: 0.75;
   color: red;
 }
 .preloader .text-container div:nth-of-type(1) {
@@ -221,6 +221,7 @@ p {
   width: 3ch;
   text-align: right;
   padding-left: calc(0% - 3ch);
+  filter: blur(0.5px);
 }
 .preloader .text-container div:last-of-type {
   margin-left: 1px;

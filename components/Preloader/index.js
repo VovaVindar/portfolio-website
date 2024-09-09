@@ -35,7 +35,6 @@ const Preloader = ({
 
   const containerRef = useRef(null);
   const progressIndicatorRef = useRef(null);
-  const magneticAreaRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -68,16 +67,16 @@ const Preloader = ({
           <div className={`text-container`} ref={containerRef}>
             <div>
               <p className={`text-body-3 red`}>Vova Vindar</p>
-              <p className={`text-header-3 bracket red`}>{"("}</p>
+              {/*<p className={`text-header-3 bracket red`}>{"("}</p>*/}
             </div>
             <div>
               <p className={`text-body-3`} ref={progressIndicatorRef}>
                 {numbersProgress}
               </p>
             </div>
-            <div>
+            {/*<div>
               <p className={`text-header-3 bracket red`}>{"    )"}</p>
-            </div>
+            </div>*/}
           </div>
         </div>
       )}
