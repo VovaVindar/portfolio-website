@@ -218,7 +218,7 @@ export default function Home({ isAnimating, numbersProgress }) {
           </div>
         </div>
         <Marquee startPageAnimation={startPageAnimation} />
-        <div className={`${styles["clients"]}`} data-cursor-text="Hello!">
+        <div className={`${styles["clients"]}`}>
           <div className={`text-body-1`}>
             <div className={`text-body-2`}>
               <p ref={(el) => (onloadRefs.current[35] = el)}>

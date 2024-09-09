@@ -37,11 +37,10 @@
 }
 .mf-cursor.-text:before {
   opacity: 0.85;
-  transform: scale(1.7);
+  transform: scale(0);
 }
 .mf-cursor.-text.-active:before {
-  transform: scale(1.6);
-  transition-duration: 0.2s;
+  transform: scale(0);
 }
 .mf-cursor.-icon:before {
   transform: scale(1.5);
@@ -54,7 +53,7 @@
 }
 .mf-cursor-text {
   position: absolute;
-  top: -18px;
+  top: 18px;
   left: -18px;
   width: 36px;
   height: 36px;
@@ -63,11 +62,19 @@
   justify-content: center;
   transform: scale(0) rotate(10deg);
   opacity: 0;
-  color: #fff;
+  color: var(--token-color-text-contrast);
   font-size: 16px;
   line-height: 20px;
   text-align: center;
   transition: opacity 0.4s, transform 0.3s;
+
+  font-size: var(--token-font-size-4);
+  font-family: var(--lausanne);
+  font-weight: 600;
+  letter-spacing: var(--token-letter-spacing-5);
+  height: 1rlh;
+  line-height: 70%;
+  text-transform: uppercase;
 }
 .mf-cursor.-text .mf-cursor-text,
 .mf-cursor.-icon .mf-cursor-text {

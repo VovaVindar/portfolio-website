@@ -66,7 +66,12 @@ const MagneticLink = ({ href, children, style }) => {
 
   return (
     <>
-      <Link ref={magneticAreaRef} href={href} style={style}>
+      <Link
+        ref={magneticAreaRef}
+        href={href}
+        style={style}
+        className={"mf-hidden"}
+      >
         {children}
       </Link>
     </>

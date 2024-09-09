@@ -1,20 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import styles from "./CursorContainer.module.css";
+import { useEffect } from "react";
 import gsap from "gsap";
 import MouseFollower from "mouse-follower";
 
 MouseFollower.registerGSAP(gsap);
 
-const MouseContainer = () => {
-  const maskRef = useRef(null);
-
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-    if (maskRef.current) {
-      maskRef.current.style.backgroundPosition = `0 -${scrollPosition}px`;
-    }
-  };
-
+const CursorContainer = ({ className }) => {
   useEffect(() => {
     const cursor = new MouseFollower({
       speed: 1.1,
@@ -23,23 +13,14 @@ const MouseContainer = () => {
       skewingMedia: 0,
       stickDelta: 0.3,
       stateDetection: {
-        "-pointer": ".mf-pointer",
         "-exclusion": ".mf-exclusion",
-        "-hidden": ".logo",
+        "-hidden": ".mf-hidden",
       },
+      className: `mf-cursor ${className}`,
     });
+  }, [className]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  return (
-    <div className={styles["cursor-container"]}>
-      <div className={styles["background-lines"]} ref={maskRef} />
-    </div>
-  );
+  return null;
 };
 
-export default MouseContainer;
+export default CursorContainer;

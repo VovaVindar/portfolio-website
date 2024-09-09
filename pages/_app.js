@@ -1,11 +1,13 @@
 import "./styles/globals.css";
 import "./styles/design-system.css";
+import "./styles/mouse-follower.css";
 import localFont from "next/font/local";
 import { useRef, useEffect, useState, useCallback } from "react";
 import Preloader from "@/components/Preloader";
 import { TransitionProvider } from "@/context/TransitionContext";
 import Transition from "@/components/Transition";
 import CursorContainer from "@/components/CursorContainer";
+import SmoothScrolling from "@/components/SmoothScrolling";
 
 const lausanne = localFont({
   src: [
@@ -63,9 +65,11 @@ function MyApp({ Component, pageProps, router }) {
         numbersProgress={numbersProgress}
         mainRef={mainRef}
         setNumbersProgress={updateProgress}
+        className={`${lausanne.variable}`}
+      />
+      <CursorContainer
         className={`${lausanne.variable} ${timesNew.variable}`}
       />
-      <CursorContainer />
       <TransitionProvider>
         <Transition
           numbersProgress={numbersProgress}
@@ -73,17 +77,19 @@ function MyApp({ Component, pageProps, router }) {
             setIsAnimating(false);
           }}
         >
-          <main
-            ref={mainRef}
-            key={router.route}
-            className={`${lausanne.variable} ${timesNew.variable}`}
-          >
-            <Component
-              numbersProgress={numbersProgress}
-              isAnimating={isAnimating}
-              {...pageProps}
-            />
-          </main>
+          <SmoothScrolling>
+            <main
+              ref={mainRef}
+              key={router.route}
+              className={`${lausanne.variable} ${timesNew.variable}`}
+            >
+              <Component
+                numbersProgress={numbersProgress}
+                isAnimating={isAnimating}
+                {...pageProps}
+              />
+            </main>
+          </SmoothScrolling>
         </Transition>
       </TransitionProvider>
     </>

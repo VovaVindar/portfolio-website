@@ -117,6 +117,8 @@ const Marquee = ({ startPageAnimation }) => {
           <div
             key={index}
             ref={(el) => (marqueeElementsRef.current[index] = el)}
+            data-cursor-text="Vitamin Living"
+            className={`mf-exclusion`}
           >
             <MagneticImage />
           </div>
