@@ -5,6 +5,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import Preloader from "@/components/Preloader";
 import { TransitionProvider } from "@/context/TransitionContext";
 import Transition from "@/components/Transition";
+import CursorContainer from "@/components/CursorContainer";
 
 const lausanne = localFont({
   src: [
@@ -64,6 +65,7 @@ function MyApp({ Component, pageProps, router }) {
         setNumbersProgress={updateProgress}
         className={`${lausanne.variable} ${timesNew.variable}`}
       />
+      <CursorContainer />
       <TransitionProvider>
         <Transition
           numbersProgress={numbersProgress}

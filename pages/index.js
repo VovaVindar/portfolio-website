@@ -9,7 +9,7 @@ import { useContext, useRef, useEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import MouseFollower from "@/components/MouseFollower";
+//import MouseFollower from "@/components/MouseFollower";
 import DesignerChair from "@/components/Chairs/DesignerChair";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -79,7 +79,7 @@ export default function Home({ isAnimating, numbersProgress }) {
         isAnimating={isAnimating}
       />
       <div ref={container} className={`${styles["home-container"]}`}>
-        <MouseFollower type="lines" />
+        {/*<MouseFollower type="lines" />*/}
         <div className={`${styles["hero-container"]}`}>
           <div className={`${styles["skills"]} text-body-1`}>
             <div className={`${styles["chair-container"]}`}>
@@ -218,7 +218,7 @@ export default function Home({ isAnimating, numbersProgress }) {
           </div>
         </div>
         <Marquee startPageAnimation={startPageAnimation} />
-        <div className={`${styles["clients"]}`}>
+        <div className={`${styles["clients"]}`} data-cursor-text="Hello!">
           <div className={`text-body-1`}>
             <div className={`text-body-2`}>
               <p ref={(el) => (onloadRefs.current[35] = el)}>

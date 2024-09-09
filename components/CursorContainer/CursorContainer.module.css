@@ -1,0 +1,31 @@
+.cursor-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  user-select: none;
+  transition: opacity 0.6s cubic-bezier(0.6, 0.4, 0.7, 0.5);
+  transition-delay: 0.4s;
+}
+.background-lines {
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-position: 0 0;
+  background-image: linear-gradient(
+    to bottom,
+    var(--token-color-surface-contrast) 1px,
+    transparent 1px
+  );
+
+  background-size: 100vw 1rlh;
+  pointer-events: none;
+  user-select: none;
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.6, 0.4, 0.7, 0.5);
+}
