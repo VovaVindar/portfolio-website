@@ -8,6 +8,9 @@
   transition: opacity 1.5s cubic-bezier(0.8, 0, 0.8, 1);
   transition-delay: calc((15 * 0.085s) + 0.2s);
 }
+.marquee-container:active {
+  cursor: grabbing;
+}
 .marquee-container .marquee-track {
   will-change: transform;
   display: flex;

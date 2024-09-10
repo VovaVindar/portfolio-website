@@ -28,6 +28,12 @@
   background-color: var(--token-color-surface-secondary);
   filter: blur(0px) !important;
 }
+.skills .chair-container .chair canvas {
+  cursor: grab;
+}
+.skills .chair-container .chair canvas:active {
+  cursor: grabbing;
+}
 .skills .chair-container .chair div {
   width: 100%;
   height: 100%;

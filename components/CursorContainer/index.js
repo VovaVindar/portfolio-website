@@ -54,9 +54,11 @@ const CursorContainer = ({ className, scrollThreshold = 100 }) => {
     window.addEventListener("scroll", handleScroll);
 
     cursor.setImg(images[0]);
+    cursor.addState("-media");
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      cursor.destroy();
     };
   }, [className, scrollThreshold]);
 

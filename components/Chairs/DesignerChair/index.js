@@ -94,7 +94,13 @@ const DesignerChair = () => {
     };
   }, []);
 
-  return <div ref={mountRef} style={{ width: "100%", height: "100%" }}></div>;
+  return (
+    <div
+      ref={mountRef}
+      style={{ width: "100%", height: "100%" }}
+      className={"mf-hidden"}
+    ></div>
+  );
 };
 
 export default DesignerChair;

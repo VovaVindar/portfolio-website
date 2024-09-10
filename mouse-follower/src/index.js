@@ -194,7 +194,28 @@ export default class MouseFollower {
     bind() {
         this.event.mouseleave = () => this.hide();
         this.event.mouseenter = () => this.show();
-        this.event.mousedown = () => this.addState(this.options.activeState);
+        this.event.mousedown = (e) => {
+            this.addState(this.options.activeState);
+
+            // Customized so cursor updates text when data-cursor-text changes
+            for (
+                let target = e.target;
+                target && target !== this.container;
+                target = target.parentNode
+            ) {
+                if (e.relatedTarget && target.contains(e.relatedTarget)) break;
+
+                for (let state in this.options.stateDetection) {
+                    if (target.matches(this.options.stateDetection[state]))
+                        this.addState(state);
+                }
+
+                if (this.options.dataAttr) {
+                    const params = this.getFromDataset(target);
+                    if (params.text) this.setText(params.text);
+                }
+            }
+        };
         this.event.mouseup = () => this.removeState(this.options.activeState);
         this.event.mousemoveOnce = () => this.show();
         this.event.mousemove = (e) => {
