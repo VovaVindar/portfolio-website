@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import gsap from "gsap";
-import MouseFollower from "mouse-follower";
+import MouseFollower from "@/mouse-follower/src";
 
 MouseFollower.registerGSAP(gsap);
 

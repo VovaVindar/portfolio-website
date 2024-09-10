@@ -36,9 +36,12 @@ const Preloader = ({
   const containerRef = useRef(null);
   const progressIndicatorRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
     if (containerRef.current) {
+      setOpacity(1);
+
       gsap.to(containerRef.current, {
         autoAlpha: `${numbersProgress >= 100 ? 0 : 1}`,
         filter: `blur(${numbersProgress >= 100 ? 2 : 0}px)`,
@@ -60,10 +63,14 @@ const Preloader = ({
     }
   }, [numbersProgress]);
 
+  const style = {
+    opacity: opacity,
+  };
+
   return (
     <>
       {isLoading && (
-        <div className={`preloader ${className}`}>
+        <div className={`preloader ${className}`} style={style}>
           <div className={`text-container`} ref={containerRef}>
             <div>
               <p className={`text-body-3 red`}>Vova Vindar</p>

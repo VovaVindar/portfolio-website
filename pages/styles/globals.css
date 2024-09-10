@@ -179,7 +179,6 @@ p {
   left: 0;
   width: 100vw;
   min-height: 100vh;
-  background-color: var(--token-color-surface-primary);
   z-index: 99;
   user-select: none;
   display: flex;
@@ -187,6 +186,8 @@ p {
   align-items: center;
   padding: 1rlh;
   background-color: transparent;
+  opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.6, 0.4, 0.7, 0.5);
 }
 .preloader .text-container {
   display: flex;
@@ -202,7 +203,7 @@ p {
   transform: translateY(-5%);
 }
 .preloader .text-container .red {
-  filter: blur(1.3px);
+  filter: blur(1.25px);
   opacity: 0.75;
   color: red;
 }
