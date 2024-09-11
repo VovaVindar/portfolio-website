@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import styles from "./Preloader.module.css";
 import gsap from "gsap";
 import imagesLoaded from "imagesLoaded";
 
@@ -70,11 +71,11 @@ const Preloader = ({
   return (
     <>
       {isLoading && (
-        <div className={`preloader ${className}`} style={style}>
-          <div className={`text-container`} ref={containerRef}>
+        <div className={`${styles["preloader"]} ${className}`} style={style}>
+          <div className={`${styles["text-container"]}`} ref={containerRef}>
             <div>
-              <p className={`text-body-3 red`}>Vova Vindar</p>
-              {/*<p className={`text-header-3 bracket red`}>{"("}</p>*/}
+              <p className={`text-body-3 ${styles["red"]}`}>Vova Vindar</p>
+              {/*<p className={`text-header-3 ${styles["bracket"]} ${styles["red"]}`}>{"("}</p>*/}
             </div>
             <div>
               <p className={`text-body-3`} ref={progressIndicatorRef}>
@@ -82,7 +83,7 @@ const Preloader = ({
               </p>
             </div>
             {/*<div>
-              <p className={`text-header-3 bracket red`}>{"    )"}</p>
+              <p className={`text-header-3 ${styles["bracket"]} ${styles["red"]}`}>{"    )"}</p>
             </div>*/}
           </div>
         </div>

@@ -77,7 +77,7 @@ function MyApp({ Component, pageProps, router }) {
             setIsAnimating(false);
           }}
         >
-          <SmoothScrolling>
+          <SmoothScrolling isAnimating={isAnimating}>
             <main
               ref={mainRef}
               key={router.route}

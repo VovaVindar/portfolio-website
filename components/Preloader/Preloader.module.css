@@ -1,0 +1,54 @@
+/* Preloader */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  z-index: 252;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rlh;
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.6, 0.4, 0.7, 0.5);
+}
+.preloader .text-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  position: relative;
+  color: var(--token-color-text-contrast);
+  white-space: pre;
+  transform: translateY(-1rlh);
+}
+.preloader .text-container .bracket {
+  transform: translateY(-5%);
+}
+.preloader .text-container .red {
+  filter: blur(1.25px);
+  opacity: 0.75;
+  color: red;
+}
+.preloader .text-container div:nth-of-type(1) {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 2rlh;
+}
+.preloader .text-container div:nth-of-type(2) {
+  width: 100%;
+  position: relative;
+}
+.preloader .text-container div:nth-of-type(2) p {
+  width: 3ch;
+  text-align: right;
+  padding-left: calc(0% - 3ch);
+  filter: blur(0.5px);
+}
+.preloader .text-container div:last-of-type {
+  margin-left: 1px;
+}

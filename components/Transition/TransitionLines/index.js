@@ -6,7 +6,7 @@ import gsap from "gsap";
 
 const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
   const [lines, setLines] = useState([]);
-  const lineContainerRef = useRef(null);
+  const linesContainerRef = useRef(null);
   const linesReadyRef = useRef(false);
   var totalLines = 0;
 
@@ -27,7 +27,7 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
         linesArray.push(<div key={i} className={`${styles["line"]}`}></div>);
       }
       setLines(linesArray);
-      lineContainerRef.current.style.backgroundColor = "transparent";
+      linesContainerRef.current.style.backgroundColor = "transparent";
       linesReadyRef.current = true;
     };
 
@@ -35,8 +35,10 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
   }, []);
 
   useGSAP(() => {
-    if (linesReadyRef.current && lineContainerRef.current) {
-      const lines = lineContainerRef.current.children;
+    if (linesReadyRef.current && linesContainerRef.current) {
+      linesContainerRef.current.classList.add("loading");
+
+      const lines = linesContainerRef.current.children;
 
       var staggerInterval = totalLines <= 50 ? 0.04 : 0.02;
       var duration = 1.25;
@@ -58,7 +60,12 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
             each: staggerInterval,
             from: "start",
           },
-          onComplete: onLoadingComplete,
+          onComplete: () => {
+            setTimeout(() => {
+              onLoadingComplete();
+              linesContainerRef.current.classList.remove("loading");
+            }, 610); // for some reason, onComplete is called early
+          },
         }
       );
 
@@ -89,7 +96,10 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
   }, [numbersProgress]);
 
   return (
-    <div className={`${styles["line-container"]}`} ref={lineContainerRef}>
+    <div
+      className={`${styles["line-container"]} loading`}
+      ref={linesContainerRef}
+    >
       {lines}
     </div>
   );

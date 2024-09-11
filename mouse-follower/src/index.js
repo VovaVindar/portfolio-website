@@ -211,8 +211,10 @@ export default class MouseFollower {
                 }
 
                 if (this.options.dataAttr) {
-                    const params = this.getFromDataset(target);
-                    if (params.text) this.setText(params.text);
+                    setTimeout(() => {
+                        const params = this.getFromDataset(target);
+                        if (params.text) this.setText(params.text);
+                    }, 200);
                 }
             }
         };
