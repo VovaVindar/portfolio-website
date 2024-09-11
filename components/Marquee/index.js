@@ -24,7 +24,7 @@ const Marquee = ({ startPageAnimation }) => {
         marqueeElementsRef.current.forEach((el) => {
           if (el) el.classList.add(`${styles["visible"]}`);
         });
-      }, 17 * 85 + 250);
+      }, 17 * 85);
     }
   }, [startPageAnimation]);
 

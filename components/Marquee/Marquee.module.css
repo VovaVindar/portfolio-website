@@ -22,11 +22,11 @@
   height: calc(27rlh + 1px);
   width: 44rlh;
   opacity: 0;
-  transition: opacity 2.4s cubic-bezier(0.15, 0.35, 0.35, 1); /* power2.out */
+  transition: opacity 2.2s cubic-bezier(0.15, 0.35, 0.35, 1); /* power2.out */
   position: relative;
   overflow: hidden;
 }
-.marquee-container .marquee-track > .visible {
+.marquee-container .marquee-track > div.visible {
   opacity: 1;
 }
 .marquee-container .marquee-track > div > div {
@@ -39,10 +39,14 @@
   -webkit-user-drag: none;
   pointer-events: none;
   transform: scale(1.15);
-  transition: transform 2.4s cubic-bezier(0.15, 0.35, 0.35, 1); /* power2.out */
+  filter: blur(10px);
+  opacity: 0;
+  transition: all 2.2s cubic-bezier(0.15, 0.35, 0.35, 1); /* power2.out */
 }
 .marquee-container .marquee-track > div.visible img {
   transform: scale(1);
+  filter: blur(0px);
+  opacity: 1;
 }
 .marquee-container .marquee-track > div:nth-of-type(2),
 .marquee-container .marquee-track > div img:nth-of-type(2) {
