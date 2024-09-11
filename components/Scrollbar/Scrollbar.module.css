@@ -10,8 +10,8 @@
   color: var(--token-color-surface-secondary);
   opacity: 1;
   filter: blur(0px);
-  transition: opacity 0.85s cubic-bezier(0.6, 0.4, 0.7, 0.5),
-    filter 0.85s cubic-bezier(0.6, 0.4, 0.7, 0.5);
+  transition: opacity 0.75s var(--easing-text-fade-in),
+    filter 0.75s var(--easing-text-fade-in);
   transition-delay: 0s;
 }
 

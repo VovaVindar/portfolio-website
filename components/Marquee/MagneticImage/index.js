@@ -4,7 +4,7 @@ import gsap from "gsap";
 
 const MagneticImage = () => {
   const magneticAreaRef = useRef(null);
-  const maxScale = 1.018;
+  const maxScale = 1.016;
   const minScale = 0.975;
   const [scale, setScale] = useState(maxScale);
 
@@ -24,9 +24,9 @@ const MagneticImage = () => {
         scale: scale,
         x: (relX - boundingRect.width / 2) * movement,
         y: (relY - boundingRect.height / 2 - scrollTop) * movement,
-        ease: "power3.easeInOut",
+        ease: "power1.out",
         opacity: 1,
-        duration: 0.5,
+        duration: 0.6,
       });
     };
 
@@ -38,8 +38,8 @@ const MagneticImage = () => {
         scale: 1,
         x: 0,
         y: 0,
-        ease: "power2.easeIn",
-        duration: 0.5,
+        ease: "power1.out",
+        duration: 0.6,
       });
     };
 

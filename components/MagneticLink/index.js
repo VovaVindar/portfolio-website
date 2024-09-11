@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 
-const MagneticLink = ({ href, children, style }) => {
+const MagneticLink = ({ href, children, style, className }) => {
   const magneticAreaRef = useRef(null);
   const [scale, setScale] = useState(1.04);
 
@@ -22,9 +22,9 @@ const MagneticLink = ({ href, children, style }) => {
         scale: scale,
         x: (relX - boundingRect.width / 2) * movement,
         y: (relY - boundingRect.height / 2 - scrollTop) * movement,
-        ease: "power3.easeInOut",
+        ease: "power1.out",
         opacity: 1,
-        duration: 0.5,
+        duration: 0.6,
       });
     };
 
@@ -36,8 +36,8 @@ const MagneticLink = ({ href, children, style }) => {
         scale: 1,
         x: 0,
         y: 0,
-        ease: "power2.easeIn",
-        duration: 0.5,
+        ease: "power1.out",
+        duration: 0.6,
       });
     };
 
@@ -70,7 +70,7 @@ const MagneticLink = ({ href, children, style }) => {
         ref={magneticAreaRef}
         href={href}
         style={style}
-        className={"mf-hidden"}
+        className={`mf-hidden ${className}`}
       >
         {children}
       </Link>

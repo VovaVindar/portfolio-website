@@ -21,7 +21,7 @@ const CursorContainer = ({ className, scrollThreshold = 100 }) => {
       stickDelta: 0.3,
       stateDetection: {
         "-exclusion": ".mf-exclusion",
-        "-hidden": ".mf-hidden",
+        "-hidden": ".mf-hidden, span, p, h1",
       },
       className: `mf-cursor ${className}`,
     });

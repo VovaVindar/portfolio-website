@@ -48,7 +48,7 @@ export default function Home({ isAnimating, numbersProgress }) {
               filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
               color: "#0F1010",
               duration: duration,
-              ease: "power4.inOut",
+              ease: "power4.inOut" /* Easing for: onload-only text fade in */,
               stagger: (index) => calculateStagger(index, staggerInterval),
             }
           );
@@ -78,7 +78,7 @@ export default function Home({ isAnimating, numbersProgress }) {
         href="mailto:vovavindar@gmail.com"
         isAnimating={isAnimating}
       />
-      <div ref={container} className={`${styles["home-container"]}`}>
+      <div ref={container} className={`${styles["home-container"]} home`}>
         {/*<MouseFollower type="lines" />*/}
         <div className={`${styles["hero-container"]}`}>
           <div className={`${styles["skills"]} text-body-1`}>

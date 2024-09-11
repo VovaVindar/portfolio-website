@@ -45,6 +45,10 @@
     6.8935ch + var(--columns-canvas-margin) + (6rlh - 1px)
   );
   --mobile-max-width: 17.7225rlh; /* 319px on mobile */
+
+  /* Easings */
+  --easing-text-fade-in: cubic-bezier(0.6, 0.4, 0.7, 0.5); /* power1.in */
+  --easing-text-fade-out: cubic-bezier(0.2, 0.6, 0.15, 1); /* power4.out */
 }
 @media all and (max-width: 940px) {
   :root {

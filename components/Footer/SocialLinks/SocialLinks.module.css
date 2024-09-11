@@ -1,8 +1,9 @@
 .social-links p {
   width: fit-content;
-  transition: all 0.35s cubic-bezier(0.45, 0, 0.55, 1);
+  transition: all 0.5s var(--easing-text-fade-in);
 }
 .social-links p.faded {
+  transition: all 0.65s var(--easing-text-fade-out);
   opacity: 0.35;
-  filter: blur(1.2px);
+  filter: blur(1.3px);
 }

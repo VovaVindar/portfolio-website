@@ -9,7 +9,7 @@ const Preloader = ({
   setNumbersProgress,
   className,
 }) => {
-  const intervalDuration = 130;
+  const intervalDuration = 145;
 
   useEffect(() => {
     if (mainRef.current) {
@@ -49,7 +49,7 @@ const Preloader = ({
         color: `${numbersProgress >= 100 ? "red" : "white"}`,
         duration: 1,
         delay: 0.1,
-        ease: "power4.out",
+        ease: "power4.out" /* Easing for: text fade out */,
         onComplete: () => {
           numbersProgress >= 100 ? setIsLoading(false) : null;
         },
