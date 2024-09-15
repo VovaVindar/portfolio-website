@@ -67,9 +67,9 @@ function MyApp({ Component, pageProps, router }) {
         setNumbersProgress={updateProgress}
         className={`${lausanne.variable}`}
       />
-      <CursorContainer
+      {/*<CursorContainer
         className={`${lausanne.variable} ${timesNew.variable}`}
-      />
+      />*/}
       <TransitionProvider>
         <Transition
           numbersProgress={numbersProgress}

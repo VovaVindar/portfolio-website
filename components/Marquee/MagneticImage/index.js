@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import BlurImage from "@/components/BlurImage";
 import gsap from "gsap";
 
 const MagneticImage = () => {
@@ -68,7 +68,11 @@ const MagneticImage = () => {
 
   return (
     <div ref={magneticAreaRef}>
-      <Image src="/marquee.png" fill alt="Picture of the author" priority />
+      <BlurImage
+        src="/marquee.png"
+        alt="Picture of the author"
+        priority={true}
+      />
     </div>
   );
 };

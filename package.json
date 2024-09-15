@@ -14,6 +14,7 @@
     "imagesloaded": "^5.0.0",
     "lenis": "^1.1.13",
     "next": "14.2.5",
+    "ogl": "^1.0.8",
     "react": "^18",
     "react-dom": "^18",
     "three": "0.136.0"
