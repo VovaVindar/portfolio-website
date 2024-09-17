@@ -79,8 +79,20 @@ const DesignerChair = () => {
 
     animate();
 
+    // Handle window resize
+    function onWindowResize() {
+      const width = mountRef.current?.clientWidth || 0;
+      const height = mountRef.current?.clientHeight || 0;
+
+      renderer.setSize(width, height);
+    }
+
+    window.addEventListener("resize", onWindowResize, false);
+
     // Cleanup function
     return () => {
+      window.removeEventListener("resize", onWindowResize, false);
+
       if (renderer) {
         renderer.dispose();
       }
