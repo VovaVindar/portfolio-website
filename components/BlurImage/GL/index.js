@@ -53,7 +53,6 @@ export default class GL {
         img: item.querySelector("img"),
       });
     });
-    console.log(this.medias);
   }
   onResize() {
     this.screen = {
@@ -62,6 +61,7 @@ export default class GL {
     };
 
     this.renderer.setSize(this.screen.width, this.screen.height);
+    console.log(this.renderer);
 
     this.camera.perspective({
       aspect: this.gl.canvas.width / this.gl.canvas.height,
@@ -114,7 +114,11 @@ export default class GL {
 
   update() {
     if (this.medias) {
-      this.medias.forEach((media) => media.update());
+      this.medias.forEach((media) => {
+        media.update();
+        media.setX(media.$el.offsetLeft);
+        media.setY(media.$el.offsetTop);
+      });
     }
 
     this.renderer.render({

@@ -1,8 +1,6 @@
 import { ReactLenis, useLenis } from "lenis/react";
 import { useEffect } from "react";
 
-import GL from "@/components/BlurImage/GL";
-
 function SmoothScrolling({ children, isAnimating }) {
   const lenis = useLenis(({ scroll }) => {});
 
@@ -16,13 +14,6 @@ function SmoothScrolling({ children, isAnimating }) {
       requestAnimationFrame(raf);
     };
     requestAnimationFrame(raf);
-
-    // Initialize GL
-    const gl = new GL();
-
-    lenis.on("scroll", (e) => {
-      gl.onScroll(e);
-    });
 
     if (!isAnimating) {
       lenis.start();

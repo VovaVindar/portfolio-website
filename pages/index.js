@@ -78,7 +78,7 @@ export default function Home({ isAnimating, numbersProgress }) {
         href="mailto:vovavindar@gmail.com"
         isAnimating={isAnimating}
       />
-      <canvas id="gl"></canvas>
+      {/*<canvas id="gl"></canvas>*/}
       <div ref={container} className={`${styles["home-container"]} home`}>
         {/*<MouseFollower type="lines" />*/}
         <div className={`${styles["hero-container"]}`}>
@@ -106,7 +106,7 @@ export default function Home({ isAnimating, numbersProgress }) {
                 className={`${styles["chair"]}`}
                 ref={(el) => (onloadRefs.current[4] = el)}
               >
-                {/*<DesignerChair />*/}
+                <DesignerChair />
               </div>
             </div>
             <div className={`${styles["chair-container"]}`}>
@@ -125,7 +125,7 @@ export default function Home({ isAnimating, numbersProgress }) {
                 className={`${styles["chair"]}`}
                 ref={(el) => (onloadRefs.current[6] = el)}
               >
-                {/*<DesignerChair />*/}
+                <DesignerChair />
               </div>
             </div>
             <div>

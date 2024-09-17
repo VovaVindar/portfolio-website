@@ -5,6 +5,8 @@ https://andy-bell.co.uk/a-more-modern-css-reset/
 *,
 *::before,
 *::after {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -209,14 +211,19 @@ main:has(.scroll:hover) .home {
 }
 */
 
-#gl {
+/*#gl {
   width: 100vw;
   height: 100dvh;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 249;
   pointer-events: none;
+}
+.media-container {
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
 }
 .media {
   width: 100%;
@@ -225,5 +232,4 @@ main:has(.scroll:hover) .home {
 }
 .media img {
   width: 100%;
-  visibility: hidden;
-}
+}*/

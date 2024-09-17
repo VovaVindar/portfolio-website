@@ -84,13 +84,26 @@ const DesignerChair = () => {
       if (renderer) {
         renderer.dispose();
       }
-      if (mountRef.current) {
-        mountRef.current.removeChild(renderer.domElement);
-      }
       if (controls) {
         controls.dispose();
       }
-      scene.dispose();
+      if (group) {
+        group.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            if (child.geometry) child.geometry.dispose();
+            if (child.material) {
+              if (Array.isArray(child.material)) {
+                child.material.forEach((mat) => mat.dispose());
+              } else {
+                child.material.dispose();
+              }
+            }
+          }
+        });
+      }
+      if (mountRef.current) {
+        mountRef.current.removeChild(renderer.domElement);
+      }
     };
   }, []);
 
