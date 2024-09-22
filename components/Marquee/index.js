@@ -77,7 +77,7 @@ const Marquee = ({ startPageAnimation }) => {
     animationRef.current = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationRef.current);
-  }, [dragSpeed, trackWidth, shouldAnimate]);
+  }, [dragSpeed, trackWidth, shouldAnimate, speed]);
 
   const onDragStart = (t) => {
     setIsDragging(true);

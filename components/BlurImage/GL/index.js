@@ -61,7 +61,6 @@ export default class GL {
     };
 
     this.renderer.setSize(this.screen.width, this.screen.height);
-    console.log(this.renderer);
 
     this.camera.perspective({
       aspect: this.gl.canvas.width / this.gl.canvas.height,

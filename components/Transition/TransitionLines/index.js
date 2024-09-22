@@ -40,7 +40,8 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
 
       const lines = linesContainerRef.current.children;
 
-      var staggerInterval = totalLines <= 50 ? 0.04 : 0.02;
+      var staggerInterval =
+        totalLines <= 50 ? 0.04 : totalLines >= 100 ? 0.0025 : 0.008;
       var duration = 1.25;
 
       timelineIntro.fromTo(

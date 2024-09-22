@@ -38,9 +38,24 @@ export default function Home({ isAnimating, numbersProgress }) {
       var staggerInterval = 0.085;
       var duration = 1.5;
 
-      ScrollTrigger.batch(onloadRefs.current, {
+      var tl = gsap.timeline();
+
+      tl.fromTo(
+        onloadRefs.current,
+        { autoAlpha: 0, filter: "blur(1.5px)", color: "red" },
+        {
+          autoAlpha: startPageAnimation ? 1 : 0,
+          filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
+          color: "#0F1010",
+          duration: duration,
+          ease: "power4.inOut" /* Easing for: onload-only text fade in */,
+          stagger: (index) => calculateStagger(index, staggerInterval),
+        }
+      );
+
+      /*ScrollTrigger.batch(onloadRefs.current, {
         onEnter: (elements) => {
-          gsap.fromTo(
+          tl.fromTo(
             elements,
             { autoAlpha: 0, filter: "blur(1.5px)", color: "red" },
             {
@@ -48,13 +63,13 @@ export default function Home({ isAnimating, numbersProgress }) {
               filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
               color: "#0F1010",
               duration: duration,
-              ease: "power4.inOut" /* Easing for: onload-only text fade in */,
+              ease: "power4.inOut", // Easing for: onload-only text fade in
               stagger: (index) => calculateStagger(index, staggerInterval),
             }
           );
         },
         once: true,
-      });
+      });*/
     }
   }, [startPageAnimation]);
 
