@@ -27,6 +27,7 @@
   height: calc(6rlh - 1px);
   background-color: var(--token-color-surface-secondary);
   filter: blur(0px) !important;
+  overflow: hidden;
 }
 .skills .chair-container .chair canvas {
   cursor: grab;

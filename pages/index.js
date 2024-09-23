@@ -11,6 +11,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 //import MouseFollower from "@/components/MouseFollower";
 import DesignerChair from "@/components/Chairs/DesignerChair";
+import MagneticImage from "@/components/MagneticImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -121,7 +122,9 @@ export default function Home({ isAnimating, numbersProgress }) {
                 className={`${styles["chair"]}`}
                 ref={(el) => (onloadRefs.current[4] = el)}
               >
-                <DesignerChair />
+                <MagneticImage movement={0.04}>
+                  <DesignerChair />
+                </MagneticImage>
               </div>
             </div>
             <div className={`${styles["chair-container"]}`}>
@@ -140,7 +143,9 @@ export default function Home({ isAnimating, numbersProgress }) {
                 className={`${styles["chair"]}`}
                 ref={(el) => (onloadRefs.current[6] = el)}
               >
-                <DesignerChair />
+                <MagneticImage movement={0.04}>
+                  <DesignerChair />
+                </MagneticImage>
               </div>
             </div>
             <div>

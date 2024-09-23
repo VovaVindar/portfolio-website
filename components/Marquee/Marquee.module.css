@@ -4,6 +4,11 @@
   justify-content: flex-start;
   align-self: center;
   cursor: grab;
+  opacity: 0;
+  transition: opacity 2s cubic-bezier(0.15, 0.35, 0.35, 1);
+}
+.marquee-container:has(.visible) {
+  opacity: 1;
 }
 .marquee-container:active {
   cursor: grabbing;
@@ -21,14 +26,10 @@
   background-color: black;
   height: calc(27rlh + 1px);
   width: 44rlh;
-  opacity: 0;
   opacity: 1;
   transition: opacity 2.2s cubic-bezier(0.15, 0.35, 0.35, 1); /* power2.out */
   position: relative;
   overflow: hidden;
-}
-.marquee-container .marquee-track > div.visible {
-  opacity: 1;
 }
 .marquee-container .marquee-track > div > div {
   width: 100%;
@@ -42,7 +43,6 @@
   pointer-events: none;
   transform: scale(1.15);
   filter: blur(10px);
-  opacity: 0;
   opacity: 1;
   transition: all 2.2s cubic-bezier(0.15, 0.35, 0.35, 1); /* power2.out */
 }

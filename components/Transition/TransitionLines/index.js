@@ -42,7 +42,7 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
 
       if (lines.length > 0) {
         var staggerInterval =
-          totalLines <= 50 ? 0.04 : totalLines >= 100 ? 0.0025 : 0.008;
+          totalLines <= 50 ? 0.038 : totalLines >= 100 ? 0.0025 : 0.008;
         var duration = 1.25;
 
         timelineIntro.fromTo(

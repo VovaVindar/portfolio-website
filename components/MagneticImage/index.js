@@ -1,20 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 //import BlurImage from "@/components/BlurImage";
-import Image from "next/image";
 import gsap from "gsap";
 
-const MagneticImage = () => {
+const MagneticImage = ({ children, movement = 0.036 }) => {
   const magneticAreaRef = useRef(null);
   const maxScale = 1.016;
   const minScale = 0.975;
   const [scale, setScale] = useState(maxScale);
+  var pMovement = movement;
 
   useEffect(() => {
     const mArea = magneticAreaRef.current;
 
     if (!mArea) return;
 
-    const parallaxIt = (e, scale, movement = 0.036) => {
+    const parallaxIt = (e, scale, movement = pMovement) => {
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
       const boundingRect = mArea.getBoundingClientRect();
@@ -74,12 +74,7 @@ const MagneticImage = () => {
         alt="Picture of the author"
         priority={true}
       />*/}
-      <Image
-        src="/marquee.png"
-        alt="Picture of the author"
-        fill
-        priority={true}
-      />
+      {children}
     </div>
   );
 };
