@@ -418,7 +418,7 @@ export default class MouseFollower {
     addState(state) {
         this.trigger("addState", state);
         if (state === this.options.hiddenState) return this.hide();
-        this.el.classList.add(...state.split(" "));
+        this.el?.classList.add(...state.split(" "));
         if (this.options.visibleOnState) this.show();
     }
 
@@ -577,7 +577,7 @@ export default class MouseFollower {
         if (this.mediaImg.src !== url) this.mediaImg.src = url;
         setTimeout(() => {
             this.setMedia(this.mediaImg);
-        }, 35);
+        }, 45);
         // setTimeout to prevent flickering
     }
 

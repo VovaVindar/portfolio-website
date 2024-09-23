@@ -38,39 +38,42 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
     if (linesReadyRef.current && linesContainerRef.current) {
       linesContainerRef.current.classList.add("loading");
 
-      const lines = linesContainerRef.current.children;
+      const lines = Array.from(linesContainerRef.current.children);
 
-      var staggerInterval =
-        totalLines <= 50 ? 0.04 : totalLines >= 100 ? 0.0025 : 0.008;
-      var duration = 1.25;
+      if (lines.length > 0) {
+        var staggerInterval =
+          totalLines <= 50 ? 0.04 : totalLines >= 100 ? 0.0025 : 0.008;
+        var duration = 1.25;
 
-      timelineIntro.fromTo(
-        lines,
-        {
-          scaleY: 1,
-          transformOrigin: "bottom",
-          backgroundColor: "#0F1010",
-        },
-        {
-          scaleY: `${numbersProgress >= 100 ? 0 : 1}`,
-          backgroundColor: `${numbersProgress >= 100 ? `#C34356` : `#0F1010`}`,
-          duration: duration,
-          delay: 0.05,
-          ease: "power4.inOut",
-          stagger: {
-            each: staggerInterval,
-            from: "start",
+        timelineIntro.fromTo(
+          lines,
+          {
+            scaleY: 1,
+            transformOrigin: "bottom",
+            backgroundColor: "#0F1010",
           },
-          onComplete: () => {
-            setTimeout(() => {
-              onLoadingComplete();
-              linesContainerRef.current.classList.remove("loading");
-            }, 610); // for some reason, onComplete is called early
-          },
-        }
-      );
+          {
+            scaleY: `${numbersProgress >= 100 ? 0 : 1}`,
+            backgroundColor: `${
+              numbersProgress >= 100 ? `#C34356` : `#0F1010`
+            }`,
+            duration: duration,
+            delay: 0.05,
+            ease: "power4.inOut",
+            stagger: {
+              each: staggerInterval,
+              from: "start",
+            },
+            onComplete: () => {
+              setTimeout(() => {
+                onLoadingComplete();
+                linesContainerRef.current.classList.remove("loading");
+              }, 610); // for some reason, onComplete is called early
+            },
+          }
+        );
 
-      /*timelineExit
+        /*timelineExit
         .add(
           gsap.to(lines, {
             scaleY: 1,
@@ -93,6 +96,7 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
             },
           })
         );*/
+      }
     }
   }, [numbersProgress]);
 

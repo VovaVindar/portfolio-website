@@ -31,6 +31,8 @@ const CursorContainer = ({ className, scrollThreshold = 100 }) => {
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
+      if (!cursor) return;
+
       const newScrollY = window.scrollY;
       const scrollDelta = newScrollY - lastScrollY;
 
@@ -58,7 +60,7 @@ const CursorContainer = ({ className, scrollThreshold = 100 }) => {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      cursor.destroy();
+      if (cursor) cursor.destroy();
     };
   }, [className, scrollThreshold]);
 
