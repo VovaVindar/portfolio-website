@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Magnetic from "@/components/Magnetic";
 import Link from "next/link";
 
-/* TODO Fix unmounting triggers */
+/* TODO Fix scroll trigger unmounting issue */
 
 const Footer = ({ staggerInterval, duration }) => {
   const [time, setTime] = useState({ hours: "", minutes: "" });
@@ -121,16 +121,16 @@ const Footer = ({ staggerInterval, duration }) => {
             onMouseEnter={() => handleMouseEnter("linkedin")}
             onMouseLeave={handleMouseLeave}
             className={
-              hoveredLink
-                ? `${styles["active"]} ${
-                    hoveredLink !== "linkedin" ? styles["faded"] : ""
-                  }`
+              hoveredLink && hoveredLink !== "linkedin"
+                ? `${styles["faded"]}`
                 : ""
             }
-            ref={(el) => (footerOnscroll.current[4] = el)}
           >
             <Magnetic type="text">
-              <Link href={"https://www.linkedin.com/in/vovavindar/"}>
+              <Link
+                href={"https://www.linkedin.com/in/vovavindar/"}
+                ref={(el) => (footerOnscroll.current[4] = el)}
+              >
                 LinkedIn,
               </Link>
             </Magnetic>
@@ -139,16 +139,16 @@ const Footer = ({ staggerInterval, duration }) => {
             onMouseEnter={() => handleMouseEnter("instagram")}
             onMouseLeave={handleMouseLeave}
             className={
-              hoveredLink
-                ? `${styles["active"]} ${
-                    hoveredLink !== "instagram" ? styles["faded"] : ""
-                  }`
+              hoveredLink && hoveredLink !== "instagram"
+                ? `${styles["faded"]}`
                 : ""
             }
-            ref={(el) => (footerOnscroll.current[7] = el)}
           >
             <Magnetic type="text">
-              <Link href={"https://www.instagram.com/vovavindar/"}>
+              <Link
+                href={"https://www.instagram.com/vovavindar/"}
+                ref={(el) => (footerOnscroll.current[7] = el)}
+              >
                 Instagram,
               </Link>
             </Magnetic>
@@ -157,16 +157,18 @@ const Footer = ({ staggerInterval, duration }) => {
             onMouseEnter={() => handleMouseEnter("dribbble")}
             onMouseLeave={handleMouseLeave}
             className={
-              hoveredLink
-                ? `${styles["active"]} ${
-                    hoveredLink !== "dribbble" ? styles["faded"] : ""
-                  }`
+              hoveredLink && hoveredLink !== "dribbble"
+                ? `${styles["faded"]}`
                 : ""
             }
-            ref={(el) => (footerOnscroll.current[10] = el)}
           >
             <Magnetic type="text">
-              <Link href={"https://dribbble.com/VovaVindar"}>Dribbble,</Link>
+              <Link
+                href={"https://dribbble.com/VovaVindar"}
+                ref={(el) => (footerOnscroll.current[10] = el)}
+              >
+                Dribbble,
+              </Link>
             </Magnetic>
           </p>
         </div>

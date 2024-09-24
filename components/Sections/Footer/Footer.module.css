@@ -27,11 +27,11 @@
   width: var(--first-column-width);
 }
 
-.social-links p.active {
+.social-links p {
   width: fit-content;
   transition: all 0.5s var(--easing-text-fade-in); /* TODO: might be better than GSAP fade-in */
 }
-.social-links p.active.faded {
+.social-links p.faded {
   transition: all 0.65s var(--easing-text-fade-out);
   opacity: 0.35 !important;
   filter: blur(1.3px) !important;
