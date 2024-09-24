@@ -4,6 +4,7 @@
   background-color: var(--token-color-surface-secondary);
   display: flex;
   position: relative;
+  overflow: hidden;
 }
 .work .magnetic {
   width: 100%;

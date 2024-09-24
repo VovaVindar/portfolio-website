@@ -3,6 +3,7 @@ import styles from "./Work.module.css";
 import gsap from "gsap";
 
 const Work = () => {
+  // WIP
   const magneticContainerRef = useRef(null);
   const magneticAreaRef = useRef(null);
   const maxScale = 1.016;

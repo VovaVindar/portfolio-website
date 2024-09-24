@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from "react";
 //import BlurImage from "@/components/BlurImage";
 import gsap from "gsap";
 
-const MagneticImage = ({ children, movement = 0.036 }) => {
+const Magnetic = ({ children, movement = 0.036, type = "image" }) => {
   const magneticAreaRef = useRef(null);
-  const maxScale = 1.016;
+  const maxScale = type == "image" ? 1.016 : 1.04;
   const minScale = 0.975;
   const [scale, setScale] = useState(maxScale);
-  var pMovement = movement;
+  var pMovement = type == "image" ? movement : 0.075;
 
   useEffect(() => {
     const mArea = magneticAreaRef.current;
@@ -67,8 +67,11 @@ const MagneticImage = ({ children, movement = 0.036 }) => {
     };
   }, [scale]);
 
-  return (
-    <div ref={magneticAreaRef}>
+  return type == "image" ? (
+    <div
+      ref={magneticAreaRef}
+      style={{ height: "100%", width: "100%", position: "relative" }}
+    >
       {/*<BlurImage
         src="/marquee.png"
         alt="Picture of the author"
@@ -76,7 +79,9 @@ const MagneticImage = ({ children, movement = 0.036 }) => {
       />*/}
       {children}
     </div>
+  ) : (
+    <span ref={magneticAreaRef}>{children}</span>
   );
 };
 
-export default MagneticImage;
+export default Magnetic;

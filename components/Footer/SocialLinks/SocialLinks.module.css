@@ -1,9 +1,0 @@
-.social-links p {
-  width: fit-content;
-  transition: all 0.5s var(--easing-text-fade-in);
-}
-.social-links p.faded {
-  transition: all 0.65s var(--easing-text-fade-out);
-  opacity: 0.35;
-  filter: blur(1.3px);
-}

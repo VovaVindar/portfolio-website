@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
-import MagneticImage from "@/components/MagneticImage";
+import Magnetic from "@/components/Magnetic";
 import Image from "next/image";
 
 const Marquee = ({ startPageAnimation }) => {
@@ -121,14 +121,14 @@ const Marquee = ({ startPageAnimation }) => {
             data-cursor-text="Vitamin Living"
             className={`mf-exclusion`}
           >
-            <MagneticImage>
+            <Magnetic>
               <Image
                 src="/marquee.png"
                 alt="Picture of the author"
                 fill
                 priority={true}
               />
-            </MagneticImage>
+            </Magnetic>
           </div>
         ))}
       </div>

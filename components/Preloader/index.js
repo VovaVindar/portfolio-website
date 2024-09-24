@@ -9,7 +9,7 @@ const Preloader = ({
   setNumbersProgress,
   className,
 }) => {
-  const intervalDuration = 145;
+  const intervalDuration = 130;
 
   useEffect(() => {
     if (mainRef.current) {
