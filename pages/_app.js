@@ -49,6 +49,7 @@ function MyApp({ Component, pageProps, router }) {
 
   // Scroll to top when mainRef changes
   useEffect(() => {
+    window.scrollTo(0, 0);
     return () => {
       if (mainRef.current) {
         window.scrollTo(0, 0);

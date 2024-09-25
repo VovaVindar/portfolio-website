@@ -9,26 +9,22 @@ gsap.registerPlugin(ScrollTrigger);
 const SelectedClients = ({ staggerInterval, duration, easing }) => {
   const clientsOnscroll = useRef([]);
 
-  useEffect(() => {
-    clientsOnscroll.current = clientsOnscroll.current.slice(
-      0,
-      document.querySelectorAll("[data-gsap]").length
-    );
-  }, []);
-
   useGSAP(() => {
+    let scrollTriggerInstance;
+    const clientsAnimation = gsap.timeline({});
+
     if (clientsOnscroll.current.length) {
-      gsap.set(clientsOnscroll.current, {
+      clientsAnimation.set(clientsOnscroll.current, {
         autoAlpha: 0,
         filter: "blur(1.5px)",
         color: "red",
       });
-      ScrollTrigger.create({
+
+      scrollTriggerInstance = ScrollTrigger.create({
         trigger: clientsOnscroll.current,
-        start: "top bottom", // Adjust the start position as needed
+        start: "top bottom",
         onEnter: () => {
-          console.log("enter clients");
-          gsap.to(clientsOnscroll.current, {
+          clientsAnimation.to(clientsOnscroll.current, {
             autoAlpha: 1,
             filter: `blur(0px)`,
             color: "#0F1010",
@@ -41,6 +37,15 @@ const SelectedClients = ({ staggerInterval, duration, easing }) => {
         once: true,
       });
     }
+
+    return () => {
+      if (scrollTriggerInstance) {
+        scrollTriggerInstance.kill();
+      }
+      if (clientsAnimation) {
+        clientsAnimation.kill();
+      }
+    };
   }, []);
 
   return (

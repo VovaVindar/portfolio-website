@@ -10,7 +10,6 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
   const linesReadyRef = useRef(false);
   var totalLines = 0;
 
-  const timelineIntro = gsap.timeline({});
   //const { timelineExit } = useContext(TransitionContext);
 
   useEffect(() => {
@@ -35,6 +34,8 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
   }, []);
 
   useGSAP(() => {
+    const timelineIntro = gsap.timeline({});
+
     if (linesReadyRef.current && linesContainerRef.current) {
       linesContainerRef.current.classList.add("loading");
 

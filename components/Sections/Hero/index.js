@@ -16,8 +16,10 @@ const Hero = ({ staggerInterval, duration, easing, startPageAnimation }) => {
   }, []);
 
   useGSAP(() => {
+    const heroAnimation = gsap.timeline({});
+
     if (heroOnload.current.length) {
-      gsap.fromTo(
+      heroAnimation.fromTo(
         // Hero onload
         heroOnload.current,
         { autoAlpha: 0, filter: "blur(1.5px)", color: "red" },
@@ -32,6 +34,12 @@ const Hero = ({ staggerInterval, duration, easing, startPageAnimation }) => {
         }
       );
     }
+
+    return () => {
+      if (heroAnimation) {
+        heroAnimation.kill();
+      }
+    };
   }, [startPageAnimation]);
 
   const heroStagger = (index, interval) => {

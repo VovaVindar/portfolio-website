@@ -6,8 +6,6 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Magnetic from "@/components/Magnetic";
 import Link from "next/link";
 
-/* TODO Fix scroll trigger unmounting issue */
-
 const Footer = ({ staggerInterval, duration, easing }) => {
   const [time, setTime] = useState({ hours: "", minutes: "" });
 
@@ -34,9 +32,10 @@ const Footer = ({ staggerInterval, duration, easing }) => {
 
   useGSAP(() => {
     let scrollTriggerInstance;
+    const footerAnimation = gsap.timeline({});
 
     if (footerOnscroll.current.length) {
-      gsap.set(footerOnscroll.current, {
+      footerAnimation.set(footerOnscroll.current, {
         autoAlpha: 0,
         filter: "blur(1.5px)",
         color: "red",
@@ -44,10 +43,9 @@ const Footer = ({ staggerInterval, duration, easing }) => {
 
       scrollTriggerInstance = ScrollTrigger.create({
         trigger: footerOnscroll.current,
-        start: "top bottom", // Adjust the start position as needed
+        start: "top bottom",
         onEnter: () => {
-          console.log("enter footer");
-          gsap.to(footerOnscroll.current, {
+          footerAnimation.to(footerOnscroll.current, {
             autoAlpha: 1,
             filter: `blur(0px)`,
             color: "#0F1010",
@@ -61,10 +59,12 @@ const Footer = ({ staggerInterval, duration, easing }) => {
       });
     }
 
-    // Cleanup function
     return () => {
       if (scrollTriggerInstance) {
         scrollTriggerInstance.kill();
+      }
+      if (footerAnimation) {
+        footerAnimation.kill();
       }
     };
   }, []);

@@ -40,10 +40,13 @@ const Preloader = ({
   const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
+    const numbersAnimation = gsap.timeline({});
+    const movementAnimation = gsap.timeline({});
+
     if (containerRef.current) {
       setOpacity(1);
 
-      gsap.to(containerRef.current, {
+      numbersAnimation.to(containerRef.current, {
         autoAlpha: `${numbersProgress >= 100 ? 0 : 1}`,
         filter: `blur(${numbersProgress >= 100 ? 2 : 0}px)`,
         color: `${numbersProgress >= 100 ? "red" : "white"}`,
@@ -56,12 +59,21 @@ const Preloader = ({
       });
     }
     if (progressIndicatorRef.current) {
-      gsap.to(progressIndicatorRef.current, {
+      movementAnimation.to(progressIndicatorRef.current, {
         paddingLeft: `calc(${numbersProgress}% - 3ch)`,
         duration: 1,
         ease: "power4.out",
       });
     }
+
+    return () => {
+      if (numbersAnimation) {
+        numbersAnimation.kill();
+      }
+      if (movementAnimation) {
+        movementAnimation.kill();
+      }
+    };
   }, [numbersProgress]);
 
   const style = {
