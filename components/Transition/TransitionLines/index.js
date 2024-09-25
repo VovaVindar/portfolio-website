@@ -68,7 +68,7 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
               setTimeout(() => {
                 onLoadingComplete();
                 linesContainerRef.current.classList.remove("loading");
-              }, 610); // for some reason, onComplete is called early
+              }, 540); // for some reason, onComplete is called early
             },
           }
         );
@@ -98,6 +98,13 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
         );*/
       }
     }
+
+    return () => {
+      if (timelineIntro) {
+        timelineIntro.kill();
+      }
+      //timelineExit.kill();
+    };
   }, [numbersProgress]);
 
   return (

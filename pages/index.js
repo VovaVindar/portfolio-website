@@ -14,19 +14,15 @@ export default function Home({ isAnimating, numbersProgress }) {
   const [startPageAnimation, setStartPageAnimation] = useState(false);
   const container = useRef(null);
 
-  var staggerInterval = 0.085;
-  var duration = 1.5;
+  var staggerInterval = 0.09;
+  var duration = 0.6;
+  var easing = "power1.in"; // Easing for: text fade in
 
   useEffect(() => {
     if (numbersProgress >= 100) {
       setTimeout(() => setStartPageAnimation(true), 250);
     }
   }, [numbersProgress]);
-
-  const calculateScrollTriggerStagger = (index, interval) => {
-    if (index <= 1) return 0;
-    if (index >= 2) return 1 * interval;
-  };
 
   return (
     <>
@@ -43,15 +39,21 @@ export default function Home({ isAnimating, numbersProgress }) {
         <Hero
           staggerInterval={staggerInterval}
           duration={duration}
+          easing={easing}
           startPageAnimation={startPageAnimation}
         />
         <Marquee startPageAnimation={startPageAnimation} />
         <SelectedClients
           staggerInterval={staggerInterval}
           duration={duration}
+          easing={easing}
         />
         <Work />
-        <Footer staggerInterval={staggerInterval} duration={duration} />
+        <Footer
+          staggerInterval={staggerInterval}
+          duration={duration}
+          easing={easing}
+        />
       </div>
     </>
   );

@@ -8,7 +8,7 @@ import Link from "next/link";
 
 /* TODO Fix scroll trigger unmounting issue */
 
-const Footer = ({ staggerInterval, duration }) => {
+const Footer = ({ staggerInterval, duration, easing }) => {
   const [time, setTime] = useState({ hours: "", minutes: "" });
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Footer = ({ staggerInterval, duration }) => {
             color: "#0F1010",
             delay: 0,
             duration: duration,
-            ease: "power4.inOut", // Easing for: onload-only text fade in
+            ease: easing,
             stagger: (index) => footerStagger(index, staggerInterval),
           });
         },

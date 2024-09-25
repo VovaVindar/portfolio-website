@@ -1,14 +1,11 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import styles from "./Hero.module.css";
 import DesignerChair from "@/components/Chairs/DesignerChair";
 import Magnetic from "@/components/Magnetic";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const Hero = ({ staggerInterval, duration, startPageAnimation }) => {
+const Hero = ({ staggerInterval, duration, easing, startPageAnimation }) => {
   const heroOnload = useRef([]);
 
   useEffect(() => {
@@ -29,7 +26,8 @@ const Hero = ({ staggerInterval, duration, startPageAnimation }) => {
           filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
           color: "#0F1010",
           duration: duration,
-          ease: "power4.inOut", // Easing for: onload-only text fade in
+          delay: 0.4,
+          ease: easing,
           stagger: (index) => heroStagger(index, staggerInterval),
         }
       );

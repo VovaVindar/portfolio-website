@@ -3,10 +3,12 @@ import styles from "./Scrollbar.module.css";
 import Magnetic from "@/components/Magnetic";
 import Link from "next/link";
 
-const Scrollbar = ({ text = "", href = "/", isAnimating }) => {
+const Scrollbar = ({ text = "", href = "/", isAnimating = true }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [opacity, setOpacity] = useState(1);
-  const [blur, setBlur] = useState(0);
+  const [opacity, setOpacity] = useState(0);
+  const [blur, setBlur] = useState(1.5);
+
+  // CAN'T user GSAP or animate color due to bugs with mix-blend-mode propery
 
   useEffect(() => {
     const handleScroll = () => {

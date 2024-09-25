@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SelectedClients = ({ staggerInterval, duration }) => {
+const SelectedClients = ({ staggerInterval, duration, easing }) => {
   const clientsOnscroll = useRef([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const SelectedClients = ({ staggerInterval, duration }) => {
             color: "#0F1010",
             delay: 0,
             duration: duration,
-            ease: "power4.inOut", // Easing for: onload-only text fade in
+            ease: easing,
             stagger: staggerInterval,
           });
         },

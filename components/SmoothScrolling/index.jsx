@@ -9,18 +9,16 @@ function SmoothScrolling({ children, isAnimating }) {
 
     lenis.stop();
 
-    const raf = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
-
     if (!isAnimating) {
       lenis.start();
     }
   }, [isAnimating, lenis]);
 
-  return <ReactLenis root>{children}</ReactLenis>;
+  return (
+    <ReactLenis root options={{ lerp: 0.15 }}>
+      {children}
+    </ReactLenis>
+  );
 }
 
 export default SmoothScrolling;
