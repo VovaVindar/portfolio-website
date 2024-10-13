@@ -1,6 +1,6 @@
 import styles from "./TransitionLines.module.css";
-import { TransitionContext } from "@/context/TransitionContext";
-import React, { useContext, useEffect, useState, useRef } from "react";
+//import { TransitionContext } from "@/context/TransitionContext";
+import React, { useEffect, useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 

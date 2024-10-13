@@ -44,7 +44,6 @@
   cursor: e-resize;
 }
 .work .image {
-  position: absolute;
   background-color: var(--token-color-surface-contrast);
   width: 170px;
   height: 120px;

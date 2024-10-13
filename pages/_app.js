@@ -42,6 +42,8 @@ const timesNew = localFont({
   variable: "--timesnew",
 });
 
+/* TODO Fix flickering on reload */
+
 function MyApp({ Component, pageProps, router }) {
   const [isAnimating, setIsAnimating] = useState(true);
   const [numbersProgress, setNumbersProgress] = useState(0);

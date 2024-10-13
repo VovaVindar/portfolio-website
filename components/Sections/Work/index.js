@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./Work.module.css";
 import gsap from "gsap";
+import Marquee2 from "@/components/Marquee";
 
 const Work = () => {
   // WIP
   const magneticContainerRef = useRef(null);
-  const magneticAreaRef = useRef(null);
-  const maxScale = 1.016;
-  const minScale = 0.975;
-  const [scale, setScale] = useState(maxScale);
+  //const magneticAreaRef = useRef(null);
+  //const maxScale = 1.016;
+  //const minScale = 0.975;
+  //const [scale, setScale] = useState(maxScale);
 
   const pages = [0, 1, 2, 3];
   const [activeIndex, setActiveIndex] = useState(pages[0]);
@@ -26,7 +27,7 @@ const Work = () => {
     setPrevIndex(((validIndex - 1 + totalPages) % totalPages) + 1);
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     const mContainer = magneticContainerRef.current;
     const mArea = magneticAreaRef.current;
 
@@ -58,7 +59,7 @@ const Work = () => {
     return () => {
       mContainer.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [scale]);
+  }, [scale]); */
 
   return (
     <div
@@ -66,15 +67,67 @@ const Work = () => {
       ref={magneticContainerRef}
     >
       <h2>Selected Work</h2>
-      <div ref={magneticAreaRef} className={`${styles["magnetic"]}`}>
+      <Marquee2>
         <div
           className={`${styles["image"]}`}
           style={{ transform: "translate(30%, 30%)" }}
         ></div>
-      </div>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+      </Marquee2>
+
+      {/*<div ref={magneticAreaRef} className={`${styles["magnetic"]}`}>
+        <div
+          className={`${styles["image"]}`}
+          style={{ transform: "translate(30%, 30%)" }}
+        ></div>
+      </div>*/}
       <div className={`text-body-1 ${styles["left"]}`}></div>
       <div className={`text-header-1 ${styles["right"]}`}></div>
-      <div
+      {/*<div
         className={`${styles["click"]} ${styles["prev"]}`}
         role="button"
         aria-label="Previous"
@@ -87,7 +140,7 @@ const Work = () => {
         aria-label="Next"
         data-cursor-text={nextIndex}
         onClick={() => handleCircleClick(activeIndex + 1)}
-      ></div>
+      ></div>*/}
       <div
         className={`${styles["circle-container"]} ${
           styles[`active-${activeIndex}`]
