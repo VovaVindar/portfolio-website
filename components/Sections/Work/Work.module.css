@@ -45,8 +45,8 @@
 }
 .work .image {
   background-color: var(--token-color-surface-contrast);
-  width: 170px;
-  height: 120px;
+  width: 300px;
+  height: 200px;
   left: 0px;
   top: 0px;
 }

@@ -68,55 +68,19 @@ const Work = () => {
     >
       <h2>Selected Work</h2>
       <Marquee2>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, index) => (
+          <div
+            key={index}
+            style={{
+              width: "300px",
+              height: "200px",
+              backgroundColor: "black",
+              color: "white",
+            }}
+          >
+            {index}
+          </div>
+        ))}
       </Marquee2>
 
       {/*<div ref={magneticAreaRef} className={`${styles["magnetic"]}`}>

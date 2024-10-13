@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
 
-const Marquee = ({ startPageAnimation, children }) => {
+const Marquee = ({ children }) => {
   const [x, setX] = useState(0);
   const [dragSpeed, setDragSpeed] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -103,7 +103,7 @@ const Marquee = ({ startPageAnimation, children }) => {
       <div
         className={styles["marquee-track"]}
         ref={marqueeTrackRef}
-        style={{ transform: `translate3d(-${x}px, 0, 0)` }}
+        style={{ transform: `translate3d(-${Math.round(x)}px, 0, 0)` }}
       >
         {children}
         {children}

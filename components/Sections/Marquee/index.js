@@ -112,7 +112,7 @@ const Marquee = ({ startPageAnimation }) => {
       <div
         className={styles["marquee-track"]}
         ref={marqueeTrackRef}
-        style={{ transform: `translate3d(-${x}px, 0, 0)` }}
+        style={{ transform: `translate3d(-${Math.round(x)}px, 0, 0)` }}
       >
         {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, index) => (
           <div
