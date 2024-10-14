@@ -33,9 +33,9 @@ const Marquee = ({ children }) => {
       marqueeTrackRef.current.children.length > 0
     ) {
       const elementWidth = marqueeTrackRef.current.children[0].offsetWidth;
-      const newTrackWidth =
-        marqueeTrackRef.current.scrollWidth -
-        elementWidth * (marqueeTrackRef.current.children.length / 2);
+      const newTrackWidth = Math.round(
+        marqueeTrackRef.current.scrollWidth / 2 + 1
+      );
       setTrackWidth(newTrackWidth);
       setShouldAnimate(newTrackWidth > marqueeContainerRef.current.offsetWidth);
     }
