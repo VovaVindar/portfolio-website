@@ -45,11 +45,9 @@ const Scrollbar = ({ text = "", href = "/", isAnimating = true }) => {
 
   return (
     <div className={`${styles["scrollbar-container"]} text-body-1-uppercase`}>
-      <Magnetic type="text">
-        <Link href={href} style={pStyle} scroll={false}>
-          {text}
-        </Link>
-      </Magnetic>
+      <Link href={href} style={pStyle} scroll={false}>
+        <Magnetic type="text">{text}</Magnetic>
+      </Link>
     </div>
   );
 };

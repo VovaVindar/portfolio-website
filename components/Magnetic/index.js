@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-//import BlurImage from "@/components/BlurImage";
 import gsap from "gsap";
 
 const Magnetic = ({ children, movement = 0.036, type = "image" }) => {
@@ -80,7 +79,9 @@ const Magnetic = ({ children, movement = 0.036, type = "image" }) => {
       {children}
     </div>
   ) : (
-    <span ref={magneticAreaRef}>{children}</span>
+    <span ref={magneticAreaRef} style={{ willChange: "transform" }}>
+      {children}
+    </span>
   );
 };
 
