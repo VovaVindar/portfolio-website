@@ -7,6 +7,7 @@
   contain: layout style size;
   pointer-events: none;
   transition: opacity 0.3s, color 0.4s;
+  --rotation: 0deg;
 }
 .mf-cursor:before {
   content: "";
@@ -16,10 +17,9 @@
   display: block;
   width: 48px;
   height: 48px;
-  transform: scale(0.2);
-  background: red;
-  background: transparent;
-  border-radius: 50%;
+  transform: scale(0.18) rotate(var(--rotation));
+  background: var(--token-color-surface-contrast);
+  border-radius: 0%;
   transition: transform 0.25s ease-in-out, opacity 0.1s;
 }
 .mf-cursor.-inverse {

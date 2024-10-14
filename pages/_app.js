@@ -73,7 +73,8 @@ function MyApp({ Component, pageProps, router }) {
         className={`${lausanne.variable}`}
       />
       <CursorContainer
-        className={`${lausanne.variable} ${timesNew.variable}`}
+        className={`${lausanne.variable}`}
+        isAnimating={isAnimating}
       />
       <TransitionProvider>
         <Transition

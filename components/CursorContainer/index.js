@@ -4,18 +4,13 @@ import MouseFollower from "@/mouse-follower/src";
 
 MouseFollower.registerGSAP(gsap);
 
-const CursorContainer = ({ className, scrollThreshold = 100 }) => {
-  const images = [
-    "/cursor/0001.png",
-    "/cursor/0002.png",
-    "/cursor/0003.png",
-    "/cursor/0004.png",
-  ];
+const CursorContainer = ({ className, isAnimating = true }) => {
+  let deg = 0;
 
   useEffect(() => {
     const cursor = new MouseFollower({
       speed: 1.1,
-      skewing: 0,
+      skewing: 2.8,
       skewingText: 0,
       skewingMedia: 0,
       stickDelta: 0.3,
@@ -26,43 +21,34 @@ const CursorContainer = ({ className, scrollThreshold = 100 }) => {
       className: `mf-cursor ${className}`,
     });
 
-    let currentImageIndex = 0;
-    let scrollDistance = 0;
-    let lastScrollY = window.scrollY;
+    // spin cursor on click
+    cursor.on("addState", (cursor, state) => {
+      if (state === "-active") {
+        gsap.to(".mf-cursor", {
+          "--rotation": `${deg + 45}deg`,
+          duration: 0,
+        });
 
-    const handleScroll = () => {
-      if (!cursor) return;
-
-      const newScrollY = window.scrollY;
-      const scrollDelta = newScrollY - lastScrollY;
-
-      scrollDistance += Math.abs(scrollDelta);
-      lastScrollY = newScrollY;
-
-      if (scrollDistance >= scrollThreshold) {
-        scrollDistance = 0;
-
-        if (scrollDelta > 0) {
-          currentImageIndex = (currentImageIndex + 1) % images.length;
-        } else if (scrollDelta < 0) {
-          currentImageIndex =
-            (currentImageIndex - 1 + images.length) % images.length;
-        }
-
-        cursor.setImg(images[currentImageIndex]);
+        deg += 45;
       }
-    };
+    });
 
-    window.addEventListener("scroll", handleScroll);
-
-    cursor.setImg(images[0]);
-    cursor.addState("-media");
+    gsap.set(".mf-cursor", {
+      autoAlpha: 0,
+    });
+    if (!isAnimating) {
+      gsap.to(".mf-cursor", {
+        duration: 0.75,
+        delay: 0.4,
+        ease: "power1.in",
+        autoAlpha: 1,
+      });
+    }
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
       if (cursor) cursor.destroy();
     };
-  }, [className, scrollThreshold]);
+  }, [className, isAnimating]);
 
   return null;
 };
