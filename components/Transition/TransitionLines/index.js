@@ -19,7 +19,7 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
         getComputedStyle(document.documentElement).lineHeight
       );
       const lineHeight = 1;
-      totalLines = Math.floor(height / (rlh - lineHeight)) - 1;
+      totalLines = Math.floor(height / (rlh - lineHeight));
 
       const linesArray = [];
       for (let i = 0; i < totalLines; i++) {

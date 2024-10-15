@@ -6,8 +6,6 @@
   justify-content: flex-start;
   align-self: center;
   cursor: grab;
-  opacity: 1;
-  transition: opacity 2s cubic-bezier(0.15, 0.35, 0.35, 1);
 }
 .marquee-container:active {
   cursor: grabbing;

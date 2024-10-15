@@ -14,8 +14,8 @@
   background-color: transparent;
 
   opacity: 0;
-  transition: opacity 0.75s var(--easing-text-fade-in);
-  transition-delay: 0.25s;
+  transition: opacity 0.5s var(--easing-text-fade-in);
+  transition-delay: 0.05s;
 }
 .preloader .text-container {
   display: flex;
