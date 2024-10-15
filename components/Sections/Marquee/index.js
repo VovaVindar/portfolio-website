@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
 import Magnetic from "@/components/Magnetic";
 import Image from "next/image";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 const Marquee = ({ startPageAnimation }) => {
   const [x, setX] = useState(0);
@@ -19,15 +21,38 @@ const Marquee = ({ startPageAnimation }) => {
   const copiesCount = 5;
   const dragMultiply = 1.15;
 
+  const animationDelay = 17 * 85;
+  const [pageAnimationStarted, setPageAnimationStarted] = useState(false);
+
   useEffect(() => {
     if (startPageAnimation) {
       setTimeout(() => {
-        marqueeElementsRef.current.forEach((el) => {
-          if (el) el.classList.add(`${styles["visible"]}`);
-        });
-      }, 17 * 85);
+        marqueeTrackRef.current.classList.add(`${styles["visible"]}`);
+        setPageAnimationStarted(true);
+      }, animationDelay);
     }
   }, [startPageAnimation]);
+
+  useGSAP(() => {
+    let scrollTriggerInstance;
+
+    if (pageAnimationStarted) {
+      scrollTriggerInstance = ScrollTrigger.create({
+        trigger: marqueeTrackRef.current,
+        start: "top bottom",
+        onEnter: () => {
+          marqueeTrackRef.current.classList.add(`${styles["in-view"]}`);
+        },
+        once: true,
+      });
+    }
+
+    return () => {
+      if (scrollTriggerInstance) {
+        scrollTriggerInstance.kill();
+      }
+    };
+  }, [pageAnimationStarted]);
 
   useEffect(() => {
     const updateSpeed = () => {
