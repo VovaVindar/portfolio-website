@@ -3,9 +3,43 @@
   flex-direction: column;
 }
 
+.skills {
+  padding-top: 1rlh;
+  display: flex;
+  flex-direction: row;
+  gap: var(--columns-gap);
+  height: 8rlh;
+}
+.skills .chair-container {
+  display: flex;
+  flex-direction: row;
+  gap: var(--columns-canvas-margin);
+}
+.skills .chair-container .chair {
+  margin-top: calc(1rlh + 1px);
+  width: calc(6rlh - 1px);
+  height: calc(6rlh - 1px);
+  background-color: var(--token-color-surface-secondary);
+  filter: blur(0px) !important;
+  overflow: hidden;
+}
+.skills .chair-container .chair canvas {
+  cursor: grab;
+}
+.skills .chair-container .chair canvas:active {
+  cursor: grabbing;
+}
+.skills .chair-container .chair div {
+  width: 100%;
+  height: 100%;
+}
+.skills div span {
+  margin-bottom: 1rlh;
+}
+
 .description {
-  margin-top: 12rlh;
-  margin-bottom: 10rlh;
+  margin-top: 4rlh;
+  margin-bottom: 5rlh;
   display: flex;
   flex-direction: column;
   align-items: center;

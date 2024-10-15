@@ -1,6 +1,9 @@
 .footer-container {
   margin-top: 1rlh;
 }
+.footer-container p {
+  width: fit-content;
+}
 .footer-top {
   display: flex;
   flex-direction: row;
@@ -17,7 +20,7 @@
   margin-bottom: 1rlh;
 }
 .footer-bottom {
-  margin-top: 9rlh;
+  margin-top: 10rlh;
   display: flex;
   flex-direction: row;
   gap: var(--columns-gap);
@@ -26,9 +29,11 @@
 .footer-bottom > div:nth-of-type(1) {
   width: var(--first-column-width);
 }
+.footer-bottom > div:nth-of-type(2) {
+  width: var(--second-column-width);
+}
 
 .social-links p {
-  width: fit-content;
   transition: all 0.65s var(--easing-text-fade-in);
 }
 .social-links p.faded {

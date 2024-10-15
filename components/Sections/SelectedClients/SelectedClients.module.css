@@ -1,6 +1,6 @@
 .clients {
-  margin-top: calc(5rlh - 1px);
-  margin-bottom: calc(5rlh + 1px);
+  margin-top: calc(6rlh - 1px);
+  margin-bottom: calc(6rlh + 1px);
   display: flex;
   flex-direction: row;
   gap: var(--columns-gap);

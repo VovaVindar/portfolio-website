@@ -17,7 +17,7 @@
   display: block;
   width: 48px;
   height: 48px;
-  transform: scale(0.18) rotate(var(--rotation));
+  transform: scale(0.19) rotate(var(--rotation));
   background: var(--token-color-surface-contrast);
   border-radius: 0%;
   transition: transform 0.25s ease-in-out, opacity 0.1s;
