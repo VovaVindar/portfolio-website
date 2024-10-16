@@ -39,7 +39,7 @@ const Marquee = ({ startPageAnimation }) => {
     if (pageAnimationStarted) {
       scrollTriggerInstance = ScrollTrigger.create({
         trigger: marqueeTrackRef.current,
-        start: "top bottom",
+        start: "top bottom-=35px",
         onEnter: () => {
           marqueeTrackRef.current.classList.add(`${styles["in-view"]}`);
         },

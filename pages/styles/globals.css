@@ -143,9 +143,12 @@ html {
   line-height: clamp(18px, 1.5972vw, 36px);
   font-family: var(--lausanne);
   color: var(--token-color-text-primary);
-  background-color: var(--token-color-surface-primary);
+  background-color: var(--token-color-surface-contrast);
   text-wrap: nowrap;
   overscroll-behavior: none;
+}
+html:has(.mounted) {
+  background-color: var(--token-color-surface-primary);
 }
 body {
   display: flex;

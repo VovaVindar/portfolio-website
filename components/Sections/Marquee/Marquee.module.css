@@ -36,7 +36,7 @@
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
-  transform: scale(1.22);
+  transform: scale(1.18);
   filter: blur(10px);
   opacity: 1;
   transition: all 2.2s var(--easing-img-fade-in); /* power2.out */

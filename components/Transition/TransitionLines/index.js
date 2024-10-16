@@ -23,7 +23,9 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
 
       const linesArray = [];
       for (let i = 0; i < totalLines; i++) {
-        linesArray.push(<div key={i} className={`${styles["line"]}`}></div>);
+        linesArray.push(
+          <div key={i} className={`${styles["line"]} mounted`}></div>
+        );
       }
       setLines(linesArray);
       linesContainerRef.current.style.backgroundColor = "transparent";
@@ -32,6 +34,8 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
 
     generateLines();
   }, []);
+
+  // TODO: fix lines animation on high screens
 
   useGSAP(() => {
     const timelineIntro = gsap.timeline({});
