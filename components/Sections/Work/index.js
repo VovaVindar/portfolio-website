@@ -67,19 +67,20 @@ const Work = () => {
       ref={magneticContainerRef}
     >
       <h2>Selected Work</h2>
-      <div style={{ position: "absolute", width: "100%", marginTop: "8rlh" }}>
+      <div className={`${styles["el-container"]}`}>
         <Marquee>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, index) => (
+          {[
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20, 21, 22,
+          ].map((item, index) => (
             <div
               key={index}
+              className={`${styles["el"]} ${styles[`num${index + 1}`]}`}
               style={{
-                width: "300px",
-                height: "200px",
-                backgroundColor: "black",
                 color: "white",
               }}
             >
-              {index}
+              {index + 1}
             </div>
           ))}
         </Marquee>
