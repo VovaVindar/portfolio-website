@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
 
-const Marquee = ({ children }) => {
+const Marquee = ({ children, startPageAnimation = true }) => {
   const [x, setX] = useState(0);
   const [dragSpeed, setDragSpeed] = useState(0);
   const [isDragging, setIsDragging] = useState(false);

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "./Home.module.css";
 import Hero from "@/components/Sections/Hero";
-import Marquee from "@/components/Sections/Marquee";
+import Videos from "@/components/Sections/Videos";
 import SelectedClients from "@/components/Sections/SelectedClients";
 import Work from "@/components/Sections/Work";
 import Footer from "@/components/Sections/Footer";
@@ -42,7 +42,7 @@ export default function Home({ isAnimating, numbersProgress }) {
           easing={easing}
           startPageAnimation={startPageAnimation}
         />
-        <Marquee startPageAnimation={startPageAnimation} />
+        <Videos startPageAnimation={startPageAnimation} />
         <SelectedClients
           staggerInterval={staggerInterval}
           duration={duration}

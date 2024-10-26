@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./Work.module.css";
 import gsap from "gsap";
-import Marquee2 from "@/components/Marquee";
+import Marquee from "@/components/Marquee";
 
 const Work = () => {
   // WIP
@@ -67,21 +67,23 @@ const Work = () => {
       ref={magneticContainerRef}
     >
       <h2>Selected Work</h2>
-      <Marquee2>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, index) => (
-          <div
-            key={index}
-            style={{
-              width: "300px",
-              height: "200px",
-              backgroundColor: "black",
-              color: "white",
-            }}
-          >
-            {index}
-          </div>
-        ))}
-      </Marquee2>
+      <div style={{ position: "absolute", width: "100%", marginTop: "8rlh" }}>
+        <Marquee>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, index) => (
+            <div
+              key={index}
+              style={{
+                width: "300px",
+                height: "200px",
+                backgroundColor: "black",
+                color: "white",
+              }}
+            >
+              {index}
+            </div>
+          ))}
+        </Marquee>
+      </div>
 
       {/*<div ref={magneticAreaRef} className={`${styles["magnetic"]}`}>
         <div
