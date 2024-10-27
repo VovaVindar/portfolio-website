@@ -6,6 +6,9 @@
 .videos-container.visible {
   opacity: 1;
 }
+.videos-container > div > div {
+  gap: 0.086956rlh; /* 2px */
+}
 .el {
   background-color: black;
   height: calc(27rlh + 1px);
