@@ -1,74 +1,32 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./Work.module.css";
 import gsap from "gsap";
 import Marquee from "@/components/Marquee";
 
 const Work = () => {
-  // WIP
-  const magneticContainerRef = useRef(null);
-  //const magneticAreaRef = useRef(null);
-  //const maxScale = 1.016;
-  //const minScale = 0.975;
-  //const [scale, setScale] = useState(maxScale);
+  const [marqueeProgress, setMarqueeProgress] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const pages = [0, 1, 2, 3];
-  const [activeIndex, setActiveIndex] = useState(pages[0]);
-  const [nextIndex, setNextIndex] = useState(pages[1] + 1);
-  const [prevIndex, setPrevIndex] = useState(pages[pages.length - 1] + 1);
+  const totalPages = pages.length;
+  //const [nextIndex, setNextIndex] = useState(pages[1] + 1);
+  //const [prevIndex, setPrevIndex] = useState(pages[pages.length - 1] + 1);
 
-  const handleCircleClick = (clickedIndex) => {
-    const totalPages = pages.length;
+  // Use useCallback to ensure setNumbersProgress does not change on re-renders
+  const updateProgress = useCallback((progress) => {
+    const breakpoint = 100 / totalPages;
+    const currentIndex = Math.floor(progress / breakpoint);
 
-    const validIndex = (clickedIndex + totalPages) % totalPages;
-
-    setActiveIndex(validIndex);
-
-    setNextIndex(((validIndex + 1) % totalPages) + 1);
-    setPrevIndex(((validIndex - 1 + totalPages) % totalPages) + 1);
-  };
-
-  /* useEffect(() => {
-    const mContainer = magneticContainerRef.current;
-    const mArea = magneticAreaRef.current;
-
-    if (!mContainer) return;
-
-    const parallaxIt = (e, scale, movement = 0.036) => {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      const boundingRect = mContainer.getBoundingClientRect();
-      const relX = e.pageX - boundingRect.left;
-      const relY = e.pageY - boundingRect.top;
-
-      gsap.to(mArea, {
-        scale: scale,
-        x: (relX - boundingRect.width / 2) * movement,
-        y: (relY - boundingRect.height / 2 - scrollTop) * movement,
-        ease: "power1.out",
-        z: 100 * movement,
-        rotationY: 1000 * movement,
-        opacity: 1,
-        duration: 0.6,
-      });
-    };
-
-    const handleMouseMove = (e) => parallaxIt(e, scale);
-
-    mContainer.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      mContainer.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [scale]); */
+    if (currentIndex != activeIndex) {
+      setActiveIndex((currentIndex + totalPages) % totalPages);
+    }
+  }, []);
 
   return (
-    <div
-      className={`${styles["work"]} mf-exclusion text-body-1-uppercase`}
-      ref={magneticContainerRef}
-    >
+    <div className={`${styles["work"]} mf-exclusion text-body-1-uppercase`}>
       <h2>Selected Work</h2>
       <div className={`${styles["el-container"]}`}>
-        <Marquee>
+        <Marquee setMarqueeProgress={updateProgress}>
           {[
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
             20, 21, 22,
@@ -85,13 +43,6 @@ const Work = () => {
           ))}
         </Marquee>
       </div>
-
-      {/*<div ref={magneticAreaRef} className={`${styles["magnetic"]}`}>
-        <div
-          className={`${styles["image"]}`}
-          style={{ transform: "translate(30%, 30%)" }}
-        ></div>
-      </div>*/}
       <div className={`text-body-1 ${styles["left"]}`}></div>
       <div className={`text-header-1 ${styles["right"]}`}></div>
       {/*<div

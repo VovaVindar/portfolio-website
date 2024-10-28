@@ -156,12 +156,12 @@ body {
   align-items: center;
 
   /* Create a linear gradient that repeats every 22px */
-  background-image: linear-gradient(
+  /*background-image: linear-gradient(
     to bottom,
     var(--token-color-surface-contrast) 1px,
     transparent 1px
   );
-  background-size: 100vw 1rlh;
+  background-size: 100vw 1rlh;*/
 }
 main {
   min-height: 100vh;

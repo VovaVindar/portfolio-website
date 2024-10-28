@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
 
-const Marquee = ({ children, startPageAnimation = true }) => {
+const Marquee = ({ children, setMarqueeProgress = null }) => {
   const [x, setX] = useState(0);
   const [dragSpeed, setDragSpeed] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -32,7 +32,6 @@ const Marquee = ({ children, startPageAnimation = true }) => {
       marqueeTrackRef.current &&
       marqueeTrackRef.current.children.length > 0
     ) {
-      const elementWidth = marqueeTrackRef.current.children[0].offsetWidth;
       const newTrackWidth = Math.round(
         marqueeTrackRef.current.scrollWidth / 2 + 1
       );
@@ -70,6 +69,13 @@ const Marquee = ({ children, startPageAnimation = true }) => {
 
     return () => cancelAnimationFrame(animationRef.current);
   }, [dragSpeed, trackWidth, shouldAnimate, speed]);
+
+  useEffect(() => {
+    const containerWidth = marqueeContainerRef.current.offsetWidth;
+    if (setMarqueeProgress && trackWidth > 0) {
+      setMarqueeProgress(Math.round(((x + containerWidth) / trackWidth) * 100));
+    }
+  }, [x, trackWidth, setMarqueeProgress]);
 
   const onDragStart = (t) => {
     setIsDragging(true);
