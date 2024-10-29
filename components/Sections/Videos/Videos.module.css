@@ -27,12 +27,12 @@
 }
 .videos-container .el img {
   transform: scale(1.18);
-  filter: blur(10px);
+  filter: blur(10px) brightness(3.8) saturate(3.8);
   transition: all 2.2s var(--easing-img-fade-in); /* power2.out */
 }
 .videos-container.in-view .el img {
   transform: scale(1);
-  filter: blur(0px);
+  filter: blur(0px) brightness(1) saturate(1);
 }
 
 @media all and (min-width: 4163px) {
