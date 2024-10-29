@@ -43,13 +43,6 @@
   right: 0;
   cursor: e-resize;
 }
-.work .image {
-  background-color: var(--token-color-surface-contrast);
-  width: 300px;
-  height: 200px;
-  left: 0px;
-  top: 0px;
-}
 .work .circle-container {
   position: absolute;
   left: 50%;
@@ -128,6 +121,16 @@
 .work .el-container .el {
   height: 6rlh;
   aspect-ratio: 185 / 138;
+  position: relative;
+  overflow: hidden;
+  background-color: black;
+}
+.work .el-container .el img {
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  opacity: 1;
   background-color: black;
 }
 .work .el-container .el.num1 {

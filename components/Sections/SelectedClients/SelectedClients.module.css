@@ -18,13 +18,13 @@
   margin-bottom: 0;
 }
 .clients .client-container span {
-  margin-left: 0.347826rlh; /* 8px */
+  margin-left: calc(0.347826rlh * 2.5); /* 8px * 2.5 */
 }
 .clients .client-container.rove span {
-  margin-left: 0.434782rlh; /* 10px */
+  margin-left: calc(0.347826rlh * 2.5 + 0.086956); /* 8px * 2.5 + 2px */
 }
 .clients .client-container.jpw span {
-  margin-left: 0.391304rlh; /* 9px */
+  margin-left: calc(0.347826rlh * 2.5 + 0.043478); /* 8px * 2.5 + 1px*/
 }
 
 @media all and (max-width: 1060px) {

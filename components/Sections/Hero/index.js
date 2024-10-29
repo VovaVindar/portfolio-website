@@ -69,8 +69,10 @@ const Hero = ({ staggerInterval, duration, easing, startPageAnimation }) => {
           <p ref={(el) => (heroOnload.current[3] = el)}>
             websites and intuitive digital interfaces.
           </p>
-          <br />
-          <p ref={(el) => (heroOnload.current[4] = el)}>
+          <p
+            ref={(el) => (heroOnload.current[4] = el)}
+            style={{ marginTop: "1rlh" }}
+          >
             During my career, I’ve had the privilege of working
           </p>{" "}
           <p ref={(el) => (heroOnload.current[5] = el)}>

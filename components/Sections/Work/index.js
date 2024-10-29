@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./Work.module.css";
 import gsap from "gsap";
+import Image from "next/image";
 import Marquee from "@/components/Marquee";
+import Magnetic from "@/components/Magnetic";
 
 const Work = () => {
   const [marqueeProgress, setMarqueeProgress] = useState(0);
@@ -37,8 +39,16 @@ const Work = () => {
               style={{
                 color: "white",
               }}
+              data-cursor-text="Vitamin Living"
             >
-              {index + 1}
+              <Magnetic movement={0.072} passedScale={1.032}>
+                <Image
+                  src="/marquee.png"
+                  alt="Picture of the author"
+                  fill
+                  priority={true}
+                />
+              </Magnetic>
             </div>
           ))}
         </Marquee>

@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-const Magnetic = ({ children, movement = 0.036, type = "image" }) => {
+const Magnetic = ({
+  children,
+  movement = 0.036,
+  type = "image",
+  passedScale,
+}) => {
   const magneticAreaRef = useRef(null);
-  const maxScale = type == "image" ? 1.016 : 1.04;
+  const maxScale = passedScale || (type === "image" ? 1.016 : 1.04);
   const minScale = 0.975;
   const [scale, setScale] = useState(maxScale);
   var pMovement = type == "image" ? movement : 0.075;

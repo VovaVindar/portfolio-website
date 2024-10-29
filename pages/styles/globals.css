@@ -178,6 +178,11 @@ p {
   text-wrap: nowrap;
 }
 
+::selection {
+  color: var(--token-color-surface-contrast);
+  background-color: var(--token-color-surface-contrast);
+}
+
 @media all and (max-width: 820px) {
   main {
     padding: 0 5px;
