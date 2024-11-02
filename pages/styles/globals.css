@@ -147,8 +147,14 @@ html {
   text-wrap: nowrap;
   overscroll-behavior: none;
 }
+html .work-global {
+  opacity: 0;
+}
 html:has(.mounted) {
   background-color: var(--token-color-surface-primary);
+}
+html:has(.mounted) .work-global {
+  opacity: 1;
 }
 body {
   display: flex;

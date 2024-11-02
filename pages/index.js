@@ -14,8 +14,8 @@ export default function Home({ isAnimating, numbersProgress }) {
   const [startPageAnimation, setStartPageAnimation] = useState(false);
   const container = useRef(null);
 
-  var staggerInterval = 0.09;
-  var duration = 0.6;
+  var staggerInterval = 0.11;
+  var duration = 0.75;
   var easing = "power1.in"; // Easing for: text fade in
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Home({ isAnimating, numbersProgress }) {
           duration={duration}
           easing={easing}
         />
-        <Work />
+        <Work duration={duration} easing={easing} />
         <Footer
           staggerInterval={staggerInterval}
           duration={duration}

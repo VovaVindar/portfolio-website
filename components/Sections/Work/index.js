@@ -1,18 +1,19 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import styles from "./Work.module.css";
 import gsap from "gsap";
 import Image from "next/image";
 import Marquee from "@/components/Marquee";
 import Magnetic from "@/components/Magnetic";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-const Work = () => {
-  const [marqueeProgress, setMarqueeProgress] = useState(0);
+gsap.registerPlugin(ScrollTrigger);
+
+const Work = ({ duration, easing }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const pages = [0, 1, 2, 3];
   const totalPages = pages.length;
-  //const [nextIndex, setNextIndex] = useState(pages[1] + 1);
-  //const [prevIndex, setPrevIndex] = useState(pages[pages.length - 1] + 1);
 
   // Use useCallback to ensure setNumbersProgress does not change on re-renders
   const updateProgress = useCallback((progress) => {
@@ -24,10 +25,93 @@ const Work = () => {
     }
   }, []);
 
+  const containerRef = useRef(null);
+  const textOnscroll = useRef(null);
+  const circlesOnscroll = useRef(null);
+
+  useGSAP(() => {
+    let scrollTriggerInstance1, scrollTriggerInstance2, scrollTriggerInstance3;
+    const textAnimation = gsap.timeline({});
+    const circlesAnimation = gsap.timeline({});
+
+    containerRef?.current.classList.remove(`${styles["in-view"]}`);
+
+    textAnimation.set(textOnscroll.current, {
+      opacity: 0,
+      filter: "blur(1.5px)",
+    });
+
+    circlesAnimation.set(circlesOnscroll.current, {
+      autoAlpha: 0,
+      filter: "blur(1.5px)",
+    });
+
+    scrollTriggerInstance1 = ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top bottom-=3rlh",
+      onEnter: () => {
+        containerRef.current.classList.add(`${styles["in-view"]}`);
+
+        circlesAnimation.to(circlesOnscroll.current, {
+          opacity: 1,
+          filter: `blur(0px)`,
+          delay: 0,
+          duration: duration,
+          ease: easing,
+        });
+      },
+      once: true,
+    });
+
+    scrollTriggerInstance2 = ScrollTrigger.create({
+      trigger: textOnscroll.current,
+      start: "top bottom-=0.5rlh",
+      onEnter: () => {
+        textAnimation.to(textOnscroll.current, {
+          opacity: 1,
+          filter: `blur(0px)`,
+          delay: 0,
+          duration: duration,
+          ease: easing,
+        });
+      },
+      once: true,
+    });
+
+    scrollTriggerInstance3 = ScrollTrigger.create({
+      trigger: circlesOnscroll.current,
+      start: "top bottom",
+      onEnter: () => {
+        circlesAnimation.to(circlesOnscroll.current, {
+          autoAlpha: 1,
+          filter: `blur(0px)`,
+          delay: 0,
+          duration: duration,
+          ease: easing,
+        });
+      },
+      once: true,
+    });
+
+    return () => {
+      if (scrollTriggerInstance1) {
+        scrollTriggerInstance1.kill();
+      }
+      if (scrollTriggerInstance2) {
+        scrollTriggerInstance2.kill();
+      }
+      if (scrollTriggerInstance3) {
+        scrollTriggerInstance3.kill();
+      }
+    };
+  }, []);
+
   return (
-    <div className={`${styles["work"]} mf-exclusion text-body-1-uppercase`}>
-      <h2>Selected Work</h2>
-      <div className={`${styles["el-container"]}`}>
+    <div
+      className={`${styles["work"]} work-global mf-exclusion text-body-1-uppercase`}
+    >
+      <h2 ref={textOnscroll}>Selected Work</h2>
+      <div className={`${styles["el-container"]}`} ref={containerRef}>
         <Marquee setMarqueeProgress={updateProgress}>
           {[
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
@@ -55,24 +139,11 @@ const Work = () => {
       </div>
       <div className={`text-body-1 ${styles["left"]}`}></div>
       <div className={`text-header-1 ${styles["right"]}`}></div>
-      {/*<div
-        className={`${styles["click"]} ${styles["prev"]}`}
-        role="button"
-        aria-label="Previous"
-        data-cursor-text={prevIndex}
-        onClick={() => handleCircleClick(activeIndex - 1)}
-      ></div>
-      <div
-        className={`${styles["click"]} ${styles["next"]}`}
-        role="button"
-        aria-label="Next"
-        data-cursor-text={nextIndex}
-        onClick={() => handleCircleClick(activeIndex + 1)}
-      ></div>*/}
       <div
         className={`${styles["circle-container"]} ${
           styles[`active-${activeIndex}`]
         }`}
+        ref={circlesOnscroll}
       >
         {[0, 1, 2, 3].map((index) => (
           <div key={index} className={`${styles["circle"]}`}></div>

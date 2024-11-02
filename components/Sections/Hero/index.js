@@ -25,10 +25,10 @@ const Hero = ({ staggerInterval, duration, easing, startPageAnimation }) => {
           autoAlpha: startPageAnimation ? 1 : 0,
           filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
           color: "#0F1010",
-          duration: duration,
+          duration: duration - 0.1,
           delay: 0.9,
           ease: easing,
-          stagger: (index) => heroStagger(index, staggerInterval),
+          stagger: (index) => heroStagger(index, staggerInterval - 0.02),
         }
       );
     }

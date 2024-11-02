@@ -10,41 +10,34 @@ const SelectedClients = ({ staggerInterval, duration, easing }) => {
   const clientsOnscroll = useRef([]);
 
   useGSAP(() => {
-    let scrollTriggerInstance;
-    const clientsAnimation = gsap.timeline({});
-
     if (clientsOnscroll.current.length) {
-      clientsAnimation.set(clientsOnscroll.current, {
-        autoAlpha: 0,
-        filter: "blur(1.5px)",
-        color: "red",
-      });
-
-      scrollTriggerInstance = ScrollTrigger.create({
-        trigger: clientsOnscroll.current,
-        start: "top bottom",
-        onEnter: () => {
-          clientsAnimation.to(clientsOnscroll.current, {
-            autoAlpha: 1,
-            filter: `blur(0px)`,
-            color: "#0F1010",
-            delay: 0,
-            duration: duration,
-            ease: easing,
-            stagger: staggerInterval,
-          });
+      ScrollTrigger.batch(clientsOnscroll.current, {
+        onEnter: (batch) => {
+          gsap.fromTo(
+            batch,
+            {
+              autoAlpha: 0,
+              filter: "blur(1.5px)",
+              color: "red",
+            },
+            {
+              autoAlpha: 1,
+              filter: "blur(0px)",
+              color: "#0F1010",
+              duration: duration,
+              ease: easing,
+              stagger: staggerInterval,
+            }
+          );
         },
-        once: true,
+        once: true, // Only trigger the animation once for each element
+        start: "top bottom", // Start animation when the top of each element reaches the bottom of the viewport
+        markers: true, // Enable markers for debugging; remove in production
       });
     }
 
     return () => {
-      if (scrollTriggerInstance) {
-        scrollTriggerInstance.kill();
-      }
-      if (clientsAnimation) {
-        clientsAnimation.kill();
-      }
+      ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
 
@@ -58,55 +51,24 @@ const SelectedClients = ({ staggerInterval, duration, easing }) => {
         </div>
       </div>
       <div>
-        <div
-          className={`${styles["client-container"]}`}
-          ref={(el) => (clientsOnscroll.current[1] = el)}
-        >
-          <h1>Paradigm</h1>
-          <span className="text-header-3">Web, Product, Brand, Deck, Dev</span>
-        </div>
-        <div
-          className={`${styles["client-container"]}`}
-          ref={(el) => (clientsOnscroll.current[2] = el)}
-        >
-          <h1>Cognition</h1>
-          <span className="text-header-3">Web</span>
-        </div>
-        <div
-          className={`${styles["client-container"]} ${styles["rove"]}`}
-          ref={(el) => (clientsOnscroll.current[3] = el)}
-        >
-          <h1>Rove Card</h1>
-          <span className="text-header-3">Web, Graphic, App, Deck</span>
-        </div>
-        <div
-          className={`${styles["client-container"]}`}
-          ref={(el) => (clientsOnscroll.current[4] = el)}
-        >
-          <h1>Dolce & Gabbana</h1>
-          <span className="text-header-3">Web, Metaverse</span>
-        </div>
-        <div
-          className={`${styles["client-container"]}`}
-          ref={(el) => (clientsOnscroll.current[5] = el)}
-        >
-          <h1>PRJCTR Institute</h1>
-          <span className="text-header-3">Mentoring</span>
-        </div>
-        <div
-          className={`${styles["client-container"]}`}
-          ref={(el) => (clientsOnscroll.current[6] = el)}
-        >
-          <h1>Twitch</h1>
-          <span className="text-header-3">Game UI, Graphic</span>
-        </div>
-        <div
-          className={`${styles["client-container"]} ${styles["jpw"]}`}
-          ref={(el) => (clientsOnscroll.current[7] = el)}
-        >
-          <h1>Jon-Paul Wheatley</h1>
-          <span className="text-header-3">Web</span>
-        </div>
+        {[
+          { name: "Paradigm", services: "Web, Product, Brand, Deck, Dev" },
+          { name: "Cognition", services: "Web" },
+          { name: "Rove Card", services: "Web, Graphic, App, Deck" },
+          { name: "Dolce & Gabbana", services: "Web, Metaverse" },
+          { name: "PRJCTR Institute", services: "Mentoring" },
+          { name: "Twitch", services: "Game UI, Graphic" },
+          { name: "Jon-Paul Wheatley", services: "Web" },
+        ].map((client, index) => (
+          <div
+            key={client.name}
+            className={`${styles["client-container"]}`}
+            ref={(el) => (clientsOnscroll.current[index + 1] = el)}
+          >
+            <h1>{client.name}</h1>
+            <span className="text-header-3">{client.services}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
