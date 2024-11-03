@@ -27,6 +27,7 @@
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(calc(-50% - 0.5rlh));
+  user-select: none;
 }
 .work .click {
   position: absolute;

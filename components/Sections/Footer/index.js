@@ -187,19 +187,21 @@ const Footer = ({ staggerInterval, duration, easing }) => {
       </div>
       <div className={`${styles["footer-bottom"]}`}>
         <div>
-          <div className="text-body-3">
-            <p ref={(el) => (footerOnscroll.current[11] = el)}>2024 ©</p>
+          <div>
+            <div className="text-body-3">
+              <p ref={(el) => (footerOnscroll.current[11] = el)}>2024 ©</p>
+            </div>
           </div>
-        </div>
-        <div>
-          <div className="text-body-3">
-            <p ref={(el) => (footerOnscroll.current[12] = el)}>
-              <Magnetic type="text">
-                <Link href={"/privacy"}>
-                  Privacy <span>Policy</span>
-                </Link>
-              </Magnetic>
-            </p>
+          <div>
+            <div className="text-body-3">
+              <p ref={(el) => (footerOnscroll.current[12] = el)}>
+                <Magnetic type="text">
+                  <Link href={"/privacy"}>
+                    Privacy <span>Policy</span>
+                  </Link>
+                </Magnetic>
+              </p>
+            </div>
           </div>
         </div>
         <div className="text-body-3">

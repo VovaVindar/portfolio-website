@@ -30,9 +30,8 @@ const SelectedClients = ({ staggerInterval, duration, easing }) => {
             }
           );
         },
-        once: true, // Only trigger the animation once for each element
-        start: "top bottom", // Start animation when the top of each element reaches the bottom of the viewport
-        markers: true, // Enable markers for debugging; remove in production
+        once: true,
+        start: "top bottom",
       });
     }
 

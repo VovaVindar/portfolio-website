@@ -26,10 +26,15 @@
   gap: var(--columns-gap);
   padding-bottom: 1rlh;
 }
-.footer-bottom > div:nth-of-type(1) {
+.footer-bottom > div {
+  display: flex;
+  flex-direction: row;
+  gap: var(--columns-gap);
+}
+.footer-bottom > div > div:nth-of-type(1) {
   width: var(--first-column-width);
 }
-.footer-bottom > div:nth-of-type(2) {
+.footer-bottom > div > div:nth-of-type(2) {
   width: var(--second-column-width);
 }
 
@@ -71,6 +76,12 @@
   }
   .footer-bottom {
     margin-top: 6rlh;
+    align-items: flex-end;
+  }
+  .footer-bottom > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0rlh;
   }
   .footer-bottom span > span {
     display: none;

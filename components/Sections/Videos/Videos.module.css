@@ -12,7 +12,7 @@
 .el {
   background-color: black;
   height: calc(27rlh + 1px);
-  width: 44rlh;
+  aspect-ratio: 16 / 9;
   opacity: 1;
   transition: opacity 2.1s var(--easing-img-fade-in); /* power2.out */
   position: relative;
@@ -45,11 +45,7 @@
 }
 
 @media all and (max-width: 820px) {
-  .videos-container {
-    margin-top: calc(4rlh - 1px);
-  }
   .el {
-    height: calc(12rlh + 2px);
-    width: calc(12rlh + 2px);
+    height: calc(16rlh + 2px);
   }
 }

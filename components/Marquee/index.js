@@ -8,7 +8,7 @@ const Marquee = ({ children, setMarqueeProgress = null }) => {
   const [dragXStart, setDragXStart] = useState(0);
   const [speed, setSpeed] = useState(0);
   const desktopSpeed = 0.2;
-  const mobileSpeed = 0.7;
+  const mobileSpeed = 0.38;
   const [trackWidth, setTrackWidth] = useState(0);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const marqueeContainerRef = useRef(null);
