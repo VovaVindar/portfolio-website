@@ -6,7 +6,12 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SelectedClients = ({ staggerInterval, duration, easing }) => {
+const SelectedClients = ({
+  staggerInterval,
+  duration,
+  easing,
+  startPageAnimation,
+}) => {
   const clientsOnscroll = useRef([]);
 
   useGSAP(() => {
@@ -21,9 +26,9 @@ const SelectedClients = ({ staggerInterval, duration, easing }) => {
               color: "red",
             },
             {
-              autoAlpha: 1,
-              filter: "blur(0px)",
-              color: "#0F1010",
+              autoAlpha: startPageAnimation ? 1 : 0,
+              filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
+              color: `${startPageAnimation ? "#0F1010" : "red"}`,
               duration: duration,
               ease: easing,
               stagger: staggerInterval,
@@ -38,7 +43,7 @@ const SelectedClients = ({ staggerInterval, duration, easing }) => {
     return () => {
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
-  }, []);
+  }, [startPageAnimation]);
 
   return (
     <div className={`${styles["clients"]}`}>

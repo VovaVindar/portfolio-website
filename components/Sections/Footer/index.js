@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Magnetic from "@/components/Magnetic";
 import Link from "next/link";
 
-const Footer = ({ staggerInterval, duration, easing }) => {
+const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
   const [time, setTime] = useState({ hours: "", minutes: "" });
 
   useEffect(() => {
@@ -46,9 +46,9 @@ const Footer = ({ staggerInterval, duration, easing }) => {
         start: "top bottom",
         onEnter: () => {
           footerAnimation.to(footerOnscroll.current, {
-            autoAlpha: 1,
-            filter: `blur(0px)`,
-            color: "#0F1010",
+            autoAlpha: startPageAnimation ? 1 : 0,
+            filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
+            color: `${startPageAnimation ? "#0F1010" : "red"}`,
             delay: 0,
             duration: duration,
             ease: easing,
@@ -67,7 +67,7 @@ const Footer = ({ staggerInterval, duration, easing }) => {
         footerAnimation.kill();
       }
     };
-  }, []);
+  }, [startPageAnimation]);
 
   const footerStagger = (index, interval) => {
     if (index <= 2) return 0;

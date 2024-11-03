@@ -47,12 +47,18 @@ export default function Home({ isAnimating, numbersProgress }) {
           staggerInterval={staggerInterval}
           duration={duration}
           easing={easing}
+          startPageAnimation={startPageAnimation}
         />
-        <Work duration={duration} easing={easing} />
+        <Work
+          duration={duration}
+          easing={easing}
+          startPageAnimation={startPageAnimation}
+        />
         <Footer
           staggerInterval={staggerInterval}
           duration={duration}
           easing={easing}
+          startPageAnimation={startPageAnimation}
         />
       </div>
     </>

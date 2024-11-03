@@ -9,7 +9,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Work = ({ duration, easing }) => {
+const Work = ({ duration, easing, startPageAnimation }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const pages = [0, 1, 2, 3];
@@ -50,15 +50,9 @@ const Work = ({ duration, easing }) => {
       trigger: containerRef.current,
       start: "top bottom-=3rlh",
       onEnter: () => {
-        containerRef.current.classList.add(`${styles["in-view"]}`);
-
-        circlesAnimation.to(circlesOnscroll.current, {
-          opacity: 1,
-          filter: `blur(0px)`,
-          delay: 0,
-          duration: duration,
-          ease: easing,
-        });
+        if (startPageAnimation) {
+          containerRef.current.classList.add(`${styles["in-view"]}`);
+        }
       },
       once: true,
     });
@@ -68,8 +62,8 @@ const Work = ({ duration, easing }) => {
       start: "top bottom-=0.5rlh",
       onEnter: () => {
         textAnimation.to(textOnscroll.current, {
-          opacity: 1,
-          filter: `blur(0px)`,
+          opacity: startPageAnimation ? 1 : 0,
+          filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
           delay: 0,
           duration: duration,
           ease: easing,
@@ -83,8 +77,8 @@ const Work = ({ duration, easing }) => {
       start: "top bottom",
       onEnter: () => {
         circlesAnimation.to(circlesOnscroll.current, {
-          autoAlpha: 1,
-          filter: `blur(0px)`,
+          autoAlpha: startPageAnimation ? 1 : 0,
+          filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
           delay: 0,
           duration: duration,
           ease: easing,
@@ -104,7 +98,7 @@ const Work = ({ duration, easing }) => {
         scrollTriggerInstance3.kill();
       }
     };
-  }, []);
+  }, [startPageAnimation]);
 
   return (
     <div
