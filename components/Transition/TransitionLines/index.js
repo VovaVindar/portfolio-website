@@ -4,7 +4,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
+const LoadingLines = ({
+  onLoadingComplete,
+  numbersProgress,
+  setLinesCount,
+}) => {
   const [lines, setLines] = useState([]);
   const linesContainerRef = useRef(null);
   const linesReadyRef = useRef(false);
@@ -46,9 +50,9 @@ const LoadingLines = ({ onLoadingComplete, numbersProgress }) => {
       const lines = Array.from(linesContainerRef.current.children);
 
       if (lines.length > 0) {
-        var staggerInterval =
-          totalLines <= 50 ? 0.038 : totalLines >= 100 ? 0.0025 : 0.008;
+        var staggerInterval = lines.length <= 60 ? 0.038 : 0.0002;
         var duration = 1.25;
+        setLinesCount(lines.length > 60);
 
         timelineIntro.fromTo(
           lines,

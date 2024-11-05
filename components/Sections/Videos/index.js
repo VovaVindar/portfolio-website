@@ -6,11 +6,11 @@ import Marquee from "@/components/Marquee";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-const Videos = ({ startPageAnimation }) => {
+const Videos = ({ startPageAnimation, linesCount }) => {
   const containerRef = useRef(null);
   const marqueeElementsRef = useRef([]);
 
-  const animationDelay = 17 * 85;
+  const animationDelay = linesCount ? 6 * 85 : 20 * 85;
   const [pageAnimationStarted, setPageAnimationStarted] = useState(false);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const Videos = ({ startPageAnimation }) => {
 
   return (
     <div className={`${styles["videos-container"]}`} ref={containerRef}>
-      <Marquee>
+      <Marquee passedX={500}>
         {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, index) => (
           <div
             key={index}

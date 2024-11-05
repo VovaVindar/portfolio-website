@@ -29,6 +29,13 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
   }, []);
 
   const footerOnscroll = useRef([]);
+  const [startPageAnimation2, setStartPageAnimation2] = useState(false);
+
+  useEffect(() => {
+    if (startPageAnimation) {
+      setTimeout(() => setStartPageAnimation2(true), 2250);
+    }
+  }, [startPageAnimation]);
 
   useGSAP(() => {
     let scrollTriggerInstance;
@@ -46,9 +53,9 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
         start: "top bottom",
         onEnter: () => {
           footerAnimation.to(footerOnscroll.current, {
-            autoAlpha: startPageAnimation ? 1 : 0,
-            filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
-            color: `${startPageAnimation ? "#0F1010" : "red"}`,
+            autoAlpha: startPageAnimation2 ? 1 : 0,
+            filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
+            color: `${startPageAnimation2 ? "#0F1010" : "red"}`,
             delay: 0,
             duration: duration,
             ease: easing,
@@ -67,7 +74,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
         footerAnimation.kill();
       }
     };
-  }, [startPageAnimation]);
+  }, [startPageAnimation2]);
 
   const footerStagger = (index, interval) => {
     if (index <= 2) return 0;

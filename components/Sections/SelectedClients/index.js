@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import styles from "./SelectedClients.module.css";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
@@ -13,6 +13,13 @@ const SelectedClients = ({
   startPageAnimation,
 }) => {
   const clientsOnscroll = useRef([]);
+  const [startPageAnimation2, setStartPageAnimation2] = useState(false);
+
+  useEffect(() => {
+    if (startPageAnimation) {
+      setTimeout(() => setStartPageAnimation2(true), 1100);
+    }
+  }, [startPageAnimation]);
 
   useGSAP(() => {
     if (clientsOnscroll.current.length) {
@@ -26,9 +33,9 @@ const SelectedClients = ({
               color: "red",
             },
             {
-              autoAlpha: startPageAnimation ? 1 : 0,
-              filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
-              color: `${startPageAnimation ? "#0F1010" : "red"}`,
+              autoAlpha: startPageAnimation2 ? 1 : 0,
+              filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
+              color: `${startPageAnimation2 ? "#0F1010" : "red"}`,
               duration: duration,
               ease: easing,
               stagger: staggerInterval,
@@ -43,7 +50,7 @@ const SelectedClients = ({
     return () => {
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
-  }, [startPageAnimation]);
+  }, [startPageAnimation2]);
 
   return (
     <div className={`${styles["clients"]}`}>

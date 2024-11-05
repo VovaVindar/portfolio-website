@@ -1,6 +1,6 @@
 .videos-container {
   opacity: 0;
-  transition: opacity 2s var(--easing-img-fade-in);
+  transition: opacity 3s var(--easing-img-fade-in);
   width: 100%;
 }
 .videos-container.visible {

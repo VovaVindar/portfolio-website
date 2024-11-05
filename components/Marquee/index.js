@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
 
-const Marquee = ({ children, setMarqueeProgress = null }) => {
-  const [x, setX] = useState(0);
+const Marquee = ({ children, setMarqueeProgress = null, passedX = 0 }) => {
+  const [x, setX] = useState(passedX);
   const [dragSpeed, setDragSpeed] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragXStart, setDragXStart] = useState(0);

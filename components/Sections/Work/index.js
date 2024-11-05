@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import styles from "./Work.module.css";
 import gsap from "gsap";
 import Image from "next/image";
@@ -28,6 +28,13 @@ const Work = ({ duration, easing, startPageAnimation }) => {
   const containerRef = useRef(null);
   const textOnscroll = useRef(null);
   const circlesOnscroll = useRef(null);
+  const [startPageAnimation2, setStartPageAnimation2] = useState(false);
+
+  useEffect(() => {
+    if (startPageAnimation) {
+      setTimeout(() => setStartPageAnimation2(true), 2000);
+    }
+  }, [startPageAnimation]);
 
   useGSAP(() => {
     let scrollTriggerInstance1, scrollTriggerInstance2, scrollTriggerInstance3;
@@ -50,7 +57,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
       trigger: containerRef.current,
       start: "top bottom-=3rlh",
       onEnter: () => {
-        if (startPageAnimation) {
+        if (startPageAnimation2) {
           containerRef.current.classList.add(`${styles["in-view"]}`);
         }
       },
@@ -62,8 +69,8 @@ const Work = ({ duration, easing, startPageAnimation }) => {
       start: "top bottom-=0.5rlh",
       onEnter: () => {
         textAnimation.to(textOnscroll.current, {
-          opacity: startPageAnimation ? 1 : 0,
-          filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
+          opacity: startPageAnimation2 ? 1 : 0,
+          filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
           delay: 0,
           duration: duration,
           ease: easing,
@@ -77,8 +84,8 @@ const Work = ({ duration, easing, startPageAnimation }) => {
       start: "top bottom",
       onEnter: () => {
         circlesAnimation.to(circlesOnscroll.current, {
-          autoAlpha: startPageAnimation ? 1 : 0,
-          filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
+          autoAlpha: startPageAnimation2 ? 1 : 0,
+          filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
           delay: 0,
           duration: duration,
           ease: easing,
@@ -98,7 +105,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
         scrollTriggerInstance3.kill();
       }
     };
-  }, [startPageAnimation]);
+  }, [startPageAnimation2]);
 
   return (
     <div

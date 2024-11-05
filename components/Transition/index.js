@@ -9,6 +9,7 @@ export default function TransitionLayout({
   children,
   onLoadingComplete,
   numbersProgress,
+  setLinesCount,
   ...props
 }) {
   const [displayChildren, setDisplayChildren] = useState(children);
@@ -37,6 +38,7 @@ export default function TransitionLayout({
       <TransitionLines
         numbersProgress={numbersProgress}
         onLoadingComplete={onLoadingComplete}
+        setLinesCount={setLinesCount}
       />
       {childrenWithProps}
     </>

@@ -121,7 +121,7 @@
 }
 .work .el-container img {
   transform: scale(1.18);
-  filter: blur(3px) brightness(1.8) saturate(1.8);
+  filter: blur(3px) brightness(2) saturate(2);
   transition: all 2.1s var(--easing-img-fade-in); /* power2.out */
 }
 .work .el-container.in-view img {
@@ -134,6 +134,11 @@
   position: relative;
   overflow: hidden;
   background-color: black;
+  opacity: 0;
+  transition: opacity 3s var(--easing-img-fade-in);
+}
+.work .el-container.in-view .el {
+  opacity: 1;
 }
 .work .el-container .el img {
   object-fit: contain;

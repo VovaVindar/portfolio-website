@@ -9,7 +9,7 @@ import Scrollbar from "@/components/Scrollbar";
 import { TransitionContext } from "@/context/TransitionContext";
 import { useContext, useRef, useEffect, useState } from "react";
 
-export default function Home({ isAnimating, numbersProgress }) {
+export default function Home({ isAnimating, numbersProgress, linesCount }) {
   const { timeline } = useContext(TransitionContext);
   const [startPageAnimation, setStartPageAnimation] = useState(false);
   const container = useRef(null);
@@ -41,8 +41,12 @@ export default function Home({ isAnimating, numbersProgress }) {
           duration={duration}
           easing={easing}
           startPageAnimation={startPageAnimation}
+          linesCount={linesCount}
         />
-        <Videos startPageAnimation={startPageAnimation} />
+        <Videos
+          startPageAnimation={startPageAnimation}
+          linesCount={linesCount}
+        />
         <SelectedClients
           staggerInterval={staggerInterval}
           duration={duration}

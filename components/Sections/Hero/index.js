@@ -3,7 +3,13 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import styles from "./Hero.module.css";
 
-const Hero = ({ staggerInterval, duration, easing, startPageAnimation }) => {
+const Hero = ({
+  staggerInterval,
+  duration,
+  easing,
+  startPageAnimation,
+  linesCount,
+}) => {
   const heroOnload = useRef([]);
 
   useEffect(() => {
@@ -26,7 +32,7 @@ const Hero = ({ staggerInterval, duration, easing, startPageAnimation }) => {
           filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
           color: "#0F1010",
           duration: duration - 0.1,
-          delay: 0.9,
+          delay: linesCount ? 0.3 : 0.9,
           ease: easing,
           stagger: (index) => heroStagger(index, staggerInterval - 0.02),
         }

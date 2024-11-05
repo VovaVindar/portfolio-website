@@ -45,6 +45,7 @@ const timesNew = localFont({
 function MyApp({ Component, pageProps, router }) {
   const [isAnimating, setIsAnimating] = useState(true);
   const [numbersProgress, setNumbersProgress] = useState(0);
+  const [linesCount, setLinesCount] = useState(0);
   const mainRef = useRef(null);
 
   // Scroll to top when mainRef changes
@@ -60,6 +61,10 @@ function MyApp({ Component, pageProps, router }) {
   // Use useCallback to ensure setNumbersProgress does not change on re-renders
   const updateProgress = useCallback((progress) => {
     setNumbersProgress(progress);
+  }, []);
+
+  const updateLines = useCallback((count) => {
+    setLinesCount(count);
   }, []);
 
   return (
@@ -80,6 +85,7 @@ function MyApp({ Component, pageProps, router }) {
           onLoadingComplete={() => {
             setIsAnimating(false);
           }}
+          setLinesCount={updateLines}
         >
           <SmoothScrolling isAnimating={isAnimating}>
             <main
@@ -90,6 +96,7 @@ function MyApp({ Component, pageProps, router }) {
               <Component
                 numbersProgress={numbersProgress}
                 isAnimating={isAnimating}
+                linesCount={linesCount}
                 {...pageProps}
               />
             </main>
