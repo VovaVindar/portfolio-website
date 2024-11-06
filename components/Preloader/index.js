@@ -9,7 +9,7 @@ const Preloader = ({
   setNumbersProgress,
   className,
 }) => {
-  const intervalDuration = 135;
+  const intervalDuration = 135 * 2;
 
   useEffect(() => {
     if (mainRef.current) {
@@ -20,7 +20,7 @@ const Preloader = ({
         const newProgress =
           (imgLoad.progressedCount / imgLoad.images.length) * 100;
         if (newProgress > currentProgress) {
-          const increment = Math.min(newProgress - currentProgress, 10);
+          const increment = Math.min(newProgress - currentProgress, 14);
           currentProgress += increment;
           setNumbersProgress(currentProgress.toFixed(0));
         } else if (currentProgress === 100) {
@@ -49,7 +49,6 @@ const Preloader = ({
       numbersAnimation.to(containerRef.current, {
         autoAlpha: `${numbersProgress >= 100 ? 0 : 1}`,
         filter: `blur(${numbersProgress >= 100 ? 2 : 0}px)`,
-        color: `${numbersProgress >= 100 ? "red" : "white"}`,
         duration: 1.2,
         delay: 0.05,
         ease: "power4.out" /* Easing for: text fade out */,
@@ -59,8 +58,14 @@ const Preloader = ({
       });
     }
     if (progressIndicatorRef.current) {
+      movementAnimation.set(progressIndicatorRef.current, {
+        color: `red`,
+        opacity: 0.4,
+      });
       movementAnimation.to(progressIndicatorRef.current, {
-        paddingLeft: `calc(${numbersProgress}% - 3ch)`,
+        marginLeft: `calc(${numbersProgress}% - 2ch)`,
+        color: `${numbersProgress >= 100 ? "red" : "white"}`,
+        opacity: 1,
         duration: 1,
         ease: "power4.out",
       });
@@ -86,7 +91,7 @@ const Preloader = ({
         <div className={`${styles["preloader"]} ${className}`} style={style}>
           <div className={`${styles["text-container"]}`} ref={containerRef}>
             <div>
-              <p className={`text-body-3 ${styles["red"]}`}>Vova Vindar</p>
+              <p className={`text-body-3`}>Vova Vindar</p>
               {/*<p className={`text-header-3 ${styles["bracket"]} ${styles["red"]}`}>{"("}</p>*/}
             </div>
             <div>
