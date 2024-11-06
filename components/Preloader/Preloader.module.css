@@ -33,7 +33,7 @@
   gap: 2rlh;
 }
 .preloader .text-container div:nth-of-type(1) p {
-  margin-right: 2ch;
+  margin-right: 1ch;
   filter: blur(1.25px);
   opacity: 0.75;
   color: red;

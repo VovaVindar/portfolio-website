@@ -61,10 +61,12 @@ const Preloader = ({
       movementAnimation.set(progressIndicatorRef.current, {
         color: `red`,
         opacity: 0.4,
+        textShadow: "0 0 10px rgba(255, 0, 0, 0.7)",
       });
       movementAnimation.to(progressIndicatorRef.current, {
         marginLeft: `calc(${numbersProgress}% - 2ch)`,
         color: `${numbersProgress >= 100 ? "red" : "white"}`,
+        textShadow: "none",
         opacity: 1,
         duration: 1,
         ease: "power4.out",
