@@ -16,7 +16,7 @@ const CursorContainer = ({ className, isAnimating = true }) => {
       stickDelta: 0.3,
       stateDetection: {
         "-exclusion": ".mf-exclusion",
-        "-hidden": ".mf-hidden, span, p, h1",
+        "-hidden": ".mf-hidden, p",
       },
       className: `mf-cursor ${className}`,
     });

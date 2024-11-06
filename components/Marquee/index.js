@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Marquee.module.css";
 
-const Marquee = ({ children, setMarqueeProgress = null, passedX = 0 }) => {
+const Marquee = ({
+  children,
+  setMarqueeProgress = null,
+  passedX = 0,
+  style,
+}) => {
   const [x, setX] = useState(passedX);
   const [dragSpeed, setDragSpeed] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -105,6 +110,7 @@ const Marquee = ({ children, setMarqueeProgress = null, passedX = 0 }) => {
       onTouchMove={onDrag}
       onTouchEnd={onDragEnd}
       ref={marqueeContainerRef}
+      style={style}
     >
       <div
         className={styles["marquee-track"]}

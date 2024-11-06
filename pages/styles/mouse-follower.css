@@ -55,28 +55,28 @@
 }
 .mf-cursor-text {
   position: absolute;
-  top: 18px;
-  left: -18px;
-  width: 36px;
-  height: 36px;
+  top: 30px;
+  left: -2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: scale(0) rotate(10deg);
+  transform: scale(0.6);
   opacity: 0;
   color: var(--token-color-text-contrast);
-  font-size: 16px;
-  line-height: 20px;
-  text-align: center;
+  font-size: var(--token-font-size-4);
+  text-align: left;
   transition: opacity 0.4s, transform 0.3s;
 
   font-size: var(--token-font-size-4);
   font-family: var(--lausanne);
   font-weight: 600;
   letter-spacing: var(--token-letter-spacing-5);
-  height: 1rlh;
-  line-height: 70%;
+  line-height: 1rlh;
   text-transform: uppercase;
+  width: max-content;
+  max-width: 45ch;
+  min-height: 1rlh;
+  text-wrap: pretty;
 }
 .mf-cursor.-text .mf-cursor-text,
 .mf-cursor.-icon .mf-cursor-text {

@@ -12,10 +12,26 @@
 .clients .client-container {
   display: flex;
   flex-direction: row;
-  margin-bottom: 2rlh;
+  padding-top: 1rlh;
+  padding-bottom: 1rlh;
+  cursor: pointer;
+  width: fit-content;
+  transition: all 0.4s var(--easing-text-fade-in);
+}
+.clients .client-container.faded {
+  transition: all 0.65s var(--easing-text-fade-out);
+  opacity: 0.2 !important;
+  color: red !important;
+  filter: blur(7px) !important;
+}
+.clients .client-container > div {
+  display: flex;
+}
+.clients .client-container:first-of-type {
+  padding-top: 0;
 }
 .clients .client-container:last-of-type {
-  margin-bottom: 0;
+  padding-bottom: 0;
 }
 .clients .client-container span {
   margin-left: calc(0.347826rlh * 2.5); /* 8px * 2.5 */

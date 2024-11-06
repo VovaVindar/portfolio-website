@@ -99,7 +99,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
       <div className={`${styles["footer-top"]}`}>
         <div>
           <span
-            className="text-header-3"
+            className="text-header-3 mf-hidden"
             ref={(el) => (footerOnscroll.current[0] = el)}
           >
             Pacific Time:
@@ -119,7 +119,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
         </div>
         <div className={`${styles["social-links"]}`}>
           <span
-            className="text-header-3"
+            className="text-header-3 mf-hidden"
             ref={(el) => (footerOnscroll.current[1] = el)}
           >
             Social:
@@ -181,7 +181,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
         </div>
         <div>
           <span
-            className="text-header-3"
+            className="text-header-3 mf-hidden"
             ref={(el) => (footerOnscroll.current[2] = el)}
           >
             Colophon:

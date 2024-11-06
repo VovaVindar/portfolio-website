@@ -31,7 +31,7 @@ const Magnetic = ({
         y: (relY - boundingRect.height / 2 - scrollTop) * movement,
         ease: "power1.out",
         opacity: 1,
-        duration: 0.6,
+        duration: 0.55,
       });
     };
 
@@ -44,7 +44,7 @@ const Magnetic = ({
         x: 0,
         y: 0,
         ease: "power1.out",
-        duration: 0.6,
+        duration: 0.55,
       });
     };
 

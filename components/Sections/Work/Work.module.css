@@ -1,5 +1,5 @@
 .work {
-  height: calc(30rlh - 1px);
+  height: calc(31rlh - 1px);
   width: fit-content;
   background-color: var(--token-color-surface-secondary);
   display: flex;
@@ -117,7 +117,6 @@
 .work .el-container {
   width: 100%;
   position: absolute;
-  margin-top: 3rlh;
 }
 .work .el-container img {
   transform: scale(1.18);
@@ -136,6 +135,7 @@
   background-color: black;
   opacity: 0;
   transition: opacity 3s var(--easing-img-fade-in);
+  cursor: pointer;
 }
 .work .el-container.in-view .el {
   opacity: 1;

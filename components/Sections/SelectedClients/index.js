@@ -3,6 +3,7 @@ import styles from "./SelectedClients.module.css";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import Magnetic from "@/components/Magnetic";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,6 +53,16 @@ const SelectedClients = ({
     };
   }, [startPageAnimation2]);
 
+  const [hoveredLink, setHoveredLink] = useState(null);
+
+  const handleMouseEnter = (link) => {
+    setHoveredLink(link);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredLink(null);
+  };
+
   return (
     <div className={`${styles["clients"]}`}>
       <div className={`text-body-1`}>
@@ -73,11 +84,22 @@ const SelectedClients = ({
         ].map((client, index) => (
           <div
             key={client.name}
-            className={`${styles["client-container"]}`}
             ref={(el) => (clientsOnscroll.current[index + 1] = el)}
+            data-cursor-text={
+              "Website redesign for Helios Complete, a fully integrated intellectual property operations platform."
+            }
+            onMouseEnter={() => handleMouseEnter(client.name)}
+            onMouseLeave={handleMouseLeave}
+            className={`${styles["client-container"]} mf-exclusion ${
+              hoveredLink && hoveredLink !== client.name
+                ? `${styles["faded"]}`
+                : ""
+            }`}
           >
-            <h1>{client.name}</h1>
-            <span className="text-header-3">{client.services}</span>
+            <Magnetic>
+              <h1>{client.name}</h1>
+              <span className="text-header-3">{client.services}</span>
+            </Magnetic>
           </div>
         ))}
       </div>
