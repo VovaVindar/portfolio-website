@@ -46,7 +46,7 @@
 }
 .social-links p.faded {
   transition: all 0.65s var(--easing-text-fade-out);
-  opacity: 0.25 !important;
+  opacity: 0.3 !important;
   filter: blur(1.4px) !important;
 }
 .social-links p.faded a {

@@ -20,7 +20,7 @@
 }
 .clients .client-container.faded {
   transition: all 0.65s var(--easing-text-fade-out);
-  opacity: 0.2 !important;
+  opacity: 0.25 !important;
   color: red !important;
   filter: blur(7px) !important;
 }

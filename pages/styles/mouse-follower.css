@@ -61,11 +61,12 @@
   align-items: center;
   justify-content: center;
   transform: scale(0.6);
+  filter: blur(2px);
   opacity: 0;
   color: var(--token-color-text-contrast);
   font-size: var(--token-font-size-4);
   text-align: left;
-  transition: opacity 0.4s, transform 0.3s;
+  transition: opacity 0.4s, transform 0.3s, blur 0.9s;
 
   font-size: var(--token-font-size-4);
   font-family: var(--lausanne);
@@ -82,6 +83,7 @@
 .mf-cursor.-icon .mf-cursor-text {
   opacity: 1;
   transform: scale(1);
+  filter: blur(0);
 }
 .mf-cursor-media {
   position: absolute;
