@@ -23,8 +23,11 @@ const SelectedClients = ({
   }, [startPageAnimation]);
 
   useGSAP(() => {
+    let scrollTriggerInstance;
+    const clientsAnimation = gsap.timeline({});
+
     if (clientsOnscroll.current.length) {
-      ScrollTrigger.batch(clientsOnscroll.current, {
+      /*ScrollTrigger.batch(clientsOnscroll.current, {
         onEnter: (batch) => {
           gsap.fromTo(
             batch,
@@ -42,14 +45,52 @@ const SelectedClients = ({
               stagger: staggerInterval,
             }
           );
+          batch.forEach((el) => {
+            setTimeout(() => {
+              el.classList.add(`${styles["in-view"]}`);
+            }, duration * 1000 + 100);
+          });
         },
         once: true,
         start: "top bottom",
+      });*/
+
+      clientsAnimation.set(clientsOnscroll.current, {
+        autoAlpha: 0,
+        filter: "blur(1.5px)",
+        color: "red",
+      });
+      scrollTriggerInstance = ScrollTrigger.create({
+        trigger: clientsOnscroll.current,
+        start: "top 75%",
+        onEnter: () => {
+          clientsAnimation.to(clientsOnscroll.current, {
+            autoAlpha: startPageAnimation2 ? 1 : 0,
+            filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
+            color: `${startPageAnimation2 ? "#0F1010" : "red"}`,
+            delay: 0,
+            duration: duration,
+            ease: easing,
+            stagger: staggerInterval,
+            onComplete: () => {
+              clientsOnscroll.current.forEach((el) => {
+                el.classList.add(`${styles["in-view"]}`);
+              });
+            },
+          });
+        },
+        once: true,
       });
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill());
+      //ScrollTrigger.getAll().forEach((st) => st.kill());
+      if (scrollTriggerInstance) {
+        scrollTriggerInstance.kill();
+      }
+      if (clientsAnimation) {
+        clientsAnimation.kill();
+      }
     };
   }, [startPageAnimation2]);
 
@@ -88,17 +129,21 @@ const SelectedClients = ({
             data-cursor-text={
               "Website redesign for Helios Complete, a fully integrated intellectual property operations platform."
             }
-            onMouseEnter={() => handleMouseEnter(client.name)}
-            onMouseLeave={handleMouseLeave}
-            className={`${styles["client-container"]} mf-exclusion ${
-              hoveredLink && hoveredLink !== client.name
-                ? `${styles["faded"]}`
-                : ""
-            }`}
+            className={`${styles["client-container"]} mf-exclusion`}
           >
             <Magnetic>
-              <h1>{client.name}</h1>
-              <span className="text-header-3">{client.services}</span>
+              <div
+                onMouseEnter={() => handleMouseEnter(client.name)}
+                onMouseLeave={handleMouseLeave}
+                className={`${
+                  hoveredLink && hoveredLink !== client.name
+                    ? `${styles["faded"]}`
+                    : ""
+                }`}
+              >
+                <h1>{client.name}</h1>
+                <span className="text-header-3">{client.services}</span>
+              </div>
             </Magnetic>
           </div>
         ))}

@@ -41,11 +41,6 @@
   opacity: 1;
   transition: all 2.2s var(--easing-img-fade-in); /* power2.out */
 }
-.marquee-container .marquee-track.in-view > div img {
-  transform: scale(1);
-  filter: blur(0px);
-  opacity: 1;
-}
 
 @media all and (min-width: 4163px) {
   .marquee-container {

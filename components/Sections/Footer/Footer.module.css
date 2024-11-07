@@ -38,18 +38,18 @@
   width: var(--second-column-width);
 }
 
-.social-links p {
+.social-links.in-view p {
   transition: all 0.425s var(--easing-text-fade-in);
 }
-.social-links p a {
+.social-links.in-view p a {
   transition: color 0.425s var(--easing-text-fade-in);
 }
-.social-links p.faded {
+.social-links.in-view p.faded {
   transition: all 0.65s var(--easing-text-fade-out);
   opacity: 0.3 !important;
   filter: blur(1.4px) !important;
 }
-.social-links p.faded a {
+.social-links.in-view p.faded a {
   color: red !important;
   transition: color 0.65s var(--easing-text-fade-out);
 }

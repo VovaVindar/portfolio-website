@@ -16,16 +16,18 @@
   padding-bottom: 1rlh;
   cursor: pointer;
   width: fit-content;
+}
+.clients .client-container div {
+  display: flex;
+}
+.clients .client-container.in-view div {
   transition: all 0.4s var(--easing-text-fade-in);
 }
-.clients .client-container.faded {
+.clients .client-container.in-view .faded {
   transition: all 0.65s var(--easing-text-fade-out);
   opacity: 0.25 !important;
   color: red !important;
-  filter: blur(7px) !important;
-}
-.clients .client-container > div {
-  display: flex;
+  filter: blur(6px) !important;
 }
 .clients .client-container:first-of-type {
   padding-top: 0;

@@ -55,7 +55,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
 
     scrollTriggerInstance1 = ScrollTrigger.create({
       trigger: containerRef.current,
-      start: "top bottom-=3rlh",
+      start: "top 80%",
       onEnter: () => {
         if (startPageAnimation2) {
           containerRef.current.classList.add(`${styles["in-view"]}`);
@@ -66,7 +66,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
 
     scrollTriggerInstance2 = ScrollTrigger.create({
       trigger: textOnscroll.current,
-      start: "top bottom-=0.5rlh",
+      start: "top 95%",
       onEnter: () => {
         textAnimation.to(textOnscroll.current, {
           opacity: startPageAnimation2 ? 1 : 0,
@@ -81,7 +81,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
 
     scrollTriggerInstance3 = ScrollTrigger.create({
       trigger: circlesOnscroll.current,
-      start: "top bottom",
+      start: "top bottom-=10px",
       onEnter: () => {
         circlesAnimation.to(circlesOnscroll.current, {
           autoAlpha: startPageAnimation2 ? 1 : 0,

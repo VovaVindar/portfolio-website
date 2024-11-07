@@ -33,27 +33,6 @@ const Marquee = ({ startPageAnimation }) => {
     }
   }, [startPageAnimation]);
 
-  useGSAP(() => {
-    let scrollTriggerInstance;
-
-    if (pageAnimationStarted) {
-      scrollTriggerInstance = ScrollTrigger.create({
-        trigger: marqueeTrackRef.current,
-        start: "top bottom-=35px",
-        onEnter: () => {
-          marqueeTrackRef.current.classList.add(`${styles["in-view"]}`);
-        },
-        once: true,
-      });
-    }
-
-    return () => {
-      if (scrollTriggerInstance) {
-        scrollTriggerInstance.kill();
-      }
-    };
-  }, [pageAnimationStarted]);
-
   useEffect(() => {
     const updateSpeed = () => {
       setSpeed(window.innerWidth <= 820 ? mobileSpeed : desktopSpeed);

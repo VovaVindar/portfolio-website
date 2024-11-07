@@ -29,6 +29,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
   }, []);
 
   const footerOnscroll = useRef([]);
+  const socialRef = useRef(null);
   const [startPageAnimation2, setStartPageAnimation2] = useState(false);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
 
       scrollTriggerInstance = ScrollTrigger.create({
         trigger: footerOnscroll.current,
-        start: "top bottom",
+        start: "top 90%",
         onEnter: () => {
           footerAnimation.to(footerOnscroll.current, {
             autoAlpha: startPageAnimation2 ? 1 : 0,
@@ -60,6 +61,11 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
             duration: duration,
             ease: easing,
             stagger: (index) => footerStagger(index, staggerInterval),
+            onComplete: () => {
+              if (socialRef.current) {
+                socialRef.current.classList.add(`${styles["in-view"]}`);
+              }
+            },
           });
         },
         once: true,
@@ -74,7 +80,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
         footerAnimation.kill();
       }
     };
-  }, [startPageAnimation2]);
+  }, [startPageAnimation2, socialRef]);
 
   const footerStagger = (index, interval) => {
     if (index <= 2) return 0;
@@ -117,7 +123,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
           <p ref={(el) => (footerOnscroll.current[6] = el)}>Vancouver,</p>
           <p ref={(el) => (footerOnscroll.current[9] = el)}>Canada</p>
         </div>
-        <div className={`${styles["social-links"]}`}>
+        <div className={`${styles["social-links"]}`} ref={socialRef}>
           <span
             className="text-header-3 mf-hidden"
             ref={(el) => (footerOnscroll.current[1] = el)}
