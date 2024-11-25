@@ -41,6 +41,7 @@ const Preloader = ({
 
   useEffect(() => {
     const numbersAnimation = gsap.timeline({});
+    const numbersAnimation2 = gsap.timeline({});
     const movementAnimation = gsap.timeline({});
 
     if (containerRef.current) {
@@ -50,13 +51,24 @@ const Preloader = ({
         autoAlpha: `${numbersProgress >= 100 ? 0 : 1}`,
         filter: `blur(${numbersProgress >= 100 ? 2 : 0}px)`,
         duration: 1.2,
-        delay: 0.05,
+        delay: 0.2,
         ease: "power4.out" /* Easing for: text fade out */,
         onComplete: () => {
           numbersProgress >= 100 ? setIsLoading(false) : null;
         },
       });
+
+      numbersAnimation2.set(containerRef.current, {
+        y: 0,
+      });
+      numbersAnimation2.to(containerRef.current, {
+        y: `${numbersProgress >= 100 ? 200 : 0}`,
+        duration: 1,
+        delay: 0.25,
+        ease: "power1.in",
+      });
     }
+
     if (progressIndicatorRef.current) {
       movementAnimation.set(progressIndicatorRef.current, {
         color: `red`,
@@ -76,6 +88,9 @@ const Preloader = ({
     return () => {
       if (numbersAnimation) {
         numbersAnimation.kill();
+      }
+      if (numbersAnimation2) {
+        numbersAnimation2.kill();
       }
       if (movementAnimation) {
         movementAnimation.kill();

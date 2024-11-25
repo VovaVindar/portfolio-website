@@ -27,7 +27,7 @@ const SelectedClients = ({
     const clientsAnimation = gsap.timeline({});
 
     if (clientsOnscroll.current.length) {
-      /*ScrollTrigger.batch(clientsOnscroll.current, {
+      ScrollTrigger.batch(clientsOnscroll.current, {
         onEnter: (batch) => {
           gsap.fromTo(
             batch,
@@ -52,17 +52,17 @@ const SelectedClients = ({
           });
         },
         once: true,
-        start: "top bottom",
-      });*/
+        start: "top 95%",
+      });
 
       clientsAnimation.set(clientsOnscroll.current, {
         autoAlpha: 0,
         filter: "blur(1.5px)",
         color: "red",
       });
-      scrollTriggerInstance = ScrollTrigger.create({
+      /*scrollTriggerInstance = ScrollTrigger.create({
         trigger: clientsOnscroll.current,
-        start: "top 75%",
+        start: "top 85%",
         onEnter: () => {
           clientsAnimation.to(clientsOnscroll.current, {
             autoAlpha: startPageAnimation2 ? 1 : 0,
@@ -80,7 +80,7 @@ const SelectedClients = ({
           });
         },
         once: true,
-      });
+      });*/
     }
 
     return () => {
@@ -131,20 +131,20 @@ const SelectedClients = ({
             }
             className={`${styles["client-container"]} mf-exclusion`}
           >
-            <Magnetic>
-              <div
-                onMouseEnter={() => handleMouseEnter(client.name)}
-                onMouseLeave={handleMouseLeave}
-                className={`${
+            {/*<Magnetic>*/}
+            <div
+            //onMouseEnter={() => handleMouseEnter(client.name)}
+            //onMouseLeave={handleMouseLeave}
+            /*className={`${
                   hoveredLink && hoveredLink !== client.name
                     ? `${styles["faded"]}`
                     : ""
-                }`}
-              >
-                <h1>{client.name}</h1>
-                <span className="text-header-3">{client.services}</span>
-              </div>
-            </Magnetic>
+                }`}*/
+            >
+              <h1>{client.name}</h1>
+              <span className="text-header-3">{client.services}</span>
+            </div>
+            {/*</Magnetic>*/}
           </div>
         ))}
       </div>

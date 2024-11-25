@@ -10,7 +10,7 @@ const CursorContainer = ({ className, isAnimating = true }) => {
   useEffect(() => {
     const cursor = new MouseFollower({
       speed: 1.1,
-      skewing: 2.3,
+      //skewing: 2.3,
       skewingText: 0,
       skewingMedia: 0,
       stickDelta: 0.3,
