@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./Preloader.module.css";
 import gsap from "gsap";
-import imagesLoaded from "imagesLoaded";
+import imagesLoaded from "imagesloaded";
 
 const Preloader = ({
   numbersProgress,
