@@ -35,7 +35,7 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
         isAnimating={isAnimating}
       />
       {/*<canvas id="gl"></canvas>*/}
-      <div ref={container} className={`${styles["home-container"]} home`}>
+      <div ref={container} className={`${styles["home-container"]}`}>
         <Hero
           staggerInterval={staggerInterval}
           duration={duration}

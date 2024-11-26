@@ -172,7 +172,6 @@ body {
 main {
   min-height: 100vh;
   height: 100%;
-  padding: 0 1rlh;
   width: 100%;
   max-width: min(2560px, 100vw);
   position: relative;

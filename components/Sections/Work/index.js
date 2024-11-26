@@ -130,12 +130,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
               data-cursor-text="Vitamin Living"
             >
               <Magnetic movement={0.072} passedScale={1.032}>
-                <Image
-                  src="/marquee.png"
-                  alt="Picture of the author"
-                  fill
-                  priority={true}
-                />
+                <Image src="/marquee.png" alt="Picture of the author" fill />
               </Magnetic>
             </div>
           ))}
