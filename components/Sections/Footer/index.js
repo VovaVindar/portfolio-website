@@ -60,7 +60,10 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
             delay: 0,
             duration: duration,
             ease: easing,
-            stagger: (index) => footerStagger(index, staggerInterval),
+            stagger: (index) =>
+              window.innerWidth > 820
+                ? footerStaggerDesktop(index, staggerInterval)
+                : footerStaggerMobile(index, staggerInterval - 0.02),
             onComplete: () => {
               if (socialRef.current) {
                 socialRef.current.classList.add(`${styles["in-view"]}`);
@@ -82,13 +85,17 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
     };
   }, [startPageAnimation2, socialRef]);
 
-  const footerStagger = (index, interval) => {
+  const footerStaggerDesktop = (index, interval) => {
     if (index <= 2) return 0;
     if (index >= 3 && index <= 5) return 1 * interval;
     if (index >= 6 && index <= 8) return 2 * interval;
     if (index >= 9 && index <= 10) return 3 * interval;
     if (index >= 11) return 5 * interval;
   };
+  function footerStaggerMobile(index, interval) {
+    const multipliers = [0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 11, 12, 12]; // Direct mapping of index to multiplier
+    return (multipliers[index] ?? 0) * interval; // Default to 0 for out-of-range indices
+  }
 
   const [hoveredLink, setHoveredLink] = useState(null);
 

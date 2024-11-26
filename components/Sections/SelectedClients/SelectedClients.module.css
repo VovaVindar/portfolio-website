@@ -62,7 +62,7 @@
     gap: 1rlh;
   }
   .clients .client-container {
-    margin-bottom: 0rlh;
+    padding-bottom: 0rlh;
     align-items: flex-end;
   }
   .clients .client-container span {

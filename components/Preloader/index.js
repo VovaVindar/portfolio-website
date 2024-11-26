@@ -41,7 +41,7 @@ const Preloader = ({
 
   useEffect(() => {
     const numbersAnimation = gsap.timeline({});
-    const numbersAnimation2 = gsap.timeline({});
+    const numbersAnimationOut = gsap.timeline({});
     const movementAnimation = gsap.timeline({});
 
     if (containerRef.current) {
@@ -51,20 +51,20 @@ const Preloader = ({
         autoAlpha: `${numbersProgress >= 100 ? 0 : 1}`,
         filter: `blur(${numbersProgress >= 100 ? 2 : 0}px)`,
         duration: 1.2,
-        delay: 0.2,
+        delay: 0.3,
         ease: "power4.out" /* Easing for: text fade out */,
         onComplete: () => {
           numbersProgress >= 100 ? setIsLoading(false) : null;
         },
       });
 
-      numbersAnimation2.set(containerRef.current, {
+      numbersAnimationOut.set(containerRef.current, {
         y: 0,
       });
-      numbersAnimation2.to(containerRef.current, {
+      numbersAnimationOut.to(containerRef.current, {
         y: `${numbersProgress >= 100 ? 200 : 0}`,
         duration: 1,
-        delay: 0.25,
+        delay: 0.3,
         ease: "power1.in",
       });
     }
@@ -89,8 +89,8 @@ const Preloader = ({
       if (numbersAnimation) {
         numbersAnimation.kill();
       }
-      if (numbersAnimation2) {
-        numbersAnimation2.kill();
+      if (numbersAnimationOut) {
+        numbersAnimationOut.kill();
       }
       if (movementAnimation) {
         movementAnimation.kill();
