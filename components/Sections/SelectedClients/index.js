@@ -115,20 +115,42 @@ const SelectedClients = ({
       </div>
       <div>
         {[
-          { name: "Paradigm", services: "Web, Product, Brand, Deck, Dev" },
-          { name: "Cognition", services: "Web" },
-          { name: "Rove Card", services: "Web, Graphic, App, Deck" },
-          { name: "Dolce & Gabbana", services: "Web, Metaverse" },
-          { name: "PRJCTR Institute", services: "Mentoring" },
-          { name: "Twitch", services: "Game UI, Graphic" },
-          { name: "Jon-Paul Wheatley", services: "Web" },
+          {
+            name: "Paradigm",
+            services: "Web, Product, Brand, Deck, Dev",
+            description: "Description 1",
+          },
+          { name: "Cognition", services: "Web", description: "Description 2" },
+          {
+            name: "Rove Card",
+            services: "Web, Graphic, App, Deck",
+            description: "Description 3",
+          },
+          {
+            name: "Dolce & Gabbana",
+            services: "Web, Metaverse",
+            description: "Description 4",
+          },
+          {
+            name: "PRJCTR Institute",
+            services: "Mentoring",
+            description: "Description 5",
+          },
+          {
+            name: "Twitch",
+            services: "Game UI, Graphic",
+            description: "Description 6",
+          },
+          {
+            name: "Jon-Paul Wheatley",
+            services: "Web",
+            description: "Description 7",
+          },
         ].map((client, index) => (
           <div
             key={client.name}
             ref={(el) => (clientsOnscroll.current[index + 1] = el)}
-            data-cursor-text={
-              "Website redesign for Helios Complete, a fully integrated intellectual property operations platform."
-            }
+            data-cursor-text={client.description}
             className={`${styles["client-container"]} mf-exclusion`}
           >
             {/*<Magnetic>*/}
