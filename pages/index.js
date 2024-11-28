@@ -27,7 +27,7 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
   return (
     <>
       <Head>
-        <title>Vova Vindar</title>
+        <title>Vova Vindar — Digital Designer & Developer</title>
       </Head>
       <Scrollbar
         text={"Contact"}
