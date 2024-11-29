@@ -1,17 +1,10 @@
 .work {
-  height: calc(31rlh - 1px);
+  height: calc(33rlh - 1px);
   width: fit-content;
   background-color: var(--token-color-surface-secondary);
   display: flex;
   position: relative;
   overflow: hidden;
-}
-.work .magnetic {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 30%;
-  top: 30%;
 }
 .work .left {
   width: calc(var(--first-column-width) + var(--columns-gap));
@@ -52,6 +45,7 @@
   display: flex;
   flex-direction: row;
   gap: 0.173913rlh;
+  transition: filter 2.1s var(--easing-img-fade-in);
 }
 .work .circle-container .circle {
   width: 0.217391rlh;
@@ -135,6 +129,7 @@
   background-color: black;
   opacity: 0;
   transition: opacity 3s var(--easing-img-fade-in);
+  transition: filter 2.1s var(--easing-img-fade-in);
   cursor: pointer;
 }
 .work .el-container.in-view .el {

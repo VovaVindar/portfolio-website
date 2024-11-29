@@ -1,0 +1,62 @@
+.controls-container {
+  position: absolute;
+  top: 1rlh;
+  right: 1rlh;
+  display: flex;
+  flex-direction: row;
+  z-index: 2;
+  pointer-events: none;
+}
+.controls-container button.stop {
+  background: none;
+  color: red;
+  padding: 0.39rlh;
+  padding-top: 0.61rlh;
+  border-radius: 1.875rem;
+  border: 0.1rlh solid red;
+  margin-top: -0.305rlh;
+  height: fit-content;
+  margin-right: 3.8rlh;
+  opacity: 0;
+  visibility: hidden;
+  filter: blur(2px);
+  pointer-events: all;
+  transition: opacity 0.65s var(--easing-text-fade-out);
+}
+.controls-container button.stop:hover {
+  transition: opacity 0.425s var(--easing-text-fade-in);
+  opacity: 1 !important;
+}
+.controls-container > p {
+  text-align: right;
+  opacity: 0.4;
+  right: calc(0.35rlh + 1.826rlh);
+  position: absolute;
+  transition: all 0s;
+}
+.controls-container button.forward {
+  background-color: var(--token-color-surface-primary);
+  width: 1.826rlh;
+  height: 1.826rlh;
+  border-radius: 100%;
+  margin-top: -0.255rlh;
+  margin-right: -0.255rlh;
+  transition: opacity 0.425s var(--easing-text-fade-in);
+  pointer-events: all;
+}
+.controls-container button.forward:disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.65s var(--easing-text-fade-out);
+}
+.controls-container button.forward div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.controls-container button.forward img {
+  width: 0.9rlh;
+  height: 0.9rlh;
+  user-select: none;
+  pointer-events: none;
+}

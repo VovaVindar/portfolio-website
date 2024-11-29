@@ -5,6 +5,7 @@ const Marquee = ({
   children,
   setMarqueeProgress = null,
   passedX = 0,
+  speedCoef = 1,
   style,
 }) => {
   const [x, setX] = useState(passedX);
@@ -60,7 +61,7 @@ const Marquee = ({
 
     const animate = () => {
       setX((prevX) => {
-        let nextX = prevX + speed + dragSpeed;
+        let nextX = prevX + speed * speedCoef + dragSpeed;
         if (nextX >= trackWidth) nextX = 1;
         if (nextX < 1) nextX = trackWidth;
         return nextX;
@@ -73,7 +74,7 @@ const Marquee = ({
     animationRef.current = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationRef.current);
-  }, [dragSpeed, trackWidth, shouldAnimate, speed]);
+  }, [dragSpeed, trackWidth, shouldAnimate, speed, speedCoef]);
 
   useEffect(() => {
     const containerWidth = marqueeContainerRef.current.offsetWidth;

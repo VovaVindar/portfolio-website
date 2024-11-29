@@ -6,6 +6,7 @@ const Magnetic = ({
   movement = 0.036,
   type = "image",
   passedScale,
+  style,
 }) => {
   const magneticAreaRef = useRef(null);
   const maxScale = passedScale || (type === "image" ? 1.016 : 1.04);
@@ -74,7 +75,7 @@ const Magnetic = ({
   return type == "image" ? (
     <div
       ref={magneticAreaRef}
-      style={{ height: "100%", width: "100%", position: "relative" }}
+      style={({ height: "100%", width: "100%", position: "relative" }, style)}
     >
       {/*<BlurImage
         src="/marquee.png"

@@ -4,6 +4,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import Marquee from "@/components/Marquee";
 import Magnetic from "@/components/Magnetic";
+import Controls from "@/components/Sections/Work/Controls";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
@@ -107,15 +108,30 @@ const Work = ({ duration, easing, startPageAnimation }) => {
     };
   }, [startPageAnimation2]);
 
+  /* Control speed */
+  const [speedCoef, setSpeedCoef] = useState(1);
+
+  // Use useCallback to ensure setNumbersProgress does not change on re-renders
+  const updateSpeedCoef = useCallback((coef) => {
+    setSpeedCoef(coef);
+  }, []);
+
   return (
     <div
       className={`${styles["work"]} work-global mf-exclusion text-body-1-uppercase`}
     >
+      <Controls
+        speedCoef={speedCoef}
+        setSpeedCoef={updateSpeedCoef}
+        duration={duration}
+        easing={easing}
+      />
       <h2 ref={textOnscroll}>Selected Work</h2>
       <div className={`${styles["el-container"]}`} ref={containerRef}>
         <Marquee
           setMarqueeProgress={updateProgress}
-          style={{ padding: "3rlh 0 " }}
+          speedCoef={speedCoef}
+          style={{ padding: "4rlh 0 " }}
         >
           {[
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
@@ -126,6 +142,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
               className={`${styles["el"]} ${styles[`num${index + 1}`]}`}
               style={{
                 color: "white",
+                filter: `blur(${Math.min(Math.floor(speedCoef / 100), 9)}px)`,
               }}
               data-cursor-text="Vitamin Living"
             >
@@ -143,6 +160,12 @@ const Work = ({ duration, easing, startPageAnimation }) => {
           styles[`active-${activeIndex}`]
         }`}
         ref={circlesOnscroll}
+        style={{
+          filter: `blur(${Math.min(
+            Math.max(0, Math.floor((speedCoef - 250) / 250) + 2),
+            5
+          )}px)`,
+        }}
       >
         {[0, 1, 2, 3].map((index) => (
           <div key={index} className={`${styles["circle"]}`}></div>
