@@ -4,13 +4,22 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link
+          rel="icon"
+          type="image/png"
+          href="/favicon-96x96.png"
+          sizes="96x96"
+        />
+        <link rel="shortcut icon" href="/favicon.ico" sizes="48x48" />
         <link
           rel="apple-touch-icon"
-          sizes="192x192"
-          href="/favicon-192x192.png"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
         />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="apple-mobile-web-app-title" content="VOVA VINDAR" />
+        <meta name="theme-color" content="#ff0000" />
         <meta name="description" content="Digital Designer & Developer" />
         <meta property="og:title" content="VOVA VINDAR" />
         <meta
