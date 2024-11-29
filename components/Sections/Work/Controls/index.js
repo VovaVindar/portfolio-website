@@ -154,21 +154,35 @@ const Controls = forwardRef(
 
     return (
       <div className={`${styles["controls-container"]} text-body-2`} ref={ref}>
-        <Magnetic
-          movement={0.072}
-          passedScale={1.032}
-          style={{ width: "min-content" }}
-        >
-          <button
-            ref={stopButtonRef}
-            className={`${styles["stop"]}`}
-            onClick={() => {
-              decreaseSpeedCoef();
-            }}
+        <div ref={stopButtonRef} className={`${styles["stop-container"]}`}>
+          <div
+            className={`${styles["controls-bubble"]}`}
+            data-cursor-text="Fast motion. Monitor your comfort."
+            style={{ pointerEvents: `${isStopRunning ? "none" : "all"}` }}
           >
-            STOP
-          </button>
-        </Magnetic>
+            <Image
+              src="/icons/exclamation.png"
+              alt="Arrow right"
+              width={20}
+              height={20}
+            />
+          </div>
+          <Magnetic
+            movement={0.072}
+            passedScale={1.032}
+            style={{ width: "min-content" }}
+          >
+            <button
+              className={`${styles["stop"]}`}
+              onClick={() => {
+                decreaseSpeedCoef();
+              }}
+              disabled={isStopRunning}
+            >
+              STOP
+            </button>
+          </Magnetic>
+        </div>
         <p ref={speedIndicatorRef}>{speedCoef}X</p>
         <button
           className={`${styles["forward"]}`}
