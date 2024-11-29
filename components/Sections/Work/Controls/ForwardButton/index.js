@@ -12,6 +12,7 @@ const ForwardButton = ({
   const intervalRef = useRef(null);
   const isHoldingRef = useRef(false); // Tracks if the button is held
   const startTimeRef = useRef(null);
+  const lastClickTimeRef = useRef(null); // Tracks the timestamp of the last click
 
   const calculateInterval = (holdTime) => {
     const baseInterval = 400; // Starting interval in milliseconds
@@ -45,9 +46,20 @@ const ForwardButton = ({
   };
 
   const handleClick = () => {
+    const now = Date.now();
+
     if (!isHoldingRef.current) {
-      // Only increment by 1 if the button wasn't held
+      // Increment speed coefficient for single clicks
       setSpeedCoef((prev) => prev + 1);
+
+      // Detect rapid clicks
+      if (lastClickTimeRef.current && now - lastClickTimeRef.current < 1000) {
+        // If the time between clicks is less than 200ms, treat as a rapid click
+        setFakeSpeedCoef(1);
+      }
+
+      // Update the timestamp of the last click
+      lastClickTimeRef.current = now;
     }
   };
 

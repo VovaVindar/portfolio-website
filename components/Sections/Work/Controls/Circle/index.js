@@ -25,7 +25,10 @@ const Circle = ({ speedCoef, isStopRunning, setFakeSpeedCoef }) => {
               .replace("rotate(", "")
               .replace("deg)", "")
           );
-          if (Math.abs(currentRotation) > 1) {
+          if (
+            Math.abs(currentRotation) > 2 &&
+            Math.abs(currentRotation) < 358
+          ) {
             setFakeSpeedCoef(0);
             gsap.to(circleRef.current, {
               rotation: 0,
