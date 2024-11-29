@@ -44,7 +44,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
 
     if (footerOnscroll.current.length) {
       footerAnimation.set(footerOnscroll.current, {
-        autoAlpha: 0,
+        opacity: 0,
         filter: "blur(1.5px)",
         color: "red",
       });
@@ -54,7 +54,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
         start: "top 90%",
         onEnter: () => {
           footerAnimation.to(footerOnscroll.current, {
-            autoAlpha: startPageAnimation2 ? 1 : 0,
+            opacity: startPageAnimation2 ? 1 : 0,
             filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
             color: `${startPageAnimation2 ? "#0F1010" : "red"}`,
             delay: 0,

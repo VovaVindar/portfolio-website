@@ -50,7 +50,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
     containerRef?.current.classList.remove(`${styles["in-view"]}`);
 
     controlsAnimation.set(controlsOnscroll.current, {
-      autoAlpha: 0,
+      opacity: 0,
       filter: "blur(1.5px)",
     });
 
@@ -110,7 +110,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
       start: "top bottom-=10px",
       onEnter: () => {
         controlsAnimation.to(controlsOnscroll.current, {
-          autoAlpha: startPageAnimation2 ? 1 : 0,
+          opacity: startPageAnimation2 ? 1 : 0,
           filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
           delay: 0,
           duration: duration,
