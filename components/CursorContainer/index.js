@@ -31,7 +31,9 @@ const CursorContainer = ({ className, isAnimating = true }) => {
         deg += 45;
 
         // Toggle between favicon1 and favicon2
-        toggleFavicon();
+        if (!isAnimating) {
+          toggleFavicon();
+        }
       }
     });
 
