@@ -3,7 +3,12 @@ import styles from "./ForwardButton.module.css";
 import Image from "next/image";
 import Magnetic from "@/components/Magnetic";
 
-const ForwardButton = ({ setSpeedCoef, isStopRunning, children }) => {
+const ForwardButton = ({
+  setSpeedCoef,
+  isStopRunning,
+  setFakeSpeedCoef,
+  children,
+}) => {
   const intervalRef = useRef(null);
   const isHoldingRef = useRef(false); // Tracks if the button is held
   const startTimeRef = useRef(null);
@@ -23,6 +28,7 @@ const ForwardButton = ({ setSpeedCoef, isStopRunning, children }) => {
       const elapsed = Date.now() - startTimeRef.current;
 
       setSpeedCoef((prev) => prev + 1);
+      setFakeSpeedCoef(1);
 
       const newInterval = calculateInterval(elapsed);
       clearInterval(intervalRef.current); // Reset the interval with a shorter duration

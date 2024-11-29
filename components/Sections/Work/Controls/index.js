@@ -8,6 +8,7 @@ import ForwardButton from "@/components/Sections/Work/Controls/ForwardButton";
 const Controls = forwardRef(
   ({ speedCoef = 1, setSpeedCoef, duration, easing }, ref) => {
     const [isStopRunning, setIsStopRunning] = useState(false);
+    const [fakeSpeedCoef, setFakeSpeedCoef] = useState(0);
 
     return (
       <div className={`${styles["controls-container"]} text-body-2`} ref={ref}>
@@ -18,13 +19,24 @@ const Controls = forwardRef(
           easing={easing}
           setSpeedCoef={setSpeedCoef}
           setIsStopRunning={setIsStopRunning}
+          setFakeSpeedCoef={setFakeSpeedCoef}
         />
-        <SpeedIndicator speedCoef={speedCoef} isStopRunning={isStopRunning} />
+        <SpeedIndicator
+          speedCoef={speedCoef}
+          isStopRunning={isStopRunning}
+          fakeSpeedCoef={fakeSpeedCoef}
+        />
         <ForwardButton
           setSpeedCoef={setSpeedCoef}
           isStopRunning={isStopRunning}
+          setFakeSpeedCoef={setFakeSpeedCoef}
         >
-          <Circle speedCoef={speedCoef} isStopRunning={isStopRunning} />
+          <Circle
+            speedCoef={speedCoef}
+            setSpeedCoef={setSpeedCoef}
+            isStopRunning={isStopRunning}
+            setFakeSpeedCoef={setFakeSpeedCoef}
+          />
         </ForwardButton>
       </div>
     );

@@ -2,7 +2,7 @@ import React, { useRef, useEffect, forwardRef } from "react";
 import styles from "./SpeedIndicator.module.css";
 import gsap from "gsap";
 
-const SpeedIndicator = ({ speedCoef, isStopRunning }) => {
+const SpeedIndicator = ({ speedCoef, isStopRunning, fakeSpeedCoef }) => {
   const speedIndicatorRef = useRef(null);
 
   // Red flashing animation
@@ -30,11 +30,11 @@ const SpeedIndicator = ({ speedCoef, isStopRunning }) => {
         updateSpeedAnimation.kill();
       }
     };
-  }, [speedCoef]);
+  }, [speedCoef, fakeSpeedCoef]);
 
   return (
     <p ref={speedIndicatorRef} className={`${styles["indicator"]}`}>
-      {speedCoef}X
+      {speedCoef + fakeSpeedCoef}X
     </p>
   );
 };

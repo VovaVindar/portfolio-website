@@ -12,6 +12,7 @@ const StopButton = ({
   easing,
   setSpeedCoef,
   setIsStopRunning,
+  setFakeSpeedCoef,
 }) => {
   const stopButtonRef = useRef(null);
 
@@ -44,6 +45,7 @@ const StopButton = ({
         animationFrameRef.current = requestAnimationFrame(animate);
       } else {
         setSpeedCoef(1);
+        setFakeSpeedCoef(-1);
         setIsStopRunning(false); // Re-enable forward button
       }
     };
