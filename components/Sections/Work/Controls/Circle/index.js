@@ -8,9 +8,11 @@ const Circle = ({ speedCoef, isStopRunning }) => {
 
   const circleAnimation = gsap.timeline({ defaults: { overwrite: true } });
 
-  circleAnimation.set(circleRef.current, {
-    rotation: 0,
-  });
+  if (circleRef.current) {
+    circleAnimation.set(circleRef.current, {
+      rotation: 0,
+    });
+  }
 
   useEffect(() => {
     if (circleRef.current) {

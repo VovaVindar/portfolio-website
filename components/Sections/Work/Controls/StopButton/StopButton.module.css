@@ -1,0 +1,44 @@
+.stop-container {
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: row;
+}
+.stop-container .controls-bubble {
+  border-radius: 100%;
+  background-color: var(--token-color-surface-primary);
+  width: 1.826rlh;
+  height: 1.826rlh;
+  margin-top: -0.255rlh;
+  margin-right: 0.37rlh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+}
+.stop-container .controls-bubble img {
+  width: 1rlh;
+  height: 1rlh;
+  user-select: none;
+}
+.stop-container button.stop {
+  background: none;
+  color: red;
+  padding: 0.39rlh;
+  padding-top: 0.61rlh;
+  border-radius: 1.875rem;
+  border: 0.1rlh solid red;
+  margin-top: -0.305rlh;
+  height: fit-content;
+  margin-right: 3.8rlh;
+  pointer-events: all;
+  transition: opacity 0.65s var(--easing-text-fade-out);
+}
+.stop-container button.stop:disabled {
+  pointer-events: none;
+}
+.stop-container button.stop:hover,
+.stop-container button.stop:focus-visible {
+  transition: opacity 0.425s var(--easing-text-fade-in);
+  opacity: 1 !important;
+}
