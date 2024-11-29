@@ -187,7 +187,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
                 href={"https://dribbble.com/VovaVindar"}
                 ref={(el) => (footerOnscroll.current[10] = el)}
               >
-                Dribbble,
+                Dribbble
               </Link>
             </Magnetic>
           </p>
