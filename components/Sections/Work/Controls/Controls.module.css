@@ -54,13 +54,6 @@
   transition: opacity 0.425s var(--easing-text-fade-in);
   opacity: 1 !important;
 }
-.controls-container > p {
-  text-align: right;
-  opacity: 0.4;
-  right: calc(0.35rlh + 1.826rlh);
-  position: absolute;
-  transition: all 0s;
-}
 .controls-container button.forward {
   background-color: var(--token-color-surface-primary);
   width: 1.826rlh;

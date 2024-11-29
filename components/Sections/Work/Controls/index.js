@@ -5,6 +5,7 @@ import Image from "next/image";
 import Magnetic from "@/components/Magnetic";
 import { useGSAP } from "@gsap/react";
 import Circle from "@/components/Sections/Work/Controls/Circle";
+import SpeedIndicator from "./SpeedIndicator";
 
 const Controls = forwardRef(
   ({ speedCoef = 1, setSpeedCoef, duration, easing }, ref) => {
@@ -124,35 +125,6 @@ const Controls = forwardRef(
       };
     }, [speedCoef, lastState]);
 
-    // Red flashing animation
-    useEffect(() => {
-      const updateSpeedAnimation = gsap.timeline();
-
-      if (speedIndicatorRef.current) {
-        updateSpeedAnimation.set(speedIndicatorRef.current, {
-          color: `${
-            !isStopRunning ? "red" : "var(--token-color-text-primary)"
-          }`,
-          opacity: 0.75,
-          scale: 1.12,
-        });
-        updateSpeedAnimation.to(speedIndicatorRef.current, {
-          color: `var(--token-color-text-primary)`,
-          opacity: 0.4,
-          scale: 1,
-          duration: 1,
-          delay: 0.05,
-          ease: "power4.out",
-        });
-      }
-
-      return () => {
-        if (updateSpeedAnimation) {
-          updateSpeedAnimation.kill();
-        }
-      };
-    }, [speedCoef]);
-
     return (
       <div className={`${styles["controls-container"]} text-body-2`} ref={ref}>
         <div ref={stopButtonRef} className={`${styles["stop-container"]}`}>
@@ -184,7 +156,7 @@ const Controls = forwardRef(
             </button>
           </Magnetic>
         </div>
-        <p ref={speedIndicatorRef}>{speedCoef}X</p>
+        <SpeedIndicator speedCoef={speedCoef} isStopRunning={isStopRunning} />
         <button
           className={`${styles["forward"]}`}
           onClick={handleClick}
@@ -193,7 +165,7 @@ const Controls = forwardRef(
           onMouseLeave={stopIncreasingSpeed}
           disabled={isStopRunning} // Disable FORWARD if STOP is running
         >
-          <Circle isStopRunning={isStopRunning} speedCoef={speedCoef} />
+          <Circle speedCoef={speedCoef} isStopRunning={isStopRunning} />
           <Magnetic movement={0.108} passedScale={1.192}>
             <Image
               src="/icons/arrow--right.png"
