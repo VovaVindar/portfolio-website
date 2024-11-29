@@ -75,7 +75,7 @@ const Magnetic = ({
   return type == "image" ? (
     <div
       ref={magneticAreaRef}
-      style={({ height: "100%", width: "100%", position: "relative" }, style)}
+      style={{ height: "100%", width: "100%", position: "relative", ...style }}
     >
       {/*<BlurImage
         src="/marquee.png"
