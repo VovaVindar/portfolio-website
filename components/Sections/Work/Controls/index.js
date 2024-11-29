@@ -14,6 +14,7 @@ const Controls = forwardRef(
     const [isStopRunning, setIsStopRunning] = useState(false);
     const stopButtonRef = useRef(null);
     const speedIndicatorRef = useRef(null);
+    const circleRef = useRef(null);
 
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
@@ -123,6 +124,30 @@ const Controls = forwardRef(
       };
     }, [speedCoef, lastState]);
 
+    // Circle animation
+    gsap.set(circleRef.current, {
+      rotation: 0,
+    });
+
+    useEffect(() => {
+      const circleAnimation = gsap.timeline({ defaults: { overwrite: true } });
+
+      if (circleRef.current) {
+        // Spin the circle container
+        circleAnimation.to(circleRef.current, {
+          rotation: "+=360",
+          duration: 1,
+          ease: "power4.out",
+        });
+      }
+
+      return () => {
+        if (circleAnimation) {
+          circleAnimation.kill();
+        }
+      };
+    }, [speedCoef]);
+
     useEffect(() => {
       // Red flashing animation
       const updateSpeedAnimation = gsap.timeline();
@@ -192,6 +217,9 @@ const Controls = forwardRef(
           onMouseLeave={stopIncreasingSpeed}
           disabled={isStopRunning} // Disable FORWARD if STOP is running
         >
+          <div className={`${styles["circle-container"]}`} ref={circleRef}>
+            <div className={`${styles["circle"]}`} />
+          </div>
           <Magnetic movement={0.108} passedScale={1.192}>
             <Image
               src="/icons/arrow--right.png"
