@@ -7,30 +7,3 @@
   z-index: 2;
   pointer-events: none;
 }
-.controls-container button.forward {
-  background-color: var(--token-color-surface-primary);
-  width: 1.826rlh;
-  height: 1.826rlh;
-  border-radius: 100%;
-  margin-top: -0.255rlh;
-  margin-right: -0.255rlh;
-  transition: opacity 0.425s var(--easing-text-fade-in);
-  pointer-events: all;
-  position: relative;
-}
-.controls-container button.forward:disabled {
-  pointer-events: none;
-  opacity: 0.6;
-  transition: opacity 0.65s var(--easing-text-fade-out);
-}
-.controls-container button.forward > div:nth-child(2) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.controls-container button.forward img {
-  width: 0.9rlh;
-  height: 0.9rlh;
-  user-select: none;
-  pointer-events: none;
-}

@@ -10,9 +10,47 @@ const StopButton = ({
   isStopRunning,
   duration,
   easing,
-  decreaseSpeedCoef,
+  setSpeedCoef,
+  setIsStopRunning,
 }) => {
   const stopButtonRef = useRef(null);
+
+  // Function to decrease speedCoef
+  const animationFrameRef = useRef(null);
+
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+  const decreaseSpeedCoef = () => {
+    const duration = 2000;
+    const startSpeed = speedCoef;
+    const startTime = performance.now();
+    const steps = startSpeed - 1; // Total number of steps to decrease
+
+    if (steps <= 0) return; // No need to decrease if already at 1
+
+    setIsStopRunning(true); // Disable forward button
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1); // Clamp progress to [0, 1]
+      const easedProgress = easeOutCubic(progress);
+      const targetSpeed = Math.round(startSpeed - easedProgress * steps); // Calculate next integer speed
+
+      if (targetSpeed !== speedCoef) {
+        setSpeedCoef(targetSpeed); // Update speed only when it changes
+      }
+
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+      } else {
+        setSpeedCoef(1);
+        setIsStopRunning(false); // Re-enable forward button
+      }
+    };
+
+    cancelAnimationFrame(animationFrameRef.current); // Cancel any previous animation
+    animationFrameRef.current = requestAnimationFrame(animate);
+  };
 
   // Effect to toggle the visibility of the STOP button
   const lastState = useRef(null); // Track the last state of the animation
