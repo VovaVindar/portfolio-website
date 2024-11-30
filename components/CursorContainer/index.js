@@ -14,8 +14,8 @@ const CursorContainer = ({ className, isAnimating = true }) => {
       skewingMedia: 0,
       stickDelta: 0.3,
       stateDetection: {
-        "-exclusion": ".mf-exclusion",
-        "-hidden": ".mf-hidden, p",
+        "-exclusion": ".mf-exclusion, p",
+        "-hidden": ".mf-hidden",
       },
       className: `mf-cursor ${className}`,
     });

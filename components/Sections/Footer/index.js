@@ -5,37 +5,10 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Magnetic from "@/components/Magnetic";
 import Link from "next/link";
+import LocalTime from "@/components/Sections/Footer/LocalTime";
 
 const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
-  const [time, setTime] = useState({ hours: "", minutes: "" });
-
-  const updateTime = () => {
-    const vancouverTime = new Date().toLocaleTimeString("en-US", {
-      timeZone: "America/Vancouver",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
-    const [hours, minutes] = vancouverTime.split(":");
-    setTime({ hours, minutes });
-  };
-
-  useEffect(() => {
-    updateTime(); // Set initial time immediately
-
-    // Calculate the remaining milliseconds until the next minute
-    const now = new Date();
-    const msUntilNextMinute = (60 - now.getSeconds()) * 1000;
-
-    const initialTimeout = setTimeout(() => {
-      updateTime(); // Sync at the start of the next minute
-      const intervalId = setInterval(updateTime, 60000); // Update every minute
-      return () => clearInterval(intervalId); // Cleanup the interval
-    }, msUntilNextMinute);
-
-    return () => clearTimeout(initialTimeout); // Cleanup the initial timeout
-  }, []);
-
+  // On-scroll animation
   const footerOnscroll = useRef([]);
   const socialRef = useRef(null);
   const [startPageAnimation2, setStartPageAnimation2] = useState(false);
@@ -98,13 +71,15 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
     if (index >= 3 && index <= 5) return 1 * interval;
     if (index >= 6 && index <= 8) return 2 * interval;
     if (index >= 9 && index <= 10) return 3 * interval;
-    if (index >= 11) return 5 * interval;
+    if (index == 11) return 4 * interval;
+    if (index >= 12) return 6 * interval;
   };
   function footerStaggerMobile(index, interval) {
-    const multipliers = [0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 11, 12, 12]; // Direct mapping of index to multiplier
+    const multipliers = [0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 12, 12, 13, 13]; // Direct mapping of index to multiplier
     return (multipliers[index] ?? 0) * interval; // Default to 0 for out-of-range indices
   }
 
+  // Links hover animation
   const [hoveredLink, setHoveredLink] = useState(null);
 
   const handleMouseEnter = (link) => {
@@ -114,6 +89,10 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
   const handleMouseLeave = () => {
     setHoveredLink(null);
   };
+
+  // Copy email tooltip
+  const [copyEmail, setCopyEmail] = useState("Copy");
+  let copyTimeout;
 
   return (
     <div className={`${styles["footer-container"]} text-body-1`}>
@@ -126,14 +105,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
             Pacific Time:
           </span>
           <p>
-            <span
-              className={styles["time"]}
-              ref={(el) => (footerOnscroll.current[3] = el)}
-            >
-              {time.hours}
-              <span>:</span>
-              {time.minutes},
-            </span>
+            <LocalTime ref={(el) => (footerOnscroll.current[3] = el)} />
           </p>
           <p ref={(el) => (footerOnscroll.current[6] = el)}>Vancouver,</p>
           <p ref={(el) => (footerOnscroll.current[9] = el)}>Canada</p>
@@ -143,7 +115,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
             className="text-header-3 mf-hidden"
             ref={(el) => (footerOnscroll.current[1] = el)}
           >
-            Social:
+            Directory:
           </span>
           <p
             onMouseEnter={() => handleMouseEnter("linkedin")}
@@ -158,6 +130,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
               <Link
                 href={"https://www.linkedin.com/in/vovavindar/"}
                 ref={(el) => (footerOnscroll.current[4] = el)}
+                target="_blank"
               >
                 LinkedIn,
               </Link>
@@ -176,6 +149,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
               <Link
                 href={"https://www.instagram.com/vovavindar/"}
                 ref={(el) => (footerOnscroll.current[7] = el)}
+                target="_blank"
               >
                 Instagram,
               </Link>
@@ -194,8 +168,43 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
               <Link
                 href={"https://dribbble.com/VovaVindar"}
                 ref={(el) => (footerOnscroll.current[10] = el)}
+                target="_blank"
               >
-                Dribbble
+                Dribbble<span className={`${styles["no-mobile"]}`}>,</span>
+              </Link>
+            </Magnetic>
+          </p>
+          <p
+            onMouseEnter={() => handleMouseEnter("email")}
+            onMouseLeave={handleMouseLeave}
+            className={
+              hoveredLink && hoveredLink !== "email"
+                ? `${styles["faded"]} ${styles["no-mobile"]}`
+                : `${styles["no-mobile"]}`
+            }
+          >
+            <Magnetic type="text">
+              <Link
+                href={"https://dribbble.com/VovaVindar"}
+                ref={(el) => (footerOnscroll.current[11] = el)}
+                data-cursor-text={copyEmail}
+                onClick={(e) => {
+                  clearTimeout(copyTimeout);
+                  e.preventDefault();
+                  const email = "vovavindar@gmail.com";
+
+                  // Copy email to clipboard
+                  navigator.clipboard.writeText(email);
+
+                  setCopyEmail("vovavindar@gmail.com copied");
+
+                  copyTimeout = setTimeout(() => {
+                    setCopyEmail("Copy");
+                    console.log(copyEmail);
+                  }, 500);
+                }}
+              >
+                Email
               </Link>
             </Magnetic>
           </p>
@@ -217,12 +226,12 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
         <div>
           <div>
             <div className="text-body-3">
-              <p ref={(el) => (footerOnscroll.current[11] = el)}>2024 ©</p>
+              <p ref={(el) => (footerOnscroll.current[12] = el)}>2024 ©</p>
             </div>
           </div>
           <div>
             <div className="text-body-3">
-              <p ref={(el) => (footerOnscroll.current[12] = el)}>
+              <p ref={(el) => (footerOnscroll.current[13] = el)}>
                 <Magnetic type="text">
                   <Link href={"/privacy"}>
                     Privacy <span>Policy</span>
@@ -233,7 +242,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
           </div>
         </div>
         <div className="text-body-3">
-          <p ref={(el) => (footerOnscroll.current[13] = el)}>
+          <p ref={(el) => (footerOnscroll.current[14] = el)}>
             <Magnetic type="text">
               <Link href={"/cv"}>CV</Link>
             </Magnetic>

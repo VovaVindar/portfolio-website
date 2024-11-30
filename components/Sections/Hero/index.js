@@ -61,9 +61,9 @@ const Hero = ({
           className={`${styles["timeline"]}`}
           ref={(el) => (heroOnload.current[0] = el)}
         >
-          <span className="text-header-3 mf-hidden">From 2019</span>
+          <span className="text-header-3 mf-hidden">Est. MMXIX</span>
           <div></div>
-          <span className="text-header-3 mf-hidden">To Present</span>
+          <span className="text-header-3 mf-hidden">Ad Infinitum</span>
         </div>
         <div className={`${styles["desktop"]}`}>
           <p ref={(el) => (heroOnload.current[1] = el)}>

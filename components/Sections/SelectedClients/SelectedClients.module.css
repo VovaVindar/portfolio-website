@@ -60,9 +60,12 @@
     max-width: var(--mobile-max-width); /* 319px on mobile */
     width: 100%;
     gap: 1rlh;
+    margin-top: calc(4rlh - 1px);
+    margin-bottom: calc(5rlh + 1px);
   }
   .clients .client-container {
     padding-bottom: 0rlh;
+    padding-top: 0.5rlh;
     align-items: flex-end;
   }
   .clients .client-container span {

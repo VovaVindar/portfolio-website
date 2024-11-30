@@ -21,8 +21,8 @@
 .timeline > div {
   height: calc(var(--token-font-size-4) * 0.68);
   width: 4.782608rlh; /* 110px */
-  margin-left: 0.434782rlh; /* 10px */
-  margin-right: 0.347826rlh; /* 8px */
+  margin-left: 0.44rlh;
+  margin-right: 0.37rlh;
   position: relative;
   display: flex;
   align-items: center;
@@ -52,7 +52,7 @@
 
   .description {
     margin-top: 3rlh;
-    margin-bottom: 7rlh;
+    margin-bottom: 6rlh;
   }
   .description .desktop {
     display: none;

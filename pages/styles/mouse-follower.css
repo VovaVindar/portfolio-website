@@ -20,7 +20,7 @@
   transform: scale(0.19) rotate(var(--rotation));
   background: var(--token-color-surface-contrast);
   border-radius: 0%;
-  transition: transform 0.25s ease-in-out, opacity 0.1s;
+  transition: transform 0.35s ease-in-out, opacity 0.1s, 0.5s background ease;
 }
 .mf-cursor.-inverse {
   color: #fff;
@@ -32,6 +32,7 @@
   .mf-cursor.-exclusion:before {
     background: #fff;
     background: transparent;
+    transform: scale(0.19) rotate(calc(var(--rotation) * 1.5));
   }
 }
 .mf-cursor.-pointer:before {
@@ -66,7 +67,7 @@
   color: var(--token-color-text-contrast);
   font-size: var(--token-font-size-4);
   text-align: left;
-  transition: opacity 0.4s, transform 0.3s, blur 0.9s;
+  transition: opacity 0.4s ease, transform 0.3s ease, blur 1s ease;
 
   font-size: var(--token-font-size-4);
   font-family: var(--lausanne);
