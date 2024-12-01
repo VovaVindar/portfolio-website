@@ -8,6 +8,7 @@
   pointer-events: none;
   transition: opacity 0.3s, color 0.4s;
   --rotation: 0deg;
+  user-select: none;
 }
 .mf-cursor:before {
   content: "";
@@ -18,7 +19,7 @@
   width: 48px;
   height: 48px;
   transform: scale(0.19) rotate(var(--rotation));
-  background: var(--token-color-surface-contrast);
+  background: red;
   border-radius: 0%;
   transition: transform 0.35s ease-in-out, opacity 0.1s, 0.5s background ease;
 }

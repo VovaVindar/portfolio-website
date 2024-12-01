@@ -61,7 +61,15 @@ const CursorContainer = ({ className, isAnimating = true }) => {
     const cacheBuster = `?v=${Date.now()}`; // Add a unique timestamp to the URL
 
     const existingIcons = document.querySelectorAll("link[rel='icon']");
-    existingIcons.forEach((link) => document.head.removeChild(link));
+    const existingIcons2 = document.querySelectorAll(
+      "link[rel='shortcut icon']"
+    );
+    existingIcons.forEach((link) => {
+      document.head.removeChild(link);
+    });
+    existingIcons2.forEach((link) => {
+      document.head.removeChild(link);
+    });
 
     const svgLink = document.createElement("link");
     svgLink.rel = "icon";
@@ -75,6 +83,13 @@ const CursorContainer = ({ className, isAnimating = true }) => {
     pngLink.type = "image/png";
     pngLink.sizes = "96x96";
     document.head.appendChild(pngLink);
+
+    const icoLink = document.createElement("link");
+    pngLink.rel = "shortcut icon";
+    pngLink.href = `/${baseName}.ico${cacheBuster}`;
+    pngLink.type = "image/png";
+    pngLink.sizes = "48x48";
+    document.head.appendChild(icoLink);
   };
 
   const toggleFavicon = () => {

@@ -184,8 +184,10 @@ p {
 }
 
 ::selection {
-  color: var(--token-color-surface-contrast);
-  background-color: var(--token-color-surface-contrast);
+  /*color: var(--token-color-surface-contrast);
+  background-color: var(--token-color-surface-contrast);*/
+  color: red;
+  background-color: red;
 }
 :focus {
   outline: none;
