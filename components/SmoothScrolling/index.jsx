@@ -26,6 +26,7 @@ function SmoothScrolling({ children, isAnimating }) {
     // Assign the Lenis instance to the shared ref
     lenisRef.current = lenis;
 
+    lenis.scrollTo(0, { immediate: true });
     lenis.stop();
 
     if (!isAnimating) {
