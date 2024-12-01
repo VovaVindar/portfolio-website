@@ -1,9 +1,10 @@
 .scrollbar-container {
   position: absolute;
   mix-blend-mode: difference;
-  z-index: 3;
+  z-index: 4;
 }
-.scrollbar-container a {
+.scrollbar-container a,
+.scrollbar-container button {
   position: fixed;
   right: 1rlh;
   top: 1rlh;
@@ -15,9 +16,13 @@
   transition-delay: 0.4s;
   user-select: none;
 }
+.scrollbar-container button {
+  background: transparent;
+}
 
 @media all and (max-width: 820px) {
-  .scrollbar-container a {
+  .scrollbar-container a,
+  .scrollbar-container button {
     right: auto;
     left: 50%;
     transform: translateX(-50%);

@@ -10,7 +10,7 @@ const Magnetic = ({
 }) => {
   const magneticAreaRef = useRef(null);
   const maxScale = passedScale || (type === "image" ? 1.016 : 1.04);
-  const minScale = 0.975;
+  const minScale = 0.95;
   const [scale, setScale] = useState(maxScale);
   var pMovement = type == "image" ? movement : 0.075;
 

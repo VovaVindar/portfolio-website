@@ -1,0 +1,20 @@
+.contact-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--token-color-surface-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  color: red;
+}
+.contact-container button {
+  color: var(--token-color-text-primary);
+  background-color: transparent;
+  visibility: hidden;
+  filter: blur(3px);
+}

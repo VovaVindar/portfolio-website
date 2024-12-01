@@ -76,7 +76,7 @@ const LoadingLines = ({
             onComplete: () => {
               setTimeout(() => {
                 onLoadingComplete();
-                linesContainerRef.current.classList.remove("loading");
+                linesContainerRef.current.classList.remove("scroll-block"); // just an extra safety. Actual scroll blocking is inside SmoothScrolling component
               }, 540); // for some reason, onComplete is called early
             },
           }

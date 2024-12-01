@@ -91,8 +91,8 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
   };
 
   // Copy email tooltip
-  const [copyEmail, setCopyEmail] = useState("Copy");
-  let copyTimeout;
+  const [copyEmail, setCopyEmail] = useState("Email");
+  const copyTimeoutRef = useRef(null); // Use a ref to store the timeout ID after re-renders
 
   return (
     <div className={`${styles["footer-container"]} text-body-1`}>
@@ -187,24 +187,25 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
               <Link
                 href={"https://dribbble.com/VovaVindar"}
                 ref={(el) => (footerOnscroll.current[11] = el)}
-                data-cursor-text={copyEmail}
+                data-cursor-text="Copy"
                 onClick={(e) => {
-                  clearTimeout(copyTimeout);
                   e.preventDefault();
+                  if (copyTimeoutRef.current) {
+                    clearTimeout(copyTimeoutRef.current); // Clear the existing timeout
+                  }
                   const email = "vovavindar@gmail.com";
 
                   // Copy email to clipboard
                   navigator.clipboard.writeText(email);
 
-                  setCopyEmail("vovavindar@gmail.com copied");
+                  setCopyEmail("Copied");
 
-                  copyTimeout = setTimeout(() => {
-                    setCopyEmail("Copy");
-                    console.log(copyEmail);
-                  }, 500);
+                  copyTimeoutRef.current = setTimeout(() => {
+                    setCopyEmail("Email");
+                  }, 1000);
                 }}
               >
-                Email
+                {copyEmail}
               </Link>
             </Magnetic>
           </p>

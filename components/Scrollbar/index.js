@@ -3,7 +3,7 @@ import styles from "./Scrollbar.module.css";
 import Magnetic from "@/components/Magnetic";
 import Link from "next/link";
 
-const Scrollbar = ({ text = "", href = "/", isAnimating = true }) => {
+const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [opacity, setOpacity] = useState(0);
   const [blur, setBlur] = useState(1.5);
@@ -47,9 +47,19 @@ const Scrollbar = ({ text = "", href = "/", isAnimating = true }) => {
     <div
       className={`${styles["scrollbar-container"]} text-body-1-uppercase mf-hidden`}
     >
-      <Link href={href} style={pStyle} scroll={false}>
-        <Magnetic type="text">{text}</Magnetic>
-      </Link>
+      {href ? (
+        <Link href={href} style={pStyle} scroll={false}>
+          <Magnetic type="text">{text}</Magnetic>
+        </Link>
+      ) : (
+        <button
+          style={pStyle}
+          className="text-body-1-uppercase"
+          onClick={onClick}
+        >
+          <Magnetic type="text">{text}</Magnetic>
+        </button>
+      )}
     </div>
   );
 };

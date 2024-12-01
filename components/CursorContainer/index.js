@@ -89,8 +89,6 @@ const CursorContainer = ({ className, isAnimating = true }) => {
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        console.log("User left the tab");
-
         // Change favicon based on the current favicon
         if (currentFavicon === "favicon") {
           setFavicon("favicon3"); // Switch to favicon3
@@ -98,7 +96,6 @@ const CursorContainer = ({ className, isAnimating = true }) => {
           setFavicon("favicon4"); // Switch to favicon4
         }
       } else {
-        console.log("User returned to the tab");
         // Restore the previous favicon
         setFavicon(currentFavicon);
       }

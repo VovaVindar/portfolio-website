@@ -28,10 +28,10 @@ body {
   margin: 0;
 }
 
-html:has(.loading),
-body:has(.loading) {
+html:has(.scroll-block),
+body:has(.scroll-block) {
   overflow-y: hidden;
-}
+} /* just an extra safety. Actual scroll blocking is inside SmoothScrolling component */
 
 /* Hidden Scrollbar */
 ::-webkit-scrollbar {

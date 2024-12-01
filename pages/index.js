@@ -5,7 +5,7 @@ import Videos from "@/components/Sections/Videos";
 import SelectedClients from "@/components/Sections/SelectedClients";
 import Work from "@/components/Sections/Work";
 import Footer from "@/components/Sections/Footer";
-import Scrollbar from "@/components/Scrollbar";
+import Contact from "@/components/Contact";
 import { TransitionContext } from "@/context/TransitionContext";
 import { useContext, useRef, useEffect, useState } from "react";
 
@@ -29,11 +29,7 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
       <Head>
         <title>Vova Vindar — Digital Designer & Developer</title>
       </Head>
-      <Scrollbar
-        text={"Contact"}
-        href="mailto:vovavindar@gmail.com"
-        isAnimating={isAnimating}
-      />
+      <Contact isAnimating={isAnimating} easing={easing} duration={duration} />
       {/*<canvas id="gl"></canvas>*/}
       <div ref={container} className={`${styles["home-container"]}`}>
         <Hero
