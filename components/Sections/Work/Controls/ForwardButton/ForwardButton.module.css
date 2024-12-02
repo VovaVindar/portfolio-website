@@ -22,6 +22,11 @@ button.forward > div:nth-child(2) {
 button.forward img {
   width: 0.9rlh;
   height: 0.9rlh;
-  user-select: none;
   pointer-events: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
