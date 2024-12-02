@@ -56,6 +56,10 @@ const Videos = ({ startPageAnimation, linesCount }) => {
                 alt="Picture of the author"
                 fill
                 priority={true}
+                draggable="false"
+                onDragStart={() => {
+                  return false;
+                }}
               />
             </Magnetic>
           </div>

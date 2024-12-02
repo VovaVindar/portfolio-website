@@ -21,6 +21,7 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
   useEffect(() => {
     if (numbersProgress >= 100) {
       setTimeout(() => setStartPageAnimation(true), 250);
+      console.log("version 1.0.1");
     }
   }, [numbersProgress]);
 
