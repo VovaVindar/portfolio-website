@@ -26,7 +26,7 @@ const Hero = ({
       heroAnimation.fromTo(
         // Hero onload
         heroOnload.current,
-        { autoAlpha: 0, filter: "blur(1.5px)", color: "red" },
+        { autoAlpha: 0, filter: "blur(2.5px)", color: "red" },
         {
           autoAlpha: startPageAnimation ? 1 : 0,
           filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,

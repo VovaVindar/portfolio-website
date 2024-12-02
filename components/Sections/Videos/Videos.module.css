@@ -26,7 +26,7 @@
   opacity: 1;
 }
 .videos-container .el img {
-  transform: scale(1.18);
+  transform: scale(1.17);
   filter: blur(10px) brightness(3.8) saturate(3.8);
   transition: all 2.1s var(--easing-img-fade-in); /* power2.out */
 }

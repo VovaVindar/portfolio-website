@@ -26,7 +26,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
     if (footerOnscroll.current.length) {
       footerAnimation.set(footerOnscroll.current, {
         opacity: 0,
-        filter: "blur(1.5px)",
+        filter: "blur(2px)",
         color: "red",
       });
 
@@ -37,7 +37,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
           onEnter: () => {
             footerAnimation.fromTo(
               footerOnscroll.current,
-              { opacity: 0, filter: "blur(1.5px)", color: "red" },
+              { opacity: 0, filter: "blur(2px)", color: "red" },
               {
                 opacity: 1,
                 filter: `blur(0px)`,

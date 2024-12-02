@@ -33,7 +33,7 @@ const SelectedClients = ({
             batch,
             {
               autoAlpha: 0,
-              filter: "blur(1.5px)",
+              filter: "blur(4px)",
               color: "red",
             },
             {
@@ -58,7 +58,7 @@ const SelectedClients = ({
 
       clientsAnimation.set(clientsOnscroll.current, {
         autoAlpha: 0,
-        filter: "blur(1.5px)",
+        filter: "blur(4px)",
         color: "red",
       });
       /*scrollTriggerInstance = ScrollTrigger.create({
