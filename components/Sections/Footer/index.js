@@ -30,30 +30,36 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
         color: "red",
       });
 
-      scrollTriggerInstance = ScrollTrigger.create({
-        trigger: footerOnscroll.current,
-        start: "top 90%",
-        onEnter: () => {
-          footerAnimation.to(footerOnscroll.current, {
-            opacity: startPageAnimation2 ? 1 : 0,
-            filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
-            color: `${startPageAnimation2 ? "#0F1010" : "red"}`,
-            delay: 0,
-            duration: duration,
-            ease: easing,
-            stagger: (index) =>
-              window.innerWidth > 820
-                ? footerStaggerDesktop(index, staggerInterval)
-                : footerStaggerMobile(index, staggerInterval - 0.02),
-            onComplete: () => {
-              if (socialRef.current) {
-                socialRef.current.classList.add(`${styles["in-view"]}`);
+      if (startPageAnimation2) {
+        scrollTriggerInstance = ScrollTrigger.create({
+          trigger: footerOnscroll.current,
+          start: "top 100%" /* was 90% */,
+          onEnter: () => {
+            footerAnimation.fromTo(
+              footerOnscroll.current,
+              { opacity: 0, filter: "blur(1.5px)", color: "red" },
+              {
+                opacity: 1,
+                filter: `blur(0px)`,
+                color: "#0F1010",
+                delay: 0,
+                duration: duration,
+                ease: easing,
+                stagger: (index) =>
+                  window.innerWidth > 820
+                    ? footerStaggerDesktop(index, staggerInterval)
+                    : footerStaggerMobile(index, staggerInterval - 0.02),
+                onComplete: () => {
+                  if (socialRef.current) {
+                    socialRef.current.classList.add(`${styles["in-view"]}`);
+                  }
+                },
               }
-            },
-          });
-        },
-        once: true,
-      });
+            );
+          },
+          once: false,
+        });
+      }
     }
 
     return () => {

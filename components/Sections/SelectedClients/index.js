@@ -3,7 +3,7 @@ import styles from "./SelectedClients.module.css";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import Magnetic from "@/components/Magnetic";
+//import Magnetic from "@/components/Magnetic";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,7 +26,7 @@ const SelectedClients = ({
     let scrollTriggerInstance;
     const clientsAnimation = gsap.timeline({});
 
-    if (clientsOnscroll.current.length) {
+    if (clientsOnscroll.current.length && startPageAnimation2) {
       ScrollTrigger.batch(clientsOnscroll.current, {
         onEnter: (batch) => {
           gsap.fromTo(
@@ -37,22 +37,23 @@ const SelectedClients = ({
               color: "red",
             },
             {
-              autoAlpha: startPageAnimation2 ? 1 : 0,
-              filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
-              color: `${startPageAnimation2 ? "#0F1010" : "red"}`,
+              autoAlpha: 1,
+              filter: `blur(0px)`,
+              color: "#0F1010",
               duration: duration,
               ease: easing,
               stagger: staggerInterval,
             }
           );
-          batch.forEach((el) => {
+          /*batch.forEach((el) => {
             setTimeout(() => {
               el.classList.add(`${styles["in-view"]}`);
             }, duration * 1000 + 100);
-          });
+          });*/
         },
-        once: true,
-        start: "top 95%",
+        once: false,
+        start: "top 100%" /* was 95% */,
+        end: "bottom+=100px top",
       });
 
       clientsAnimation.set(clientsOnscroll.current, {
@@ -94,7 +95,7 @@ const SelectedClients = ({
     };
   }, [startPageAnimation2]);
 
-  const [hoveredLink, setHoveredLink] = useState(null);
+  /*const [hoveredLink, setHoveredLink] = useState(null);
 
   const handleMouseEnter = (link) => {
     setHoveredLink(link);
@@ -102,7 +103,7 @@ const SelectedClients = ({
 
   const handleMouseLeave = () => {
     setHoveredLink(null);
-  };
+  };*/
 
   return (
     <div className={`${styles["clients"]}`}>

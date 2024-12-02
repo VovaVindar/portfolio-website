@@ -4,11 +4,11 @@ import Magnetic from "@/components/Magnetic";
 import Image from "next/image";
 import Marquee from "@/components/Marquee";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 const Videos = ({ startPageAnimation, linesCount }) => {
   const containerRef = useRef(null);
-  const marqueeElementsRef = useRef([]);
 
   const animationDelay = linesCount ? 6 * 85 : 20 * 85;
   const [pageAnimationStarted, setPageAnimationStarted] = useState(false);
@@ -29,10 +29,9 @@ const Videos = ({ startPageAnimation, linesCount }) => {
       scrollTriggerInstance = ScrollTrigger.create({
         trigger: containerRef.current,
         start: "top bottom-=35px",
-        onEnter: () => {
-          containerRef.current.classList.add(`${styles["in-view"]}`);
-        },
-        once: true,
+        end: "bottom+=65px top",
+        toggleClass: `${styles["in-view"]}`,
+        once: false,
       });
     }
 
@@ -49,7 +48,6 @@ const Videos = ({ startPageAnimation, linesCount }) => {
         {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, index) => (
           <div
             key={index}
-            ref={(el) => (marqueeElementsRef.current[index] = el)}
             data-cursor-text="Vitamin Living"
             className={`mf-exclusion ${styles["el"]}`}
           >

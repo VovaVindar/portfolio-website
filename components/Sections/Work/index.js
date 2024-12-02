@@ -51,74 +51,80 @@ const Work = ({ duration, easing, startPageAnimation }) => {
 
     controlsAnimation.set(controlsOnscroll.current, {
       opacity: 0,
-      filter: "blur(1.5px)",
+      filter: "blur(4px)",
     });
-
     textAnimation.set(textOnscroll.current, {
       opacity: 0,
+      filter: "blur(4.5px)",
+    });
+    circlesAnimation.set(circlesOnscroll.current, {
+      autoAlpha: 0,
       filter: "blur(2px)",
     });
 
-    circlesAnimation.set(circlesOnscroll.current, {
-      autoAlpha: 0,
-      filter: "blur(1.5px)",
-    });
-
-    scrollTriggerInstance1 = ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: "top 80%",
-      onEnter: () => {
-        if (startPageAnimation2) {
-          containerRef.current.classList.add(`${styles["in-view"]}`);
-        }
-      },
-      once: true,
-    });
-
-    scrollTriggerInstance2 = ScrollTrigger.create({
-      trigger: textOnscroll.current,
-      start: "top 95%",
-      onEnter: () => {
-        textAnimation.to(textOnscroll.current, {
-          opacity: startPageAnimation2 ? 1 : 0,
-          filter: `blur(${startPageAnimation2 ? 0 : 2}px)`,
-          delay: 0,
-          duration: duration,
-          ease: easing,
-        });
-      },
-      once: true,
-    });
-
-    scrollTriggerInstance3 = ScrollTrigger.create({
-      trigger: circlesOnscroll.current,
-      start: "top bottom-=10px",
-      onEnter: () => {
-        circlesAnimation.to(circlesOnscroll.current, {
-          autoAlpha: startPageAnimation2 ? 1 : 0,
-          filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
-          delay: 0,
-          duration: duration,
-          ease: easing,
-        });
-      },
-      once: true,
-    });
-
-    scrollTriggerInstance4 = ScrollTrigger.create({
-      trigger: controlsOnscroll.current,
-      start: "top bottom-=10px",
-      onEnter: () => {
-        controlsAnimation.to(controlsOnscroll.current, {
-          opacity: startPageAnimation2 ? 1 : 0,
-          filter: `blur(${startPageAnimation2 ? 0 : 1.5}px)`,
-          delay: 0,
-          duration: duration,
-          ease: easing,
-        });
-      },
-      once: true,
-    });
+    if (startPageAnimation2) {
+      scrollTriggerInstance1 = ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top 80%",
+        toggleClass: `${styles["in-view"]}`,
+        once: false,
+      });
+      scrollTriggerInstance2 = ScrollTrigger.create({
+        trigger: textOnscroll.current,
+        start: "100% 100%" /* was top 95% */,
+        onEnter: () => {
+          textAnimation.fromTo(
+            textOnscroll.current,
+            { opacity: 0, filter: "blur(4.5px)" },
+            {
+              opacity: 1,
+              filter: `blur(0px)`,
+              delay: 0,
+              duration: duration + 0.1,
+              //ease: "power1.out",
+              ease: easing,
+            }
+          );
+        },
+        once: false,
+      });
+      scrollTriggerInstance3 = ScrollTrigger.create({
+        trigger: circlesOnscroll.current,
+        start: "100% 100%" /* was top bottom-=10px */,
+        onEnter: () => {
+          circlesAnimation.fromTo(
+            circlesOnscroll.current,
+            { autoAlpha: 0, filter: "blur(2)px" },
+            {
+              autoAlpha: 1,
+              filter: `blur(0px)`,
+              delay: 0,
+              duration: duration,
+              ease: easing,
+            }
+          );
+        },
+        once: false,
+      });
+      scrollTriggerInstance4 = ScrollTrigger.create({
+        trigger: controlsOnscroll.current,
+        start: "100% 100%" /* was top bottom-=10px */,
+        onEnter: () => {
+          controlsAnimation.fromTo(
+            controlsOnscroll.current,
+            { opacity: 0, filter: "blur(4px)" },
+            {
+              opacity: 1,
+              filter: `blur(0px)`,
+              delay: 0,
+              duration: duration + 0.1,
+              ease: easing,
+            }
+          );
+        },
+        once: false,
+      });
+    }
 
     return () => {
       if (scrollTriggerInstance1) {
@@ -144,9 +150,48 @@ const Work = ({ duration, easing, startPageAnimation }) => {
     setSpeedCoef(coef);
   }, []);
 
+  // Parallax effect on scroll
+  const sectionRef = useRef(null);
+
+  useGSAP(() => {
+    let sectionParallax;
+
+    // Compute `rlh` value in pixels
+    const lineHeight = parseFloat(
+      getComputedStyle(document.documentElement).lineHeight
+    ); // Get the line height in pixels
+    const rlhInPixels = 18 * lineHeight; // Convert 19rlh to pixels
+
+    if (sectionRef.current) {
+      sectionParallax = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          scrub: 1,
+          start: "top bottom",
+          end: `bottom bottom-=${rlhInPixels}`,
+        },
+      });
+
+      sectionParallax.set(sectionRef.current, {
+        yPercent: 10,
+      });
+      sectionParallax.to(sectionRef.current, {
+        yPercent: 0,
+        ease: "none",
+      });
+    }
+
+    return () => {
+      if (sectionParallax) {
+        sectionParallax.kill();
+      }
+    };
+  });
+
   return (
     <div
       className={`${styles["work"]} work-global mf-exclusion text-body-1-uppercase`}
+      ref={sectionRef}
     >
       <Controls
         speedCoef={speedCoef}

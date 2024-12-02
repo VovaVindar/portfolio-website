@@ -68,6 +68,7 @@ export default function Contact({ isAnimating, easing, duration }) {
 
     if (containerRef.current && contactRef.current) {
       if (contactOpen) {
+        // Open
         containerAnimation.to(containerRef.current, {
           autoAlpha: 1,
           duration: duration - 0.1,
@@ -82,6 +83,7 @@ export default function Contact({ isAnimating, easing, duration }) {
           delay: 0.35,
         });
       } else {
+        // Close
         contactAnimation.to(containerRef.current, {
           autoAlpha: 0,
           duration: duration - 0.1,
