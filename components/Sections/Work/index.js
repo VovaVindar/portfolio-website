@@ -153,8 +153,6 @@ const Work = ({ duration, easing, startPageAnimation }) => {
   const sectionRef = useRef(null);
 
   useGSAP(() => {
-    let sectionParallax;
-
     // Compute `rlh` value in pixels
     const lineHeight = parseFloat(
       getComputedStyle(document.documentElement).lineHeight
@@ -162,29 +160,20 @@ const Work = ({ duration, easing, startPageAnimation }) => {
     const rlhInPixels = 18 * lineHeight; // Convert 19rlh to pixels
 
     if (sectionRef.current) {
-      sectionParallax = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          scrub: 1,
-          start: "top bottom",
-          end: `bottom bottom-=${rlhInPixels}`,
-        },
-      });
+      const sectionParallax = gsap.fromTo(
+        sectionRef.current,
+        { yPercent: 10 },
+        { yPercent: 0, ease: "none" }
+      );
 
-      sectionParallax.set(sectionRef.current, {
-        yPercent: 10,
-      });
-      sectionParallax.to(sectionRef.current, {
-        yPercent: 0,
-        ease: "none",
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        animation: sectionParallax, // Link animation to ScrollTrigger
+        scrub: 1,
+        start: "top bottom",
+        end: `bottom bottom-=${rlhInPixels}`,
       });
     }
-
-    return () => {
-      if (sectionParallax) {
-        sectionParallax.kill();
-      }
-    };
   });
 
   return (
