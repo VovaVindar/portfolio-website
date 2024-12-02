@@ -4,7 +4,6 @@ import Magnetic from "@/components/Magnetic";
 import Image from "next/image";
 import Marquee from "@/components/Marquee";
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 const Videos = ({ startPageAnimation, linesCount }) => {
