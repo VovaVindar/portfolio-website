@@ -190,7 +190,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
             }
           >
             <Magnetic type="text">
-              <Link
+              <button
                 href={"https://dribbble.com/VovaVindar"}
                 ref={(el) => (footerOnscroll.current[11] = el)}
                 data-cursor-text="Copy"
@@ -208,11 +208,11 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
 
                   copyTimeoutRef.current = setTimeout(() => {
                     setCopyEmail("Email");
-                  }, 1000);
+                  }, 850);
                 }}
               >
                 {copyEmail}
-              </Link>
+              </button>
             </Magnetic>
           </p>
         </div>

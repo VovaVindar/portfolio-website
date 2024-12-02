@@ -41,7 +41,8 @@
 .social-links.in-view p {
   transition: all 0.425s var(--easing-text-fade-in);
 }
-.social-links.in-view p a {
+.social-links.in-view p a,
+.social-links.in-view p button {
   transition: color 0.425s var(--easing-text-fade-in);
 }
 .social-links.in-view p.faded {
@@ -49,7 +50,8 @@
   opacity: 0.3 !important;
   filter: blur(1.4px) !important;
 }
-.social-links.in-view p.faded a {
+.social-links.in-view p.faded a,
+.social-links.in-view p.faded button {
   color: red !important;
   transition: color 0.65s var(--easing-text-fade-out);
 }

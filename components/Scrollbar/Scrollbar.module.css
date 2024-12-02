@@ -16,9 +16,6 @@
   transition-delay: 0.4s;
   user-select: none;
 }
-.scrollbar-container button {
-  background: transparent;
-}
 
 @media all and (max-width: 820px) {
   .scrollbar-container a,

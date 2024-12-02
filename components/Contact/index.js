@@ -147,7 +147,7 @@ export default function Contact({ isAnimating, easing, duration }) {
                 startLenis();
                 setTimeout(() => {
                   setCopyEmail("vovavindar@gmail.com");
-                }, 600);
+                }, 680);
               }, 400);
             }}
           >

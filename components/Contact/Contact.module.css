@@ -14,7 +14,6 @@
 }
 .contact-container button {
   color: var(--token-color-text-primary);
-  background-color: transparent;
   visibility: hidden;
   filter: blur(3px);
 }
