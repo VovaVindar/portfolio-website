@@ -20,6 +20,7 @@ const Marquee = ({
   const marqueeContainerRef = useRef(null);
   const marqueeTrackRef = useRef(null);
   const animationRef = useRef(null);
+  const lastTimestampRef = useRef(0); // Store the last timestamp
   const dragMultiply = 1.15;
 
   useEffect(() => {
@@ -44,12 +45,11 @@ const Marquee = ({
       setTrackWidth(newTrackWidth);
       setShouldAnimate(newTrackWidth > marqueeContainerRef.current.offsetWidth);
     }
-  });
+  }, []);
 
   useEffect(() => {
     calculateTrackWidth();
 
-    // Debounced resize handler
     const handleResize = debounce(calculateTrackWidth, 100);
     window.addEventListener("resize", handleResize);
 
@@ -57,11 +57,17 @@ const Marquee = ({
   }, [calculateTrackWidth]);
 
   useEffect(() => {
-    if (!shouldAnimate) return; // Only animate if needed
+    if (!shouldAnimate) return;
 
-    const animate = () => {
+    const animate = (timestamp) => {
+      if (!lastTimestampRef.current) {
+        lastTimestampRef.current = timestamp; // Initialize timestamp
+      }
+      const deltaTime = (timestamp - lastTimestampRef.current) / 1000; // Convert to seconds
+      lastTimestampRef.current = timestamp;
+
       setX((prevX) => {
-        let nextX = prevX + speed * speedCoef + dragSpeed;
+        let nextX = prevX + (speed * speedCoef + dragSpeed) * deltaTime * 120; // Adjust for 120 FPS baseline
         if (nextX >= trackWidth) nextX = 1;
         if (nextX < 1) nextX = trackWidth;
         return nextX;
