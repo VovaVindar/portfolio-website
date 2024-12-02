@@ -51,11 +51,11 @@ function MyApp({ Component, pageProps, router }) {
   // Scroll to top when mainRef changes
   useEffect(() => {
     window.scrollTo(0, 0);
-    return () => {
+    /*return () => {
       if (mainRef.current) {
         window.scrollTo(0, 0);
       }
-    };
+    };*/
   }, [router.route]);
 
   // Use useCallback to ensure setNumbersProgress does not change on re-renders

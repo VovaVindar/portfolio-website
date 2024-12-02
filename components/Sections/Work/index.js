@@ -81,7 +81,6 @@ const Work = ({ duration, easing, startPageAnimation }) => {
               filter: `blur(0px)`,
               delay: 0,
               duration: duration + 0.1,
-              //ease: "power1.out",
               ease: easing,
             }
           );
@@ -221,7 +220,15 @@ const Work = ({ duration, easing, startPageAnimation }) => {
               data-cursor-text="Vitamin Living"
             >
               <Magnetic movement={0.072} passedScale={1.032}>
-                <Image src="/marquee.png" alt="Picture of the author" fill />
+                <Image
+                  src="/marquee.png"
+                  alt="Picture of the author"
+                  fill
+                  draggable="false"
+                  onDragStart={() => {
+                    return false;
+                  }}
+                />
               </Magnetic>
             </div>
           ))}
