@@ -222,6 +222,16 @@ p {
   }
 }
 
+/* Img dragging bug fix */
+img {
+  -webkit-user-drag: none !important;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+}
+
 /* Contact btn hover animation TODO */
 /*.home {
   opacity: 1;

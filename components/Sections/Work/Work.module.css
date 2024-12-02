@@ -138,7 +138,6 @@
 }
 .work .el-container .el img {
   object-fit: contain;
-  user-drag: none;
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
