@@ -21,7 +21,6 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
   useEffect(() => {
     if (numbersProgress >= 100) {
       setTimeout(() => setStartPageAnimation(true), 250);
-      console.log("Latest push Dec 1 10:20 PM PST ");
     }
   }, [numbersProgress]);
 
