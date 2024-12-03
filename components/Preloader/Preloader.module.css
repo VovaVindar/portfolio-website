@@ -45,7 +45,7 @@
 .preloader .text-container div:nth-of-type(2) p {
   width: 3ch;
   text-align: right;
-  margin-left: calc(0% - 2ch);
+  margin-left: calc(0% - 1.5ch);
 }
 .preloader .text-container div:last-of-type {
   margin-left: 1px;
