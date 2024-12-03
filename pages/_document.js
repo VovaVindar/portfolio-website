@@ -44,6 +44,12 @@ export default function Document() {
           name="twitter:image"
           content="https://www.vovavindar.com/og.png"
         />
+        {/* Tell the browser to never restore the scroll position on load: https://dev.to/mmazzarolo/scroll-restoration-in-next-js-ckc */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `history.scrollRestoration = "manual"`,
+          }}
+        />
       </Head>
       <body>
         <Main />

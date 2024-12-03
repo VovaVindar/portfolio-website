@@ -48,12 +48,9 @@ function MyApp({ Component, pageProps, router }) {
   const [linesCount, setLinesCount] = useState(0);
   const mainRef = useRef(null);
 
-  // Scroll restoration bug fix
+  // Log
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      history.scrollRestoration = "manual";
-    }
-    console.log("Latest push Dec 2 6:10 PM PST ");
+    console.log("Latest push Dec 2 6:25 PM PST ");
   }, []);
 
   // Scroll to top when mainRef changes
