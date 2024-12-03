@@ -18,7 +18,6 @@ export default function TransitionLayout({
 
   const exit = contextSafe(() => {
     timelineExit.play().then(() => {
-      window.scrollTo(0, 0);
       setDisplayChildren(children);
       timelineExit.pause().clear();
     });
