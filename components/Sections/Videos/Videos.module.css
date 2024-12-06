@@ -2,12 +2,14 @@
   opacity: 0;
   transition: opacity 3s var(--easing-img-fade-in);
   width: 100%;
+  z-index: 2;
 }
 .videos-container.visible {
   opacity: 1;
 }
 .videos-container > div > div {
   gap: 0.086956rlh; /* 2px */
+  gap: 0;
 }
 .el {
   background-color: black;

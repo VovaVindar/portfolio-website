@@ -1,5 +1,7 @@
 .footer-container {
-  margin-top: 1rlh;
+  padding-top: 1rlh;
+  z-index: 1;
+  background-color: var(--token-color-surface-primary);
 }
 .footer-container p {
   width: fit-content;

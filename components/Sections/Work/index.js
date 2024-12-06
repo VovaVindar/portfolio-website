@@ -1,10 +1,10 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import styles from "./Work.module.css";
-import gsap from "gsap";
 import Image from "next/image";
 import Marquee from "@/components/Marquee";
 import Magnetic from "@/components/Magnetic";
 import Controls from "@/components/Sections/Work/Controls";
+import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
@@ -153,6 +153,9 @@ const Work = ({ duration, easing, startPageAnimation }) => {
   const sectionRef = useRef(null);
 
   useGSAP(() => {
+    let sectionParallax;
+    let scrollTriggerInstance;
+
     // Compute `rlh` value in pixels
     const lineHeight = parseFloat(
       getComputedStyle(document.documentElement).lineHeight
@@ -160,13 +163,13 @@ const Work = ({ duration, easing, startPageAnimation }) => {
     const rlhInPixels = 18 * lineHeight; // Convert 19rlh to pixels
 
     if (sectionRef.current) {
-      const sectionParallax = gsap.fromTo(
+      sectionParallax = gsap.fromTo(
         sectionRef.current,
         { yPercent: 10 },
         { yPercent: 0, ease: "none" }
       );
 
-      ScrollTrigger.create({
+      scrollTriggerInstance = ScrollTrigger.create({
         trigger: sectionRef.current,
         animation: sectionParallax, // Link animation to ScrollTrigger
         scrub: 1,
@@ -174,72 +177,83 @@ const Work = ({ duration, easing, startPageAnimation }) => {
         end: `bottom bottom-=${rlhInPixels}`,
       });
     }
+
+    return () => {
+      if (scrollTriggerInstance) {
+        scrollTriggerInstance.kill();
+      }
+      if (sectionParallax) {
+        sectionParallax.kill();
+      }
+    };
   });
 
   return (
-    <div
-      className={`${styles["work"]} work-global mf-exclusion text-body-1-uppercase`}
-      ref={sectionRef}
-    >
-      <Controls
-        speedCoef={speedCoef}
-        setSpeedCoef={updateSpeedCoef}
-        duration={duration}
-        easing={easing}
-        ref={controlsOnscroll}
-      />
-      <h2 ref={textOnscroll}>Selected Work</h2>
-      <div className={`${styles["el-container"]}`} ref={containerRef}>
-        <Marquee
-          setMarqueeProgress={updateProgress}
-          speedCoef={speedCoef}
-          style={{ padding: "4rlh 0 " }}
-        >
-          {[
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-            20, 21, 22,
-          ].map((item, index) => (
-            <div
-              key={index}
-              className={`${styles["el"]} ${styles[`num${index + 1}`]}`}
-              style={{
-                color: "white",
-                filter: `blur(${Math.min(Math.floor(speedCoef / 100), 9)}px)`,
-              }}
-              data-cursor-text="Vitamin Living"
-            >
-              <Magnetic movement={0.072} passedScale={1.032}>
-                <Image
-                  src="/marquee.png"
-                  alt="Picture of the author"
-                  fill
-                  draggable="false"
-                  onDragStart={() => {
-                    return false;
-                  }}
-                />
-              </Magnetic>
-            </div>
-          ))}
-        </Marquee>
-      </div>
-      <div className={`text-body-1 ${styles["left"]}`}></div>
-      <div className={`text-header-1 ${styles["right"]}`}></div>
+    <div className={`${styles["work-container"]}`}>
       <div
-        className={`${styles["circle-container"]} ${
-          styles[`active-${activeIndex}`]
-        }`}
-        ref={circlesOnscroll}
-        style={{
-          filter: `blur(${Math.min(
-            Math.max(0, Math.floor((speedCoef - 250) / 250) + 2),
-            5
-          )}px)`,
-        }}
+        className={`${styles["work"]} work-global mf-exclusion text-body-1-uppercase`}
+        ref={sectionRef}
       >
-        {[0, 1, 2, 3].map((index) => (
-          <div key={index} className={`${styles["circle"]}`}></div>
-        ))}
+        <Controls
+          speedCoef={speedCoef}
+          setSpeedCoef={updateSpeedCoef}
+          duration={duration}
+          easing={easing}
+          ref={controlsOnscroll}
+        />
+        <h2 ref={textOnscroll}>Selected Work</h2>
+        <div className={`${styles["el-container"]}`} ref={containerRef}>
+          <Marquee
+            setMarqueeProgress={updateProgress}
+            speedCoef={speedCoef}
+            style={{ padding: "4rlh 0 " }}
+          >
+            {[
+              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+              20, 21, 22,
+            ].map((item, index) => (
+              <div
+                key={index}
+                className={`${styles["el"]} ${styles[`num${index + 1}`]}`}
+                style={{
+                  color: "white",
+                  filter: `blur(${Math.min(Math.floor(speedCoef / 100), 9)}px)`,
+                }}
+                data-cursor-text="Vitamin Living"
+              >
+                <Magnetic movement={0.072} passedScale={1.032}>
+                  <Image
+                    src="/marquee.png"
+                    alt="Picture of the author"
+                    fill
+                    draggable="false"
+                    onDragStart={() => {
+                      return false;
+                    }}
+                  />
+                </Magnetic>
+              </div>
+            ))}
+          </Marquee>
+        </div>
+        <div className={`text-body-1 ${styles["left"]}`}></div>
+        <div className={`text-header-1 ${styles["right"]}`}></div>
+        <div
+          className={`${styles["circle-container"]} ${
+            styles[`active-${activeIndex}`]
+          }`}
+          ref={circlesOnscroll}
+          style={{
+            filter: `blur(${Math.min(
+              Math.max(0, Math.floor((speedCoef - 250) / 250) + 2),
+              5
+            )}px)`,
+          }}
+        >
+          {[0, 1, 2, 3].map((index) => (
+            <div key={index} className={`${styles["circle"]}`}></div>
+          ))}
+        </div>
       </div>
     </div>
   );

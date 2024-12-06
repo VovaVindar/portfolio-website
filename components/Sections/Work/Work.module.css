@@ -1,3 +1,8 @@
+.work-container {
+  background-color: var(--token-color-surface-primary);
+  width: 100%;
+  z-index: 2;
+}
 .work {
   height: calc(33rlh - 1px);
   width: fit-content;
@@ -5,7 +10,7 @@
   display: flex;
   position: relative;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
 }
 .work .left {
   width: calc(var(--first-column-width) + var(--columns-gap));
@@ -14,7 +19,7 @@
   width: 12.71ch;
 }
 .work h2 {
-  z-index: 2;
+  z-index: 3;
   color: var(--token-color-surface-primary);
   mix-blend-mode: difference;
   position: absolute;
@@ -28,7 +33,7 @@
   top: 0;
   width: 50%;
   height: 100%;
-  z-index: 2;
+  z-index: 3;
 }
 .work .click.prev {
   left: 0;

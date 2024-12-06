@@ -1,10 +1,12 @@
 .clients {
-  margin-top: calc(6rlh - 1px);
-  margin-bottom: calc(6rlh + 1px);
+  padding-top: calc(6rlh - 1px);
+  padding-bottom: calc(6rlh + 1px);
   display: flex;
   flex-direction: row;
   gap: var(--columns-gap);
   width: fit-content;
+  background-color: var(--token-color-surface-primary);
+  z-index: 1;
 }
 .clients > div:nth-of-type(1) {
   width: var(--first-column-width);

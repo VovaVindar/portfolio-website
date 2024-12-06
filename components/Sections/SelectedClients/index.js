@@ -108,7 +108,7 @@ const SelectedClients = ({
   return (
     <div className={`${styles["clients"]}`}>
       <div className={`text-body-1`}>
-        <div className={`text-body-2`}>
+        <div className={`text-body-3`}>
           <p ref={(el) => (clientsOnscroll.current[0] = el)}>
             Selected Clients:
           </p>

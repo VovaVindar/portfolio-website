@@ -5,6 +5,7 @@ import Image from "next/image";
 import Marquee from "@/components/Marquee";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import gsap from "gsap";
 
 const Videos = ({ startPageAnimation, linesCount }) => {
   const containerRef = useRef(null);
@@ -40,6 +41,37 @@ const Videos = ({ startPageAnimation, linesCount }) => {
       }
     };
   }, [pageAnimationStarted]);
+
+  // Parallax effect on scroll
+  useGSAP(() => {
+    let sectionParallax;
+    let scrollTriggerInstance;
+
+    if (containerRef.current) {
+      sectionParallax = gsap.fromTo(
+        containerRef.current,
+        { yPercent: 18 },
+        { yPercent: 0, ease: "none" }
+      );
+
+      scrollTriggerInstance = ScrollTrigger.create({
+        trigger: containerRef.current,
+        animation: sectionParallax, // Link animation to ScrollTrigger
+        scrub: 1,
+        start: "top bottom",
+        end: `bottom top`,
+      });
+    }
+
+    return () => {
+      if (scrollTriggerInstance) {
+        scrollTriggerInstance.kill();
+      }
+      if (sectionParallax) {
+        sectionParallax.kill();
+      }
+    };
+  });
 
   return (
     <div className={`${styles["videos-container"]}`} ref={containerRef}>
