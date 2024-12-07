@@ -13,7 +13,7 @@ const SoundButton = ({ speedCoef, isStopRunning, easing, duration }) => {
     const soundAnimation = gsap.timeline({ defaults: { overwrite: true } });
 
     // Determine the new state based on speedCoef
-    const newState = speedCoef >= 5 ? "fadeIn" : "fadeOut";
+    const newState = speedCoef >= 50 ? "fadeIn" : "fadeOut";
 
     // Only run the animation if the state has changed
     if (lastState.current !== newState) {
