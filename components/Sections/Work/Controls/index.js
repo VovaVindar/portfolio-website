@@ -1,5 +1,6 @@
 import React, { useState, useRef, forwardRef } from "react";
 import styles from "./Controls.module.css";
+import SoundButton from "@/components/Sections/Work/Controls/SoundButton";
 import Circle from "@/components/Sections/Work/Controls/Circle";
 import SpeedIndicator from "@/components/Sections/Work/Controls/SpeedIndicator";
 import StopButton from "@/components/Sections/Work/Controls/StopButton";
@@ -12,6 +13,12 @@ const Controls = forwardRef(
 
     return (
       <div className={`${styles["controls-container"]} text-body-2`} ref={ref}>
+        <SoundButton
+          speedCoef={speedCoef}
+          isStopRunning={isStopRunning}
+          duration={duration}
+          easing={easing}
+        />
         <StopButton
           speedCoef={speedCoef}
           isStopRunning={isStopRunning}
