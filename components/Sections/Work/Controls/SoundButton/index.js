@@ -13,7 +13,7 @@ const SoundButton = ({ speedCoef, isStopRunning, easing, duration }) => {
     const soundAnimation = gsap.timeline({ defaults: { overwrite: true } });
 
     // Determine the new state based on speedCoef
-    const newState = speedCoef >= 50 ? "fadeIn" : "fadeOut";
+    const newState = speedCoef >= 5 ? "fadeIn" : "fadeOut";
 
     // Only run the animation if the state has changed
     if (lastState.current !== newState) {
@@ -26,6 +26,9 @@ const SoundButton = ({ speedCoef, isStopRunning, easing, duration }) => {
           ease: "power4.out",
           filter: `blur(2px)`,
         });
+        if (playing) {
+          handleClick();
+        }
       } else {
         soundAnimation.to(soundButtonRef.current, {
           autoAlpha: 1,
@@ -71,7 +74,7 @@ const SoundButton = ({ speedCoef, isStopRunning, easing, duration }) => {
     if (!playing) {
       audio.currentTime = 44;
       audio.volume = 0; // Start with volume at 0
-      fadeAudio(audio, 1.0, 1000); // Fade in to full volume over 1 second
+      fadeAudio(audio, 0.8, 1000); // Fade in to full volume over 1 second
       audio.play();
     } else {
       fadeAudio(audio, 0, 1000, () => {

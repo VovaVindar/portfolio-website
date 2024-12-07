@@ -76,7 +76,7 @@ const StopButton = ({
         });
       } else {
         stopAnimation.to(stopButtonRef.current, {
-          autoAlpha: 0.7,
+          autoAlpha: 1,
           duration: duration,
           ease: easing,
           filter: `blur(0px)`,
