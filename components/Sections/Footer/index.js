@@ -240,7 +240,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
             <div className="text-body-3">
               <p ref={(el) => (footerOnscroll.current[13] = el)}>
                 <Magnetic type="text">
-                  <Link href={"/privacy"}>
+                  <Link href={"/privacy-policy"}>
                     Privacy <span>Policy</span>
                   </Link>
                 </Magnetic>

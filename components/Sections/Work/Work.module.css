@@ -120,7 +120,7 @@
 }
 .work .el-container img {
   transform: scale(1.24);
-  filter: blur(8px) brightness(3.8) saturate(3.8);
+  filter: blur(8px) brightness(3.7) saturate(3.7);
   transition: all 2.1s var(--easing-img-fade-in); /* power2.out */
 }
 .work .el-container.in-view img {

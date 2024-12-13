@@ -17,6 +17,15 @@
   user-select: none;
 }
 
+@media all and (min-width: 2560px) {
+  .scrollbar-container a,
+  .scrollbar-container button {
+    right: auto;
+    margin-left: -1rlh;
+    left: calc(100vw - ((100vw - 2560px) / 2));
+    transform: translateX(-100%);
+  }
+}
 @media all and (max-width: 820px) {
   .scrollbar-container a,
   .scrollbar-container button {

@@ -8,7 +8,7 @@
   opacity: 1;
 }
 .videos-container > div > div {
-  gap: 0.086956rlh; /* 2px */
+  /*gap: 0.086956rlh; /* 2px */
   gap: 0;
 }
 .el {
@@ -19,6 +19,7 @@
   transition: opacity 2.1s var(--easing-img-fade-in); /* power2.out */
   position: relative;
   overflow: hidden;
+  margin-left: -1px; /* small gap bug fix */
 }
 .el img {
   object-fit: contain;
@@ -32,7 +33,7 @@
 }
 .videos-container .el img {
   transform: scale(1.17);
-  filter: blur(10px) brightness(3.8) saturate(3.8);
+  filter: blur(10px) brightness(3.7) saturate(3.7);
   transition: all 2.1s var(--easing-img-fade-in); /* power2.out */
 }
 .videos-container.in-view .el img {

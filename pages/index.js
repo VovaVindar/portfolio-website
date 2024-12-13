@@ -6,11 +6,9 @@ import SelectedClients from "@/components/Sections/SelectedClients";
 import Work from "@/components/Sections/Work";
 import Footer from "@/components/Sections/Footer";
 import Contact from "@/components/Contact";
-import { TransitionContext } from "@/context/TransitionContext";
-import { useContext, useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 
 export default function Home({ isAnimating, numbersProgress, linesCount }) {
-  const { timeline } = useContext(TransitionContext);
   const [startPageAnimation, setStartPageAnimation] = useState(false);
   const container = useRef(null);
 
@@ -29,9 +27,13 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
       <Head>
         <title>Vova Vindar — Digital Designer & Developer</title>
       </Head>
-      <Contact isAnimating={isAnimating} easing={easing} duration={duration} />
       {/*<canvas id="gl"></canvas>*/}
       <div ref={container} className={`${styles["home-container"]}`}>
+        <Contact
+          isAnimating={isAnimating}
+          easing={easing}
+          duration={duration}
+        />
         <Hero
           staggerInterval={staggerInterval}
           duration={duration}
