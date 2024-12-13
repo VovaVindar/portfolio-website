@@ -247,6 +247,10 @@
   }
 }
 @media all and (max-width: 820px) {
+  .work-container {
+    display: flex;
+    justify-content: center;
+  }
   .work {
     max-width: var(--mobile-max-width); /* 319px on mobile */
     width: 100%;
