@@ -190,6 +190,12 @@ p {
   color: red;
   background-color: red;
 }
+@supports (background: -webkit-named-image(i)) {
+  ::selection {
+    color: var(--token-color-text-primary);
+    background-color: red;
+  }
+}
 :focus {
   outline: none;
 }
