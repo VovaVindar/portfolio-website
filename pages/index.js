@@ -28,7 +28,7 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
         <title>Vova Vindar — Digital Designer & Developer</title>
       </Head>
       {/*<canvas id="gl"></canvas>*/}
-      <div ref={container} className={`${styles["home-container"]}`}>
+      <div ref={container} className={`${styles["home-container"]} container`}>
         <Contact
           isAnimating={isAnimating}
           easing={easing}
