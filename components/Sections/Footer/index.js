@@ -57,7 +57,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
               }
             );
           },
-          once: false,
+          once: true,
         });
       }
     }

@@ -85,7 +85,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
             }
           );
         },
-        once: false,
+        once: true,
       });
       scrollTriggerInstance3 = ScrollTrigger.create({
         trigger: circlesOnscroll.current,
@@ -103,7 +103,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
             }
           );
         },
-        once: false,
+        once: true,
       });
       scrollTriggerInstance4 = ScrollTrigger.create({
         trigger: controlsOnscroll.current,
@@ -121,7 +121,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
             }
           );
         },
-        once: false,
+        once: true,
       });
     }
 

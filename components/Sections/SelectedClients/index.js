@@ -51,7 +51,7 @@ const SelectedClients = ({
             }, duration * 1000 + 100);
           });*/
         },
-        once: false,
+        once: true,
         start: "top 100%" /* was 95% */,
         end: "bottom+=100px top",
       });
