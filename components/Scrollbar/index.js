@@ -40,13 +40,11 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
   const pStyle = {
     opacity: opacity,
     filter: `blur(${blur}px)`,
-    top: `clamp(1rlh, ${scrollPosition}%, calc(100% - 2rlh))`,
+    top: `clamp(var(--global-padding), ${scrollPosition}%, calc(100% - 1lh - var(--global-padding)))`,
   };
 
   return (
-    <div
-      className={`${styles["scrollbar-container"]} text-body-1-uppercase mf-hidden`}
-    >
+    <div className={`${styles["scrollbar-container"]} text-body-3 mf-hidden`}>
       {href ? (
         <Link href={href} style={pStyle} scroll={false}>
           <Magnetic type="text">{text}</Magnetic>

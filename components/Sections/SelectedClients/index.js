@@ -23,44 +23,47 @@ const SelectedClients = ({
   }, [startPageAnimation]);
 
   useGSAP(() => {
-    let scrollTriggerInstance;
+    let scrollTriggerInstance, pinInstance;
     const clientsAnimation = gsap.timeline({});
 
-    if (clientsOnscroll.current.length && startPageAnimation2) {
-      ScrollTrigger.batch(clientsOnscroll.current, {
-        onEnter: (batch) => {
-          gsap.fromTo(
-            batch,
-            {
-              autoAlpha: 0,
-              filter: "blur(4px)",
-              color: "red",
-            },
-            {
-              autoAlpha: 1,
-              filter: `blur(0px)`,
-              color: "#0F1010",
-              duration: duration,
-              ease: easing,
-              stagger: staggerInterval,
-            }
-          );
-          /*batch.forEach((el) => {
-            setTimeout(() => {
-              el.classList.add(`${styles["in-view"]}`);
-            }, duration * 1000 + 100);
-          });*/
-        },
-        once: true,
-        start: "top 100%" /* was 95% */,
-        end: "bottom+=100px top",
-      });
-
+    if (clientsOnscroll.current.length) {
       clientsAnimation.set(clientsOnscroll.current, {
         autoAlpha: 0,
         filter: "blur(4px)",
         color: "red",
       });
+
+      if (startPageAnimation2) {
+        ScrollTrigger.batch(clientsOnscroll.current, {
+          onEnter: (batch) => {
+            gsap.fromTo(
+              batch,
+              {
+                autoAlpha: 0,
+                filter: "blur(4px)",
+                color: "red",
+              },
+              {
+                autoAlpha: 1,
+                filter: `blur(0px)`,
+                color: "#0F1010",
+                duration: duration,
+                ease: easing,
+                stagger: staggerInterval,
+              }
+            );
+            /*batch.forEach((el) => {
+            setTimeout(() => {
+              el.classList.add(`${styles["in-view"]}`);
+            }, duration * 1000 + 100);
+          });*/
+          },
+          once: true,
+          start: "top 100%" /* was 95% */,
+          end: "bottom+=100px top",
+        });
+      }
+
       /*scrollTriggerInstance = ScrollTrigger.create({
         trigger: clientsOnscroll.current,
         start: "top 85%",
@@ -82,6 +85,16 @@ const SelectedClients = ({
         },
         once: true,
       });*/
+
+      /* Pin Subheader */
+      pinInstance = ScrollTrigger.create({
+        trigger: clientsOnscroll.current[0],
+        endTrigger: clientsOnscroll.current[10],
+        start: "top top",
+        end: "bottom top",
+        pin: clientsOnscroll.current[0],
+        pinSpacing: false,
+      });
     }
 
     return () => {
@@ -91,6 +104,9 @@ const SelectedClients = ({
       }
       if (clientsAnimation) {
         clientsAnimation.kill();
+      }
+      if (pinInstance) {
+        pinInstance.kill();
       }
     };
   }, [startPageAnimation2]);
@@ -109,7 +125,10 @@ const SelectedClients = ({
     <div className={`${styles["clients"]}`}>
       <div className={`text-body-1`}>
         <div className={`text-body-3`}>
-          <p ref={(el) => (clientsOnscroll.current[0] = el)}>
+          <p
+            ref={(el) => (clientsOnscroll.current[0] = el)}
+            className={`${styles["subheader"]}`}
+          >
             Selected Clients:
           </p>
         </div>
@@ -117,35 +136,55 @@ const SelectedClients = ({
       <div>
         {[
           {
-            name: "Paradigm",
-            services: "Web, Product, Brand, Deck, Dev",
+            name: "Aya Muse",
+            services: "Web, Dev",
             description: "Description 1",
           },
-          { name: "Cognition", services: "Web", description: "Description 2" },
           {
-            name: "Rove Card",
-            services: "Web, Graphic, App, Deck",
-            description: "Description 3",
+            name: "Paradigm",
+            services: "Web, Product, Brand, Deck, Dev",
+            description: "Description 2",
           },
           {
             name: "Dolce & Gabbana",
             services: "Web, Metaverse",
-            description: "Description 4",
+            description: "Description 3",
+          },
+          { name: "Cognition", services: "Web", description: "Description 4" },
+          {
+            name: "Align Fund",
+            services: "Web, Brand, Dev",
+            description: "Description 5",
+          },
+          {
+            name: "Endex AI",
+            services: "Web, Brand, Dev",
+            description: "Description 6",
+          },
+          {
+            name: "Rove Card",
+            services: "Web, Graphic, App, Deck",
+            description: "Description 7",
           },
           {
             name: "PRJCTR Institute",
             services: "Mentoring",
-            description: "Description 5",
+            description: "Description 8",
           },
           {
             name: "Twitch",
             services: "Game UI, Graphic",
-            description: "Description 6",
+            description: "Description 9",
+          },
+          {
+            name: "Blackster",
+            services: "Web, Brand, Deck, Dev",
+            description: "Description 10",
           },
           {
             name: "Jon-Paul Wheatley",
             services: "Web",
-            description: "Description 7",
+            description: "Description 11",
           },
         ].map((client, index) => (
           <div

@@ -26,7 +26,7 @@
   display: flex;
   flex-direction: row;
   gap: var(--columns-gap);
-  padding-bottom: 1rlh;
+  padding-bottom: var(--global-padding);
 }
 .footer-bottom > div {
   display: flex;
@@ -41,7 +41,8 @@
 }
 
 .social-links.in-view p {
-  transition: all 0.425s var(--easing-text-fade-in);
+  transition: opacity 0.425s var(--easing-text-fade-in),
+    filter 0.425s var(--easing-text-fade-in);
 }
 .social-links.in-view p a,
 .social-links.in-view p button {

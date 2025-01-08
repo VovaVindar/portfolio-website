@@ -12,12 +12,6 @@
   overflow: hidden;
   z-index: 2;
 }
-.work .left {
-  width: calc(var(--first-column-width) + var(--columns-gap));
-}
-.work .right {
-  width: 12.71ch;
-}
 .work h2 {
   z-index: 3;
   color: var(--token-color-surface-primary);
@@ -43,76 +37,6 @@
   right: 0;
   cursor: e-resize;
 }
-.work .circle-container {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 1rlh;
-  display: flex;
-  flex-direction: row;
-  gap: 0.173913rlh;
-  transition: filter 2.1s var(--easing-img-fade-in);
-}
-.work .circle-container .circle {
-  width: 0.217391rlh;
-  min-width: 5px;
-  height: 0.217391rlh;
-  min-height: 5px;
-  border-radius: 100%;
-  background-color: var(--token-color-surface-contrast);
-  transition: transform 0.6s ease;
-}
-.work .circle-container.active-0 .circle:nth-of-type(1) {
-  transform: scale(1);
-}
-.work .circle-container.active-0 .circle:nth-of-type(2) {
-  transform: scale(0.8);
-}
-.work .circle-container.active-0 .circle:nth-of-type(3) {
-  transform: scale(0.6);
-}
-.work .circle-container.active-0 .circle:nth-of-type(4) {
-  transform: scale(0.4);
-}
-
-.work .circle-container.active-1 .circle:nth-of-type(1) {
-  transform: scale(0.75);
-}
-.work .circle-container.active-1 .circle:nth-of-type(2) {
-  transform: scale(1);
-}
-.work .circle-container.active-1 .circle:nth-of-type(3) {
-  transform: scale(0.75);
-}
-.work .circle-container.active-1 .circle:nth-of-type(4) {
-  transform: scale(0.5);
-}
-
-.work .circle-container.active-2 .circle:nth-of-type(1) {
-  transform: scale(0.5);
-}
-.work .circle-container.active-2 .circle:nth-of-type(2) {
-  transform: scale(0.75);
-}
-.work .circle-container.active-2 .circle:nth-of-type(3) {
-  transform: scale(1);
-}
-.work .circle-container.active-2 .circle:nth-of-type(4) {
-  transform: scale(0.75);
-}
-
-.work .circle-container.active-3 .circle:nth-of-type(1) {
-  transform: scale(0.4);
-}
-.work .circle-container.active-3 .circle:nth-of-type(2) {
-  transform: scale(0.6);
-}
-.work .circle-container.active-3 .circle:nth-of-type(3) {
-  transform: scale(0.8);
-}
-.work .circle-container.active-3 .circle:nth-of-type(4) {
-  transform: scale(1);
-}
 
 .work .el-container {
   width: 100%;
@@ -121,7 +45,8 @@
 .work .el-container img {
   transform: scale(1.24);
   filter: blur(8px) brightness(3.7) saturate(3.7);
-  transition: all 2.1s var(--easing-img-fade-in); /* power2.out */
+  transition: transform 2.1s var(--easing-img-fade-in),
+    filter 2.1s var(--easing-img-fade-in); /* power2.out */
 }
 .work .el-container.in-view img {
   transform: scale(1);
@@ -134,8 +59,8 @@
   overflow: hidden;
   background-color: black;
   opacity: 0;
-  transition: opacity 3s var(--easing-img-fade-in);
-  transition: filter 2.1s var(--easing-img-fade-in);
+  transition: opacity 3s var(--easing-img-fade-in),
+    filter 2.1s var(--easing-img-fade-in);
   cursor: pointer;
 }
 .work .el-container.in-view .el {

@@ -75,13 +75,13 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
   const footerStaggerDesktop = (index, interval) => {
     if (index <= 2) return 0;
     if (index >= 3 && index <= 5) return 1 * interval;
-    if (index >= 6 && index <= 8) return 2 * interval;
-    if (index >= 9 && index <= 10) return 3 * interval;
-    if (index == 11) return 4 * interval;
-    if (index >= 12) return 6 * interval;
+    if (index >= 6 && index <= 7) return 2 * interval;
+    if (index == 8) return 3 * interval;
+    if (index == 9) return 4 * interval;
+    if (index >= 9) return 6 * interval;
   };
   function footerStaggerMobile(index, interval) {
-    const multipliers = [0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 12, 12, 13, 13]; // Direct mapping of index to multiplier
+    const multipliers = [0, 3, 7, 1, 4, 7, 2, 5, 6, 3, 10, 10]; // Direct mapping of index to multiplier
     return (multipliers[index] ?? 0) * interval; // Default to 0 for out-of-range indices
   }
 
@@ -113,8 +113,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
           <p>
             <LocalTime ref={(el) => (footerOnscroll.current[3] = el)} />
           </p>
-          <p ref={(el) => (footerOnscroll.current[6] = el)}>Vancouver,</p>
-          <p ref={(el) => (footerOnscroll.current[9] = el)}>Canada</p>
+          <p ref={(el) => (footerOnscroll.current[6] = el)}>Vancouver</p>
         </div>
         <div className={`${styles["social-links"]}`} ref={socialRef}>
           <span
@@ -173,7 +172,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
             <Magnetic type="text">
               <Link
                 href={"https://dribbble.com/VovaVindar"}
-                ref={(el) => (footerOnscroll.current[10] = el)}
+                ref={(el) => (footerOnscroll.current[8] = el)}
                 target="_blank"
               >
                 Dribbble<span className={`${styles["no-mobile"]}`}>,</span>
@@ -191,8 +190,7 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
           >
             <Magnetic type="text">
               <button
-                href={"https://dribbble.com/VovaVindar"}
-                ref={(el) => (footerOnscroll.current[11] = el)}
+                ref={(el) => (footerOnscroll.current[9] = el)}
                 data-cursor-text="Copy"
                 onClick={(e) => {
                   e.preventDefault();
@@ -224,21 +222,16 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
             Colophon:
           </span>
           <p ref={(el) => (footerOnscroll.current[5] = el)}>
-            Fonts by Type.Weltkern
+            Lausanne and Times.
           </p>
-          <p ref={(el) => (footerOnscroll.current[8] = el)}>and Monotype.</p>
         </div>
       </div>
       <div className={`${styles["footer-bottom"]}`}>
         <div>
+          <div></div>
           <div>
             <div className="text-body-3">
-              <p ref={(el) => (footerOnscroll.current[12] = el)}>2024 ©</p>
-            </div>
-          </div>
-          <div>
-            <div className="text-body-3">
-              <p ref={(el) => (footerOnscroll.current[13] = el)}>
+              <p ref={(el) => (footerOnscroll.current[10] = el)}>
                 <Magnetic type="text">
                   <Link href={"/privacy-policy"}>
                     Privacy <span>Policy</span>
@@ -248,12 +241,12 @@ const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
             </div>
           </div>
         </div>
-        <div className="text-body-3">
-          <p ref={(el) => (footerOnscroll.current[14] = el)}>
-            <Magnetic type="text">
+        <div>
+          <div className="text-body-3">
+            <p ref={(el) => (footerOnscroll.current[11] = el)}>
               <Link href={"/cv"}>CV</Link>
-            </Magnetic>
-          </p>
+            </p>
+          </div>
         </div>
       </div>
     </div>

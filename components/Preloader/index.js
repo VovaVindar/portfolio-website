@@ -76,7 +76,7 @@ const Preloader = ({
         textShadow: "0 0 10px rgba(255, 0, 0, 0.7)",
       });
       movementAnimation.to(progressIndicatorRef.current, {
-        marginLeft: `calc(${numbersProgress}% - 2ch)`,
+        marginLeft: `calc(${numbersProgress}% - 3ch)`,
         color: `${numbersProgress >= 100 ? "red" : "white"}`,
         textShadow: "none",
         opacity: 1,
@@ -109,17 +109,13 @@ const Preloader = ({
         <div className={`${styles["preloader"]} ${className}`} style={style}>
           <div className={`${styles["text-container"]}`} ref={containerRef}>
             <div>
-              <p className={`text-body-3`}>Vova Vindar</p>
-              {/*<p className={`text-header-3 ${styles["bracket"]} ${styles["red"]}`}>{"("}</p>*/}
+              <p className={`text-body-3`}>Vova Vindar Archive</p>
             </div>
             <div>
               <p className={`text-body-3`} ref={progressIndicatorRef}>
                 {numbersProgress}
               </p>
             </div>
-            {/*<div>
-              <p className={`text-header-3 ${styles["bracket"]} ${styles["red"]}`}>{"    )"}</p>
-            </div>*/}
           </div>
         </div>
       )}

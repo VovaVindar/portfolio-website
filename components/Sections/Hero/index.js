@@ -53,7 +53,6 @@ const Hero = ({
     } else if (index <= 8) {
       return (index + 2) * interval;
     } else {
-      console.log(index);
       return (index - 9) * interval;
     }
   };
@@ -62,13 +61,7 @@ const Hero = ({
     <div className={`${styles["hero-container"]}`}>
       <div className={`${styles["description"]} text-body-2`}>
         <div className={`${styles["desktop"]}`}>
-          <div
-            className={`${styles["title"]} text-body-1-uppercase`}
-            ref={(el) => (heroOnload.current[0] = el)}
-          >
-            <span>Portfolio—2025</span>
-          </div>
-          <p ref={(el) => (heroOnload.current[1] = el)}>
+          <p ref={(el) => (heroOnload.current[0] = el)}>
             I’m a detail-oriented designer-developer based
           </p>{" "}
           <p ref={(el) => (heroOnload.current[2] = el)}>

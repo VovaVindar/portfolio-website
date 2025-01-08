@@ -4,11 +4,6 @@
   width: 100%;
   z-index: 1;
 }
-.hero-container .title {
-  position: absolute;
-  left: 1rlh;
-  top: 1rlh;
-}
 
 .description {
   margin-top: 14rlh;

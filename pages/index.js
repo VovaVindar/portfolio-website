@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "./Home.module.css";
 import Hero from "@/components/Sections/Hero";
-import Videos from "@/components/Sections/Videos";
+import About from "@/components/Sections/About";
 import SelectedClients from "@/components/Sections/SelectedClients";
 import Work from "@/components/Sections/Work";
 import Footer from "@/components/Sections/Footer";
@@ -27,7 +27,6 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
       <Head>
         <title>Vova Vindar — Digital Designer & Developer</title>
       </Head>
-      {/*<canvas id="gl"></canvas>*/}
       <div ref={container} className={`${styles["home-container"]} container`}>
         <Contact
           isAnimating={isAnimating}
@@ -41,7 +40,10 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
           startPageAnimation={startPageAnimation}
           linesCount={linesCount}
         />
-        <Videos
+        <About
+          staggerInterval={staggerInterval}
+          duration={duration}
+          easing={easing}
           startPageAnimation={startPageAnimation}
           linesCount={linesCount}
         />

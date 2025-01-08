@@ -28,18 +28,18 @@ const lausanne = localFont({
   variable: "--lausanne",
 });
 
-const timesNew = localFont({
+const times = localFont({
   src: [
     {
-      path: "./fonts/TimesNewRomanItalic.woff2",
+      path: "./fonts/TimesItalic.woff2",
       weight: "400",
       style: "italic",
     },
   ],
-  adjustFontFallback: "Times New Roman",
+  adjustFontFallback: "Times",
   preload: true,
   display: "swap",
-  variable: "--timesnew",
+  variable: "--times",
 });
 
 function MyApp({ Component, pageProps, router }) {
@@ -86,7 +86,7 @@ function MyApp({ Component, pageProps, router }) {
             <main
               ref={mainRef}
               key={router.route}
-              className={`${lausanne.variable} ${timesNew.variable}`}
+              className={`${lausanne.variable} ${times.variable}`}
             >
               <Component
                 numbersProgress={numbersProgress}

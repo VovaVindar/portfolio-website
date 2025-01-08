@@ -28,7 +28,6 @@ const Work = ({ duration, easing, startPageAnimation }) => {
 
   const containerRef = useRef(null);
   const textOnscroll = useRef(null);
-  const circlesOnscroll = useRef(null);
   const controlsOnscroll = useRef(null);
   const [startPageAnimation2, setStartPageAnimation2] = useState(false);
 
@@ -39,13 +38,9 @@ const Work = ({ duration, easing, startPageAnimation }) => {
   }, [startPageAnimation]);
 
   useGSAP(() => {
-    let scrollTriggerInstance1,
-      scrollTriggerInstance2,
-      scrollTriggerInstance3,
-      scrollTriggerInstance4;
+    let scrollTriggerInstance1, scrollTriggerInstance2, scrollTriggerInstance4;
     const controlsAnimation = gsap.timeline({});
     const textAnimation = gsap.timeline({});
-    const circlesAnimation = gsap.timeline({});
 
     containerRef?.current.classList.remove(`${styles["in-view"]}`);
 
@@ -56,10 +51,6 @@ const Work = ({ duration, easing, startPageAnimation }) => {
     textAnimation.set(textOnscroll.current, {
       opacity: 0,
       filter: "blur(4.5px)",
-    });
-    circlesAnimation.set(circlesOnscroll.current, {
-      autoAlpha: 0,
-      filter: "blur(2px)",
     });
 
     if (startPageAnimation2) {
@@ -81,24 +72,6 @@ const Work = ({ duration, easing, startPageAnimation }) => {
               filter: `blur(0px)`,
               delay: 0,
               duration: duration + 0.1,
-              ease: easing,
-            }
-          );
-        },
-        once: true,
-      });
-      scrollTriggerInstance3 = ScrollTrigger.create({
-        trigger: circlesOnscroll.current,
-        start: "100% 100%" /* was top bottom-=10px */,
-        onEnter: () => {
-          circlesAnimation.fromTo(
-            circlesOnscroll.current,
-            { autoAlpha: 0, filter: "blur(2)px" },
-            {
-              autoAlpha: 1,
-              filter: `blur(0px)`,
-              delay: 0,
-              duration: duration,
               ease: easing,
             }
           );
@@ -131,9 +104,6 @@ const Work = ({ duration, easing, startPageAnimation }) => {
       }
       if (scrollTriggerInstance2) {
         scrollTriggerInstance2.kill();
-      }
-      if (scrollTriggerInstance3) {
-        scrollTriggerInstance3.kill();
       }
       if (scrollTriggerInstance4) {
         scrollTriggerInstance4.kill();
@@ -236,24 +206,8 @@ const Work = ({ duration, easing, startPageAnimation }) => {
             ))}
           </Marquee>
         </div>
-        <div className={`text-body-1 ${styles["left"]}`}></div>
-        <div className={`text-header-1 ${styles["right"]}`}></div>
-        <div
-          className={`${styles["circle-container"]} ${
-            styles[`active-${activeIndex}`]
-          }`}
-          ref={circlesOnscroll}
-          style={{
-            filter: `blur(${Math.min(
-              Math.max(0, Math.floor((speedCoef - 250) / 250) + 2),
-              5
-            )}px)`,
-          }}
-        >
-          {[0, 1, 2, 3].map((index) => (
-            <div key={index} className={`${styles["circle"]}`}></div>
-          ))}
-        </div>
+        <div className={`text-body-1 left-layout`}></div>
+        <div className={`text-header-1 right-layout`}></div>
       </div>
     </div>
   );

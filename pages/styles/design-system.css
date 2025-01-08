@@ -24,7 +24,7 @@
   /* Letter Spacing */
   --token-letter-spacing-1: -0.046em;
   --token-letter-spacing-2: -0.032em;
-  --token-letter-spacing-3: -0.024em;
+  --token-letter-spacing-3: -0.03em;
   --token-letter-spacing-4: -0.02em;
   --token-letter-spacing-5: -0.015em;
   --token-letter-spacing-6: -0.01em;
@@ -50,6 +50,10 @@
   --easing-text-fade-in: cubic-bezier(0.6, 0.4, 0.7, 0.5); /* power1.in */
   --easing-text-fade-out: cubic-bezier(0.2, 0.6, 0.15, 1); /* power4.out */
   --easing-img-fade-in: cubic-bezier(0.15, 0.35, 0.35, 1); /* power2.out */
+
+  /* Global padding */
+  --global-padding: 6px;
+  --small-text-line-height: 0.86956rlh; /* 20px */
 }
 @media all and (max-width: 940px) {
   :root {
@@ -86,7 +90,7 @@ h2,
 }
 .text-header-3 {
   font-size: var(--token-font-size-4);
-  font-family: var(--timesnew);
+  font-family: var(--times);
   font-weight: 400;
   font-style: italic;
   letter-spacing: var(--token-letter-spacing-6);
@@ -132,8 +136,11 @@ h2,
   font-family: var(--lausanne);
   font-weight: 600;
   letter-spacing: var(--token-letter-spacing-4);
-  height: 1rlh;
+  height: var(--small-text-line-height);
   line-height: 70%;
+}
+.text-body-3 p {
+  height: var(--small-text-line-height);
 }
 .text-body-1 p,
 .text-body-1-uppercase a,

@@ -8,14 +8,17 @@
   background-color: var(--token-color-surface-primary);
   z-index: 1;
 }
+.clients .subheader {
+  margin-bottom: calc(-2 * (1rlh - var(--small-text-line-height)));
+}
 .clients > div:nth-of-type(1) {
   width: var(--first-column-width);
 }
 .clients .client-container {
   display: flex;
   flex-direction: row;
-  padding-top: 1rlh;
-  padding-bottom: 1rlh;
+  padding-top: 1.5rlh;
+  padding-bottom: 1.5rlh;
   cursor: pointer;
   width: fit-content;
 }
@@ -40,11 +43,14 @@
 .clients .client-container span {
   margin-left: calc(0.347826rlh * 2.5); /* 8px * 2.5 */
 }
-.clients .client-container.rove span {
-  margin-left: calc(0.347826rlh * 2.5 + 0.086956); /* 8px * 2.5 + 2px */
+.clients .client-container:nth-of-type(5) span,
+.clients .client-container:nth-of-type(6) span,
+.clients .client-container:nth-of-type(7) span {
+  margin-left: calc(0.347826rlh * 2.5 + 0.086956rlh); /* 8px * 2.5 + 2px */
 }
-.clients .client-container.jpw span {
-  margin-left: calc(0.347826rlh * 2.5 + 0.043478); /* 8px * 2.5 + 1px*/
+.clients .client-container:nth-of-type(10) span,
+.clients .client-container:last-of-type span {
+  margin-left: calc(0.347826rlh * 2.5 + 0.043478rlh); /* 8px * 2.5 + 1px*/
 }
 
 @media all and (max-width: 1060px) {
