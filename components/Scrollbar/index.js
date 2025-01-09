@@ -38,7 +38,7 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
   const pStyle = {
     opacity: opacity,
     filter: `blur(${blur}px)`,
-    top: `clamp(var(--global-padding), ${scrollPosition}%, calc(100% - 1lh - var(--global-padding)))`,
+    top: `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding)))`,
   };
 
   return (

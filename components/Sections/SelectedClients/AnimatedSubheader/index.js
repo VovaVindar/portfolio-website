@@ -40,7 +40,7 @@ const AnimatedSubheader = ({ clientsOnscroll }) => {
         getComputedStyle(document.documentElement).lineHeight
       );
       const scrollbarY =
-        window.innerHeight * (scrollPosition * 0.01) - lineHeight;
+        window.innerHeight * (scrollPosition * 0.01) - 2 * lineHeight;
 
       if (firstClientRect.top > scrollbarY) {
         setPosition("static");
@@ -71,7 +71,7 @@ const AnimatedSubheader = ({ clientsOnscroll }) => {
       top
         ? `${top}`
         : isWideScreen
-        ? `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh), calc(100% - 1lh - var(--global-padding)))`
+        ? `clamp(var(--global-padding), calc(${scrollPosition}% - 2lh), calc(100% - 1lh - var(--global-padding)))`
         : "unset"
     }`,
     bottom: `${bottom}`,
