@@ -141,22 +141,22 @@ a {
 /* CSS Reset end */
 
 html {
+  --token-color-surface-primary: var(--token-color-surface-contrast);
   line-height: clamp(18px, 1.5972vw, 36px); /* 23px on 1440px */
   font-family: var(--lausanne);
   color: var(--token-color-text-primary);
-  background-color: var(--token-color-surface-contrast);
+  background-color: var(--token-color-surface-primary);
   text-wrap: nowrap;
   overscroll-behavior: none;
 }
 html .container {
-  background-color: var(--token-color-surface-contrast);
+  background-color: var(--token-color-surface-primary);
 }
 html .work-global {
   opacity: 0;
 }
-html:has(.mounted),
-html:has(.mounted) .container {
-  background-color: var(--token-color-surface-primary);
+html:has(.mounted) {
+  --token-color-surface-primary: var(--primitive-color-vova-200);
 }
 html:has(.mounted) .work-global {
   opacity: 1;

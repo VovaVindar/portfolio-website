@@ -4,6 +4,7 @@ import "./styles/mouse-follower.css";
 import localFont from "next/font/local";
 import { useRef, useEffect, useState, useCallback } from "react";
 import Preloader from "@/components/Preloader";
+import { ScrollProvider } from "@/context/ScrollContext";
 import { TransitionProvider } from "@/context/TransitionContext";
 import Transition from "@/components/Transition";
 import CursorContainer from "@/components/CursorContainer";
@@ -74,30 +75,32 @@ function MyApp({ Component, pageProps, router }) {
         className={`${lausanne.variable}`}
         isAnimating={isAnimating}
       />
-      <TransitionProvider>
-        <Transition
-          numbersProgress={numbersProgress}
-          onLoadingComplete={() => {
-            setIsAnimating(false);
-          }}
-          setLinesCount={updateLines}
-        >
-          <SmoothScrolling isAnimating={isAnimating}>
-            <main
-              ref={mainRef}
-              key={router.route}
-              className={`${lausanne.variable} ${times.variable}`}
-            >
-              <Component
-                numbersProgress={numbersProgress}
-                isAnimating={isAnimating}
-                linesCount={linesCount}
-                {...pageProps}
-              />
-            </main>
-          </SmoothScrolling>
-        </Transition>
-      </TransitionProvider>
+      <ScrollProvider>
+        <TransitionProvider>
+          <Transition
+            numbersProgress={numbersProgress}
+            onLoadingComplete={() => {
+              setIsAnimating(false);
+            }}
+            setLinesCount={updateLines}
+          >
+            <SmoothScrolling isAnimating={isAnimating}>
+              <main
+                ref={mainRef}
+                key={router.route}
+                className={`${lausanne.variable} ${times.variable}`}
+              >
+                <Component
+                  numbersProgress={numbersProgress}
+                  isAnimating={isAnimating}
+                  linesCount={linesCount}
+                  {...pageProps}
+                />
+              </main>
+            </SmoothScrolling>
+          </Transition>
+        </TransitionProvider>
+      </ScrollProvider>
     </>
   );
 }

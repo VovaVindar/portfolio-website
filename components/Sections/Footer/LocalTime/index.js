@@ -1,5 +1,4 @@
 import React, { useState, useEffect, forwardRef } from "react";
-import styles from "./LocalTime.module.css";
 
 const LocalTime = forwardRef(({}, ref) => {
   // Footer time
@@ -33,7 +32,7 @@ const LocalTime = forwardRef(({}, ref) => {
   }, []);
 
   return (
-    <span className={styles["time"]} ref={ref}>
+    <span ref={ref}>
       {time.hours}
       <span>:</span>
       {time.minutes},
