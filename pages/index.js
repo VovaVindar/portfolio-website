@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "./Home.module.css";
-import Hero from "@/components/Sections/Hero";
+import NewHero from "@/components/Sections/NewHero";
 import About from "@/components/Sections/About";
 import SelectedClients from "@/components/Sections/SelectedClients";
 import Work from "@/components/Sections/Work";
@@ -33,7 +33,7 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
           easing={easing}
           duration={duration}
         />
-        <Hero
+        <NewHero
           staggerInterval={staggerInterval}
           duration={duration}
           easing={easing}

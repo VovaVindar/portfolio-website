@@ -1,0 +1,17 @@
+.hero-container {
+  padding: var(--global-padding) 0;
+  z-index: 1;
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  grid-template-columns: repeat(8, 6.0869rlh);
+  grid-template-rows: repeat(5, 5.9565rlh);
+  justify-content: space-between;
+  align-content: space-between;
+  margin-bottom: 50px;
+}
+.grid-cell {
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 100%;
+}
