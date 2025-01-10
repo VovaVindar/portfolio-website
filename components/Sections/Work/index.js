@@ -129,7 +129,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
     // Compute `rlh` value in pixels
     const lineHeight = parseFloat(
       getComputedStyle(document.documentElement).lineHeight
-    ); // Get the line height in pixels
+    );
     const rlhInPixels = 18 * lineHeight; // Convert 19rlh to pixels
 
     if (sectionRef.current) {
@@ -141,7 +141,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
 
       scrollTriggerInstance = ScrollTrigger.create({
         trigger: sectionRef.current,
-        animation: sectionParallax, // Link animation to ScrollTrigger
+        animation: sectionParallax,
         scrub: 1,
         start: "top bottom",
         end: `bottom bottom-=${rlhInPixels}`,
@@ -173,7 +173,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
         />
         <h2 ref={textOnscroll}>Selected Work</h2>
         <div className={`${styles["el-container"]}`} ref={containerRef}>
-          <Marquee
+          {/*<Marquee
             setMarqueeProgress={updateProgress}
             speedCoef={speedCoef}
             style={{ padding: "4rlh 0 " }}
@@ -204,7 +204,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
                 </Magnetic>
               </div>
             ))}
-          </Marquee>
+          </Marquee>*/}
         </div>
         <div className={`text-body-1 left-layout`}></div>
         <div className={`text-header-1 right-layout`}></div>

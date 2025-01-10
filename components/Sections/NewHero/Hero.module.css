@@ -4,14 +4,30 @@
   display: grid;
   width: 100%;
   height: 100vh;
-  grid-template-columns: repeat(8, 6.0869rlh);
-  grid-template-rows: repeat(5, 5.9565rlh);
+  min-height: 600px;
+  max-height: min(1440px, 61.706vw);
+  grid-template-columns: repeat(8, 9.7222vw);
+  grid-template-rows: repeat(5, 9.5139vw);
   justify-content: space-between;
   align-content: space-between;
   margin-bottom: 50px;
+  position: relative;
+  background-color: var(--token-color-surface-primary);
+}
+.hero-container h1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateY(-52.5%) translateX(-50.15%);
+  z-index: 2;
+  mix-blend-mode: difference;
+  color: var(--token-color-surface-primary);
+  user-select: none;
 }
 .grid-cell {
-  border: 1px solid #ccc;
   width: 100%;
   height: 100%;
+}
+.grid-cell:has(img) {
+  background-color: black;
 }
