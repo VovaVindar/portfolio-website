@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 
 const Magnetic = ({
@@ -9,84 +9,110 @@ const Magnetic = ({
   style,
 }) => {
   const magneticAreaRef = useRef(null);
+  const timelineRef = useRef(null);
+
   const maxScale = passedScale || (type === "image" ? 1.016 : 1.04);
   const minScale = 0.95;
+  const pMovement = type === "image" ? movement : 0.075;
+
   const [scale, setScale] = useState(maxScale);
-  var pMovement = type == "image" ? movement : 0.075;
 
-  useEffect(() => {
-    const mArea = magneticAreaRef.current;
+  // Memoize the animation function
+  const animate = useCallback((target, props) => {
+    if (timelineRef.current) {
+      timelineRef.current.kill();
+    }
 
-    if (!mArea) return;
+    timelineRef.current = gsap.to(target, {
+      ...props,
+      ease: "power1.out",
+      duration: 0.55,
+    });
+  }, []);
 
-    const parallaxIt = (e, scale, movement = pMovement) => {
+  // Memoize the parallax calculation
+  const calculateParallax = useCallback(
+    (e, element, currentScale) => {
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
-      const boundingRect = mArea.getBoundingClientRect();
+      const boundingRect = element.getBoundingClientRect();
       const relX = e.pageX - boundingRect.left;
       const relY = e.pageY - boundingRect.top;
 
-      gsap.to(mArea, {
-        scale: scale,
-        x: (relX - boundingRect.width / 2) * movement,
-        y: (relY - boundingRect.height / 2 - scrollTop) * movement,
-        ease: "power1.out",
-        //filter: "blur(2px) brightness(1.15) saturate(1.15)",
+      return {
+        scale: currentScale,
+        x: (relX - boundingRect.width / 2) * pMovement,
+        y: (relY - boundingRect.height / 2 - scrollTop) * pMovement,
         opacity: 1,
-        duration: 0.55,
-      });
-    };
+      };
+    },
+    [pMovement]
+  );
 
-    const handleMouseMove = (e) => parallaxIt(e, scale);
+  useEffect(() => {
+    const element = magneticAreaRef.current;
+    if (!element) return;
+
+    const handleMouseMove = (e) => {
+      animate(element, calculateParallax(e, element, scale));
+    };
 
     const handleMouseLeave = () => {
       setScale(maxScale);
-      gsap.to(mArea, {
+      animate(element, {
         scale: 1,
         x: 0,
         y: 0,
-        //filter: "blur(0px) brightness(1) saturate(1)",
-        ease: "power1.out",
-        duration: 0.55,
       });
     };
 
     const handleMouseDown = (e) => {
       setScale(minScale);
-      parallaxIt(e, minScale);
+      animate(element, calculateParallax(e, element, minScale));
     };
 
     const handleMouseUp = (e) => {
       setScale(maxScale);
-      parallaxIt(e, maxScale);
+      animate(element, calculateParallax(e, element, maxScale));
     };
 
-    mArea.addEventListener("mousemove", handleMouseMove);
-    mArea.addEventListener("mouseleave", handleMouseLeave);
-    mArea.addEventListener("mousedown", handleMouseDown);
-    mArea.addEventListener("mouseup", handleMouseUp);
+    // Event listeners
+    const events = [
+      ["mousemove", handleMouseMove],
+      ["mouseleave", handleMouseLeave],
+      ["mousedown", handleMouseDown],
+      ["mouseup", handleMouseUp],
+    ];
+
+    events.forEach(([event, handler]) => {
+      element.addEventListener(event, handler);
+    });
 
     return () => {
-      mArea.removeEventListener("mousemove", handleMouseMove);
-      mArea.removeEventListener("mouseleave", handleMouseLeave);
-      mArea.removeEventListener("mousedown", handleMouseDown);
-      mArea.removeEventListener("mouseup", handleMouseUp);
+      events.forEach(([event, handler]) => {
+        element.removeEventListener(event, handler);
+      });
+      timelineRef.current?.kill();
     };
-  }, [scale]);
+  }, [scale, animate, calculateParallax, maxScale, minScale]);
 
-  return type == "image" ? (
-    <div
-      ref={magneticAreaRef}
-      style={{ height: "100%", width: "100%", position: "relative", ...style }}
-    >
-      {/*<BlurImage
-        src="/marquee.png"
-        alt="Picture of the author"
-        priority={true}
-      />*/}
-      {children}
-    </div>
-  ) : (
+  if (type === "image") {
+    return (
+      <div
+        ref={magneticAreaRef}
+        style={{
+          height: "100%",
+          width: "100%",
+          position: "relative",
+          ...style,
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+
+  return (
     <span ref={magneticAreaRef} style={{ willChange: "transform" }}>
       {children}
     </span>

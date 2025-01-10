@@ -9,92 +9,91 @@ const Preloader = ({
   setNumbersProgress,
   className,
 }) => {
-  const intervalDuration = 135 * 1.6;
-
-  useEffect(() => {
-    if (mainRef.current) {
-      const imgLoad = imagesLoaded(mainRef.current, { background: true });
-
-      let currentProgress = 0;
-      const intervalId = setInterval(() => {
-        const newProgress =
-          (imgLoad.progressedCount / imgLoad.images.length) * 100;
-        if (newProgress > currentProgress) {
-          const increment = Math.min(newProgress - currentProgress, 14);
-          currentProgress += increment;
-          setNumbersProgress(currentProgress.toFixed(0));
-        } else if (currentProgress === 100) {
-          clearInterval(intervalId);
-        }
-      }, intervalDuration);
-
-      return () => {
-        clearInterval(intervalId);
-      };
-    }
-  }, [mainRef, setNumbersProgress]);
-
   const containerRef = useRef(null);
   const progressIndicatorRef = useRef(null);
+  const timelineRefs = useRef({});
   const [isLoading, setIsLoading] = useState(true);
   const [opacity, setOpacity] = useState(0);
 
+  const INTERVAL_DURATION = 135 * 1.6;
+
+  // Handle image loading progress
   useEffect(() => {
-    const numbersAnimation = gsap.timeline({});
-    const numbersAnimationOut = gsap.timeline({});
-    const movementAnimation = gsap.timeline({});
+    if (!mainRef.current) return;
+
+    const imgLoad = imagesLoaded(mainRef.current, { background: true });
+    let currentProgress = 0;
+
+    const intervalId = setInterval(() => {
+      const newProgress =
+        (imgLoad.progressedCount / imgLoad.images.length) * 100;
+      if (newProgress > currentProgress) {
+        const increment = Math.min(newProgress - currentProgress, 14);
+        currentProgress += increment;
+        setNumbersProgress(currentProgress.toFixed(0));
+      } else if (currentProgress === 100) {
+        clearInterval(intervalId);
+      }
+    }, INTERVAL_DURATION);
+
+    return () => clearInterval(intervalId);
+  }, [mainRef, setNumbersProgress]);
+
+  // Handle animations
+  useEffect(() => {
+    timelineRefs.current = {
+      numbers: gsap.timeline({}),
+      numbersOut: gsap.timeline({}),
+      movement: gsap.timeline({}),
+    };
 
     if (containerRef.current) {
       setOpacity(1);
 
-      numbersAnimation.to(containerRef.current, {
-        autoAlpha: `${numbersProgress >= 100 ? 0 : 1}`,
+      // Fade animation
+      timelineRefs.current.numbers.to(containerRef.current, {
+        autoAlpha: numbersProgress >= 100 ? 0 : 1,
         filter: `blur(${numbersProgress >= 100 ? 2 : 0}px)`,
         duration: 1.2,
         delay: 0.3,
-        ease: "power4.out" /* Easing for: text fade out */,
+        ease: "power4.out",
         onComplete: () => {
-          numbersProgress >= 100 ? setIsLoading(false) : null;
+          if (numbersProgress >= 100) setIsLoading(false);
         },
       });
 
-      numbersAnimationOut.set(containerRef.current, {
-        y: 0,
-      });
-      numbersAnimationOut.to(containerRef.current, {
-        y: `${numbersProgress >= 100 ? 200 : 0}`,
-        duration: 1,
-        delay: 0.3,
-        ease: "power1.in",
-      });
+      // Slide animation
+      timelineRefs.current.numbersOut
+        .set(containerRef.current, { y: 0 })
+        .to(containerRef.current, {
+          y: numbersProgress >= 100 ? 200 : 0,
+          duration: 1,
+          delay: 0.3,
+          ease: "power1.in",
+        });
     }
 
     if (progressIndicatorRef.current) {
-      movementAnimation.set(progressIndicatorRef.current, {
-        color: `red`,
-        opacity: 0.4,
-        textShadow: "0 0 10px rgba(255, 0, 0, 0.7)",
-      });
-      movementAnimation.to(progressIndicatorRef.current, {
-        marginLeft: `calc(${numbersProgress}% - 3ch)`,
-        color: `${numbersProgress >= 100 ? "red" : "white"}`,
-        textShadow: "none",
-        opacity: 1,
-        duration: 1,
-        ease: "power4.out",
-      });
+      timelineRefs.current.movement
+        .set(progressIndicatorRef.current, {
+          color: "red",
+          opacity: 0.4,
+          textShadow: "0 0 10px rgba(255, 0, 0, 0.7)",
+        })
+        .to(progressIndicatorRef.current, {
+          marginLeft: `calc(${numbersProgress}% - 3ch)`,
+          color: numbersProgress >= 100 ? "red" : "white",
+          textShadow: "none",
+          opacity: 1,
+          duration: 1,
+          ease: "power4.out",
+        });
     }
 
     return () => {
-      if (numbersAnimation) {
-        numbersAnimation.kill();
-      }
-      if (numbersAnimationOut) {
-        numbersAnimationOut.kill();
-      }
-      if (movementAnimation) {
-        movementAnimation.kill();
-      }
+      Object.values(timelineRefs.current).forEach((timeline) =>
+        timeline?.kill()
+      );
     };
   }, [numbersProgress]);
 
@@ -103,23 +102,21 @@ const Preloader = ({
     /* Y margin flashing fix */
   };
 
+  if (!isLoading) return null;
+
   return (
-    <>
-      {isLoading && (
-        <div className={`${styles["preloader"]} ${className}`} style={style}>
-          <div className={`${styles["text-container"]}`} ref={containerRef}>
-            <div>
-              <p className={`text-body-3`}>Vova Vindar Archive</p>
-            </div>
-            <div>
-              <p className={`text-body-3`} ref={progressIndicatorRef}>
-                {numbersProgress}
-              </p>
-            </div>
-          </div>
+    <div className={`${styles["preloader"]} ${className}`} style={style}>
+      <div className={styles["text-container"]} ref={containerRef}>
+        <div>
+          <p className="text-body-3">Vova Vindar Archive</p>
         </div>
-      )}
-    </>
+        <div>
+          <p className="text-body-3" ref={progressIndicatorRef}>
+            {numbersProgress}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 

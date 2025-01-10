@@ -1,12 +1,73 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import gsap from "gsap";
 import MouseFollower from "@/mouse-follower/src";
 
 MouseFollower.registerGSAP(gsap);
 
-const CursorContainer = ({ className, isAnimating = true }) => {
-  let deg = 0;
+const FAVICON_TYPES = {
+  MAIN: "favicon", // Main favicon
+  MAIN_ROTATED: "favicon2", // Main favicon when rotated
+  TAB_INACTIVE: "favicon3", // When user leaves tab
+  TAB_INACTIVE_ROTATED: "favicon4", // When user leaves tab and was rotated
+};
 
+const FAVICON_CONFIG = {
+  svg: { rel: "icon", type: "image/svg+xml" },
+  png: { rel: "icon", type: "image/png", sizes: "96x96" },
+  ico: { rel: "shortcut icon", type: "image/png", sizes: "48x48" },
+};
+
+const CursorContainer = ({ className = "", isAnimating = true }) => {
+  const cursorRef = useRef(null);
+  const rotationDegRef = useRef(0);
+  const [currentFavicon, setCurrentFavicon] = useState(FAVICON_TYPES.DEFAULT);
+
+  // Favicon management
+  const setFavicon = useCallback((baseName) => {
+    const cacheBuster = `?v=${Date.now()}`;
+
+    // Remove existing favicons
+    document
+      .querySelectorAll("link[rel='icon'], link[rel='shortcut icon']")
+      .forEach((link) => document.head.removeChild(link));
+
+    // Create new favicon links
+    Object.entries(FAVICON_CONFIG).forEach(([ext, config]) => {
+      const link = document.createElement("link");
+      Object.assign(link, {
+        rel: config.rel,
+        href: `/${baseName}${
+          ext === "png" ? "-96x96" : ""
+        }.${ext}${cacheBuster}`,
+        type: config.type,
+        ...(config.sizes && { sizes: config.sizes }),
+      });
+      document.head.appendChild(link);
+    });
+  }, []);
+
+  const toggleFavicon = useCallback(() => {
+    setCurrentFavicon((prev) => {
+      const newFavicon =
+        prev === FAVICON_TYPES.MAIN
+          ? FAVICON_TYPES.MAIN_ROTATED
+          : FAVICON_TYPES.MAIN;
+      setFavicon(newFavicon);
+      return newFavicon;
+    });
+  }, [setFavicon]);
+
+  // Handle tab change
+  const handleVisibilityChange = useCallback(() => {
+    const hiddenFavicon =
+      currentFavicon === FAVICON_TYPES.MAIN
+        ? FAVICON_TYPES.TAB_INACTIVE
+        : FAVICON_TYPES.TAB_INACTIVE_ROTATED;
+
+    setFavicon(document.hidden ? hiddenFavicon : currentFavicon);
+  }, [currentFavicon, setFavicon]);
+
+  // Initialize cursor
   useEffect(() => {
     const cursor = new MouseFollower({
       speed: 1.1,
@@ -20,26 +81,27 @@ const CursorContainer = ({ className, isAnimating = true }) => {
       className: `mf-cursor ${className}`,
     });
 
-    // Spin cursor on click
+    cursorRef.current = cursor;
+
+    // Handle cursor click rotation
     cursor.on("addState", (cursor, state) => {
       if (state === "-active") {
+        rotationDegRef.current += 45;
+
         gsap.to(".mf-cursor", {
-          "--rotation": `${deg + 45}deg`,
+          "--rotation": `${rotationDegRef.current}deg`,
           duration: 0,
         });
 
-        deg += 45;
-
-        // Toggle between favicon1 and favicon2
         if (!isAnimating) {
           toggleFavicon();
         }
       }
     });
 
-    gsap.set(".mf-cursor", {
-      autoAlpha: 0,
-    });
+    // Initial cursor animation
+    gsap.set(".mf-cursor", { autoAlpha: 0 });
+
     if (!isAnimating) {
       gsap.to(".mf-cursor", {
         duration: 0.75,
@@ -49,79 +111,15 @@ const CursorContainer = ({ className, isAnimating = true }) => {
       });
     }
 
-    return () => {
-      if (cursor) cursor.destroy();
-    };
-  }, [className, isAnimating]);
+    return () => cursor.destroy();
+  }, [className, isAnimating, toggleFavicon]);
 
-  // State to track the currently active favicon
-  const [currentFavicon, setCurrentFavicon] = useState("favicon");
-
-  const setFavicon = (baseName) => {
-    const cacheBuster = `?v=${Date.now()}`; // Add a unique timestamp to the URL
-
-    const existingIcons = document.querySelectorAll("link[rel='icon']");
-    const existingIcons2 = document.querySelectorAll(
-      "link[rel='shortcut icon']"
-    );
-    existingIcons.forEach((link) => {
-      document.head.removeChild(link);
-    });
-    existingIcons2.forEach((link) => {
-      document.head.removeChild(link);
-    });
-
-    const svgLink = document.createElement("link");
-    svgLink.rel = "icon";
-    svgLink.href = `/${baseName}.svg${cacheBuster}`;
-    svgLink.type = "image/svg+xml";
-    document.head.appendChild(svgLink);
-
-    const pngLink = document.createElement("link");
-    pngLink.rel = "icon";
-    pngLink.href = `/${baseName}-96x96.png${cacheBuster}`;
-    pngLink.type = "image/png";
-    pngLink.sizes = "96x96";
-    document.head.appendChild(pngLink);
-
-    const icoLink = document.createElement("link");
-    pngLink.rel = "shortcut icon";
-    pngLink.href = `/${baseName}.ico${cacheBuster}`;
-    pngLink.type = "image/png";
-    pngLink.sizes = "48x48";
-    document.head.appendChild(icoLink);
-  };
-
-  const toggleFavicon = () => {
-    setCurrentFavicon((prevFavicon) => {
-      const newFavicon = prevFavicon === "favicon" ? "favicon2" : "favicon";
-      setFavicon(newFavicon);
-      return newFavicon;
-    });
-  };
-
-  // Handle visibility change
+  // Visibility change listener
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        // Change favicon based on the current favicon
-        if (currentFavicon === "favicon") {
-          setFavicon("favicon3"); // Switch to favicon3
-        } else if (currentFavicon === "favicon2") {
-          setFavicon("favicon4"); // Switch to favicon4
-        }
-      } else {
-        // Restore the previous favicon
-        setFavicon(currentFavicon);
-      }
-    };
-
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () => {
+    return () =>
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, [currentFavicon]);
+  }, [handleVisibilityChange]);
 
   return null;
 };

@@ -1,97 +1,91 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./Work.module.css";
-import Image from "next/image";
-import Marquee from "@/components/Marquee";
-import Magnetic from "@/components/Magnetic";
-import Controls from "@/components/Sections/Work/Controls";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Work = ({ duration, easing, startPageAnimation }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const pages = [0, 1, 2, 3];
-  const totalPages = pages.length;
-
-  // Use useCallback to ensure setNumbersProgress does not change on re-renders
-  const updateProgress = useCallback((progress) => {
-    const breakpoint = 100 / totalPages;
-    const currentIndex = Math.floor(progress / breakpoint);
-
-    if (currentIndex != activeIndex) {
-      setActiveIndex((currentIndex + totalPages) % totalPages);
-    }
-  }, []);
-
+const Work = ({
+  duration = 1,
+  easing = "power2.out",
+  startPageAnimation = false,
+}) => {
+  // Refs for DOM elements
   const containerRef = useRef(null);
   const textOnscroll = useRef(null);
-  const controlsOnscroll = useRef(null);
+  const sectionRef = useRef(null);
+
+  // Timeline refs for proper cleanup
+  const timelineRefs = useRef({
+    text: null,
+  });
+
+  // State management
   const [startPageAnimation2, setStartPageAnimation2] = useState(false);
 
+  // Animation configurations
+  const animConfig = {
+    text: {
+      hidden: {
+        opacity: 0,
+        filter: "blur(4.5px)",
+      },
+      visible: {
+        opacity: 1,
+        filter: "blur(0px)",
+        delay: 0,
+        duration: duration + 0.1,
+        ease: easing,
+      },
+    },
+  };
+
+  // Delayed animation start
   useEffect(() => {
     if (startPageAnimation) {
-      setTimeout(() => setStartPageAnimation2(true), 2000);
+      const timer = setTimeout(() => setStartPageAnimation2(true), 2000);
+      return () => clearTimeout(timer);
     }
   }, [startPageAnimation]);
 
+  // Main animations setup
   useGSAP(() => {
-    let scrollTriggerInstance1, scrollTriggerInstance2, scrollTriggerInstance4;
-    const controlsAnimation = gsap.timeline({});
-    const textAnimation = gsap.timeline({});
+    let triggers = {
+      container: null,
+      text: null,
+    };
 
-    containerRef?.current.classList.remove(`${styles["in-view"]}`);
+    // Kill previous timeline
+    timelineRefs.current.text?.kill();
 
-    controlsAnimation.set(controlsOnscroll.current, {
-      opacity: 0,
-      filter: "blur(4px)",
-    });
-    textAnimation.set(textOnscroll.current, {
-      opacity: 0,
-      filter: "blur(4.5px)",
-    });
+    // Initialize new timeline
+    timelineRefs.current.text = gsap.timeline();
+
+    // Reset container class
+    containerRef?.current?.classList.remove(styles["in-view"]);
+
+    // Set initial state
+    timelineRefs.current.text.set(textOnscroll.current, animConfig.text.hidden);
 
     if (startPageAnimation2) {
-      scrollTriggerInstance1 = ScrollTrigger.create({
+      // Container in-view animation
+      triggers.container = ScrollTrigger.create({
         trigger: containerRef.current,
         start: "top 80%",
-        toggleClass: `${styles["in-view"]}`,
+        toggleClass: styles["in-view"],
         once: false,
       });
-      scrollTriggerInstance2 = ScrollTrigger.create({
+
+      // Text fade-in animation
+      triggers.text = ScrollTrigger.create({
         trigger: textOnscroll.current,
-        start: "100% 100%" /* was top 95% */,
+        start: "100% 100%",
         onEnter: () => {
-          textAnimation.fromTo(
+          timelineRefs.current.text.fromTo(
             textOnscroll.current,
-            { opacity: 0, filter: "blur(4.5px)" },
-            {
-              opacity: 1,
-              filter: `blur(0px)`,
-              delay: 0,
-              duration: duration + 0.1,
-              ease: easing,
-            }
-          );
-        },
-        once: true,
-      });
-      scrollTriggerInstance4 = ScrollTrigger.create({
-        trigger: controlsOnscroll.current,
-        start: "100% 100%" /* was top bottom-=10px */,
-        onEnter: () => {
-          controlsAnimation.fromTo(
-            controlsOnscroll.current,
-            { opacity: 0, filter: "blur(4px)" },
-            {
-              opacity: 1,
-              filter: `blur(0px)`,
-              delay: 0,
-              duration: duration + 0.1,
-              ease: easing,
-            }
+            animConfig.text.hidden,
+            animConfig.text.visible
           );
         },
         once: true,
@@ -99,41 +93,24 @@ const Work = ({ duration, easing, startPageAnimation }) => {
     }
 
     return () => {
-      if (scrollTriggerInstance1) {
-        scrollTriggerInstance1.kill();
-      }
-      if (scrollTriggerInstance2) {
-        scrollTriggerInstance2.kill();
-      }
-      if (scrollTriggerInstance4) {
-        scrollTriggerInstance4.kill();
-      }
+      Object.values(triggers).forEach((trigger) => trigger?.kill());
+      timelineRefs.current.text?.kill();
+      timelineRefs.current.text = null;
     };
-  }, [startPageAnimation2]);
+  }, [startPageAnimation2, duration, easing]);
 
-  /* Control speed */
-  const [speedCoef, setSpeedCoef] = useState(1);
-
-  // Use useCallback to ensure setNumbersProgress does not change on re-renders
-  const updateSpeedCoef = useCallback((coef) => {
-    setSpeedCoef(coef);
-  }, []);
-
-  // Parallax effect on scroll
-  const sectionRef = useRef(null);
-
+  // Separate GSAP context for parallax effect
   useGSAP(() => {
-    let sectionParallax;
+    let parallaxAnimation;
     let scrollTriggerInstance;
 
-    // Compute `rlh` value in pixels
     const lineHeight = parseFloat(
       getComputedStyle(document.documentElement).lineHeight
     );
-    const rlhInPixels = 18 * lineHeight; // Convert 19rlh to pixels
+    const rlhInPixels = 18 * lineHeight;
 
     if (sectionRef.current) {
-      sectionParallax = gsap.fromTo(
+      parallaxAnimation = gsap.fromTo(
         sectionRef.current,
         { yPercent: 10 },
         { yPercent: 0, ease: "none" }
@@ -141,7 +118,7 @@ const Work = ({ duration, easing, startPageAnimation }) => {
 
       scrollTriggerInstance = ScrollTrigger.create({
         trigger: sectionRef.current,
-        animation: sectionParallax,
+        animation: parallaxAnimation,
         scrub: 1,
         start: "top bottom",
         end: `bottom bottom-=${rlhInPixels}`,
@@ -149,65 +126,21 @@ const Work = ({ duration, easing, startPageAnimation }) => {
     }
 
     return () => {
-      if (scrollTriggerInstance) {
-        scrollTriggerInstance.kill();
-      }
-      if (sectionParallax) {
-        sectionParallax.kill();
-      }
+      scrollTriggerInstance?.kill();
+      parallaxAnimation?.kill();
     };
-  });
+  }, []);
 
   return (
-    <div className={`${styles["work-container"]}`}>
+    <div className={styles["work-container"]}>
       <div
         className={`${styles["work"]} work-global mf-exclusion text-body-1-uppercase`}
         ref={sectionRef}
       >
-        <Controls
-          speedCoef={speedCoef}
-          setSpeedCoef={updateSpeedCoef}
-          duration={duration}
-          easing={easing}
-          ref={controlsOnscroll}
-        />
         <h2 ref={textOnscroll}>Selected Work</h2>
-        <div className={`${styles["el-container"]}`} ref={containerRef}>
-          {/*<Marquee
-            setMarqueeProgress={updateProgress}
-            speedCoef={speedCoef}
-            style={{ padding: "4rlh 0 " }}
-          >
-            {[
-              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-              20, 21, 22,
-            ].map((item, index) => (
-              <div
-                key={index}
-                className={`${styles["el"]} ${styles[`num${index + 1}`]}`}
-                style={{
-                  color: "white",
-                  filter: `blur(${Math.min(Math.floor(speedCoef / 100), 9)}px)`,
-                }}
-                data-cursor-text="Vitamin Living"
-              >
-                <Magnetic movement={0.072} passedScale={1.032}>
-                  <Image
-                    src="/marquee.png"
-                    alt="Picture of the author"
-                    fill
-                    draggable="false"
-                    onDragStart={() => {
-                      return false;
-                    }}
-                  />
-                </Magnetic>
-              </div>
-            ))}
-          </Marquee>*/}
-        </div>
-        <div className={`text-body-1 left-layout`}></div>
-        <div className={`text-header-1 right-layout`}></div>
+        <div className={styles["el-container"]} ref={containerRef} />
+        <div className="text-body-1 left-layout" />
+        <div className="text-header-1 right-layout" />
       </div>
     </div>
   );

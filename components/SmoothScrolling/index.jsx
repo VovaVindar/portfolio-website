@@ -4,39 +4,40 @@ import { useEffect } from "react";
 // Create a shared reference for Lenis
 const lenisRef = { current: null };
 
-// Exported functions to control Lenis
+const SCROLL_START_DELAY = 400;
+const LERP_VALUE = 0.15;
+
+// Regular functions, not hooks
 export const startLenis = () => {
-  if (lenisRef.current) {
-    lenisRef.current.start();
-  }
+  lenisRef.current?.start();
 };
 
 export const stopLenis = () => {
-  if (lenisRef.current) {
-    lenisRef.current.stop();
-  }
+  lenisRef.current?.stop();
 };
 
 function SmoothScrolling({ children, isAnimating }) {
-  const lenis = useLenis(({ scroll }) => {});
+  const lenis = useLenis(() => {});
 
   useEffect(() => {
     if (!lenis) return;
 
-    // Assign the Lenis instance to the shared ref
     lenisRef.current = lenis;
 
+    // Initial setup
     lenis.scrollTo(0, { immediate: true });
     lenis.stop();
 
+    // Start scroll if not animating
+    let timeoutId;
     if (!isAnimating) {
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         lenis.start();
-      }, 400);
+      }, SCROLL_START_DELAY);
     }
 
-    // Cleanup on unmount
     return () => {
+      timeoutId && clearTimeout(timeoutId);
       if (lenisRef.current === lenis) {
         lenisRef.current = null;
       }
@@ -44,7 +45,7 @@ function SmoothScrolling({ children, isAnimating }) {
   }, [isAnimating, lenis]);
 
   return (
-    <ReactLenis root options={{ lerp: 0.15 }}>
+    <ReactLenis root options={{ lerp: LERP_VALUE }}>
       {children}
     </ReactLenis>
   );

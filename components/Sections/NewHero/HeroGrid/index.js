@@ -1,7 +1,9 @@
 import styles from "../Hero.module.css";
 import Image from "next/image";
 
-const HeroGrid = ({}) => {
+const HeroGrid = ({ heroOnload }) => {
+  let imageIndex = 0; // Simple counter for images
+
   const rows = [0, 1, 2, 3, 4];
   const cols = [0, 1, 2, 3, 4, 5, 6, 7];
 
@@ -105,12 +107,12 @@ const HeroGrid = ({}) => {
             <div key={`${row}-${col}`} className={`${styles["grid-cell"]}`}>
               {image && (
                 <Image
-                  //src={image.src}
-                  src={""}
+                  src={image.src}
                   alt={image.alt || "Grid image"}
                   fill
                   className={styles["cell-image"]}
                   priority={image.priority}
+                  ref={(el) => (heroOnload.current[imageIndex++] = el)}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               )}
