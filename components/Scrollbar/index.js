@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useScroll } from "@/context/ScrollContext";
 
 // Throttle helper function
-const throttle = (func, limit) => {
+/* const throttle = (func, limit) => {
   let inThrottle;
   return function (...args) {
     if (!inThrottle) {
@@ -14,7 +14,7 @@ const throttle = (func, limit) => {
       setTimeout(() => (inThrottle = false), limit);
     }
   };
-};
+}; */
 
 const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
   const [opacity, setOpacity] = useState(0);
@@ -54,9 +54,12 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
     updateDocumentHeight();
 
     // Create throttled scroll handler
-    scrollHandlerRef.current = throttle(() => {
+    /* scrollHandlerRef.current = throttle(() => {
       requestAnimationFrame(updateScrollPosition);
-    }, 8); // ~120fps (1000ms / 120 ≈ 8.33ms)
+    }, 4); // ~240fps (1000ms / 240) */
+    // Throttle can cause jitter
+
+    requestAnimationFrame(updateScrollPosition);
 
     // Setup ResizeObserver for height updates
     resizeObserverRef.current = new ResizeObserver(() => {
