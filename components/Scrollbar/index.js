@@ -59,7 +59,9 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
     }, 4); // ~240fps (1000ms / 240) */
     // Throttle can cause jitter
 
-    requestAnimationFrame(updateScrollPosition);
+    scrollHandlerRef.current = () => {
+      requestAnimationFrame(updateScrollPosition);
+    };
 
     // Setup ResizeObserver for height updates
     resizeObserverRef.current = new ResizeObserver(() => {
