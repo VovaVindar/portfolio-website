@@ -1,5 +1,4 @@
 import styles from "./TransitionLines.module.css";
-//import { TransitionContext } from "@/context/TransitionContext";
 import React, { useEffect, useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -12,109 +11,91 @@ const LoadingLines = ({
   const [lines, setLines] = useState([]);
   const linesContainerRef = useRef(null);
   const linesReadyRef = useRef(false);
-  var totalLines = 0;
+  const timelineRef = useRef(null);
+  const hasAnimatedRef = useRef(false); // Track if animation has run
 
-  //const { timelineExit } = useContext(TransitionContext);
-
+  // Generate lines based on screen height
   useEffect(() => {
     const generateLines = () => {
       const height = window.innerHeight;
-      const rlh = parseInt(
+      const rootLineHeight = parseInt(
         getComputedStyle(document.documentElement).lineHeight
       );
       const lineHeight = 1;
-      totalLines = Math.floor(height / (rlh - lineHeight));
+      const totalLines = Math.floor(height / (rootLineHeight - lineHeight));
 
-      const linesArray = [];
-      for (let i = 0; i < totalLines; i++) {
-        linesArray.push(
+      const linesArray = Array(totalLines)
+        .fill(null)
+        .map((_, i) => (
           <div key={i} className={`${styles["line"]} mounted`}></div>
-        );
-      }
+        ));
+
       setLines(linesArray);
-      linesContainerRef.current.style.backgroundColor = "transparent";
+
+      if (linesContainerRef.current) {
+        linesContainerRef.current.style.backgroundColor = "transparent";
+      }
       linesReadyRef.current = true;
     };
 
     generateLines();
   }, []);
 
-  // TODO: fix lines animation on high screens
-
+  // Handle lines animation
   useGSAP(() => {
-    const timelineIntro = gsap.timeline({});
+    if (
+      !linesReadyRef.current ||
+      !linesContainerRef.current ||
+      hasAnimatedRef.current
+    )
+      return;
 
-    if (linesReadyRef.current && linesContainerRef.current) {
-      linesContainerRef.current.classList.add("loading");
+    const lines = Array.from(linesContainerRef.current.children);
+    if (lines.length === 0) return;
 
-      const lines = Array.from(linesContainerRef.current.children);
+    linesContainerRef.current.classList.add("loading");
 
-      if (lines.length > 0) {
-        var staggerInterval = lines.length <= 60 ? 0.038 : 0.0002;
-        var duration = 1.25;
-        setLinesCount(lines.length > 60);
+    const isHighDensity = lines.length > 60;
+    const config = {
+      staggerInterval: isHighDensity ? 0.0002 : 0.038,
+      duration: 1.25,
+      delay: 0.05,
+      completionDelay: 540,
+    };
 
-        timelineIntro.fromTo(
-          lines,
-          {
-            scaleY: 1,
-            transformOrigin: "bottom",
-            backgroundColor: "#0F1010",
-          },
-          {
-            scaleY: `${numbersProgress >= 100 ? 0 : 1}`,
-            backgroundColor: `${
-              numbersProgress >= 100 ? `#C34356` : `#0F1010`
-            }`,
-            duration: duration,
-            delay: 0.05,
-            ease: "power4.inOut",
-            stagger: {
-              each: staggerInterval,
-              from: "start",
-            },
-            onComplete: () => {
-              setTimeout(() => {
-                onLoadingComplete();
-                linesContainerRef.current.classList.remove("scroll-block"); // just an extra safety. Actual scroll blocking is inside SmoothScrolling component
-              }, 540); // for some reason, onComplete is called early
-            },
-          }
-        );
+    setLinesCount(isHighDensity);
 
-        /*timelineExit
-        .add(
-          gsap.to(lines, {
-            scaleY: 1,
-            transformOrigin: "top",
-            delay: 0,
-            duration: duration,
-            ease: "power4.in",
-            stagger: { each: staggerInterval, from: "start" },
-          })
-        )
-        .add(
-          gsap.to(lines, {
-            scaleY: 0,
-            duration: duration,
-            delay: 0.2,
-            ease: "power4.inOut",
-            stagger: {
-              each: staggerInterval,
-              from: "start",
-            },
-          })
-        );*/
+    timelineRef.current = gsap.timeline().fromTo(
+      lines,
+      {
+        scaleY: 1,
+        transformOrigin: "bottom",
+        backgroundColor: "#0F1010",
+      },
+      {
+        scaleY: numbersProgress >= 100 ? 0 : 1,
+        backgroundColor: numbersProgress >= 100 ? "#C34356" : "#0F1010",
+        duration: config.duration,
+        delay: config.delay,
+        ease: "power4.inOut",
+        stagger: {
+          each: config.staggerInterval,
+          from: "start",
+        },
+        onComplete: () => {
+          hasAnimatedRef.current = true;
+          setTimeout(() => {
+            onLoadingComplete();
+            linesContainerRef.current?.classList.remove("scroll-block");
+          }, config.completionDelay);
+        },
       }
-    }
+    );
 
     return () => {
-      if (timelineIntro) {
-        timelineIntro.kill();
-      }
-      //timelineExit.kill();
+      timelineRef.current?.kill();
     };
-  }, [numbersProgress]);
+  }, [numbersProgress, onLoadingComplete, setLinesCount]);
 
   return (
     <div
