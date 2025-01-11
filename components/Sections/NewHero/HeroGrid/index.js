@@ -1,5 +1,6 @@
 import styles from "../Hero.module.css";
 import Image from "next/image";
+import Magnetic from "@/components/Magnetic";
 
 const HeroGrid = ({ imgOnload, cellOnload }) => {
   let refIndex = 0; // For ref handling
@@ -121,15 +122,17 @@ const HeroGrid = ({ imgOnload, cellOnload }) => {
               }
             >
               {image && (
-                <Image
-                  src={image.src}
-                  alt={`${image.alt} (Index: ${currentIndex})`}
-                  fill
-                  className={styles["cell-image"]}
-                  priority={true}
-                  ref={handleImageRef}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
+                <Magnetic movement={0.072} passedScale={1.032}>
+                  <Image
+                    src={image.src}
+                    alt={`${image.alt} (Index: ${currentIndex})`}
+                    fill
+                    className={styles["cell-image"]}
+                    priority={true}
+                    ref={handleImageRef}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </Magnetic>
               )}
             </div>
           );

@@ -1,53 +1,37 @@
 import styles from "./Hero.module.css";
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import HeroTitle from "@/components/Sections/NewHero/HeroTitle";
 import HeroGrid from "@/components/Sections/NewHero/HeroGrid";
 
-const Hero = ({
-  staggerInterval = 0.02,
-  duration,
-  easing,
-  startPageAnimation,
-  linesCount,
-}) => {
+const Hero = ({ duration, easing, startPageAnimation, isAnimating }) => {
   const imgOnload = useRef([]);
   const cellOnload = useRef([]);
-  const timelineRef = useRef(null);
-  const timelineRef2 = useRef(null);
-
-  const heroStagger = useCallback((index, interval) => {
-    if (index <= 3) return 0;
-    if (index >= 4 && index <= 6) return 2 * interval;
-    if (index >= 7 && index <= 8) return 4 * interval;
-    if (index >= 9 && index <= 11) return 6 * interval;
-    if (index >= 12) return 8 * interval;
-  }, []);
+  const timelineImgRef = useRef(null);
+  const timelineCellRef = useRef(null);
 
   useGSAP(() => {
     // Kill previous timeline if it exists
-    if (timelineRef.current) {
-      timelineRef.current.kill();
+    if (timelineImgRef.current) {
+      timelineImgRef.current.kill();
     }
-    if (timelineRef2.current) {
-      timelineRef2.current.kill();
+    if (timelineCellRef.current) {
+      timelineCellRef.current.kill();
     }
 
-    timelineRef.current = gsap.timeline();
-    timelineRef2.current = gsap.timeline();
+    timelineImgRef.current = gsap.timeline();
+    timelineCellRef.current = gsap.timeline();
 
     if (startPageAnimation) {
       // Img filters animation
       if (imgOnload.current.length) {
-        timelineRef.current.to([...imgOnload.current].reverse(), {
-          delay: 1.3,
+        timelineImgRef.current.to([...imgOnload.current].reverse(), {
+          delay: 1.625,
           stagger: {
             each: 0.072,
             onComplete() {
-              console.log(
-                this.targets()[0].classList.add(`${styles["in-view"]}`)
-              );
+              this.targets()[0].classList.add(`${styles["in-view"]}`);
             },
           },
         });
@@ -55,19 +39,18 @@ const Hero = ({
 
       // Slide animation
       if (cellOnload.current.length) {
-        timelineRef2.current.fromTo(
+        const containerHeight =
+          cellOnload.current[0].parentElement.offsetHeight;
+
+        timelineCellRef.current.fromTo(
           [...cellOnload.current].reverse(),
           {
-            //autoAlpha: 0,
-            y: "-105vh",
-            //scale: 1.2,
+            y: -(containerHeight + 5),
           },
           {
-            //autoAlpha: startPageAnimation ? 1 : 0,
             y: 0,
-            scale: 1,
-            duration: 3.2,
-            delay: 1.3,
+            duration: 3,
+            delay: 1.525,
             ease: "power2.out",
             stagger: 0.072,
           }
@@ -76,20 +59,39 @@ const Hero = ({
     }
 
     return () => {
-      if (timelineRef.current) {
-        timelineRef.current.kill();
-        timelineRef.current = null;
+      if (timelineImgRef.current) {
+        timelineImgRef.current.kill();
+        timelineImgRef.current = null;
       }
-      if (timelineRef2.current) {
-        timelineRef2.current.kill();
-        timelineRef2.current = null;
+      if (timelineCellRef.current) {
+        timelineCellRef.current.kill();
+        timelineCellRef.current = null;
       }
     };
   }, [startPageAnimation]);
 
+  // Title fade-in animation
+  const [opacity, setOpacity] = useState(0);
+  const [blur, setBlur] = useState(4.5);
+
+  useEffect(() => {
+    if (!isAnimating) {
+      setOpacity(1);
+      setBlur(0);
+    } else {
+      setOpacity(0);
+      setBlur(4.5);
+    }
+  }, [isAnimating]);
+
+  const titleStyle = {
+    opacity,
+    filter: `blur(${blur}px)`,
+  };
+
   return (
     <div className={styles["hero-container"]}>
-      {/*<HeroTitle />*/}
+      <HeroTitle style={titleStyle} isAnimating={isAnimating} />
       <HeroGrid imgOnload={imgOnload} cellOnload={cellOnload} />
     </div>
   );

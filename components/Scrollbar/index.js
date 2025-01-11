@@ -38,7 +38,10 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
     const scrollPercent = (scrollTop / documentHeightRef.current) * 100;
 
     setScrollPosition(scrollPercent);
+  }, [setScrollPosition]);
 
+  // Fade-in animation
+  useEffect(() => {
     if (!isAnimating) {
       setOpacity(1);
       setBlur(0);
@@ -46,7 +49,7 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
       setOpacity(0);
       setBlur(1.5);
     }
-  }, [isAnimating, setScrollPosition]);
+  }, [isAnimating]);
 
   // Initialize scroll handling
   useEffect(() => {

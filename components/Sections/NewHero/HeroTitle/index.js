@@ -1,39 +1,64 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-const HeroTitle = () => {
+const HeroTitle = ({ style, isAnimating = true }) => {
   const heroTitleRef = useRef(null);
-  const animationRef = useRef({ scrollTrigger: null, parallax: null });
+  const scrollRef = useRef({ scrollTrigger: null, parallax: null });
+  const onloadRef = useRef(null);
+  const [loadCompleted, setLoadCompleted] = useState(false);
 
   // Create animation setup function
   const setupAnimation = useCallback(() => {
     // Kill previous instances if they exist
-    if (animationRef.current.scrollTrigger) {
-      animationRef.current.scrollTrigger.kill();
+    if (scrollRef.current.scrollTrigger) {
+      scrollRef.current.scrollTrigger.kill();
     }
-    if (animationRef.current.parallax) {
-      animationRef.current.parallax.kill();
+    if (scrollRef.current.parallax) {
+      scrollRef.current.parallax.kill();
+    }
+    if (onloadRef.current) {
+      onloadRef.current.kill();
     }
 
     // Create new animation
-    if (heroTitleRef.current) {
-      animationRef.current.parallax = gsap.fromTo(
+    if (heroTitleRef.current && loadCompleted) {
+      scrollRef.current.parallax = gsap.fromTo(
         heroTitleRef.current,
         { yPercent: 0 },
         { yPercent: -65, ease: "none" }
       );
 
-      animationRef.current.scrollTrigger = ScrollTrigger.create({
+      scrollRef.current.scrollTrigger = ScrollTrigger.create({
         trigger: "body",
-        animation: animationRef.current.parallax,
+        animation: scrollRef.current.parallax,
         scrub: 1,
         start: "top top",
         end: "+=100%",
       });
     }
-  }, []);
+  }, [loadCompleted]);
+
+  useEffect(() => {
+    if (heroTitleRef.current) {
+      onloadRef.current = gsap.fromTo(
+        heroTitleRef.current,
+        { yPercent: -600 },
+        {
+          yPercent: !isAnimating ? 0 : -600,
+          ease: "power2.out",
+          duration: 2.3,
+          delay: 0,
+          onComplete: () => {
+            setTimeout(() => {
+              setLoadCompleted(true);
+            }, 300);
+          },
+        }
+      );
+    }
+  }, [isAnimating]);
 
   useGSAP(() => {
     // Initial setup
@@ -54,16 +79,23 @@ const HeroTitle = () => {
     return () => {
       handleResize.kill();
       resizeObserver.disconnect();
-      if (animationRef.current.scrollTrigger) {
-        animationRef.current.scrollTrigger.kill();
+      if (scrollRef.current.scrollTrigger) {
+        scrollRef.current.scrollTrigger.kill();
       }
-      if (animationRef.current.parallax) {
-        animationRef.current.parallax.kill();
+      if (scrollRef.current.parallax) {
+        scrollRef.current.parallax.kill();
+      }
+      if (onloadRef.current) {
+        onloadRef.current.kill();
       }
     };
-  }, []); // Empty dependency array since setupAnimation is memoized
+  }, [loadCompleted]);
 
-  return <h1 ref={heroTitleRef}>Designing for Permanence.</h1>;
+  return (
+    <h1 style={style} ref={heroTitleRef}>
+      Designing for Permanence.
+    </h1>
+  );
 };
 
 export default HeroTitle;

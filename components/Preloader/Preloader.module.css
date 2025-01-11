@@ -9,11 +9,12 @@
   user-select: none;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   padding: var(--global-padding);
   background-color: transparent;
 }
 .preloader .text-container {
+  margin-top: -5px;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -22,24 +23,13 @@
   color: var(--token-color-text-contrast);
   white-space: pre;
 }
-.preloader .text-container div:nth-of-type(1) {
-  width: fit-content;
-  display: flex;
-  flex-direction: row;
-  gap: 2rlh;
-}
-.preloader .text-container div:nth-of-type(1) p {
-  margin-right: 2ch;
-  filter: blur(1.25px);
-  opacity: 0.75;
-  color: red;
-}
-.preloader .text-container div:nth-of-type(2) {
+.preloader .text-container div {
   width: 100%;
+  padding-left: 1.5ch;
   position: relative;
 }
-.preloader .text-container div:nth-of-type(2) p {
+.preloader .text-container div p {
   width: 3ch;
   text-align: right;
-  margin-left: calc(0% - 3ch);
+  margin-left: -3ch;
 }

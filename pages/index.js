@@ -39,12 +39,8 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
         <title>Vova Vindar — Digital Designer & Developer</title>
       </Head>
       <div ref={container} className={`${styles["home-container"]} container`}>
-        <Contact
-          isAnimating={isAnimating}
-          easing={ANIMATION_EASING}
-          duration={ANIMATION_DURATION}
-        />
-        <NewHero {...commonProps} linesCount={linesCount} />
+        <Contact isAnimating={isAnimating} duration={ANIMATION_DURATION} />
+        <NewHero isAnimating={isAnimating} {...commonProps} />
         <About {...commonProps} linesCount={linesCount} />
         <SelectedClients {...commonProps} />
         <Work

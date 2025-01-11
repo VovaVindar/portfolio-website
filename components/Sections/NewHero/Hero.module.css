@@ -23,6 +23,11 @@
   mix-blend-mode: difference;
   color: var(--token-color-surface-primary);
   user-select: none;
+  opacity: 1;
+  filter: blur(0px);
+  transition: opacity 1s var(--easing-text-fade-in),
+    filter 1s var(--easing-text-fade-in);
+  transition-delay: 0s;
 }
 .grid-cell {
   width: 100%;
@@ -39,9 +44,9 @@
 }
 .grid-cell .cell-image {
   transform: scale(1.15);
-  filter: blur(3px) brightness(2) saturate(3.5);
-  transition: transform 3.2s var(--easing-img-fade-in),
-    filter 3.2s var(--easing-img-fade-in); /* power2.out */
+  filter: blur(0px) brightness(2.7) saturate(3.5);
+  transition: transform 3s var(--easing-img-fade-in),
+    filter 3s var(--easing-img-fade-in); /* power2.out */
 }
 .grid-cell .cell-image.in-view {
   transform: scale(1);

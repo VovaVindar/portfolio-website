@@ -55,7 +55,7 @@ const Preloader = ({
         autoAlpha: numbersProgress >= 100 ? 0 : 1,
         filter: `blur(${numbersProgress >= 100 ? 2 : 0}px)`,
         duration: 1.2,
-        delay: 0.4,
+        delay: 0.5,
         ease: "power3.inOut",
         onComplete: () => {
           if (numbersProgress >= 100) setIsLoading(false);
@@ -66,10 +66,10 @@ const Preloader = ({
       timelineRefs.current.numbersOut
         .set(containerRef.current, { y: 0 })
         .to(containerRef.current, {
-          y: numbersProgress >= 100 ? 500 : 0,
-          duration: 1.7,
-          delay: -0.25,
-          ease: "power2.in",
+          y: numbersProgress >= 100 ? 540 : 0,
+          duration: 1.55,
+          delay: 0,
+          ease: "power3.in",
         });
     }
 
@@ -107,9 +107,6 @@ const Preloader = ({
   return (
     <div className={`${styles["preloader"]} ${className}`} style={style}>
       <div className={styles["text-container"]} ref={containerRef}>
-        <div>
-          <p className="text-body-3">Vova Vindar Archive</p>
-        </div>
         <div>
           <p className="text-body-3" ref={progressIndicatorRef}>
             {numbersProgress}

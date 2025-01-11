@@ -6,7 +6,7 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { startLenis, stopLenis } from "@/components/SmoothScrolling";
 
-export default function Contact({ isAnimating, easing, duration }) {
+export default function Contact({ isAnimating, duration }) {
   const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {

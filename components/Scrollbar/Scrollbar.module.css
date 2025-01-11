@@ -13,7 +13,7 @@
   filter: blur(0px);
   transition: opacity 0.75s var(--easing-text-fade-in),
     filter 0.75s var(--easing-text-fade-in);
-  transition-delay: 0.4s;
+  transition-delay: 0.65s;
   user-select: none;
 }
 
