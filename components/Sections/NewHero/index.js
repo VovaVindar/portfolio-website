@@ -12,27 +12,17 @@ const Hero = ({
   startPageAnimation,
   linesCount,
 }) => {
-  const heroOnload = useRef([]);
+  const imgOnload = useRef([]);
+  const cellOnload = useRef([]);
   const timelineRef = useRef(null);
-  const hasInitialized = useRef(false);
-
-  useEffect(() => {
-    if (!hasInitialized.current) {
-      // Only run once
-      heroOnload.current = heroOnload.current.slice(
-        0,
-        document.querySelectorAll("[data-gsap]").length
-      );
-      hasInitialized.current = true;
-    }
-  }, []);
+  const timelineRef2 = useRef(null);
 
   const heroStagger = useCallback((index, interval) => {
     if (index <= 3) return 0;
     if (index >= 4 && index <= 6) return 2 * interval;
     if (index >= 7 && index <= 8) return 4 * interval;
     if (index >= 9 && index <= 11) return 6 * interval;
-    if (index >= 12) return 4 * interval;
+    if (index >= 12) return 8 * interval;
   }, []);
 
   useGSAP(() => {
@@ -40,27 +30,49 @@ const Hero = ({
     if (timelineRef.current) {
       timelineRef.current.kill();
     }
+    if (timelineRef2.current) {
+      timelineRef2.current.kill();
+    }
 
     timelineRef.current = gsap.timeline();
+    timelineRef2.current = gsap.timeline();
 
-    if (heroOnload.current.length) {
-      timelineRef.current.fromTo(
-        heroOnload.current,
-        {
-          autoAlpha: 0,
-          filter: "blur(2.5px)",
-          color: "red",
-        },
-        {
-          autoAlpha: startPageAnimation ? 1 : 0,
-          filter: `blur(${startPageAnimation ? 0 : 1.5}px)`,
-          color: "#0F1010",
-          duration: duration,
-          delay: linesCount ? 0.3 : 0.7,
-          ease: easing,
-          stagger: (index) => heroStagger(index, staggerInterval - 0.02),
-        }
-      );
+    if (startPageAnimation) {
+      // Img filters animation
+      if (imgOnload.current.length) {
+        timelineRef.current.to([...imgOnload.current].reverse(), {
+          delay: 1.3,
+          stagger: {
+            each: 0.072,
+            onComplete() {
+              console.log(
+                this.targets()[0].classList.add(`${styles["in-view"]}`)
+              );
+            },
+          },
+        });
+      }
+
+      // Slide animation
+      if (cellOnload.current.length) {
+        timelineRef2.current.fromTo(
+          [...cellOnload.current].reverse(),
+          {
+            //autoAlpha: 0,
+            y: "-105vh",
+            //scale: 1.2,
+          },
+          {
+            //autoAlpha: startPageAnimation ? 1 : 0,
+            y: 0,
+            scale: 1,
+            duration: 3.2,
+            delay: 1.3,
+            ease: "power2.out",
+            stagger: 0.072,
+          }
+        );
+      }
     }
 
     return () => {
@@ -68,13 +80,17 @@ const Hero = ({
         timelineRef.current.kill();
         timelineRef.current = null;
       }
+      if (timelineRef2.current) {
+        timelineRef2.current.kill();
+        timelineRef2.current = null;
+      }
     };
   }, [startPageAnimation]);
 
   return (
     <div className={styles["hero-container"]}>
-      <HeroTitle />
-      <HeroGrid heroOnload={heroOnload} />
+      {/*<HeroTitle />*/}
+      <HeroGrid imgOnload={imgOnload} cellOnload={cellOnload} />
     </div>
   );
 };

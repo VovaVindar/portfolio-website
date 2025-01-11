@@ -55,8 +55,8 @@ const Preloader = ({
         autoAlpha: numbersProgress >= 100 ? 0 : 1,
         filter: `blur(${numbersProgress >= 100 ? 2 : 0}px)`,
         duration: 1.2,
-        delay: 0.3,
-        ease: "power4.out",
+        delay: 0.4,
+        ease: "power3.inOut",
         onComplete: () => {
           if (numbersProgress >= 100) setIsLoading(false);
         },
@@ -66,10 +66,10 @@ const Preloader = ({
       timelineRefs.current.numbersOut
         .set(containerRef.current, { y: 0 })
         .to(containerRef.current, {
-          y: numbersProgress >= 100 ? 200 : 0,
-          duration: 1,
-          delay: 0.3,
-          ease: "power1.in",
+          y: numbersProgress >= 100 ? 500 : 0,
+          duration: 1.7,
+          delay: -0.25,
+          ease: "power2.in",
         });
     }
 

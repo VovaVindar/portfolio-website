@@ -59,7 +59,7 @@ const LoadingLines = ({
     const config = {
       staggerInterval: isHighDensity ? 0.0002 : 0.038,
       duration: 1.25,
-      delay: 0.05,
+      delay: 0.45, // was 0.05
       completionDelay: 540,
     };
 

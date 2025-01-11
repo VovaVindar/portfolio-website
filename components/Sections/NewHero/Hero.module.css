@@ -28,9 +28,22 @@
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: hidden;
 }
 .grid-cell .cell-image {
   background-color: black;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  image-rendering: smooth;
+}
+.grid-cell .cell-image {
+  transform: scale(1.15);
+  filter: blur(3px) brightness(2) saturate(3.5);
+  transition: transform 3.2s var(--easing-img-fade-in),
+    filter 3.2s var(--easing-img-fade-in); /* power2.out */
+}
+.grid-cell .cell-image.in-view {
+  transform: scale(1);
+  filter: blur(0px) brightness(1) saturate(1);
 }
