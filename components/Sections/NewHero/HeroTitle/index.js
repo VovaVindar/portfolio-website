@@ -3,7 +3,7 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-const HeroTitle = ({ style, isAnimating = true, duration }) => {
+const HeroTitle = ({ style, isAnimating = true, duration, ease }) => {
   const heroTitleRef = useRef(null);
   const scrollRef = useRef({ scrollTrigger: null, parallax: null });
   const onloadRef = useRef(null);
@@ -56,11 +56,11 @@ const HeroTitle = ({ style, isAnimating = true, duration }) => {
 
       onloadRef.current = gsap.fromTo(
         heroTitleRef.current,
-        { yPercent: -containerHeight },
+        { yPercent: -(containerHeight / 1.5) },
         {
-          yPercent: !isAnimating ? 0 : -containerHeight,
-          ease: "power2.out",
-          duration: duration,
+          yPercent: !isAnimating ? 0 : -(containerHeight / 1.5),
+          ease: ease,
+          duration: duration - 0.14,
           delay: 0,
           onComplete: () => {
             timeoutId = setTimeout(() => {

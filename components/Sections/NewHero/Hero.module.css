@@ -46,11 +46,11 @@
   image-rendering: smooth;
 }
 .grid-cell .cell-image {
-  transform: scale(var(--image-scale));
+  /*transform: scale(var(--image-scale));*/
   filter: blur(var(--image-blur)) brightness(var(--image-brightness))
     saturate(3.7);
-  transition: transform 2.7s var(--easing-img-fade-in),
-    filter 2.7s var(--easing-img-fade-in); /* power2.out */
+  transition: transform 3s var(--easing-img-fade-in),
+    filter 3s var(--easing-img-fade-in); /* power2.out */
   backface-visibility: hidden; /* to force GPU performance */
 }
 .grid-cell .cell-image.in-view {

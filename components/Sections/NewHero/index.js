@@ -6,11 +6,11 @@ import HeroTitle from "@/components/Sections/NewHero/HeroTitle";
 import HeroGrid from "@/components/Sections/NewHero/HeroGrid";
 
 const ANIMATION_CONSTANTS = {
-  IMG_DELAY: 1.595,
-  CELL_DELAY: 1.595,
-  STAGGER_DELAY: 0.064,
+  DELAY: 1.72,
+  EASE: "power3.out",
+  STAGGER_DELAY: 0.07,
   EXTRA_STAGGER: 0.04,
-  CELL_DURATION: 2.7,
+  CELL_DURATION: 3,
   INITIAL_BLUR: 4.5,
 };
 
@@ -37,7 +37,7 @@ const Hero = ({ isAnimating, startPageAnimation }) => {
       // Image filters animation
       if (imgOnload.current?.length) {
         timelineImgRef.current.to([...imgOnload.current].reverse(), {
-          delay: ANIMATION_CONSTANTS.IMG_DELAY,
+          delay: ANIMATION_CONSTANTS.DELAY,
           stagger: {
             each:
               ANIMATION_CONSTANTS.STAGGER_DELAY +
@@ -58,12 +58,14 @@ const Hero = ({ isAnimating, startPageAnimation }) => {
           [...cellOnload.current].reverse(),
           {
             y: -(containerHeight + 5),
+            autoAlpha: 0,
           },
           {
             y: 0,
+            autoAlpha: 1,
             duration: ANIMATION_CONSTANTS.CELL_DURATION,
-            delay: ANIMATION_CONSTANTS.CELL_DELAY,
-            ease: "power2.out",
+            delay: ANIMATION_CONSTANTS.DELAY,
+            ease: ANIMATION_CONSTANTS.EASE,
             stagger: ANIMATION_CONSTANTS.STAGGER_DELAY,
           }
         );
@@ -89,6 +91,7 @@ const Hero = ({ isAnimating, startPageAnimation }) => {
         style={{ opacity, filter: `blur(${blur}px)` }}
         isAnimating={isAnimating}
         duration={ANIMATION_CONSTANTS.CELL_DURATION}
+        ease={ANIMATION_CONSTANTS.EASE}
       />
       <HeroGrid imgOnload={imgOnload} cellOnload={cellOnload} />
     </div>

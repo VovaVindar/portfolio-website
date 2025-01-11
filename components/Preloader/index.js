@@ -67,7 +67,7 @@ const Preloader = ({
         .set(containerRef.current, { y: 0 })
         .to(containerRef.current, {
           y: numbersProgress >= 100 ? 540 : 0,
-          duration: 1.5,
+          duration: 1.49,
           delay: 0,
           ease: "power3.in",
         });
@@ -85,7 +85,7 @@ const Preloader = ({
           color: numbersProgress >= 100 ? "red" : "white",
           textShadow: "none",
           opacity: numbersProgress >= 100 ? 0.85 : 1,
-          filter: `blur(${numbersProgress >= 100 ? 0.75 : 0}px)`,
+          filter: `blur(${numbersProgress >= 100 ? 0.7 : 0}px)`,
           duration: 1,
           ease: "power4.out",
         });
