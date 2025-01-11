@@ -19,6 +19,7 @@ import { useScroll } from "@/context/ScrollContext";
 const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
   const [opacity, setOpacity] = useState(0);
   const [blur, setBlur] = useState(1.5);
+  const [y, setY] = useState(-100);
   const { scrollPosition, setScrollPosition } = useScroll();
 
   // Refs for cleanup and optimization
@@ -45,9 +46,11 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
     if (!isAnimating) {
       setOpacity(1);
       setBlur(0);
+      setY(0);
     } else {
       setOpacity(0);
       setBlur(1.5);
+      setY(-100);
     }
   }, [isAnimating]);
 
@@ -89,6 +92,7 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
   }, [updateDocumentHeight, updateScrollPosition]);
 
   const elementStyle = {
+    transform: `translateY(${y}%)`,
     opacity,
     filter: `blur(${blur}px)`,
     top: `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding)))`,

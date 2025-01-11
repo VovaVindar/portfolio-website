@@ -24,10 +24,10 @@ const Hero = ({ duration, easing, startPageAnimation, isAnimating }) => {
     timelineCellRef.current = gsap.timeline();
 
     if (startPageAnimation) {
-      // Img filters animation
+      // Img filters onload animation
       if (imgOnload.current.length) {
         timelineImgRef.current.to([...imgOnload.current].reverse(), {
-          delay: 1.625,
+          delay: 1.695,
           stagger: {
             each: 0.072,
             onComplete() {
@@ -37,7 +37,7 @@ const Hero = ({ duration, easing, startPageAnimation, isAnimating }) => {
         });
       }
 
-      // Slide animation
+      // Slide onload animation
       if (cellOnload.current.length) {
         const containerHeight =
           cellOnload.current[0].parentElement.offsetHeight;
@@ -50,7 +50,7 @@ const Hero = ({ duration, easing, startPageAnimation, isAnimating }) => {
           {
             y: 0,
             duration: 3,
-            delay: 1.525,
+            delay: 1.595,
             ease: "power2.out",
             stagger: 0.072,
           }

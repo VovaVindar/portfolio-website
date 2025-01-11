@@ -27,7 +27,7 @@ const HeroTitle = ({ style, isAnimating = true }) => {
       scrollRef.current.parallax = gsap.fromTo(
         heroTitleRef.current,
         { yPercent: 0 },
-        { yPercent: -65, ease: "none" }
+        { yPercent: -90, ease: "none" }
       );
 
       scrollRef.current.scrollTrigger = ScrollTrigger.create({
@@ -36,19 +36,22 @@ const HeroTitle = ({ style, isAnimating = true }) => {
         scrub: 1,
         start: "top top",
         end: "+=100%",
+        invalidateOnRefresh: true,
       });
     }
   }, [loadCompleted]);
 
   useEffect(() => {
     if (heroTitleRef.current) {
+      const containerHeight = heroTitleRef.current.parentElement.offsetHeight;
+
       onloadRef.current = gsap.fromTo(
         heroTitleRef.current,
-        { yPercent: -600 },
+        { yPercent: -containerHeight },
         {
-          yPercent: !isAnimating ? 0 : -600,
+          yPercent: !isAnimating ? 0 : -containerHeight,
           ease: "power2.out",
-          duration: 2.3,
+          duration: 2.6,
           delay: 0,
           onComplete: () => {
             setTimeout(() => {
@@ -64,21 +67,8 @@ const HeroTitle = ({ style, isAnimating = true }) => {
     // Initial setup
     setupAnimation();
 
-    // Add resize handler
-    const handleResize = gsap.delayedCall(0.1, setupAnimation).pause();
-
-    const resizeObserver = new ResizeObserver(() => {
-      // Reset the delayed call
-      handleResize.restart(true);
-    });
-
-    // Observe the window/document size changes
-    resizeObserver.observe(document.documentElement);
-
     // Cleanup function
     return () => {
-      handleResize.kill();
-      resizeObserver.disconnect();
       if (scrollRef.current.scrollTrigger) {
         scrollRef.current.scrollTrigger.kill();
       }

@@ -11,9 +11,11 @@
   color: var(--token-color-surface-secondary);
   opacity: 1;
   filter: blur(0px);
-  transition: opacity 0.75s var(--easing-text-fade-in),
-    filter 0.75s var(--easing-text-fade-in);
-  transition-delay: 0.65s;
+  transform: translateY(0);
+  transition: opacity 1s var(--easing-text-fade-in),
+    filter 1s var(--easing-text-fade-in),
+    transform 2.2s var(--easing-img-fade-in);
+  transition-delay: 0.7s;
   user-select: none;
 }
 

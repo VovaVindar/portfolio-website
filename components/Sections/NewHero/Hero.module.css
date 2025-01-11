@@ -16,9 +16,10 @@
 }
 .hero-container h1 {
   position: absolute;
-  left: 50%;
   top: 50%;
-  transform: translateY(-52.5%) translateX(-50.15%);
+  transform: translateY(-52.5%);
+  width: 100%;
+  text-align: center;
   z-index: 2;
   mix-blend-mode: difference;
   color: var(--token-color-surface-primary);

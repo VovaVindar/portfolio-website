@@ -68,6 +68,7 @@ const SelectedClients = ({
           once: true,
           start: "top 100%",
           end: "bottom+=100px top",
+          fastScrollEnd: true,
         });
       }
     }
