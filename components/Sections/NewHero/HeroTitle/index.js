@@ -9,9 +9,7 @@ const HeroTitle = ({ style, isAnimating = true }) => {
   const onloadRef = useRef(null);
   const [loadCompleted, setLoadCompleted] = useState(false);
 
-  // Create animation setup function
-  const setupAnimation = useCallback(() => {
-    // Kill previous instances if they exist
+  const cleanupAnimations = () => {
     if (scrollRef.current.scrollTrigger) {
       scrollRef.current.scrollTrigger.kill();
     }
@@ -21,27 +19,38 @@ const HeroTitle = ({ style, isAnimating = true }) => {
     if (onloadRef.current) {
       onloadRef.current.kill();
     }
+  };
 
-    // Create new animation
-    if (heroTitleRef.current && loadCompleted) {
-      scrollRef.current.parallax = gsap.fromTo(
-        heroTitleRef.current,
-        { yPercent: 0 },
-        { yPercent: -90, ease: "none" }
-      );
+  // Create animation setup function
+  const setupAnimation = useCallback(() => {
+    try {
+      cleanupAnimations();
 
-      scrollRef.current.scrollTrigger = ScrollTrigger.create({
-        trigger: "body",
-        animation: scrollRef.current.parallax,
-        scrub: 1,
-        start: "top top",
-        end: "+=100%",
-        invalidateOnRefresh: true,
-      });
+      // Scroll animation
+      if (heroTitleRef.current && loadCompleted) {
+        scrollRef.current.parallax = gsap.fromTo(
+          heroTitleRef.current,
+          { yPercent: 0 },
+          { yPercent: -80, ease: "none" }
+        );
+
+        scrollRef.current.scrollTrigger = ScrollTrigger.create({
+          trigger: "body",
+          animation: scrollRef.current.parallax,
+          scrub: 1,
+          start: "top top",
+          end: "+=100%",
+          invalidateOnRefresh: true,
+        });
+      }
+    } catch (error) {
+      console.error("Failed to setup animation:", error);
     }
   }, [loadCompleted]);
 
   useEffect(() => {
+    let timeoutId;
+
     if (heroTitleRef.current) {
       const containerHeight = heroTitleRef.current.parentElement.offsetHeight;
 
@@ -54,13 +63,17 @@ const HeroTitle = ({ style, isAnimating = true }) => {
           duration: 2.6,
           delay: 0,
           onComplete: () => {
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
               setLoadCompleted(true);
             }, 300);
           },
         }
       );
     }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [isAnimating]);
 
   useGSAP(() => {
@@ -69,15 +82,7 @@ const HeroTitle = ({ style, isAnimating = true }) => {
 
     // Cleanup function
     return () => {
-      if (scrollRef.current.scrollTrigger) {
-        scrollRef.current.scrollTrigger.kill();
-      }
-      if (scrollRef.current.parallax) {
-        scrollRef.current.parallax.kill();
-      }
-      if (onloadRef.current) {
-        onloadRef.current.kill();
-      }
+      cleanupAnimations();
     };
   }, [loadCompleted]);
 

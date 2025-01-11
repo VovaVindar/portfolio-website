@@ -5,42 +5,51 @@ import { useGSAP } from "@gsap/react";
 import HeroTitle from "@/components/Sections/NewHero/HeroTitle";
 import HeroGrid from "@/components/Sections/NewHero/HeroGrid";
 
-const Hero = ({ duration, easing, startPageAnimation, isAnimating }) => {
+const ANIMATION_CONSTANTS = {
+  IMG_DELAY: 1.695,
+  CELL_DELAY: 1.595,
+  STAGGER_DELAY: 0.072,
+  CELL_DURATION: 3,
+  INITIAL_BLUR: 4.5,
+};
+
+const Hero = ({ isAnimating, startPageAnimation }) => {
   const imgOnload = useRef([]);
   const cellOnload = useRef([]);
   const timelineImgRef = useRef(null);
   const timelineCellRef = useRef(null);
+  const [opacity, setOpacity] = useState(0);
+  const [blur, setBlur] = useState(ANIMATION_CONSTANTS.INITIAL_BLUR);
 
-  useGSAP(() => {
-    // Kill previous timeline if it exists
-    if (timelineImgRef.current) {
-      timelineImgRef.current.kill();
-    }
-    if (timelineCellRef.current) {
-      timelineCellRef.current.kill();
-    }
+  const setupTimelines = () => {
+    if (timelineImgRef.current) timelineImgRef.current.kill();
+    if (timelineCellRef.current) timelineCellRef.current.kill();
 
     timelineImgRef.current = gsap.timeline();
     timelineCellRef.current = gsap.timeline();
+  };
+
+  useGSAP(() => {
+    setupTimelines();
 
     if (startPageAnimation) {
-      // Img filters onload animation
-      if (imgOnload.current.length) {
+      // Image filters animation
+      if (imgOnload.current?.length) {
         timelineImgRef.current.to([...imgOnload.current].reverse(), {
-          delay: 1.695,
+          delay: ANIMATION_CONSTANTS.IMG_DELAY,
           stagger: {
-            each: 0.072,
+            each: ANIMATION_CONSTANTS.STAGGER_DELAY,
             onComplete() {
-              this.targets()[0].classList.add(`${styles["in-view"]}`);
+              this.targets()[0]?.classList.add(styles["in-view"]);
             },
           },
         });
       }
 
-      // Slide onload animation
-      if (cellOnload.current.length) {
+      // Cell slide animation
+      if (cellOnload.current?.length) {
         const containerHeight =
-          cellOnload.current[0].parentElement.offsetHeight;
+          cellOnload.current[0]?.parentElement?.offsetHeight ?? 0;
 
         timelineCellRef.current.fromTo(
           [...cellOnload.current].reverse(),
@@ -49,49 +58,34 @@ const Hero = ({ duration, easing, startPageAnimation, isAnimating }) => {
           },
           {
             y: 0,
-            duration: 3,
-            delay: 1.595,
+            duration: ANIMATION_CONSTANTS.CELL_DURATION,
+            delay: ANIMATION_CONSTANTS.CELL_DELAY,
             ease: "power2.out",
-            stagger: 0.072,
+            stagger: ANIMATION_CONSTANTS.STAGGER_DELAY,
           }
         );
       }
     }
 
     return () => {
-      if (timelineImgRef.current) {
-        timelineImgRef.current.kill();
-        timelineImgRef.current = null;
-      }
-      if (timelineCellRef.current) {
-        timelineCellRef.current.kill();
-        timelineCellRef.current = null;
-      }
+      timelineImgRef.current?.kill();
+      timelineCellRef.current?.kill();
+      timelineImgRef.current = null;
+      timelineCellRef.current = null;
     };
   }, [startPageAnimation]);
 
-  // Title fade-in animation
-  const [opacity, setOpacity] = useState(0);
-  const [blur, setBlur] = useState(4.5);
-
   useEffect(() => {
-    if (!isAnimating) {
-      setOpacity(1);
-      setBlur(0);
-    } else {
-      setOpacity(0);
-      setBlur(4.5);
-    }
+    setOpacity(isAnimating ? 0 : 1);
+    setBlur(isAnimating ? ANIMATION_CONSTANTS.INITIAL_BLUR : 0);
   }, [isAnimating]);
-
-  const titleStyle = {
-    opacity,
-    filter: `blur(${blur}px)`,
-  };
 
   return (
     <div className={styles["hero-container"]}>
-      <HeroTitle style={titleStyle} isAnimating={isAnimating} />
+      <HeroTitle
+        style={{ opacity, filter: `blur(${blur}px)` }}
+        isAnimating={isAnimating}
+      />
       <HeroGrid imgOnload={imgOnload} cellOnload={cellOnload} />
     </div>
   );

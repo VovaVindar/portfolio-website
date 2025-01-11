@@ -40,7 +40,10 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
       </Head>
       <div ref={container} className={`${styles["home-container"]} container`}>
         <Contact isAnimating={isAnimating} duration={ANIMATION_DURATION} />
-        <NewHero isAnimating={isAnimating} {...commonProps} />
+        <NewHero
+          isAnimating={isAnimating}
+          startPageAnimation={startPageAnimation}
+        />
         <About {...commonProps} linesCount={linesCount} />
         <SelectedClients {...commonProps} />
         <Work
