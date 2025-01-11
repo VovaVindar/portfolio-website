@@ -6,10 +6,11 @@ import HeroTitle from "@/components/Sections/NewHero/HeroTitle";
 import HeroGrid from "@/components/Sections/NewHero/HeroGrid";
 
 const ANIMATION_CONSTANTS = {
-  IMG_DELAY: 1.695,
+  IMG_DELAY: 1.595,
   CELL_DELAY: 1.595,
-  STAGGER_DELAY: 0.072,
-  CELL_DURATION: 3,
+  STAGGER_DELAY: 0.064,
+  EXTRA_STAGGER: 0.04,
+  CELL_DURATION: 2.7,
   INITIAL_BLUR: 4.5,
 };
 
@@ -38,7 +39,9 @@ const Hero = ({ isAnimating, startPageAnimation }) => {
         timelineImgRef.current.to([...imgOnload.current].reverse(), {
           delay: ANIMATION_CONSTANTS.IMG_DELAY,
           stagger: {
-            each: ANIMATION_CONSTANTS.STAGGER_DELAY,
+            each:
+              ANIMATION_CONSTANTS.STAGGER_DELAY +
+              ANIMATION_CONSTANTS.EXTRA_STAGGER,
             onComplete() {
               this.targets()[0]?.classList.add(styles["in-view"]);
             },
@@ -85,6 +88,7 @@ const Hero = ({ isAnimating, startPageAnimation }) => {
       <HeroTitle
         style={{ opacity, filter: `blur(${blur}px)` }}
         isAnimating={isAnimating}
+        duration={ANIMATION_CONSTANTS.CELL_DURATION}
       />
       <HeroGrid imgOnload={imgOnload} cellOnload={cellOnload} />
     </div>
