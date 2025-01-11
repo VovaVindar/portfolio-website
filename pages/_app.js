@@ -2,7 +2,7 @@ import "./styles/globals.css";
 import "./styles/design-system.css";
 import "./styles/mouse-follower.css";
 import localFont from "next/font/local";
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useState, useCallback } from "react";
 import Preloader from "@/components/Preloader";
 import { ScrollProvider } from "@/context/ScrollContext";
 import { TransitionProvider } from "@/context/TransitionContext";
@@ -48,11 +48,6 @@ function MyApp({ Component, pageProps, router }) {
   const [numbersProgress, setNumbersProgress] = useState(0);
   const [linesCount, setLinesCount] = useState(0);
   const mainRef = useRef(null);
-
-  // Log
-  useEffect(() => {
-    console.log("Latest push Dec 13 4:05 PM PST ");
-  }, []);
 
   // Use useCallback to ensure setNumbersProgress does not change on re-renders
   const updateProgress = useCallback((progress) => {

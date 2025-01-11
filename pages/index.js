@@ -6,15 +6,26 @@ import SelectedClients from "@/components/Sections/SelectedClients";
 import Work from "@/components/Sections/Work";
 import Footer from "@/components/Sections/Footer";
 import Contact from "@/components/Contact";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
+
+const STAGGER_INTERVAL = 0.11;
+const ANIMATION_DURATION = 0.75;
+const ANIMATION_EASING = "power1.in"; // Easing for: text fade in
 
 export default function Home({ isAnimating, numbersProgress, linesCount }) {
   const [startPageAnimation, setStartPageAnimation] = useState(false);
   const container = useRef(null);
 
-  var staggerInterval = 0.11;
-  var duration = 0.75;
-  var easing = "power1.in"; // Easing for: text fade in
+  // Memoize common props to prevent recreation
+  const commonProps = useMemo(
+    () => ({
+      staggerInterval: STAGGER_INTERVAL,
+      duration: ANIMATION_DURATION,
+      easing: ANIMATION_EASING,
+      startPageAnimation,
+    }),
+    [startPageAnimation]
+  );
 
   useEffect(() => {
     if (numbersProgress >= 100) {
@@ -30,40 +41,18 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
       <div ref={container} className={`${styles["home-container"]} container`}>
         <Contact
           isAnimating={isAnimating}
-          easing={easing}
-          duration={duration}
+          easing={ANIMATION_EASING}
+          duration={ANIMATION_DURATION}
         />
-        <NewHero
-          staggerInterval={staggerInterval}
-          duration={duration}
-          easing={easing}
-          startPageAnimation={startPageAnimation}
-          linesCount={linesCount}
-        />
-        <About
-          staggerInterval={staggerInterval}
-          duration={duration}
-          easing={easing}
-          startPageAnimation={startPageAnimation}
-          linesCount={linesCount}
-        />
-        <SelectedClients
-          staggerInterval={staggerInterval}
-          duration={duration}
-          easing={easing}
-          startPageAnimation={startPageAnimation}
-        />
+        <NewHero {...commonProps} linesCount={linesCount} />
+        <About {...commonProps} linesCount={linesCount} />
+        <SelectedClients {...commonProps} />
         <Work
-          duration={duration}
-          easing={easing}
+          duration={ANIMATION_DURATION}
+          easing={ANIMATION_EASING}
           startPageAnimation={startPageAnimation}
         />
-        <Footer
-          staggerInterval={staggerInterval}
-          duration={duration}
-          easing={easing}
-          startPageAnimation={startPageAnimation}
-        />
+        <Footer {...commonProps} />
       </div>
     </>
   );

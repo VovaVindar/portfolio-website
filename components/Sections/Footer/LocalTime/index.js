@@ -18,7 +18,6 @@ const LocalTime = forwardRef((props, ref) => {
           .map((part) => part.trim());
         setTime({ hours, minutes });
       } catch (error) {
-        console.error("Error updating time:", error);
         setTime({ hours: "--", minutes: "--" });
       }
     };

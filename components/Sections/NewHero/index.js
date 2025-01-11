@@ -1,5 +1,5 @@
 import styles from "./Hero.module.css";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import HeroTitle from "@/components/Sections/NewHero/HeroTitle";
@@ -14,24 +14,26 @@ const Hero = ({
 }) => {
   const heroOnload = useRef([]);
   const timelineRef = useRef(null);
+  const hasInitialized = useRef(false);
 
-  // Keep the original useEffect for ref initialization
   useEffect(() => {
-    heroOnload.current = heroOnload.current.slice(
-      0,
-      document.querySelectorAll("[data-gsap]").length
-    );
+    if (!hasInitialized.current) {
+      // Only run once
+      heroOnload.current = heroOnload.current.slice(
+        0,
+        document.querySelectorAll("[data-gsap]").length
+      );
+      hasInitialized.current = true;
+    }
   }, []);
 
-  const heroStagger = (index, interval) => {
-    if (index === 0) {
-      return 0;
-    } else if (index <= 8) {
-      return (index + 2) * interval;
-    } else {
-      return (index - 9) * interval;
-    }
-  };
+  const heroStagger = useCallback((index, interval) => {
+    if (index <= 3) return 0;
+    if (index >= 4 && index <= 6) return 2 * interval;
+    if (index >= 7 && index <= 8) return 4 * interval;
+    if (index >= 9 && index <= 11) return 6 * interval;
+    if (index >= 12) return 4 * interval;
+  }, []);
 
   useGSAP(() => {
     // Kill previous timeline if it exists
@@ -67,7 +69,7 @@ const Hero = ({
         timelineRef.current = null;
       }
     };
-  }, [startPageAnimation, duration, easing, linesCount, staggerInterval]);
+  }, [startPageAnimation]);
 
   return (
     <div className={styles["hero-container"]}>
