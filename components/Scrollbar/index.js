@@ -105,11 +105,7 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
           <Magnetic type="text">{text}</Magnetic>
         </Link>
       ) : (
-        <button
-          style={elementStyle}
-          className="text-body-1-uppercase"
-          onClick={onClick}
-        >
+        <button style={elementStyle} onClick={onClick}>
           <Magnetic type="text">{text}</Magnetic>
         </button>
       )}

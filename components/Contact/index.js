@@ -126,12 +126,12 @@ export default function Contact({ isAnimating, duration }) {
       <div className={`${styles["contact-container"]}`} ref={containerRef}>
         <Magnetic
           style={{ height: "min-content", width: "min-content" }}
-          movement={0.11}
-          passedScale={1.048}
+          movement={0.072}
+          passedScale={1.032}
         >
           <button
             ref={contactRef}
-            className="text-body-1-uppercase mf-exclusion"
+            className="text-body-3-uppercase mf-exclusion"
             data-cursor-text="Copy"
             onClick={(e) => {
               e.preventDefault();

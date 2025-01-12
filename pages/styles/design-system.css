@@ -139,6 +139,15 @@ h2,
   height: var(--small-text-line-height);
   line-height: 70%;
 }
+.text-body-3-uppercase {
+  font-size: var(--token-font-size-4);
+  font-family: var(--lausanne);
+  font-weight: 600;
+  letter-spacing: var(--token-letter-spacing-6);
+  height: var(--small-text-line-height);
+  line-height: 70%;
+  text-transform: uppercase;
+}
 .text-body-3 p {
   height: var(--small-text-line-height);
 }
