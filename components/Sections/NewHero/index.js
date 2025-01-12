@@ -90,10 +90,13 @@ const Hero = ({ isAnimating, startPageAnimation }) => {
           {
             y: -(containerHeight + 5),
             autoAlpha: 0,
+            scale: 1.8,
           },
           {
             y: 0,
             autoAlpha: 1,
+            scale: 1,
+            transformOrigin: "bottom",
             duration: ANIMATION_CONSTANTS.CELL_DURATION,
             delay: ANIMATION_CONSTANTS.DELAY,
             ease: ANIMATION_CONSTANTS.EASE,
