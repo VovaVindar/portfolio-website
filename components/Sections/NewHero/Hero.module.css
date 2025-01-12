@@ -14,6 +14,9 @@
   position: relative;
   background-color: var(--token-color-surface-primary);
 }
+.hero-container .in-view {
+  background-color: red;
+}
 .hero-container h1 {
   margin-left: -3px;
   position: absolute;
@@ -56,4 +59,12 @@
 .grid-cell .cell-image.in-view {
   transform: scale(1);
   filter: blur(0px) brightness(1) saturate(1);
+}
+.hero-container.scroll .grid-cell .cell-image {
+  transition: transform 0.2s var(--easing-img-fade-in),
+    filter 0.2s var(--easing-img-fade-in); /* power2.out */
+}
+.hero-container.scroll .grid-cell .cell-image.in-view {
+  transition: transform 2.1s var(--easing-img-fade-in),
+    filter 2.1s var(--easing-img-fade-in); /* power2.out */
 }

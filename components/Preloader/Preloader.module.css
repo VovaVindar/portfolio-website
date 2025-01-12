@@ -9,7 +9,7 @@
   user-select: none;
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   padding: var(--global-padding);
   background-color: transparent;
 }

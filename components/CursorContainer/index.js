@@ -20,10 +20,12 @@ const FAVICON_CONFIG = {
 const CursorContainer = ({ className = "", isAnimating = true }) => {
   const cursorRef = useRef(null);
   const rotationDegRef = useRef(0);
-  const [currentFavicon, setCurrentFavicon] = useState(FAVICON_TYPES.DEFAULT);
+  const [currentFavicon, setCurrentFavicon] = useState(FAVICON_TYPES.MAIN);
 
   // Favicon management
   const setFavicon = useCallback((baseName) => {
+    if (!baseName) return; // Add protection against undefined baseName
+
     const cacheBuster = `?v=${Date.now()}`;
 
     // Remove existing favicons

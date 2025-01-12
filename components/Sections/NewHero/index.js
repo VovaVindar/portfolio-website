@@ -4,12 +4,15 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import HeroTitle from "@/components/Sections/NewHero/HeroTitle";
 import HeroGrid from "@/components/Sections/NewHero/HeroGrid";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ANIMATION_CONSTANTS = {
   DELAY: 1.72,
   EASE: "power3.out",
   STAGGER_DELAY: 0.07,
-  EXTRA_STAGGER: 0.04,
+  EXTRA_STAGGER: 0.074,
   CELL_DURATION: 3,
   INITIAL_BLUR: 4.5,
 };
@@ -17,14 +20,18 @@ const ANIMATION_CONSTANTS = {
 const Hero = ({ isAnimating, startPageAnimation }) => {
   const imgOnload = useRef([]);
   const cellOnload = useRef([]);
+  const containerRef = useRef(null);
   const timelineImgRef = useRef(null);
+  const scrolltriggerImgRef = useRef(null);
   const timelineCellRef = useRef(null);
+
   const [opacity, setOpacity] = useState(0);
   const [blur, setBlur] = useState(ANIMATION_CONSTANTS.INITIAL_BLUR);
 
   const setupTimelines = () => {
     if (timelineImgRef.current) timelineImgRef.current.kill();
     if (timelineCellRef.current) timelineCellRef.current.kill();
+    if (scrolltriggerImgRef.current) scrolltriggerImgRef.current.kill();
 
     timelineImgRef.current = gsap.timeline();
     timelineCellRef.current = gsap.timeline();
@@ -38,6 +45,7 @@ const Hero = ({ isAnimating, startPageAnimation }) => {
       if (imgOnload.current?.length) {
         timelineImgRef.current.to([...imgOnload.current].reverse(), {
           delay: ANIMATION_CONSTANTS.DELAY,
+          duration: 0,
           stagger: {
             each:
               ANIMATION_CONSTANTS.STAGGER_DELAY +
@@ -47,6 +55,29 @@ const Hero = ({ isAnimating, startPageAnimation }) => {
             },
           },
         });
+
+        if (containerRef.current) {
+          scrolltriggerImgRef.current = ScrollTrigger.create({
+            trigger: containerRef.current,
+            start: "bottom+=50px top",
+            end: "max",
+            onEnter: () => {
+              containerRef.current.classList.add(`${styles["scroll"]}`);
+              [...imgOnload.current].forEach((img) => {
+                img.classList.remove(styles["in-view"]);
+              });
+            },
+            onLeaveBack: () => {
+              // Remove the class when scrolling back up
+              [...imgOnload.current].forEach((img) => {
+                img.classList.add(styles["in-view"]);
+              });
+            },
+            once: false,
+          });
+
+          ScrollTrigger.refresh();
+        }
       }
 
       // Cell slide animation
@@ -75,8 +106,10 @@ const Hero = ({ isAnimating, startPageAnimation }) => {
     return () => {
       timelineImgRef.current?.kill();
       timelineCellRef.current?.kill();
+      scrolltriggerImgRef.current?.kill();
       timelineImgRef.current = null;
       timelineCellRef.current = null;
+      scrolltriggerImgRef.current = null;
     };
   }, [startPageAnimation]);
 
@@ -86,7 +119,7 @@ const Hero = ({ isAnimating, startPageAnimation }) => {
   }, [isAnimating]);
 
   return (
-    <div className={styles["hero-container"]}>
+    <div className={styles["hero-container"]} ref={containerRef}>
       <HeroTitle
         style={{ opacity, filter: `blur(${blur}px)` }}
         isAnimating={isAnimating}
