@@ -128,3 +128,29 @@ export const WORK = {
     },
   },
 };
+
+export const FOOTER = {
+  EASING: ANIMATION_EASING,
+
+  LOAD: {
+    START_DELAY: 2250,
+  },
+
+  SCROLL: {
+    DURATION: ANIMATION_DURATION,
+    STAGGER: STAGGER_INTERVAL,
+    STAGGER_MOBILE_OFFSET: -0.02,
+    BLUR: {
+      START: "2px",
+      END: "0px",
+    },
+    COLOR: {
+      START: "red",
+      END: "#0F1010",
+    },
+    TRIGGER: {
+      START: "top 100%",
+    },
+    ONCE: SCROLLTRIGGER_ONCE,
+  },
+};

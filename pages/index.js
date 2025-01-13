@@ -44,13 +44,12 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
           isAnimating={isAnimating}
           startPageAnimation={startPageAnimation}
         />
-        <About {...commonProps} linesCount={linesCount} />
-        <SelectedClients {...commonProps} />
-        <Work
-          duration={ANIMATION_DURATION}
-          easing={ANIMATION_EASING}
+        <About
           startPageAnimation={startPageAnimation}
+          linesCount={linesCount}
         />
+        <SelectedClients startPageAnimation={startPageAnimation} />
+        <Work startPageAnimation={startPageAnimation} />
         <Footer {...commonProps} />
       </div>
     </>
