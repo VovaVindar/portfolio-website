@@ -1,20 +1,18 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Preloader.module.css";
-import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
 import { usePreloader } from "@/context/PreloaderContext";
+import { usePreloaderOnloadAnimations } from "@/hooks/animations/onload/usePreloaderOnloadAnimations";
+import { PRELOADER } from "@/constants/animations";
 
 const Preloader = ({ mainRef, className }) => {
   const { loadProgress, updateProgress } = usePreloader();
-  const containerRef = useRef(null);
-  const progressIndicatorRef = useRef(null);
-  const timelineRefs = useRef({});
   const [isLoading, setIsLoading] = useState(true);
   const [opacity, setOpacity] = useState(0);
 
-  const INTERVAL_DURATION = 135 * 1.6;
+  const { containerRef, progressIndicatorRef } =
+    usePreloaderOnloadAnimations(loadProgress);
 
-  // Handle image loading progress
   useEffect(() => {
     if (!mainRef.current) return;
 
@@ -25,82 +23,36 @@ const Preloader = ({ mainRef, className }) => {
       const newProgress =
         (imgLoad.progressedCount / imgLoad.images.length) * 100;
       if (newProgress > currentProgress) {
-        const increment = Math.min(newProgress - currentProgress, 14);
+        const increment = Math.min(
+          newProgress - currentProgress,
+          PRELOADER.LOADING.INCREMENT_CAP
+        );
         currentProgress += increment;
         updateProgress(currentProgress.toFixed(0));
       } else if (currentProgress === 100) {
         clearInterval(intervalId);
       }
-    }, INTERVAL_DURATION);
+    }, PRELOADER.LOADING.INTERVAL);
 
     return () => clearInterval(intervalId);
   }, [mainRef, updateProgress]);
 
-  // Handle animations
   useEffect(() => {
-    timelineRefs.current = {
-      numbers: gsap.timeline({}),
-      numbersOut: gsap.timeline({}),
-      movement: gsap.timeline({}),
-    };
-
     if (containerRef.current) {
       setOpacity(1);
-
-      timelineRefs.current.numbers.to(containerRef.current, {
-        autoAlpha: loadProgress >= 100 ? 0 : 1,
-        filter: `blur(${loadProgress >= 100 ? 2 : 0}px)`,
-        duration: 1.2,
-        delay: 0.5,
-        ease: "power3.inOut",
-        onComplete: () => {
-          if (loadProgress >= 100) setIsLoading(false);
-        },
-      });
-
-      timelineRefs.current.numbersOut
-        .set(containerRef.current, { y: 0 })
-        .to(containerRef.current, {
-          y: loadProgress >= 100 ? 540 : 0,
-          duration: 1.49,
-          delay: 0,
-          ease: "power3.in",
-        });
     }
-
-    if (progressIndicatorRef.current) {
-      timelineRefs.current.movement
-        .set(progressIndicatorRef.current, {
-          color: "red",
-          opacity: 0.4,
-          textShadow: "0 0 10px rgba(255, 0, 0, 0.7)",
-        })
-        .to(progressIndicatorRef.current, {
-          marginLeft: `calc(${loadProgress}% - 3ch)`,
-          color: loadProgress >= 100 ? "red" : "white",
-          textShadow: "none",
-          opacity: loadProgress >= 100 ? 0.85 : 1,
-          filter: `blur(${loadProgress >= 100 ? 0.7 : 0}px)`,
-          duration: 1,
-          ease: "power4.out",
-        });
-    }
-
-    return () => {
-      Object.values(timelineRefs.current).forEach((timeline) =>
-        timeline?.kill()
+    if (loadProgress >= 100) {
+      setTimeout(
+        () => setIsLoading(false),
+        (PRELOADER.FADE.DURATION + PRELOADER.FADE.DELAY) * 1000 + 10
       );
-    };
-  }, [loadProgress]);
-
-  const style = {
-    opacity: opacity,
-  };
+    }
+  }, [loadProgress, containerRef]);
 
   if (!isLoading) return null;
 
   return (
-    <div className={`${styles["preloader"]} ${className}`} style={style}>
+    <div className={`${styles["preloader"]} ${className}`} style={{ opacity }}>
       <div className={styles["text-container"]} ref={containerRef}>
         <div>
           <p className="text-body-3" ref={progressIndicatorRef}>

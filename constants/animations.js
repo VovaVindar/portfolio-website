@@ -3,6 +3,52 @@ const ANIMATION_DURATION = 0.75;
 const ANIMATION_EASING = "power1.in"; // Easing for: text fade in
 const SCROLLTRIGGER_ONCE = true;
 
+export const PRELOADER = {
+  LOADING: {
+    INTERVAL: 135 * 1.6,
+    INCREMENT_CAP: 14,
+  },
+
+  FADE: {
+    DURATION: 1.2,
+    DELAY: 0.5,
+    EASING: "power3.inOut",
+    BLUR: {
+      ACTIVE: "0px",
+      COMPLETE: "2px",
+    },
+  },
+
+  SLIDE: {
+    DURATION: 1.49,
+    EASING: "power3.in",
+    Y_OFFSET: 540,
+  },
+
+  PROGRESS: {
+    DURATION: 1,
+    EASING: "power4.out",
+    COLOR: {
+      START: "red",
+      LOADING: "white",
+      COMPLETE: "red",
+    },
+    OPACITY: {
+      START: 0.4,
+      LOADING: 1,
+      COMPLETE: 0.85,
+    },
+    BLUR: {
+      START: "0px",
+      COMPLETE: "0.7px",
+    },
+    SHADOW: {
+      START: "0 0 10px rgba(255, 0, 0, 0.7)",
+      END: "none",
+    },
+  },
+};
+
 export const HERO = {
   EASING: "power3.out",
 
