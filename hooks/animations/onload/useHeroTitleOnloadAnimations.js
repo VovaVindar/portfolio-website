@@ -40,6 +40,8 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
           },
         });
       }
+    } else if (isPageChanging) {
+      onLoadComplete(true);
     }
 
     return () => {

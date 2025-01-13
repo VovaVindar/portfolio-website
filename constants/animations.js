@@ -80,7 +80,7 @@ export const HERO = {
       },
       DURATION_OFFSET: -0.14,
       INITIAL_BLUR: 4.5,
-      SCROLLTRIGGER_START_DELAY: 300,
+      SCROLLTRIGGER_START_DELAY: 50,
       INITIAL_DELAY: 2.64,
     },
 
