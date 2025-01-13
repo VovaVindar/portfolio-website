@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { TransitionContext } from "@/context/TransitionContext";
 gsap.registerPlugin(useGSAP);
-import TransitionLines from "@/components/Transition/TransitionLines";
+import TransitionLines from "@/components/Onload/Transition/TransitionLines";
 
 export default function TransitionLayout({
   children,

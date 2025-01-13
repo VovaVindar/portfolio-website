@@ -3,7 +3,7 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import styles from "./Hero.module.css";
 import DesignerChair from "@/components/unused/Chairs/DesignerChair";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/Global/Magnetic";
 
 const Hero = ({ staggerInterval, duration, easing, startPageAnimation }) => {
   const heroOnload = useRef([]);

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import styles from "./StopButton.module.css";
 import gsap from "gsap";
 import Image from "next/image";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/Global/Magnetic";
 import { useGSAP } from "@gsap/react";
 
 const StopButton = ({

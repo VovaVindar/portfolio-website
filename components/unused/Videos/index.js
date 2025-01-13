@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./Videos.module.css";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/Global/Magnetic";
 import Image from "next/image";
 import Marquee from "@/components/Marquee";
 import { useGSAP } from "@gsap/react";

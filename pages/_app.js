@@ -1,47 +1,14 @@
-import "./styles/globals.css";
-import "./styles/design-system.css";
-import "./styles/mouse-follower.css";
-import localFont from "next/font/local";
+import "@/styles/globals.css";
+import "@/styles/design-system.css";
+import "@/styles/mouse-follower.css";
+import { fonts } from "@/config/fonts";
 import { useRef, useState, useCallback } from "react";
-import Preloader from "@/components/Preloader";
+import Preloader from "@/components/Onload/Preloader";
 import { ScrollProvider } from "@/context/ScrollContext";
 import { TransitionProvider } from "@/context/TransitionContext";
-import Transition from "@/components/Transition";
-import CursorContainer from "@/components/CursorContainer";
-import SmoothScrolling from "@/components/SmoothScrolling";
-
-const lausanne = localFont({
-  src: [
-    {
-      path: "./fonts/TWKLausanne-400.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "./fonts/TWKLausanne-600.woff2",
-      weight: "600",
-      style: "normal",
-    },
-  ],
-  adjustFontFallback: "Arial",
-  preload: true,
-  display: "swap",
-  variable: "--lausanne",
-});
-
-const times = localFont({
-  src: [
-    {
-      path: "./fonts/TimesItalic.woff2",
-      weight: "400",
-      style: "italic",
-    },
-  ],
-  adjustFontFallback: "Times",
-  preload: true,
-  display: "swap",
-  variable: "--times",
-});
+import Transition from "@/components/Onload/Transition";
+import CursorContainer from "@/components/Global/CursorContainer";
+import SmoothScrolling from "@/components/Global/SmoothScrolling";
 
 function MyApp({ Component, pageProps, router }) {
   const [isAnimating, setIsAnimating] = useState(true);
@@ -65,11 +32,11 @@ function MyApp({ Component, pageProps, router }) {
           numbersProgress={numbersProgress}
           mainRef={mainRef}
           setNumbersProgress={updateProgress}
-          className={`${lausanne.variable}`}
+          className={`${fonts.variables}`}
         />
       )}
       <CursorContainer
-        className={`${lausanne.variable}`}
+        className={`${fonts.variables}`}
         isAnimating={isAnimating}
       />
       <ScrollProvider>
@@ -85,7 +52,7 @@ function MyApp({ Component, pageProps, router }) {
               <main
                 ref={mainRef}
                 key={router.route}
-                className={`${lausanne.variable} ${times.variable}`}
+                className={`${fonts.variables}`}
               >
                 <Component
                   numbersProgress={numbersProgress}

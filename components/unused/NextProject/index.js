@@ -1,6 +1,6 @@
 import styles from "./NextProject.module.css";
 import Image from "next/image";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/Global/Magnetic";
 
 const NextProject = ({}) => {
   return (

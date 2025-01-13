@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import styles from "./Contact.module.css";
 import Scrollbar from "@/components/Scrollbar";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/Global/Magnetic";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
-import { startLenis, stopLenis } from "@/components/SmoothScrolling";
+import { startLenis, stopLenis } from "@/components/Global/SmoothScrolling";
 
 export default function Contact({ isAnimating, duration }) {
   const [contactOpen, setContactOpen] = useState(false);

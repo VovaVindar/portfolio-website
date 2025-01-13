@@ -2,8 +2,8 @@ import styles from "./Hero.module.css";
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
-import HeroTitle from "@/components/Sections/Hero/HeroTitle";
-import HeroGrid from "@/components/Sections/Hero/HeroGrid";
+import HeroTitle from "@/components/Home/Hero/HeroTitle";
+import HeroGrid from "@/components/Home/Hero/HeroGrid";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);

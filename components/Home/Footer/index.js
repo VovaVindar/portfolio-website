@@ -3,9 +3,9 @@ import styles from "./Footer.module.css";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/Global/Magnetic";
 import Link from "next/link";
-import LocalTime from "@/components/Sections/Footer/LocalTime";
+import LocalTime from "@/components/Home/Footer/LocalTime";
 
 const Footer = ({ staggerInterval, duration, easing, startPageAnimation }) => {
   const footerOnscroll = useRef([]);

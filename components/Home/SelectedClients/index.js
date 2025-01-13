@@ -3,8 +3,8 @@ import styles from "./SelectedClients.module.css";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import Clients from "@/components/Sections/SelectedClients/Clients";
-import AnimatedSubheader from "@/components/Sections/SelectedClients/AnimatedSubheader";
+import Clients from "@/components/Home/SelectedClients/Clients";
+import AnimatedSubheader from "@/components/Home/SelectedClients/AnimatedSubheader";
 
 gsap.registerPlugin(ScrollTrigger);
 

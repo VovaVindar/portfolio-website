@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styles from "./SoundButton.module.css";
 import Image from "next/image";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/Global/Magnetic";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 

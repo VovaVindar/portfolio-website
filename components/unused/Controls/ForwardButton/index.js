@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import styles from "./ForwardButton.module.css";
 import Image from "next/image";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/Global/Magnetic";
 
 const ForwardButton = ({
   setSpeedCoef,

@@ -1,6 +1,6 @@
 import styles from "../Hero.module.css";
 import Image from "next/image";
-import Magnetic from "@/components/Magnetic";
+import Magnetic from "@/components/Global/Magnetic";
 
 const HeroGrid = ({ imgOnload, cellOnload }) => {
   let refIndex = 0; // For ref handling

@@ -1,10 +1,10 @@
 import Head from "next/head";
 import styles from "./Home.module.css";
-import Hero from "@/components/Sections/Hero";
-import About from "@/components/Sections/About";
-import SelectedClients from "@/components/Sections/SelectedClients";
-import Work from "@/components/Sections/Work";
-import Footer from "@/components/Sections/Footer";
+import Hero from "@/components/Home/Hero";
+import About from "@/components/Home/About";
+import SelectedClients from "@/components/Home/SelectedClients";
+import Work from "@/components/Home/Work";
+import Footer from "@/components/Home/Footer";
 import Contact from "@/components/Contact";
 import { useRef, useEffect, useState, useMemo } from "react";
 
