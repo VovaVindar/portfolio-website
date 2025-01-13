@@ -4,7 +4,7 @@ import { useScroll } from "@/context/ScrollContext";
 
 const WIDE_SCREEN_BREAKPOINT = 1060;
 
-const AnimatedSubheader = ({ clientsOnscroll }) => {
+const ClientsSubheader = ({ clientsOnscroll }) => {
   const subheaderRef = useRef(null);
   const resizeObserverRef = useRef(null);
   const { scrollPosition } = useScroll();
@@ -132,4 +132,4 @@ const AnimatedSubheader = ({ clientsOnscroll }) => {
   );
 };
 
-export default AnimatedSubheader;
+export default ClientsSubheader;

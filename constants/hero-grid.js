@@ -1,4 +1,3 @@
-// Images
 export const GRID_LAYOUT = {
   rows: [0, 1, 2, 3, 4],
   cols: [0, 1, 2, 3, 4, 5, 6, 7],

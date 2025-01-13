@@ -61,3 +61,29 @@ export const ABOUT = {
     },
   },
 };
+
+export const CLIENTS = {
+  EASING: ANIMATION_EASING,
+
+  LOAD: {
+    START_DELAY: 3100,
+  },
+
+  SCROLL: {
+    STAGGER: STAGGER_INTERVAL,
+    DURATION: ANIMATION_DURATION,
+    BLUR: {
+      START: "4px",
+      END: "0px",
+    },
+    COLOR: {
+      START: "red",
+      END: "#0F1010",
+    },
+    ONCE: SCROLLTRIGGER_ONCE,
+    TRIGGER: {
+      START: "top 100%",
+      END: "bottom+=100px top",
+    },
+  },
+};
