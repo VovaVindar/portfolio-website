@@ -4,7 +4,7 @@ import { usePreloader } from "@/context/PreloaderContext";
 import { useLinesOnloadAnimations } from "@/hooks/animations/onload/useLinesOnloadAnimations";
 
 const Lines = () => {
-  const { startPageAnimation, completeTransition } = usePreloader();
+  const { startPageAnimation, completeTransition, noLines } = usePreloader();
   const [lines, setLines] = useState([]);
   const linesReadyRef = useRef(false);
 
@@ -26,14 +26,13 @@ const Lines = () => {
 
       const linesArray = Array(totalLines)
         .fill(null)
-        .map((_, i) => (
-          <div key={i} className={`${styles["line"]} mounted`}></div>
-        ));
+        .map((_, i) => <div key={i} className={`${styles["line"]}`}></div>);
 
       setLines(linesArray);
 
       if (containerRef.current) {
         containerRef.current.style.backgroundColor = "transparent";
+        containerRef.current.parentNode.classList.add("mounted");
       }
       linesReadyRef.current = true;
     };
@@ -41,8 +40,10 @@ const Lines = () => {
     generateLines();
   }, []);
 
+  if (noLines) return null;
+
   return (
-    <div className={`${styles["line-container"]} loading`} ref={containerRef}>
+    <div className={`${styles["line-container"]}`} ref={containerRef}>
       {lines}
     </div>
   );

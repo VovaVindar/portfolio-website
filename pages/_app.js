@@ -4,10 +4,10 @@ import "@/styles/mouse-follower.css";
 import { fonts } from "@/config/fonts";
 import { useRef } from "react";
 import Preloader from "@/components/Onload/Preloader";
+import Lines from "@/components/Onload/Lines";
 import { ScrollProvider } from "@/context/ScrollContext";
 import { TransitionProvider } from "@/context/TransitionContext";
 import { PreloaderProvider } from "@/context/PreloaderContext";
-import Transition from "@/components/Onload/Transition";
 import CursorContainer from "@/components/Global/CursorContainer";
 import SmoothScrolling from "@/components/Global/SmoothScrolling";
 
@@ -20,18 +20,17 @@ function MyApp({ Component, pageProps, router }) {
         <TransitionProvider>
           <>
             <Preloader mainRef={mainRef} className={fonts.variables} />
+            <Lines />
             <CursorContainer className={fonts.variables} />
-            <Transition>
-              <SmoothScrolling>
-                <main
-                  ref={mainRef}
-                  key={router.route}
-                  className={fonts.variables}
-                >
-                  <Component {...pageProps} />
-                </main>
-              </SmoothScrolling>
-            </Transition>
+            <SmoothScrolling>
+              <main
+                ref={mainRef}
+                key={router.route}
+                className={fonts.variables}
+              >
+                <Component {...pageProps} />
+              </main>
+            </SmoothScrolling>
           </>
         </TransitionProvider>
       </ScrollProvider>

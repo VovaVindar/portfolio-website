@@ -50,6 +50,8 @@ export const PRELOADER = {
 };
 
 export const LINES = {
+  MAX_DURATION: 3,
+
   COLORS: {
     START: "#0F1010",
     END: "#C34356",

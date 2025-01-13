@@ -18,8 +18,6 @@ export const useLinesOnloadAnimations = (
     const lines = Array.from(containerRef.current.children);
     if (lines.length === 0) return;
 
-    containerRef.current.classList.add("loading");
-
     const isHighDensity = lines.length > 60;
     const staggerInterval = isHighDensity
       ? LINES.TRANSITION.STAGGER.HIGH_DENSITY

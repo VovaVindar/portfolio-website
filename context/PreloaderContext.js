@@ -7,6 +7,7 @@ export const PreloaderProvider = ({ children }) => {
     isOnloadLinesActive: true, // controls transition lines animation state
     loadProgress: 0, // tracks loading progress percentage
     startPageAnimation: false, // indicates when to start the page transition animation
+    noLines: false, // remove lines after onload animation is complete
   });
 
   const updateProgress = useCallback((progress) => {
@@ -24,12 +25,20 @@ export const PreloaderProvider = ({ children }) => {
     }));
   }, []);
 
+  const removeLines = useCallback(() => {
+    setPreloaderState((prev) => ({
+      ...prev,
+      noLines: true,
+    }));
+  }, []);
+
   return (
     <PreloaderContext.Provider
       value={{
         ...preloaderState,
         updateProgress,
         completeTransition,
+        removeLines,
       }}
     >
       {children}

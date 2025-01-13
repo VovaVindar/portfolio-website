@@ -3,10 +3,10 @@ import styles from "./Preloader.module.css";
 import imagesLoaded from "imagesloaded";
 import { usePreloader } from "@/context/PreloaderContext";
 import { usePreloaderOnloadAnimations } from "@/hooks/animations/onload/usePreloaderOnloadAnimations";
-import { PRELOADER } from "@/constants/animations";
+import { PRELOADER, LINES } from "@/constants/animations";
 
 const Preloader = ({ mainRef, className }) => {
-  const { loadProgress, updateProgress } = usePreloader();
+  const { loadProgress, updateProgress, removeLines } = usePreloader();
   const [isLoading, setIsLoading] = useState(true);
   const [opacity, setOpacity] = useState(0);
 
@@ -42,6 +42,12 @@ const Preloader = ({ mainRef, className }) => {
       setOpacity(1);
     }
     if (loadProgress >= 100) {
+      setTimeout(
+        () => removeLines(),
+        (PRELOADER.FADE.DURATION + PRELOADER.FADE.DELAY + LINES.MAX_DURATION) *
+          1000 +
+          10
+      );
       setTimeout(
         () => setIsLoading(false),
         (PRELOADER.FADE.DURATION + PRELOADER.FADE.DELAY) * 1000 + 10
