@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Contact.module.css";
-import Scrollbar from "@/components/Scrollbar";
+import Scrollbar from "@/components/Global/Scrollbar";
 import Magnetic from "@/components/Global/Magnetic";
 import { useContactTransition } from "@/hooks/animations/transition/useContactTransitions";
 import { startLenis, stopLenis } from "@/components/Global/SmoothScrolling";
