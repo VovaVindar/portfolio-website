@@ -5,7 +5,7 @@ import Magnetic from "@/components/Global/Magnetic";
 import { useContactTransition } from "@/hooks/animations/transition/useContactTransitions";
 import { startLenis, stopLenis } from "@/components/Global/SmoothScrolling";
 
-export default function Contact({ isAnimating }) {
+export default function Contact() {
   const [contactOpen, setContactOpen] = useState(false);
   const { containerRef, contentRef } = useContactTransition(contactOpen);
   const [copyEmail, setCopyEmail] = useState("vovavindar@gmail.com");
@@ -55,15 +55,10 @@ export default function Contact({ isAnimating }) {
   return (
     <>
       {!contactOpen ? (
-        <Scrollbar
-          text={"Contact"}
-          href="mailto:vovavindar@gmail.com"
-          isAnimating={isAnimating}
-        />
+        <Scrollbar text={"Contact"} href="mailto:vovavindar@gmail.com" />
       ) : (
         <Scrollbar
           text={"Close"}
-          isAnimating={isAnimating}
           onClick={() => {
             setContactOpen(false);
             startLenis();

@@ -2,13 +2,10 @@ import React, { useRef, useState, useEffect } from "react";
 import styles from "./Preloader.module.css";
 import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
+import { usePreloader } from "@/context/PreloaderContext";
 
-const Preloader = ({
-  numbersProgress,
-  mainRef,
-  setNumbersProgress,
-  className,
-}) => {
+const Preloader = ({ mainRef, className }) => {
+  const { loadProgress, updateProgress } = usePreloader();
   const containerRef = useRef(null);
   const progressIndicatorRef = useRef(null);
   const timelineRefs = useRef({});
@@ -30,14 +27,14 @@ const Preloader = ({
       if (newProgress > currentProgress) {
         const increment = Math.min(newProgress - currentProgress, 14);
         currentProgress += increment;
-        setNumbersProgress(currentProgress.toFixed(0));
+        updateProgress(currentProgress.toFixed(0));
       } else if (currentProgress === 100) {
         clearInterval(intervalId);
       }
     }, INTERVAL_DURATION);
 
     return () => clearInterval(intervalId);
-  }, [mainRef, setNumbersProgress]);
+  }, [mainRef, updateProgress]);
 
   // Handle animations
   useEffect(() => {
@@ -50,23 +47,21 @@ const Preloader = ({
     if (containerRef.current) {
       setOpacity(1);
 
-      // Fade animation
       timelineRefs.current.numbers.to(containerRef.current, {
-        autoAlpha: numbersProgress >= 100 ? 0 : 1,
-        filter: `blur(${numbersProgress >= 100 ? 2 : 0}px)`,
+        autoAlpha: loadProgress >= 100 ? 0 : 1,
+        filter: `blur(${loadProgress >= 100 ? 2 : 0}px)`,
         duration: 1.2,
         delay: 0.5,
         ease: "power3.inOut",
         onComplete: () => {
-          if (numbersProgress >= 100) setIsLoading(false);
+          if (loadProgress >= 100) setIsLoading(false);
         },
       });
 
-      // Slide animation
       timelineRefs.current.numbersOut
         .set(containerRef.current, { y: 0 })
         .to(containerRef.current, {
-          y: numbersProgress >= 100 ? 540 : 0,
+          y: loadProgress >= 100 ? 540 : 0,
           duration: 1.49,
           delay: 0,
           ease: "power3.in",
@@ -81,11 +76,11 @@ const Preloader = ({
           textShadow: "0 0 10px rgba(255, 0, 0, 0.7)",
         })
         .to(progressIndicatorRef.current, {
-          marginLeft: `calc(${numbersProgress}% - 3ch)`,
-          color: numbersProgress >= 100 ? "red" : "white",
+          marginLeft: `calc(${loadProgress}% - 3ch)`,
+          color: loadProgress >= 100 ? "red" : "white",
           textShadow: "none",
-          opacity: numbersProgress >= 100 ? 0.85 : 1,
-          filter: `blur(${numbersProgress >= 100 ? 0.7 : 0}px)`,
+          opacity: loadProgress >= 100 ? 0.85 : 1,
+          filter: `blur(${loadProgress >= 100 ? 0.7 : 0}px)`,
           duration: 1,
           ease: "power4.out",
         });
@@ -96,11 +91,10 @@ const Preloader = ({
         timeline?.kill()
       );
     };
-  }, [numbersProgress]);
+  }, [loadProgress]);
 
   const style = {
     opacity: opacity,
-    /* Y margin flashing fix */
   };
 
   if (!isLoading) return null;
@@ -110,7 +104,7 @@ const Preloader = ({
       <div className={styles["text-container"]} ref={containerRef}>
         <div>
           <p className="text-body-3" ref={progressIndicatorRef}>
-            {numbersProgress}
+            {loadProgress}
           </p>
         </div>
       </div>

@@ -4,10 +4,12 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { WORK } from "@/constants/animations";
 import styles from "@/components/Home/Work/Work.module.css";
+import { usePreloader } from "@/context/PreloaderContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const useWorkScrollAnimations = (startPageAnimation) => {
+export const useWorkScrollAnimations = () => {
+  const { startPageAnimation } = usePreloader();
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const sectionRef = useRef(null);

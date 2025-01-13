@@ -1,22 +1,25 @@
+import styles from "../Hero.module.css";
 import { useRef, useState } from "react";
 import { useHeroTitleOnloadAnimations } from "@/hooks/animations/onload/useHeroTitleOnloadAnimations";
 import { useHeroTitleScrollAnimations } from "@/hooks/animations/scroll/useHeroTitleScrollAnimations";
 
-const HeroTitle = ({ style, isAnimating = true, duration }) => {
+const HeroTitle = () => {
   const heroTitleRef = useRef(null);
   const [loadCompleted, setLoadCompleted] = useState(false);
 
-  useHeroTitleOnloadAnimations(
+  const { onloadRef, opacity, blur } = useHeroTitleOnloadAnimations(
     heroTitleRef,
-    isAnimating,
-    duration,
     setLoadCompleted
   );
 
   useHeroTitleScrollAnimations(heroTitleRef, loadCompleted);
 
   return (
-    <h1 style={style} ref={heroTitleRef}>
+    <h1
+      className={styles["hero-title"]}
+      style={{ opacity, filter: `blur(${blur}px)` }}
+      ref={heroTitleRef}
+    >
       Designing for Permanence.
     </h1>
   );

@@ -1,10 +1,9 @@
 import { ReactLenis, useLenis } from "lenis/react";
 import { useEffect } from "react";
+import { usePreloader } from "@/context/PreloaderContext";
 
 // Create a shared reference for Lenis
 const lenisRef = { current: null };
-
-const SCROLL_START_DELAY = 400;
 const LERP_VALUE = 0.15;
 
 // Regular functions, not hooks
@@ -16,7 +15,8 @@ export const stopLenis = () => {
   lenisRef.current?.stop();
 };
 
-function SmoothScrolling({ children, isAnimating }) {
+function SmoothScrolling({ children }) {
+  const { isTransitionLinesActive } = usePreloader();
   const lenis = useLenis(() => {});
 
   useEffect(() => {
@@ -29,20 +29,16 @@ function SmoothScrolling({ children, isAnimating }) {
     lenis.stop();
 
     // Start scroll if not animating
-    let timeoutId;
-    if (!isAnimating) {
-      timeoutId = setTimeout(() => {
-        lenis.start();
-      }, SCROLL_START_DELAY);
+    if (!isTransitionLinesActive) {
+      lenis.start();
     }
 
     return () => {
-      timeoutId && clearTimeout(timeoutId);
       if (lenisRef.current === lenis) {
         lenisRef.current = null;
       }
     };
-  }, [isAnimating, lenis]);
+  }, [isTransitionLinesActive, lenis]);
 
   return (
     <ReactLenis root options={{ lerp: LERP_VALUE }}>

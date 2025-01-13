@@ -1,13 +1,12 @@
-import React, { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import styles from "./Footer.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import Link from "next/link";
 import LocalTime from "@/components/Home/Footer/LocalTime";
 import { useFooterScrollAnimations } from "@/hooks/animations/scroll/useFooterScrollAnimations";
 
-const Footer = ({ startPageAnimation }) => {
-  const { elementRef, socialRef } =
-    useFooterScrollAnimations(startPageAnimation);
+const Footer = () => {
+  const { elementRef, socialRef } = useFooterScrollAnimations();
   const [hoveredLink, setHoveredLink] = useState(null);
   const [copyEmail, setCopyEmail] = useState("Email");
   const copyTimeoutRef = useRef(null);

@@ -2,17 +2,15 @@ import styles from "./TransitionLines.module.css";
 import React, { useEffect, useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { usePreloader } from "@/context/PreloaderContext";
 
-const LoadingLines = ({
-  onLoadingComplete,
-  numbersProgress,
-  setLinesCount,
-}) => {
+const LoadingLines = () => {
+  const { startPageAnimation, completeTransition } = usePreloader();
   const [lines, setLines] = useState([]);
   const linesContainerRef = useRef(null);
   const linesReadyRef = useRef(false);
   const timelineRef = useRef(null);
-  const hasAnimatedRef = useRef(false); // Track if animation has run
+  const hasAnimatedRef = useRef(false);
 
   // Generate lines based on screen height
   useEffect(() => {
@@ -59,11 +57,9 @@ const LoadingLines = ({
     const config = {
       staggerInterval: isHighDensity ? 0.0002 : 0.038,
       duration: 1.25,
-      delay: 0.71, // was 0.05, then 0.45
-      completionDelay: 770, // was 540
+      delay: 0.71,
+      completionDelay: 770,
     };
-
-    setLinesCount(isHighDensity);
 
     timelineRef.current = gsap.timeline().fromTo(
       lines,
@@ -73,8 +69,8 @@ const LoadingLines = ({
         backgroundColor: "#0F1010",
       },
       {
-        scaleY: numbersProgress >= 100 ? 0 : 1,
-        backgroundColor: numbersProgress >= 100 ? "#C34356" : "#0F1010",
+        scaleY: startPageAnimation ? 0 : 1,
+        backgroundColor: startPageAnimation ? "#C34356" : "#0F1010",
         duration: config.duration,
         delay: config.delay,
         ease: "power4.inOut",
@@ -85,7 +81,7 @@ const LoadingLines = ({
         onComplete: () => {
           hasAnimatedRef.current = true;
           setTimeout(() => {
-            onLoadingComplete();
+            completeTransition();
             linesContainerRef.current?.classList.remove("scroll-block");
           }, config.completionDelay);
         },
@@ -96,7 +92,7 @@ const LoadingLines = ({
       timelineRef.current?.kill();
       gsap.killTweensOf(lines.current);
     };
-  }, [numbersProgress, onLoadingComplete, setLinesCount]);
+  }, [startPageAnimation, completeTransition]);
 
   return (
     <div

@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import gsap from "gsap";
 import MouseFollower from "@/components/Global/CursorContainer/mouse-follower/src";
+import { usePreloader } from "@/context/PreloaderContext";
 
 MouseFollower.registerGSAP(gsap);
 
@@ -17,7 +18,8 @@ const FAVICON_CONFIG = {
   ico: { rel: "shortcut icon", type: "image/png", sizes: "48x48" },
 };
 
-const CursorContainer = ({ className = "", isAnimating = true }) => {
+const CursorContainer = ({ className = "" }) => {
+  const { isTransitionLinesActive } = usePreloader();
   const cursorRef = useRef(null);
   const rotationDegRef = useRef(0);
   const [currentFavicon, setCurrentFavicon] = useState(FAVICON_TYPES.MAIN);
@@ -95,7 +97,7 @@ const CursorContainer = ({ className = "", isAnimating = true }) => {
           duration: 0,
         });
 
-        if (!isAnimating) {
+        if (!isTransitionLinesActive) {
           toggleFavicon();
         }
       }
@@ -104,7 +106,7 @@ const CursorContainer = ({ className = "", isAnimating = true }) => {
     // Initial cursor animation
     gsap.set(".mf-cursor", { autoAlpha: 0 });
 
-    if (!isAnimating) {
+    if (!isTransitionLinesActive) {
       gsap.to(".mf-cursor", {
         duration: 0.75,
         delay: 0.4,
@@ -114,7 +116,7 @@ const CursorContainer = ({ className = "", isAnimating = true }) => {
     }
 
     return () => cursor.destroy();
-  }, [className, isAnimating, toggleFavicon]);
+  }, [className, isTransitionLinesActive, toggleFavicon]);
 
   // Visibility change listener
   useEffect(() => {

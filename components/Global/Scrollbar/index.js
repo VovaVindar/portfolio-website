@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import styles from "./Scrollbar.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import Link from "next/link";
 import { useScroll } from "@/context/ScrollContext";
+import { usePreloader } from "@/context/PreloaderContext";
 
 // Throttle helper function
 /* const throttle = (func, limit) => {
@@ -16,7 +17,8 @@ import { useScroll } from "@/context/ScrollContext";
   };
 }; */
 
-const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
+const Scrollbar = ({ text = "", href, onClick }) => {
+  const { isTransitionLinesActive } = usePreloader();
   const [opacity, setOpacity] = useState(0);
   const [blur, setBlur] = useState(1.5);
   const [y, setY] = useState(-100);
@@ -43,7 +45,7 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
 
   // Fade-in animation
   useEffect(() => {
-    if (!isAnimating) {
+    if (!isTransitionLinesActive) {
       setOpacity(1);
       setBlur(0);
       setY(0);
@@ -52,7 +54,7 @@ const Scrollbar = ({ text = "", href, isAnimating = true, onClick }) => {
       setBlur(1.5);
       setY(-100);
     }
-  }, [isAnimating]);
+  }, [isTransitionLinesActive]);
 
   // Initialize scroll handling
   useEffect(() => {

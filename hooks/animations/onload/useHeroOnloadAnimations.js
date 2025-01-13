@@ -3,12 +3,10 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { HERO } from "@/constants/animations";
 import styles from "@/components/Home/Hero/Hero.module.css";
+import { usePreloader } from "@/context/PreloaderContext";
 
-export const useHeroOnloadAnimations = (
-  imgOnload,
-  cellOnload,
-  startPageAnimation
-) => {
+export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
+  const { startPageAnimation } = usePreloader();
   const timelineImgRef = useRef(null);
   const timelineCellRef = useRef(null);
 

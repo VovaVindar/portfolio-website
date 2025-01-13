@@ -1,9 +1,8 @@
 import styles from "./Work.module.css";
 import { useWorkScrollAnimations } from "@/hooks/animations/scroll/useWorkScrollAnimations";
 
-const Work = ({ startPageAnimation = false }) => {
-  const { containerRef, textRef, sectionRef } =
-    useWorkScrollAnimations(startPageAnimation);
+const Work = () => {
+  const { containerRef, textRef, sectionRef } = useWorkScrollAnimations();
 
   return (
     <div className={styles["work-container"]}>

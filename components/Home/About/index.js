@@ -1,8 +1,8 @@
 import styles from "./About.module.css";
 import { useAboutScrollAnimations } from "@/hooks/animations/scroll/useAboutScrollAnimations";
 
-const About = ({ startPageAnimation }) => {
-  const elementRef = useAboutScrollAnimations(startPageAnimation);
+const About = () => {
+  const elementRef = useAboutScrollAnimations();
 
   const aboutText = [
     `I'm a detail-oriented designer-developer based in Vancouver, obsessed with creating immersive websites and intuitive digital interfaces. During my career,`,

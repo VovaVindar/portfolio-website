@@ -3,10 +3,12 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { ABOUT } from "@/constants/animations";
+import { usePreloader } from "@/context/PreloaderContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const useAboutScrollAnimations = (startPageAnimation) => {
+export const useAboutScrollAnimations = () => {
+  const { startPageAnimation } = usePreloader();
   const timelineRef = useRef(null);
   const [startScroll, setStartScroll] = useState(false);
   const elementRef = useRef([]);

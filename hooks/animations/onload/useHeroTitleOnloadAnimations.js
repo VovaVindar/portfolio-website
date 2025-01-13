@@ -1,53 +1,70 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
+import { useGSAP } from "@gsap/react";
 import { HERO } from "@/constants/animations";
+import { usePreloader } from "@/context/PreloaderContext";
 
-export const useHeroTitleOnloadAnimations = (
-  titleRef,
-  isAnimating,
-  duration,
-  onLoadComplete
-) => {
+export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
+  const { startPageAnimation } = usePreloader();
   const onloadRef = useRef(null);
 
-  useEffect(() => {
-    let timeoutId;
+  useGSAP(() => {
+    if (onloadRef.current) onloadRef.current.kill();
 
-    if (titleRef.current) {
-      const containerHeight = titleRef.current.parentElement.offsetHeight;
-      const startY = -(containerHeight / 1.5);
+    if (startPageAnimation) {
+      if (titleRef.current) {
+        const containerHeight = titleRef.current.parentElement.offsetHeight;
+        const startY = -(containerHeight / 1.5);
 
-      if (onloadRef.current) onloadRef.current.kill();
-
-      onloadRef.current = gsap.fromTo(
-        titleRef.current,
-        {
+        // Set initial styles
+        gsap.set(titleRef.current, {
           yPercent: startY,
           scale: HERO.LOAD.TITLE.SCALE.START,
-        },
-        {
-          yPercent: !isAnimating ? 0 : startY,
-          scale: !isAnimating
-            ? HERO.LOAD.TITLE.SCALE.END
-            : HERO.LOAD.TITLE.SCALE.START,
+        });
+
+        // Create timeline for better control
+        onloadRef.current = gsap.timeline().to(titleRef.current, {
+          yPercent: 0,
+          scale: HERO.LOAD.TITLE.SCALE.END,
           transformOrigin: "bottom",
           ease: HERO.EASING,
-          duration: duration + HERO.LOAD.TITLE.DURATION_OFFSET,
-          delay: 0,
+          duration:
+            HERO.LOAD.GRID.CELL_DURATION + HERO.LOAD.TITLE.DURATION_OFFSET,
+          delay: HERO.LOAD.TITLE.INITIAL_DELAY,
           onComplete: () => {
-            timeoutId = setTimeout(() => {
+            setTimeout(() => {
               onLoadComplete(true);
             }, HERO.LOAD.TITLE.SCROLLTRIGGER_START_DELAY);
           },
-        }
-      );
+        });
+      }
     }
 
     return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-      if (onloadRef.current) onloadRef.current.kill();
+      onloadRef.current?.kill();
+      onloadRef.current = null;
     };
-  }, [isAnimating, duration, onLoadComplete]);
+  }, [startPageAnimation, onLoadComplete]);
 
-  return onloadRef;
+  // Blur & Opacity animation:
+  const [opacity, setOpacity] = useState(0);
+  const [blur, setBlur] = useState(HERO.LOAD.TITLE.INITIAL_BLUR);
+
+  useEffect(() => {
+    if (startPageAnimation) {
+      const totalDelay = HERO.LOAD.TITLE.INITIAL_DELAY * 1000;
+
+      const timer = setTimeout(() => {
+        setOpacity(1);
+        setBlur(0);
+      }, totalDelay);
+
+      return () => clearTimeout(timer);
+    } else {
+      setOpacity(0);
+      setBlur(HERO.LOAD.TITLE.INITIAL_BLUR);
+    }
+  }, [startPageAnimation]);
+
+  return { onloadRef, opacity, blur };
 };

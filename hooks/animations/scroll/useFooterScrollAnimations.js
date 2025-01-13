@@ -4,10 +4,12 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { FOOTER } from "@/constants/animations";
 import styles from "@/components/Home/Footer/Footer.module.css";
+import { usePreloader } from "@/context/PreloaderContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const useFooterScrollAnimations = (startPageAnimation) => {
+export const useFooterScrollAnimations = () => {
+  const { startPageAnimation } = usePreloader();
   const elementRef = useRef([]);
   const socialRef = useRef(null);
   const timelineRef = useRef(null);

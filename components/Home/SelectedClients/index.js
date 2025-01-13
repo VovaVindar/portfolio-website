@@ -3,8 +3,8 @@ import Clients from "@/components/Home/SelectedClients/Clients";
 import ClientsSubheader from "@/components/Home/SelectedClients/ClientsSubheader";
 import { useClientsScrollAnimations } from "@/hooks/animations/scroll/useClientsScrollAnimations";
 
-const SelectedClients = ({ startPageAnimation = false }) => {
-  const clientsOnscroll = useClientsScrollAnimations(startPageAnimation);
+const SelectedClients = () => {
+  const clientsOnscroll = useClientsScrollAnimations();
 
   return (
     <div className={styles["clients"]}>

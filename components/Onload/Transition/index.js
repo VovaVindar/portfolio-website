@@ -8,7 +8,6 @@ import TransitionLines from "@/components/Onload/Transition/TransitionLines";
 export default function TransitionLayout({
   children,
   onLoadingComplete,
-  numbersProgress,
   setLinesCount,
   ...props
 }) {
@@ -34,11 +33,7 @@ export default function TransitionLayout({
 
   return (
     <>
-      <TransitionLines
-        numbersProgress={numbersProgress}
-        onLoadingComplete={onLoadingComplete}
-        setLinesCount={setLinesCount}
-      />
+      <TransitionLines onLoadingComplete={onLoadingComplete} />
       {childrenWithProps}
     </>
   );
