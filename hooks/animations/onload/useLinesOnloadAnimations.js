@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap/dist/gsap";
-import { ONLOAD_LINES } from "@/constants/animations";
+import { LINES } from "@/constants/animations";
 
-export const useOnloadLinesAnimation = (
+export const useLinesOnloadAnimations = (
   startPageAnimation,
   completeTransition,
   linesReady
@@ -22,24 +22,24 @@ export const useOnloadLinesAnimation = (
 
     const isHighDensity = lines.length > 60;
     const staggerInterval = isHighDensity
-      ? ONLOAD_LINES.TRANSITION.STAGGER.HIGH_DENSITY
-      : ONLOAD_LINES.TRANSITION.STAGGER.NORMAL;
+      ? LINES.TRANSITION.STAGGER.HIGH_DENSITY
+      : LINES.TRANSITION.STAGGER.NORMAL;
 
     timelineRef.current = gsap.timeline().fromTo(
       lines,
       {
         scaleY: 1,
         transformOrigin: "bottom",
-        backgroundColor: ONLOAD_LINES.COLORS.START,
+        backgroundColor: LINES.COLORS.START,
       },
       {
         scaleY: startPageAnimation ? 0 : 1,
         backgroundColor: startPageAnimation
-          ? ONLOAD_LINES.COLORS.END
-          : ONLOAD_LINES.COLORS.START,
-        duration: ONLOAD_LINES.TRANSITION.DURATION,
-        delay: ONLOAD_LINES.TRANSITION.DELAY,
-        ease: ONLOAD_LINES.TRANSITION.EASING,
+          ? LINES.COLORS.END
+          : LINES.COLORS.START,
+        duration: LINES.TRANSITION.DURATION,
+        delay: LINES.TRANSITION.DELAY,
+        ease: LINES.TRANSITION.EASING,
         stagger: {
           each: staggerInterval,
           from: "start",
@@ -49,7 +49,7 @@ export const useOnloadLinesAnimation = (
           setTimeout(() => {
             completeTransition();
             containerRef.current?.classList.remove("scroll-block");
-          }, ONLOAD_LINES.TRANSITION.COMPLETION_DELAY);
+          }, LINES.TRANSITION.COMPLETION_DELAY);
         },
       }
     );

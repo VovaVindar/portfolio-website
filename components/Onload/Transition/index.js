@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { TransitionContext } from "@/context/TransitionContext";
 gsap.registerPlugin(useGSAP);
-import OnloadLines from "@/components/Onload/OnloadLines";
+import Lines from "@/components/Onload/Lines";
 
 export default function TransitionLayout({ children, ...props }) {
   const [displayChildren, setDisplayChildren] = useState(children);
@@ -28,7 +28,7 @@ export default function TransitionLayout({ children, ...props }) {
 
   return (
     <>
-      <OnloadLines />
+      <Lines />
       {childrenWithProps}
     </>
   );

@@ -5,7 +5,7 @@ const SCROLLTRIGGER_ONCE = true;
 
 export const PRELOADER = {
   LOADING: {
-    INTERVAL: 205,
+    INTERVAL: 206,
     INCREMENT_CAP: 15,
   },
 
@@ -49,7 +49,7 @@ export const PRELOADER = {
   },
 };
 
-export const ONLOAD_LINES = {
+export const LINES = {
   COLORS: {
     START: "#0F1010",
     END: "#C34356",

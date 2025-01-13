@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from "react";
-import styles from "./OnloadLines.module.css";
+import styles from "./Lines.module.css";
 import { usePreloader } from "@/context/PreloaderContext";
-import { useOnloadLinesAnimation } from "@/hooks/animations/onload/useOnloadLinesAnimation";
+import { useLinesOnloadAnimations } from "@/hooks/animations/onload/useLinesOnloadAnimations";
 
-const OnloadLines = () => {
+const Lines = () => {
   const { startPageAnimation, completeTransition } = usePreloader();
   const [lines, setLines] = useState([]);
   const linesReadyRef = useRef(false);
 
-  const containerRef = useOnloadLinesAnimation(
+  const containerRef = useLinesOnloadAnimations(
     startPageAnimation,
     completeTransition,
     linesReadyRef.current
@@ -48,4 +48,4 @@ const OnloadLines = () => {
   );
 };
 
-export default OnloadLines;
+export default Lines;
