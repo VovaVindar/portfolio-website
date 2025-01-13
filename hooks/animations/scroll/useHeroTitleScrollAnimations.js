@@ -39,6 +39,7 @@ export const useHeroTitleScrollAnimations = (titleRef, loadCompleted) => {
           start: "top top",
           end: HERO.SCROLL.TITLE.END_TRIGGER,
           invalidateOnRefresh: true,
+          once: HERO.SCROLL.TITLE.ONCE,
         });
       }
     } catch (error) {

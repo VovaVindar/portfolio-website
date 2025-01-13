@@ -1,3 +1,8 @@
+const STAGGER_INTERVAL = 0.11;
+const ANIMATION_DURATION = 0.75;
+const ANIMATION_EASING = "power1.in"; // Easing for: text fade in
+const SCROLLTRIGGER_ONCE = true;
+
 export const HERO = {
   EASING: "power3.out",
 
@@ -22,13 +27,37 @@ export const HERO = {
 
   SCROLL: {
     TITLE: {
-      PARALLAX_END: -80, // percentage
+      PARALLAX_END: -80,
       SCRUB: 1,
       END_TRIGGER: "+=100%",
+      ONCE: false, // Override
     },
 
     GRID: {
-      // Any future scroll animations for grid
+      ONCE: false, // Override
+    },
+  },
+};
+
+export const ABOUT = {
+  EASING: ANIMATION_EASING,
+
+  LOAD: {
+    START_DELAY: 2000,
+  },
+
+  SCROLL: {
+    STAGGER: STAGGER_INTERVAL,
+    DURATION: ANIMATION_DURATION,
+    ONCE: SCROLLTRIGGER_ONCE,
+    //ONCE: false,
+    BLUR: {
+      START: "2px",
+      END: "0px",
+    },
+    COLOR: {
+      START: "red",
+      END: "#0F1010",
     },
   },
 };
