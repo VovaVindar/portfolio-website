@@ -4,7 +4,7 @@ const PreloaderContext = createContext();
 
 export const PreloaderProvider = ({ children }) => {
   const [preloaderState, setPreloaderState] = useState({
-    isTransitionLinesActive: true, // controls transition lines animation state
+    isOnloadLinesActive: true, // controls transition lines animation state
     loadProgress: 0, // tracks loading progress percentage
     startPageAnimation: false, // indicates when to start the page transition animation
   });
@@ -20,7 +20,7 @@ export const PreloaderProvider = ({ children }) => {
   const completeTransition = useCallback(() => {
     setPreloaderState((prev) => ({
       ...prev,
-      isTransitionLinesActive: false,
+      isOnloadLinesActive: false,
     }));
   }, []);
 

@@ -3,13 +3,13 @@ import { usePreloader } from "@/context/PreloaderContext";
 import { SCROLLBAR } from "@/constants/animations";
 
 export const useScrollbarOnloadAnimations = () => {
-  const { isTransitionLinesActive } = usePreloader();
+  const { isOnloadLinesActive } = usePreloader();
   const [opacity, setOpacity] = useState(SCROLLBAR.LOAD.INITIAL.OPACITY);
   const [blur, setBlur] = useState(SCROLLBAR.LOAD.INITIAL.BLUR);
   const [y, setY] = useState(SCROLLBAR.LOAD.INITIAL.Y);
 
   useEffect(() => {
-    if (!isTransitionLinesActive) {
+    if (!isOnloadLinesActive) {
       setOpacity(SCROLLBAR.LOAD.FINAL.OPACITY);
       setBlur(SCROLLBAR.LOAD.FINAL.BLUR);
       setY(SCROLLBAR.LOAD.FINAL.Y);
@@ -18,7 +18,7 @@ export const useScrollbarOnloadAnimations = () => {
       setBlur(SCROLLBAR.LOAD.INITIAL.BLUR);
       setY(SCROLLBAR.LOAD.INITIAL.Y);
     }
-  }, [isTransitionLinesActive]);
+  }, [isOnloadLinesActive]);
 
   return { y, opacity, blur };
 };

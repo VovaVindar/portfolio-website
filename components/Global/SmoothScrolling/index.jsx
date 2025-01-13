@@ -16,7 +16,7 @@ export const stopLenis = () => {
 };
 
 function SmoothScrolling({ children }) {
-  const { isTransitionLinesActive } = usePreloader();
+  const { isOnloadLinesActive } = usePreloader();
   const lenis = useLenis(() => {});
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function SmoothScrolling({ children }) {
     lenis.stop();
 
     // Start scroll if not animating
-    if (!isTransitionLinesActive) {
+    if (!isOnloadLinesActive) {
       lenis.start();
     }
 
@@ -38,7 +38,7 @@ function SmoothScrolling({ children }) {
         lenisRef.current = null;
       }
     };
-  }, [isTransitionLinesActive, lenis]);
+  }, [isOnloadLinesActive, lenis]);
 
   return (
     <ReactLenis root options={{ lerp: LERP_VALUE }}>

@@ -19,7 +19,7 @@ const FAVICON_CONFIG = {
 };
 
 const CursorContainer = ({ className = "" }) => {
-  const { isTransitionLinesActive } = usePreloader();
+  const { isOnloadLinesActive } = usePreloader();
   const cursorRef = useRef(null);
   const rotationDegRef = useRef(0);
   const [currentFavicon, setCurrentFavicon] = useState(FAVICON_TYPES.MAIN);
@@ -97,7 +97,7 @@ const CursorContainer = ({ className = "" }) => {
           duration: 0,
         });
 
-        if (!isTransitionLinesActive) {
+        if (!isOnloadLinesActive) {
           toggleFavicon();
         }
       }
@@ -106,7 +106,7 @@ const CursorContainer = ({ className = "" }) => {
     // Initial cursor animation
     gsap.set(".mf-cursor", { autoAlpha: 0 });
 
-    if (!isTransitionLinesActive) {
+    if (!isOnloadLinesActive) {
       gsap.to(".mf-cursor", {
         duration: 0.75,
         delay: 0.4,
@@ -116,7 +116,7 @@ const CursorContainer = ({ className = "" }) => {
     }
 
     return () => cursor.destroy();
-  }, [className, isTransitionLinesActive, toggleFavicon]);
+  }, [className, isOnloadLinesActive, toggleFavicon]);
 
   // Visibility change listener
   useEffect(() => {

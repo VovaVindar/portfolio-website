@@ -5,8 +5,8 @@ const SCROLLTRIGGER_ONCE = true;
 
 export const PRELOADER = {
   LOADING: {
-    INTERVAL: 135 * 1.6,
-    INCREMENT_CAP: 14,
+    INTERVAL: 205,
+    INCREMENT_CAP: 15,
   },
 
   FADE: {
@@ -45,6 +45,24 @@ export const PRELOADER = {
     SHADOW: {
       START: "0 0 10px rgba(255, 0, 0, 0.7)",
       END: "none",
+    },
+  },
+};
+
+export const ONLOAD_LINES = {
+  COLORS: {
+    START: "#0F1010",
+    END: "#C34356",
+  },
+
+  TRANSITION: {
+    DURATION: 1.25,
+    DELAY: 0.71,
+    EASING: "power4.inOut",
+    COMPLETION_DELAY: 770,
+    STAGGER: {
+      HIGH_DENSITY: 0.0002, // for screens with > 60 lines
+      NORMAL: 0.038,
     },
   },
 };
