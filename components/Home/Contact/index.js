@@ -1,13 +1,14 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Contact.module.css";
 import Scrollbar from "@/components/Scrollbar";
 import Magnetic from "@/components/Global/Magnetic";
-import { gsap } from "gsap/dist/gsap";
-import { useGSAP } from "@gsap/react";
+import { useContactTransition } from "@/hooks/animations/transition/useContactTransitions";
 import { startLenis, stopLenis } from "@/components/Global/SmoothScrolling";
 
-export default function Contact({ isAnimating, duration }) {
+export default function Contact({ isAnimating }) {
   const [contactOpen, setContactOpen] = useState(false);
+  const { containerRef, contentRef } = useContactTransition(contactOpen);
+  const [copyEmail, setCopyEmail] = useState("vovavindar@gmail.com");
 
   useEffect(() => {
     const handleMailtoClick = (event) => {
@@ -17,29 +18,24 @@ export default function Contact({ isAnimating, duration }) {
       let timeout;
 
       const handleBlur = () => {
-        // Clear timeout if the browser opens the mail client
         clearTimeout(timeout);
         window.removeEventListener("blur", handleBlur);
       };
 
       window.addEventListener("blur", handleBlur);
 
-      // Fallback if the mail client doesn't open within 500ms
       timeout = setTimeout(() => {
-        setContactOpen(true); // show contact-container
+        setContactOpen(true);
         stopLenis();
-
         window.removeEventListener("blur", handleBlur);
       }, 210);
     };
 
-    // Attach event listeners to mailto links
     const mailtoLinks = document.querySelectorAll('a[href^="mailto"]');
     mailtoLinks.forEach((link) =>
       link.addEventListener("click", handleMailtoClick)
     );
 
-    // Attach event listener for Esc key
     const handleEscClose = (event) => {
       if (event.key === "Escape" && contactOpen) {
         setContactOpen(false);
@@ -49,61 +45,12 @@ export default function Contact({ isAnimating, duration }) {
     window.addEventListener("keydown", handleEscClose);
 
     return () => {
-      // Clean up event listeners
       mailtoLinks.forEach((link) =>
         link.removeEventListener("click", handleMailtoClick)
       );
-
       window.removeEventListener("keydown", handleEscClose);
     };
   }, [contactOpen]);
-
-  // Fade in / out animation
-  const containerRef = useRef(null);
-  const contactRef = useRef(null);
-
-  useGSAP(() => {
-    const containerAnimation = gsap.timeline({});
-    const contactAnimation = gsap.timeline({});
-
-    if (containerRef.current && contactRef.current) {
-      if (contactOpen) {
-        // Open
-        containerAnimation.to(containerRef.current, {
-          autoAlpha: 1,
-          duration: duration - 0.1,
-          ease: "power1.inOut",
-        });
-        contactAnimation.to(contactRef.current, {
-          autoAlpha: 1,
-          duration: duration,
-          ease: "power1.out",
-          filter: "blur(0px)",
-          color: "#0F1010",
-          delay: 0.35,
-        });
-      } else {
-        // Close
-        contactAnimation.to(containerRef.current, {
-          autoAlpha: 0,
-          duration: duration - 0.1,
-          ease: "power1.inOut",
-          delay: 0.4,
-        });
-        containerAnimation.to(contactRef.current, {
-          autoAlpha: 0,
-          duration: duration - 0.2,
-          ease: "power1.in",
-          filter: "blur(3px)",
-          color: "red",
-          delay: 0,
-        });
-      }
-    }
-  }, [contactOpen]);
-
-  // Copy email tooltip
-  const [copyEmail, setCopyEmail] = useState("vovavindar@gmail.com");
 
   return (
     <>
@@ -123,23 +70,20 @@ export default function Contact({ isAnimating, duration }) {
           }}
         />
       )}
-      <div className={`${styles["contact-container"]}`} ref={containerRef}>
+      <div className={styles["contact-container"]} ref={containerRef}>
         <Magnetic
           style={{ height: "min-content", width: "min-content" }}
           movement={0.072}
           passedScale={1.032}
         >
           <button
-            ref={contactRef}
+            ref={contentRef}
             className="text-body-3-uppercase mf-exclusion"
             data-cursor-text="Copy"
             onClick={(e) => {
               e.preventDefault();
               const email = "vovavindar@gmail.com";
-
-              // Copy email to clipboard
               navigator.clipboard.writeText(email);
-
               setCopyEmail("Copied");
 
               setTimeout(() => {

@@ -154,3 +154,40 @@ export const FOOTER = {
     ONCE: SCROLLTRIGGER_ONCE,
   },
 };
+
+export const CONTACT = {
+  OPEN: {
+    CONTAINER: {
+      DURATION: ANIMATION_DURATION - 0.1,
+      EASING: "power1.inOut",
+    },
+    CONTENT: {
+      DURATION: ANIMATION_DURATION,
+      DELAY: 0.35,
+      EASING: "power1.out",
+    },
+  },
+
+  CLOSE: {
+    CONTAINER: {
+      DURATION: ANIMATION_DURATION - 0.1,
+      DELAY: 0.4,
+      EASING: "power1.inOut",
+    },
+    CONTENT: {
+      DURATION: ANIMATION_DURATION - 0.2,
+      EASING: "power1.in",
+    },
+  },
+
+  STYLES: {
+    BLUR: {
+      ACTIVE: "0px",
+      INACTIVE: "3px",
+    },
+    COLOR: {
+      ACTIVE: "#0F1010",
+      INACTIVE: "red",
+    },
+  },
+};
