@@ -94,6 +94,7 @@ const LoadingLines = ({
 
     return () => {
       timelineRef.current?.kill();
+      gsap.killTweensOf(lines.current);
     };
   }, [numbersProgress, onLoadingComplete, setLinesCount]);
 

@@ -56,10 +56,10 @@ const HeroTitle = ({ style, isAnimating = true, duration, ease }) => {
 
       onloadRef.current = gsap.fromTo(
         heroTitleRef.current,
-        { yPercent: -(containerHeight / 1.5), scale: 1.5 },
+        { yPercent: -(containerHeight / 1.5), scale: 1.4 },
         {
           yPercent: !isAnimating ? 0 : -(containerHeight / 1.5),
-          scale: 1,
+          scale: !isAnimating ? 1 : 1.4,
           transformOrigin: "bottom",
           ease: ease,
           duration: duration - 0.14,

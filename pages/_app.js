@@ -60,12 +60,14 @@ function MyApp({ Component, pageProps, router }) {
 
   return (
     <>
-      <Preloader
-        numbersProgress={numbersProgress}
-        mainRef={mainRef}
-        setNumbersProgress={updateProgress}
-        className={`${lausanne.variable}`}
-      />
+      {isAnimating && (
+        <Preloader
+          numbersProgress={numbersProgress}
+          mainRef={mainRef}
+          setNumbersProgress={updateProgress}
+          className={`${lausanne.variable}`}
+        />
+      )}
       <CursorContainer
         className={`${lausanne.variable}`}
         isAnimating={isAnimating}

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "./Home.module.css";
-import NewHero from "@/components/Sections/NewHero";
+import Hero from "@/components/Sections/Hero";
 import About from "@/components/Sections/About";
 import SelectedClients from "@/components/Sections/SelectedClients";
 import Work from "@/components/Sections/Work";
@@ -40,7 +40,7 @@ export default function Home({ isAnimating, numbersProgress, linesCount }) {
       </Head>
       <div ref={container} className={`${styles["home-container"]} container`}>
         <Contact isAnimating={isAnimating} duration={ANIMATION_DURATION} />
-        <NewHero
+        <Hero
           isAnimating={isAnimating}
           startPageAnimation={startPageAnimation}
         />
