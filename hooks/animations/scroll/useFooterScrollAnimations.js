@@ -82,6 +82,7 @@ export const useFooterScrollAnimations = () => {
           });
         },
         once: FOOTER.SCROLL.ONCE,
+        fastScrollEnd: true,
       });
     }
 

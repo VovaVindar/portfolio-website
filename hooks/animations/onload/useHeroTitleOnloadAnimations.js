@@ -3,15 +3,17 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { HERO } from "@/constants/animations";
 import { usePreloader } from "@/context/PreloaderContext";
+import { useTransition } from "@/context/TransitionContext";
 
 export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
   const { startPageAnimation } = usePreloader();
+  const { isPageChanging } = useTransition();
   const onloadRef = useRef(null);
 
   useGSAP(() => {
     if (onloadRef.current) onloadRef.current.kill();
 
-    if (startPageAnimation) {
+    if (startPageAnimation && !isPageChanging) {
       if (titleRef.current) {
         const containerHeight = titleRef.current.parentElement.offsetHeight;
         const startY = -(containerHeight / 1.5);
@@ -49,9 +51,14 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
   // Blur & Opacity animation:
   const [opacity, setOpacity] = useState(0);
   const [blur, setBlur] = useState(HERO.LOAD.TITLE.INITIAL_BLUR);
+  const [transition, setTransition] = useState(null);
 
   useEffect(() => {
-    if (startPageAnimation) {
+    if (isPageChanging && titleRef.current) {
+      setTransition("none"); // Remove transition
+      setOpacity(1);
+      setBlur(0);
+    } else if (startPageAnimation) {
       const totalDelay = HERO.LOAD.TITLE.INITIAL_DELAY * 1000;
 
       const timer = setTimeout(() => {
@@ -64,7 +71,7 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
       setOpacity(0);
       setBlur(HERO.LOAD.TITLE.INITIAL_BLUR);
     }
-  }, [startPageAnimation]);
+  }, [startPageAnimation, isPageChanging]);
 
-  return { onloadRef, opacity, blur };
+  return { onloadRef, opacity, blur, transition };
 };

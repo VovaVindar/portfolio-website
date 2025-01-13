@@ -62,6 +62,7 @@ export const useAboutScrollAnimations = () => {
             );
           },
           once: ABOUT.SCROLL.ONCE,
+          fastScrollEnd: true,
         });
       }
     }

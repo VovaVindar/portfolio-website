@@ -4,9 +4,11 @@ import { useGSAP } from "@gsap/react";
 import { HERO } from "@/constants/animations";
 import styles from "@/components/Home/Hero/Hero.module.css";
 import { usePreloader } from "@/context/PreloaderContext";
+import { useTransition } from "@/context/TransitionContext";
 
 export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
   const { startPageAnimation } = usePreloader();
+  const { isPageChanging } = useTransition();
   const timelineImgRef = useRef(null);
   const timelineCellRef = useRef(null);
 
@@ -17,7 +19,7 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
     timelineImgRef.current = gsap.timeline();
     timelineCellRef.current = gsap.timeline();
 
-    if (startPageAnimation) {
+    if (startPageAnimation && !isPageChanging) {
       // Image filters animation
       if (imgOnload.current?.length) {
         timelineImgRef.current.to([...imgOnload.current].reverse(), {
@@ -57,6 +59,13 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
           }
         );
       }
+    } else if (isPageChanging) {
+      // Add in-view class to all images when page is changing
+      if (imgOnload.current?.length) {
+        [...imgOnload.current].forEach((img) => {
+          img.classList.add(styles["in-view"]);
+        });
+      }
     }
 
     return () => {
@@ -65,7 +74,7 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
       timelineImgRef.current = null;
       timelineCellRef.current = null;
     };
-  }, [startPageAnimation]);
+  }, [startPageAnimation, isPageChanging]);
 
   return { timelineImgRef, timelineCellRef };
 };

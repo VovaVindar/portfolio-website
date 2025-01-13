@@ -6,7 +6,10 @@ import { useRef } from "react";
 import Preloader from "@/components/Onload/Preloader";
 import Lines from "@/components/Onload/Lines";
 import { ScrollProvider } from "@/context/ScrollContext";
-import { TransitionProvider } from "@/context/TransitionContext";
+import {
+  TransitionProvider,
+  TransitionLayout,
+} from "@/context/TransitionContext";
 import { PreloaderProvider } from "@/context/PreloaderContext";
 import CursorContainer from "@/components/Global/CursorContainer";
 import SmoothScrolling from "@/components/Global/SmoothScrolling";
@@ -23,13 +26,15 @@ function MyApp({ Component, pageProps, router }) {
             <Lines />
             <CursorContainer className={fonts.variables} />
             <SmoothScrolling>
-              <main
-                ref={mainRef}
-                key={router.route}
-                className={fonts.variables}
-              >
-                <Component {...pageProps} />
-              </main>
+              <TransitionLayout>
+                <main
+                  ref={mainRef}
+                  key={router.route}
+                  className={fonts.variables}
+                >
+                  <Component {...pageProps} />
+                </main>
+              </TransitionLayout>
             </SmoothScrolling>
           </>
         </TransitionProvider>

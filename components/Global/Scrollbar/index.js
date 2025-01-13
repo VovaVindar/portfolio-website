@@ -18,8 +18,6 @@ import { useScrollbarOnloadAnimations } from "@/hooks/animations/onload/useScrol
 }; */
 
 const Scrollbar = ({ text = "", href, onClick }) => {
-  const { y, opacity, blur } = useScrollbarOnloadAnimations();
-
   const { scrollPosition, setScrollPosition } = useScroll();
 
   // Refs for cleanup and optimization
@@ -78,12 +76,17 @@ const Scrollbar = ({ text = "", href, onClick }) => {
     };
   }, [updateDocumentHeight, updateScrollPosition]);
 
+  const { y, opacity, blur, transition } = useScrollbarOnloadAnimations();
+
   const elementStyle = {
     transform: `translateY(${y}%)`,
     opacity,
     filter: `blur(${blur}px)`,
     top: `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding)))`,
   };
+  if (transition) {
+    elementStyle.transition = transition;
+  }
 
   return (
     <div className={`${styles["scrollbar-container"]} text-body-3 mf-hidden`}>

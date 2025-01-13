@@ -77,6 +77,7 @@ export const useWorkScrollAnimations = () => {
           );
         },
         once: WORK.SCROLL.TEXT.ONCE,
+        fastScrollEnd: true,
       });
     }
 
