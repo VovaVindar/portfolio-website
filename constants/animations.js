@@ -87,3 +87,44 @@ export const CLIENTS = {
     },
   },
 };
+
+export const WORK = {
+  EASING: ANIMATION_EASING,
+
+  LOAD: {
+    START_DELAY: 2000,
+  },
+
+  SCROLL: {
+    TEXT: {
+      DURATION: ANIMATION_DURATION + 0.1,
+      BLUR: {
+        START: "4.5px",
+        END: "0px",
+      },
+      TRIGGER: {
+        START: "100% 100%",
+      },
+      ONCE: SCROLLTRIGGER_ONCE,
+    },
+
+    CONTAINER: {
+      TRIGGER: {
+        START: "top 80%",
+      },
+      ONCE: false,
+    },
+
+    PARALLAX: {
+      Y_PERCENT: {
+        START: 10,
+        END: 0,
+      },
+      SCRUB: 1,
+      TRIGGER: {
+        START: "top bottom",
+        END_OFFSET_MULTIPLIER: 18, // Will be multiplied by lineHeight
+      },
+    },
+  },
+};
