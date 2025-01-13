@@ -238,3 +238,18 @@ export const CONTACT = {
     },
   },
 };
+
+export const SCROLLBAR = {
+  LOAD: {
+    INITIAL: {
+      Y: -100,
+      OPACITY: 0,
+      BLUR: 1.5,
+    },
+    FINAL: {
+      Y: 0,
+      OPACITY: 1,
+      BLUR: 0,
+    },
+  },
+};

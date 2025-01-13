@@ -12,10 +12,10 @@
   opacity: 1;
   filter: blur(0px);
   transform: translateY(0);
-  transition: opacity 1s var(--easing-text-fade-in),
-    filter 1s var(--easing-text-fade-in),
-    transform 1.8s var(--easing-img-fade-in);
-  transition-delay: 0.7s;
+  transition: opacity 0.9s var(--easing-text-fade-in),
+    filter 0.9s var(--easing-text-fade-in),
+    transform 1.7s var(--easing-img-fade-in);
+  transition-delay: 0s;
   user-select: none;
 }
 

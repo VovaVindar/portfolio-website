@@ -3,7 +3,7 @@ import styles from "./Scrollbar.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import Link from "next/link";
 import { useScroll } from "@/context/ScrollContext";
-import { usePreloader } from "@/context/PreloaderContext";
+import { useScrollbarOnloadAnimations } from "@/hooks/animations/onload/useScrollbarOnloadAnimations";
 
 // Throttle helper function
 /* const throttle = (func, limit) => {
@@ -18,10 +18,8 @@ import { usePreloader } from "@/context/PreloaderContext";
 }; */
 
 const Scrollbar = ({ text = "", href, onClick }) => {
-  const { isTransitionLinesActive } = usePreloader();
-  const [opacity, setOpacity] = useState(0);
-  const [blur, setBlur] = useState(1.5);
-  const [y, setY] = useState(-100);
+  const { y, opacity, blur } = useScrollbarOnloadAnimations();
+
   const { scrollPosition, setScrollPosition } = useScroll();
 
   // Refs for cleanup and optimization
@@ -42,19 +40,6 @@ const Scrollbar = ({ text = "", href, onClick }) => {
 
     setScrollPosition(scrollPercent);
   }, [setScrollPosition]);
-
-  // Fade-in animation
-  useEffect(() => {
-    if (!isTransitionLinesActive) {
-      setOpacity(1);
-      setBlur(0);
-      setY(0);
-    } else {
-      setOpacity(0);
-      setBlur(1.5);
-      setY(-100);
-    }
-  }, [isTransitionLinesActive]);
 
   // Initialize scroll handling
   useEffect(() => {
