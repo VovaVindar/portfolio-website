@@ -10,7 +10,9 @@ const Work = () => {
         className={`${styles["work"]} work-global mf-exclusion text-body-1-uppercase`}
         ref={sectionRef}
       >
-        <h2 ref={textRef}>Selected Work</h2>
+        <h2 className="text-header-2" ref={textRef}>
+          Selected Work
+        </h2>
         <div className={styles["el-container"]} ref={containerRef} />
         <div className="text-body-1 left-layout" />
         <div className="text-header-1 right-layout" />

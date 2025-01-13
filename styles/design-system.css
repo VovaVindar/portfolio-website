@@ -106,7 +106,7 @@ h2,
   text-transform: none;
   line-height: 69.5%;
 }
-.text-body-1-uppercase {
+/*.text-body-1-uppercase {
   font-size: var(--token-font-size-3);
   font-family: var(--lausanne);
   font-weight: 600;
@@ -123,7 +123,7 @@ h2,
 }
 .text-body-2 p {
   line-height: 50.5%;
-}
+}*/
 .text-body-1 p,
 .text-body-1-uppercase a,
 .text-body-1-uppercase span,

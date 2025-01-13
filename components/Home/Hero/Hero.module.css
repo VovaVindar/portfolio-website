@@ -10,12 +10,8 @@
   grid-template-rows: repeat(5, 9.5139vw);
   justify-content: space-between;
   align-content: space-between;
-  margin-bottom: 50px;
   position: relative;
   background-color: var(--token-color-surface-primary);
-}
-.hero-container .in-view {
-  background-color: red;
 }
 .hero-container h1.hero-title {
   margin-left: -3px;
