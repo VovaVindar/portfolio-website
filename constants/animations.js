@@ -81,11 +81,11 @@ export const HERO = {
       DURATION_OFFSET: -0.14,
       INITIAL_BLUR: 4.5,
       SCROLLTRIGGER_START_DELAY: 50,
-      INITIAL_DELAY: 2.64,
+      INITIAL_DELAY: 2.67,
     },
 
     GRID: {
-      INITIAL_DELAY: 1.97,
+      INITIAL_DELAY: 2,
       CELL_DURATION: 3,
       CELL_STAGGER: 0.07,
       IMG_EXTRA_STAGGER: 0.074,
