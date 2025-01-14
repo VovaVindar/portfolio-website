@@ -4,7 +4,12 @@ import { usePreloader } from "@/context/PreloaderContext";
 import { useLinesOnloadAnimations } from "@/hooks/animations/onload/useLinesOnloadAnimations";
 
 const Lines = () => {
-  const { startPageAnimation, completeTransition, noLines } = usePreloader();
+  const {
+    startPageAnimation,
+    completeTransition,
+    noLines,
+    isOnloadLinesActive,
+  } = usePreloader();
   const [lines, setLines] = useState([]);
   const linesReadyRef = useRef(false);
 
@@ -13,6 +18,25 @@ const Lines = () => {
     completeTransition,
     linesReadyRef.current
   );
+
+  // Prevent space key scrolling only while isOnloadLinesActive is true
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (
+        isOnloadLinesActive &&
+        e.code === "Space" &&
+        e.target === document.body
+      ) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOnloadLinesActive]); // Add isOnloadLinesActive as dependency
 
   // Generate lines based on screen height
   useEffect(() => {

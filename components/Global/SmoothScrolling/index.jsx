@@ -25,8 +25,12 @@ function SmoothScrolling({ children }) {
     lenisRef.current = lenis;
 
     // Initial setup
-    lenis.scrollTo(0, { immediate: true });
-    lenis.stop();
+    if (isOnloadLinesActive) {
+      lenis.scrollTo(0, { immediate: true });
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
 
     // Start scroll if not animating
     if (!isOnloadLinesActive) {

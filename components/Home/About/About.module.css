@@ -27,3 +27,6 @@
 .about p:last-of-type {
   text-align-last: left;
 }
+
+@media all and (max-width: 1060px) {
+}
