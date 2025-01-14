@@ -4,7 +4,7 @@ import { usePreloader } from "@/context/PreloaderContext";
 
 // Create a shared reference for Lenis
 const lenisRef = { current: null };
-const LERP_VALUE = 0.15;
+const LERP_VALUE = 0.09; // was 0.15
 
 // Regular functions, not hooks
 export const startLenis = () => {

@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
 import styles from "./Scrollbar.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import Link from "next/link";
@@ -14,12 +14,15 @@ const Scrollbar = ({ text = "", href, onClick }) => {
   const scrollHandlerRef = useRef(null);
   const resizeObserverRef = useRef(null);
   const documentHeightRef = useRef(0);
-  const isHeightCompatibleRef = useRef(
-    window.innerHeight < MAX_HEIGHT_FOR_ANIMATION
-  );
+  const isHeightCompatibleRef = useRef(true);
+
+  // State to track if component is mounted
+  const [isMounted, setIsMounted] = useState(false);
 
   // Calculate document height and check height compatibility
   const updateDocumentHeight = useCallback(() => {
+    if (typeof window === "undefined") return;
+
     documentHeightRef.current =
       document.documentElement.scrollHeight - window.innerHeight;
     isHeightCompatibleRef.current =
@@ -28,8 +31,10 @@ const Scrollbar = ({ text = "", href, onClick }) => {
 
   // Update scroll position with RAF
   const updateScrollPosition = useCallback(() => {
+    if (typeof window === "undefined") return;
+
     if (!isHeightCompatibleRef.current) {
-      setScrollPosition(0); // Reset position when height is incompatible
+      setScrollPosition(0);
       return;
     }
 
@@ -38,8 +43,16 @@ const Scrollbar = ({ text = "", href, onClick }) => {
     setScrollPosition(scrollPercent);
   }, [setScrollPosition]);
 
+  // Handle mounting
+  useEffect(() => {
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
+
   // Initialize scroll handling
   useEffect(() => {
+    if (!isMounted) return;
+
     // Initial height calculation
     updateDocumentHeight();
 
@@ -67,7 +80,7 @@ const Scrollbar = ({ text = "", href, onClick }) => {
       window.removeEventListener("scroll", scrollHandlerRef.current);
       resizeObserverRef.current?.disconnect();
     };
-  }, [updateDocumentHeight, updateScrollPosition]);
+  }, [isMounted, updateDocumentHeight, updateScrollPosition]);
 
   const { y, opacity, blur, transition } = useScrollbarOnloadAnimations();
 
@@ -75,9 +88,10 @@ const Scrollbar = ({ text = "", href, onClick }) => {
     transform: `translateY(${y}%)`,
     opacity,
     filter: `blur(${blur}px)`,
-    top: isHeightCompatibleRef.current
-      ? `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding)))`
-      : "var(--global-padding)", // Default position when height is incompatible
+    top:
+      !isMounted || isHeightCompatibleRef.current
+        ? `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding)))`
+        : "var(--global-padding)",
   };
 
   if (transition) {
