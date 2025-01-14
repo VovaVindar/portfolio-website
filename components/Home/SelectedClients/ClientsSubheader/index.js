@@ -3,6 +3,7 @@ import styles from "../SelectedClients.module.css";
 import { useScroll } from "@/context/ScrollContext";
 
 const WIDE_SCREEN_BREAKPOINT = 1060;
+const MAX_HEIGHT_FOR_ANIMATION = 2900;
 
 const ClientsSubheader = ({ clientsOnscroll }) => {
   const subheaderRef = useRef(null);
@@ -11,38 +12,40 @@ const ClientsSubheader = ({ clientsOnscroll }) => {
 
   // State management
   const [isWideScreen, setIsWideScreen] = useState(false);
+  const [isHeightCompatible, setIsHeightCompatible] = useState(true);
   const [position, setPosition] = useState("relative");
   const [top, setTop] = useState("unset");
   const [bottom, setBottom] = useState("unset");
 
-  // Handle screen size changes with ResizeObserver
+  // Handle screen size changes
   useEffect(() => {
-    const updateScreenSize = (width) => {
-      setIsWideScreen(width > WIDE_SCREEN_BREAKPOINT);
+    const updateScreenSize = () => {
+      setIsWideScreen(window.innerWidth > WIDE_SCREEN_BREAKPOINT);
+      setIsHeightCompatible(window.innerHeight < MAX_HEIGHT_FOR_ANIMATION);
     };
 
     // Initial check
-    updateScreenSize(window.innerWidth);
+    updateScreenSize();
 
-    // Setup ResizeObserver
-    resizeObserverRef.current = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const width = entry.contentRect.width;
-        updateScreenSize(width);
-      }
-    });
+    // Handle resize events
+    const handleResize = () => {
+      updateScreenSize();
+    };
 
-    // Observe document root
-    resizeObserverRef.current.observe(document.documentElement);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      resizeObserverRef.current?.disconnect();
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   // Calculate and update position
   useEffect(() => {
-    if (!subheaderRef.current || !isWideScreen) {
+    if (
+      !subheaderRef.current ||
+      !isWideScreen ||
+      window.innerHeight >= MAX_HEIGHT_FOR_ANIMATION
+    ) {
       setPosition("static");
       setTop("unset");
       setBottom("unset");
@@ -114,7 +117,9 @@ const ClientsSubheader = ({ clientsOnscroll }) => {
   const pStyle = {
     position,
     top:
-      top === false && isWideScreen
+      top === false &&
+      isWideScreen &&
+      window.innerHeight < MAX_HEIGHT_FOR_ANIMATION
         ? `clamp(var(--global-padding), calc(${scrollPosition}% - 2lh), calc(100% - 1lh - var(--global-padding)))`
         : top,
     bottom,

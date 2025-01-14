@@ -39,6 +39,34 @@ export const useFooterScrollAnimations = () => {
     }
   }, [startPageAnimation]);
 
+  const animConfig = {
+    hidden: {
+      opacity: 0,
+      filter: `blur(${FOOTER.SCROLL.BLUR.START})`,
+      color: FOOTER.SCROLL.COLOR.START,
+    },
+    visible: {
+      opacity: 1,
+      filter: `blur(${FOOTER.SCROLL.BLUR.END})`,
+      color: FOOTER.SCROLL.COLOR.END,
+      delay: 0,
+      duration: FOOTER.SCROLL.DURATION,
+      ease: FOOTER.EASING,
+      stagger: (index) =>
+        window.innerWidth > 820
+          ? footerStaggerDesktop(index, FOOTER.SCROLL.STAGGER)
+          : footerStaggerMobile(
+              index,
+              FOOTER.SCROLL.STAGGER + FOOTER.SCROLL.STAGGER_MOBILE_OFFSET
+            ),
+      onComplete: () => {
+        if (socialRef.current) {
+          socialRef.current.classList.add(styles["in-view"]);
+        }
+      },
+    },
+  };
+
   useGSAP(() => {
     let scrollTriggerInstance;
 
@@ -47,43 +75,24 @@ export const useFooterScrollAnimations = () => {
     }
     timelineRef.current = gsap.timeline();
 
-    if (elementRef.current.length && startScroll) {
-      const initialState = {
-        opacity: 0,
-        filter: `blur(${FOOTER.SCROLL.BLUR.START})`,
-        color: FOOTER.SCROLL.COLOR.START,
-      };
+    if (elementRef.current.length) {
+      timelineRef.current.set(elementRef.current, animConfig.hidden);
 
-      timelineRef.current.set(elementRef.current, initialState);
-
-      scrollTriggerInstance = ScrollTrigger.create({
-        trigger: elementRef.current,
-        start: FOOTER.SCROLL.TRIGGER.START,
-        onEnter: () => {
-          timelineRef.current.fromTo(elementRef.current, initialState, {
-            opacity: 1,
-            filter: `blur(${FOOTER.SCROLL.BLUR.END})`,
-            color: FOOTER.SCROLL.COLOR.END,
-            delay: 0,
-            duration: FOOTER.SCROLL.DURATION,
-            ease: FOOTER.EASING,
-            stagger: (index) =>
-              window.innerWidth > 820
-                ? footerStaggerDesktop(index, FOOTER.SCROLL.STAGGER)
-                : footerStaggerMobile(
-                    index,
-                    FOOTER.SCROLL.STAGGER + FOOTER.SCROLL.STAGGER_MOBILE_OFFSET
-                  ),
-            onComplete: () => {
-              if (socialRef.current) {
-                socialRef.current.classList.add(styles["in-view"]);
-              }
-            },
-          });
-        },
-        once: FOOTER.SCROLL.ONCE,
-        fastScrollEnd: true,
-      });
+      if (startScroll) {
+        scrollTriggerInstance = ScrollTrigger.create({
+          trigger: elementRef.current,
+          start: FOOTER.SCROLL.TRIGGER.START,
+          onEnter: () => {
+            timelineRef.current.fromTo(
+              elementRef.current,
+              animConfig.hidden,
+              animConfig.visible
+            );
+          },
+          once: FOOTER.SCROLL.ONCE,
+          fastScrollEnd: true,
+        });
+      }
     }
 
     return () => {

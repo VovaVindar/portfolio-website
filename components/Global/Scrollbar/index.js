@@ -1,21 +1,11 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import styles from "./Scrollbar.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import Link from "next/link";
 import { useScroll } from "@/context/ScrollContext";
 import { useScrollbarOnloadAnimations } from "@/hooks/animations/onload/useScrollbarOnloadAnimations";
 
-// Throttle helper function
-/* const throttle = (func, limit) => {
-  let inThrottle;
-  return function (...args) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
-    }
-  };
-}; */
+const MAX_HEIGHT_FOR_ANIMATION = 2900;
 
 const Scrollbar = ({ text = "", href, onClick }) => {
   const { scrollPosition, setScrollPosition } = useScroll();
@@ -24,18 +14,27 @@ const Scrollbar = ({ text = "", href, onClick }) => {
   const scrollHandlerRef = useRef(null);
   const resizeObserverRef = useRef(null);
   const documentHeightRef = useRef(0);
+  const isHeightCompatibleRef = useRef(
+    window.innerHeight < MAX_HEIGHT_FOR_ANIMATION
+  );
 
-  // Calculate document height
+  // Calculate document height and check height compatibility
   const updateDocumentHeight = useCallback(() => {
     documentHeightRef.current =
       document.documentElement.scrollHeight - window.innerHeight;
+    isHeightCompatibleRef.current =
+      window.innerHeight < MAX_HEIGHT_FOR_ANIMATION;
   }, []);
 
-  // Update scroll position with throttling
+  // Update scroll position with RAF
   const updateScrollPosition = useCallback(() => {
+    if (!isHeightCompatibleRef.current) {
+      setScrollPosition(0); // Reset position when height is incompatible
+      return;
+    }
+
     const scrollTop = window.scrollY;
     const scrollPercent = (scrollTop / documentHeightRef.current) * 100;
-
     setScrollPosition(scrollPercent);
   }, [setScrollPosition]);
 
@@ -43,12 +42,6 @@ const Scrollbar = ({ text = "", href, onClick }) => {
   useEffect(() => {
     // Initial height calculation
     updateDocumentHeight();
-
-    // Create throttled scroll handler
-    /* scrollHandlerRef.current = throttle(() => {
-      requestAnimationFrame(updateScrollPosition);
-    }, 4); // ~240fps (1000ms / 240) */
-    // Throttle can cause jitter
 
     scrollHandlerRef.current = () => {
       requestAnimationFrame(updateScrollPosition);
@@ -82,8 +75,11 @@ const Scrollbar = ({ text = "", href, onClick }) => {
     transform: `translateY(${y}%)`,
     opacity,
     filter: `blur(${blur}px)`,
-    top: `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding)))`,
+    top: isHeightCompatibleRef.current
+      ? `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding)))`
+      : "var(--global-padding)", // Default position when height is incompatible
   };
+
   if (transition) {
     elementStyle.transition = transition;
   }

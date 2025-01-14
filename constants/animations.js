@@ -110,7 +110,7 @@ export const ABOUT = {
   EASING: ANIMATION_EASING,
 
   LOAD: {
-    START_DELAY: 2000,
+    START_DELAY: 3400,
   },
 
   SCROLL: {
@@ -133,7 +133,7 @@ export const CLIENTS = {
   EASING: ANIMATION_EASING,
 
   LOAD: {
-    START_DELAY: 3100,
+    START_DELAY: 3840,
   },
 
   SCROLL: {
@@ -159,7 +159,7 @@ export const WORK = {
   EASING: ANIMATION_EASING,
 
   LOAD: {
-    START_DELAY: 2000,
+    START_DELAY: 4800,
   },
 
   SCROLL: {
@@ -200,7 +200,7 @@ export const FOOTER = {
   EASING: ANIMATION_EASING,
 
   LOAD: {
-    START_DELAY: 2250,
+    START_DELAY: 5300,
   },
 
   SCROLL: {
