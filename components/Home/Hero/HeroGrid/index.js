@@ -38,7 +38,7 @@ const HeroGrid = ({ imgOnload, cellOnload }) => {
               ref={image ? (el) => handleCellRef(el, currentIndex) : undefined}
             >
               {image && (
-                <Magnetic movement={0.072} passedScale={1.032}>
+                <Magnetic type="image">
                   <Image
                     src={image.src}
                     alt={`${image.alt} (Index: ${currentIndex})`}

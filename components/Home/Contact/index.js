@@ -68,8 +68,7 @@ export default function Contact() {
       <div className={styles["contact-container"]} ref={containerRef}>
         <Magnetic
           style={{ height: "min-content", width: "min-content" }}
-          movement={0.072}
-          passedScale={1.032}
+          type="text"
         >
           <button
             ref={contentRef}

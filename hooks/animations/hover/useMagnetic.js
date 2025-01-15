@@ -2,15 +2,45 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import gsap from "gsap";
 import { MAGNETIC } from "@/constants/animations";
 
-export const useMagnetic = (type, passedScale, movement) => {
+export const useMagnetic = (type, passedScale, passedMovement) => {
   const magneticAreaRef = useRef(null);
   const timelineRef = useRef(null);
 
-  const maxScale =
-    passedScale ||
-    (type === "image" ? MAGNETIC.SCALE.IMAGE : MAGNETIC.SCALE.DEFAULT);
+  // Get the appropriate scale based on type
+  const getMaxScale = () => {
+    if (passedScale) return passedScale;
+
+    switch (type) {
+      case "image":
+        return MAGNETIC.SCALE.IMAGE;
+      case "medium-text":
+        return MAGNETIC.SCALE.MEDIUM_TEXT;
+      case "small-text":
+        return MAGNETIC.SCALE.SMALL_TEXT;
+      default:
+        return MAGNETIC.SCALE.MEDIUM_TEXT;
+    }
+  };
+
+  // Get the appropriate movement based on type
+  const getMovement = () => {
+    if (passedMovement) return passedMovement;
+
+    switch (type) {
+      case "image":
+        return MAGNETIC.MOVEMENT.IMAGE;
+      case "medium-text":
+        return MAGNETIC.MOVEMENT.MEDIUM_TEXT;
+      case "small-text":
+        return MAGNETIC.MOVEMENT.SMALL_TEXT;
+      default:
+        return MAGNETIC.MOVEMENT.MEDIUM_TEXT;
+    }
+  };
+
+  const maxScale = getMaxScale();
   const minScale = MAGNETIC.SCALE.MIN;
-  const pMovement = type === "image" ? movement : MAGNETIC.MOVEMENT.TEXT;
+  const pMovement = getMovement();
 
   const [scale, setScale] = useState(maxScale);
 

@@ -102,11 +102,11 @@ const Scrollbar = ({ text = "", href, onClick }) => {
     <div className={`${styles["scrollbar-container"]} text-body-3 mf-hidden`}>
       {href ? (
         <Link href={href} style={elementStyle} scroll={false}>
-          <Magnetic type="text">{text}</Magnetic>
+          <Magnetic type="small-text">{text}</Magnetic>
         </Link>
       ) : (
         <button style={elementStyle} onClick={onClick}>
-          <Magnetic type="text">{text}</Magnetic>
+          <Magnetic type="small-text">{text}</Magnetic>
         </button>
       )}
     </div>

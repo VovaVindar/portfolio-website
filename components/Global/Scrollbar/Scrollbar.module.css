@@ -18,6 +18,9 @@
   transition-delay: 0s;
   user-select: none;
 }
+.scrollbar-container span {
+  display: block;
+}
 
 @media all and (min-width: 2560px) {
   .scrollbar-container a,

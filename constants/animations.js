@@ -276,13 +276,15 @@ export const SCROLLBAR = {
 
 export const MAGNETIC = {
   SCALE: {
-    IMAGE: 1.016,
-    DEFAULT: 1.04,
+    IMAGE: 1.04,
+    MEDIUM_TEXT: 1.034,
+    SMALL_TEXT: 1.054,
     MIN: 0.95,
   },
   MOVEMENT: {
-    IMAGE: 0.036,
-    TEXT: 0.075,
+    IMAGE: 0.06,
+    MEDIUM_TEXT: 0.11,
+    SMALL_TEXT: 0.125,
   },
   ANIMATION: {
     DURATION: 0.55,
