@@ -14,7 +14,10 @@ const Preloader = ({ mainRef, className }) => {
     usePreloaderOnloadAnimations(loadProgress);
 
   useEffect(() => {
-    if (!mainRef.current) return;
+    if (!mainRef.current) {
+      console.log("mainRef.current is not available");
+      return;
+    }
 
     const imgLoad = imagesLoaded(mainRef.current, { background: true });
     let currentProgress = 0;
