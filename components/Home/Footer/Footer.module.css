@@ -1,5 +1,6 @@
 .footer-container {
-  padding-top: 1rlh;
+  /*padding-top: 1rlh;*/
+  padding-top: 0;
   z-index: 1;
   background-color: var(--token-color-surface-primary);
 }
@@ -22,7 +23,7 @@
   margin-bottom: 1rlh;
 }
 .footer-bottom {
-  margin-top: 10rlh;
+  padding-top: 10rlh;
   display: flex;
   flex-direction: row;
   gap: var(--columns-gap);
@@ -73,7 +74,7 @@
     display: none;
   }
   .footer-bottom {
-    margin-top: 6rlh;
+    padding-top: 6rlh;
     align-items: flex-end;
   }
   .footer-bottom > div {

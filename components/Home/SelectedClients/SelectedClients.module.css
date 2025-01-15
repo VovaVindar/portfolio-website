@@ -1,6 +1,6 @@
 .clients {
   padding-top: 4.9565rlh;
-  padding-bottom: 6.0869rlh;
+  padding-bottom: 6rlh;
   display: flex;
   flex-direction: row;
   gap: var(--columns-gap);
