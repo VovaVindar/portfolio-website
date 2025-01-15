@@ -1,14 +1,19 @@
-import React, { useState, useContext, useEffect, createContext } from "react";
+import { useState, useContext, useEffect, createContext, useRef } from "react";
 import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-gsap.registerPlugin(useGSAP);
+import { useRouter } from "next/router";
+import { useScrollPreservation } from "@/hooks/transition/useScrollPreservation";
+import { useRouteTracking } from "@/hooks/transition/useRouteTracking";
+import { usePageTransitions } from "@/hooks/transition/usePageTransitions";
 
 // Create Context
-const TransitionContext = createContext({});
+export const TransitionContext = createContext({});
 
 // Provider Component
-const TransitionProvider = ({ children }) => {
-  const [timelineExit, setTimelineExit] = useState(() =>
+export const TransitionProvider = ({ children }) => {
+  const [secondaryExit, setSecondaryExit] = useState(() =>
+    gsap.timeline({ paused: true })
+  );
+  const [secondaryEnter, setSecondaryEnter] = useState(() =>
     gsap.timeline({ paused: true })
   );
   const [isPageChanging, setIsPageChanging] = useState(false);
@@ -16,8 +21,10 @@ const TransitionProvider = ({ children }) => {
   return (
     <TransitionContext.Provider
       value={{
-        timelineExit,
-        setTimelineExit,
+        secondaryExit,
+        setSecondaryExit,
+        secondaryEnter,
+        setSecondaryEnter,
         isPageChanging,
         setIsPageChanging,
       }}
@@ -37,29 +44,39 @@ export const useTransition = () => {
 };
 
 // Layout Component
-function TransitionLayout({ children, ...props }) {
+export function TransitionLayout({ children }) {
   const [displayChildren, setDisplayChildren] = useState(children);
-  const { timelineExit, setIsPageChanging } = useContext(TransitionContext);
-  const { contextSafe } = useGSAP();
+  const [overlayChildren, setOverlayChildren] = useState(null);
+  const router = useRouter();
 
-  const exit = contextSafe(() => {
-    setIsPageChanging(true);
-    timelineExit.play().then(() => {
-      setDisplayChildren(children);
-      timelineExit.pause().clear();
-    });
-  });
+  const { transitionFromHome, transitionToHome, setIsPageChanging } =
+    usePageTransitions(setOverlayChildren);
+
+  const { previousRoute, setPreviousRoute } = useRouteTracking(router);
+  useScrollPreservation(router);
 
   useEffect(() => {
-    if (children.key !== displayChildren.key) {
-      console.log("Children changed, triggering exit");
-      exit();
+    if (previousRoute !== children.key) {
+      setIsPageChanging(true);
+
+      if (children.key === "/") {
+        transitionToHome();
+      } else {
+        transitionFromHome(children);
+      }
+
+      setPreviousRoute(children.key);
     }
-  }, [children]);
+  }, [children, previousRoute, transitionToHome, transitionFromHome]);
 
-  const childrenWithProps = React.cloneElement(children, { ...props });
-
-  return <>{childrenWithProps}</>;
+  return (
+    <>
+      {displayChildren}
+      {overlayChildren && (
+        <div style={{ position: "fixed", top: 0, left: 0, zIndex: 100 }}>
+          {overlayChildren}
+        </div>
+      )}
+    </>
+  );
 }
-
-export { TransitionContext, TransitionProvider, TransitionLayout };

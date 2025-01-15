@@ -15,6 +15,10 @@ export const stopLenis = () => {
   lenisRef.current?.stop();
 };
 
+export const scrollToLenis = (target) => {
+  lenisRef.current?.scrollTo(target, { immediate: true });
+};
+
 function SmoothScrolling({ children }) {
   const { isOnloadLinesActive } = usePreloader();
   const lenis = useLenis(() => {});
@@ -26,7 +30,7 @@ function SmoothScrolling({ children }) {
 
     // Initial setup
     if (isOnloadLinesActive) {
-      lenis.scrollTo(0, { immediate: true });
+      //lenis.scrollTo(0, { immediate: true });
       lenis.stop();
     } else {
       lenis.start();

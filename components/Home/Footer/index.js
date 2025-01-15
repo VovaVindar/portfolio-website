@@ -136,7 +136,7 @@ const Footer = () => {
             <div className="text-body-3">
               <p ref={(el) => (elementRef.current[10] = el)}>
                 <Magnetic type="text">
-                  <Link href="/privacy-policy">
+                  <Link scroll={false} href="/privacy-policy">
                     Privacy <span>Policy</span>
                   </Link>
                 </Magnetic>
