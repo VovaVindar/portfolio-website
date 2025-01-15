@@ -273,3 +273,19 @@ export const SCROLLBAR = {
     },
   },
 };
+
+export const MAGNETIC = {
+  SCALE: {
+    IMAGE: 1.016,
+    DEFAULT: 1.04,
+    MIN: 0.95,
+  },
+  MOVEMENT: {
+    IMAGE: 0.036,
+    TEXT: 0.075,
+  },
+  ANIMATION: {
+    DURATION: 0.55,
+    EASING: "power1.out",
+  },
+};
