@@ -1,7 +1,4 @@
 import { createContext, useContext, useState, useCallback } from "react";
-import { SITE_IMAGES, SITE_VIDEOS } from "@/constants/media";
-
-const allMedia = [...SITE_IMAGES, ...SITE_VIDEOS];
 
 const PreloaderContext = createContext();
 
