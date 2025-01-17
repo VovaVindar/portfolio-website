@@ -1,29 +1,16 @@
-import { useRef } from "react";
-import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { HERO } from "@/constants/animations";
 import styles from "@/components/Home/Hero/Hero.module.css";
-import { usePreloader } from "@/context/PreloaderContext";
 import { useTransition } from "@/context/TransitionContext";
 
 export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
-  const { startPageAnimation } = usePreloader();
-  const { isPageChanging } = useTransition();
-  const timelineImgRef = useRef(null);
-  const timelineCellRef = useRef(null);
+  const { globalOnload, isPageChanging } = useTransition();
 
   useGSAP(() => {
-    if (timelineImgRef.current) timelineImgRef.current.kill();
-    if (timelineCellRef.current) timelineCellRef.current.kill();
-
-    timelineImgRef.current = gsap.timeline();
-    timelineCellRef.current = gsap.timeline();
-
-    if (startPageAnimation && !isPageChanging) {
-      // Image filters animation
-      if (imgOnload.current?.length) {
-        timelineImgRef.current.to([...imgOnload.current].reverse(), {
-          delay: HERO.LOAD.GRID.INITIAL_DELAY,
+    if (imgOnload.current?.length) {
+      globalOnload.to(
+        [...imgOnload.current].reverse(),
+        {
           duration: 0,
           stagger: {
             each:
@@ -32,34 +19,39 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
               this.targets()[0]?.classList.add(styles["in-view"]);
             },
           },
-        });
-      }
+        },
+        HERO.LOAD.GRID.INITIAL_DELAY
+      );
+    }
 
-      // Cell slide animation
-      if (cellOnload.current?.length) {
-        const containerHeight =
-          cellOnload.current[0]?.parentElement?.offsetHeight ?? 0;
+    // Cell slide animation
+    if (cellOnload.current?.length) {
+      const containerHeight =
+        cellOnload.current[0]?.parentElement?.offsetHeight ?? 0;
 
-        timelineCellRef.current.fromTo(
-          [...cellOnload.current].reverse(),
-          {
-            y: -(containerHeight + 5),
-            autoAlpha: 0,
-            scale: 1.8,
-          },
-          {
-            y: 0,
-            autoAlpha: 1,
-            scale: 1,
-            transformOrigin: "bottom",
-            duration: HERO.LOAD.GRID.CELL_DURATION,
-            delay: HERO.LOAD.GRID.INITIAL_DELAY,
-            ease: HERO.EASING,
-            stagger: HERO.LOAD.GRID.CELL_STAGGER,
-          }
-        );
-      }
-    } else if (isPageChanging) {
+      globalOnload.fromTo(
+        [...cellOnload.current].reverse(),
+        {
+          y: -(containerHeight + 5),
+          autoAlpha: 0,
+          scale: 1.8,
+        },
+        {
+          y: 0,
+          autoAlpha: 1,
+          scale: 1,
+          transformOrigin: "bottom",
+          duration: HERO.LOAD.GRID.CELL_DURATION,
+          ease: HERO.EASING,
+          stagger: HERO.LOAD.GRID.CELL_STAGGER,
+        },
+        HERO.LOAD.GRID.INITIAL_DELAY
+      );
+    }
+
+    console.log("Adding animations, timeline time:", globalOnload.time());
+
+    if (isPageChanging) {
       // Add in-view class to all images when page is changing
       if (imgOnload.current?.length) {
         [...imgOnload.current].forEach((img) => {
@@ -67,14 +59,7 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
         });
       }
     }
+  }, []);
 
-    return () => {
-      timelineImgRef.current?.kill();
-      timelineCellRef.current?.kill();
-      timelineImgRef.current = null;
-      timelineCellRef.current = null;
-    };
-  }, [startPageAnimation, isPageChanging]);
-
-  return { timelineImgRef, timelineCellRef };
+  return {};
 };

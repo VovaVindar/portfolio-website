@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap/dist/gsap";
 import { LINES } from "@/constants/animations";
+import { useTransition } from "@/context/TransitionContext";
 
 export const useLinesOnloadAnimations = (
   startPageAnimation,
@@ -9,8 +9,8 @@ export const useLinesOnloadAnimations = (
   linesReady
 ) => {
   const containerRef = useRef(null);
-  const timelineRef = useRef(null);
   const hasAnimatedRef = useRef(false);
+  const { globalOnload } = useTransition();
 
   useGSAP(() => {
     if (!linesReady || !containerRef.current || hasAnimatedRef.current) return;
@@ -23,7 +23,7 @@ export const useLinesOnloadAnimations = (
       ? LINES.TRANSITION.STAGGER.HIGH_DENSITY
       : LINES.TRANSITION.STAGGER.NORMAL;
 
-    timelineRef.current = gsap.timeline().fromTo(
+    globalOnload.fromTo(
       lines,
       {
         scaleY: 1,
@@ -49,13 +49,9 @@ export const useLinesOnloadAnimations = (
             containerRef.current?.classList.remove("scroll-block");
           }, LINES.TRANSITION.COMPLETION_DELAY);
         },
-      }
+      },
+      0
     );
-
-    return () => {
-      timelineRef.current?.kill();
-      gsap.killTweensOf(containerRef.current?.children);
-    };
   }, [startPageAnimation, completeTransition, linesReady]);
 
   return containerRef;

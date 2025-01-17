@@ -2,22 +2,25 @@ import { useContext } from "react";
 import { useGSAP } from "@gsap/react";
 import { TransitionContext } from "@/context/TransitionContext";
 
-export const usePageTransitions = (setOverlayChildren) => {
+export const usePageTransitions = (setHomeChildren, setSecondaryChildren) => {
   const { contextSafe } = useGSAP();
-  const { secondaryEnter, secondaryExit, setIsPageChanging } =
-    useContext(TransitionContext);
+  const { secondaryEnter, secondaryExit } = useContext(TransitionContext);
 
   const transitionFromHome = contextSafe((children) => {
-    setOverlayChildren(children);
+    setSecondaryChildren(children);
 
     secondaryEnter.play().then(() => {
       secondaryEnter.pause().clear();
     });
   });
 
-  const transitionToHome = contextSafe(() => {
+  const transitionToHome = contextSafe((children) => {
+    if (children !== undefined && children !== null) {
+      setHomeChildren(children);
+    }
+
     secondaryExit.play().then(() => {
-      setOverlayChildren(null);
+      setSecondaryChildren(null);
       secondaryExit.pause().clear();
     });
   });
@@ -25,6 +28,5 @@ export const usePageTransitions = (setOverlayChildren) => {
   return {
     transitionFromHome,
     transitionToHome,
-    setIsPageChanging,
   };
 };
