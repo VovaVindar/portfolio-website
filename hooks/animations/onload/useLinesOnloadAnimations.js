@@ -3,11 +3,7 @@ import { useGSAP } from "@gsap/react";
 import { LINES } from "@/constants/animations";
 import { useTransition } from "@/context/TransitionContext";
 
-export const useLinesOnloadAnimations = (
-  startPageAnimation,
-  completeTransition,
-  linesReady
-) => {
+export const useLinesOnloadAnimations = (completeTransition, linesReady) => {
   const containerRef = useRef(null);
   const hasAnimatedRef = useRef(false);
   const { globalOnload } = useTransition();
@@ -31,10 +27,8 @@ export const useLinesOnloadAnimations = (
         backgroundColor: LINES.COLORS.START,
       },
       {
-        scaleY: startPageAnimation ? 0 : 1,
-        backgroundColor: startPageAnimation
-          ? LINES.COLORS.END
-          : LINES.COLORS.START,
+        scaleY: 0,
+        backgroundColor: LINES.COLORS.END,
         duration: LINES.TRANSITION.DURATION,
         delay: LINES.TRANSITION.DELAY,
         ease: LINES.TRANSITION.EASING,
@@ -52,7 +46,7 @@ export const useLinesOnloadAnimations = (
       },
       0
     );
-  }, [startPageAnimation, completeTransition, linesReady]);
+  }, [completeTransition, linesReady]);
 
   return containerRef;
 };

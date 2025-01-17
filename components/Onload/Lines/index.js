@@ -4,17 +4,11 @@ import { usePreloader } from "@/context/PreloaderContext";
 import { useLinesOnloadAnimations } from "@/hooks/animations/onload/useLinesOnloadAnimations";
 
 const Lines = () => {
-  const {
-    startPageAnimation,
-    completeTransition,
-    noLines,
-    isOnloadLinesActive,
-  } = usePreloader();
+  const { completeTransition, noLines, isOnloadLinesActive } = usePreloader();
   const [lines, setLines] = useState([]);
   const linesReadyRef = useRef(false);
 
   const containerRef = useLinesOnloadAnimations(
-    startPageAnimation,
     completeTransition,
     linesReadyRef.current
   );
