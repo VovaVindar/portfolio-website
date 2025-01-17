@@ -22,7 +22,7 @@ export const TransitionProvider = ({ children }) => {
     gsap.timeline({ paused: true })
   );
   const [isPageMounted, setIsPageMounted] = useState(false);
-  const [isPageChanging, setIsPageChanging] = useState(false);
+  const [isPageChanged, setIsPageChanged] = useState(false);
 
   // Play onload when loading is 100
   const { startPageAnimation } = usePreloader();
@@ -51,8 +51,8 @@ export const TransitionProvider = ({ children }) => {
         setSecondaryEnter,
         isPageMounted,
         setIsPageMounted,
-        isPageChanging,
-        setIsPageChanging,
+        isPageChanged,
+        setIsPageChanged,
       }}
     >
       {children}
@@ -75,8 +75,7 @@ export function TransitionLayout({ children }) {
   const [secondaryChildren, setSecondaryChildren] = useState(null);
   const router = useRouter();
 
-  const { setIsPageChanging, isPageMounted, setIsPageMounted } =
-    useTransition();
+  const { setIsPageChanged, isPageMounted, setIsPageMounted } = useTransition();
 
   const { transitionFromHome, transitionToHome } = usePageTransitions(
     setHomeChildren,
@@ -99,7 +98,7 @@ export function TransitionLayout({ children }) {
     }
 
     if (previousRoute !== children.key) {
-      setIsPageChanging(true);
+      setIsPageChanged(true);
 
       if (children.key === "/") {
         transitionToHome(homeChildren ? undefined : children);

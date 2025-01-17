@@ -208,7 +208,7 @@ export const FOOTER = {
     STAGGER: STAGGER_INTERVAL,
     STAGGER_MOBILE_OFFSET: -0.02,
     BLUR: {
-      START: "2px",
+      START: "1px",
       END: "0px",
     },
     COLOR: {

@@ -16,7 +16,7 @@ const Hero = ({}) => {
 
   return (
     <div className={styles["hero-container"]} ref={containerRef}>
-      {/*<HeroTitle />*/}
+      <HeroTitle />
       <HeroGrid imgOnload={imgOnload} cellOnload={cellOnload} />
     </div>
   );

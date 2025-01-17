@@ -82,7 +82,7 @@ const Scrollbar = ({ text = "", href, onClick }) => {
     };
   }, [isMounted, updateDocumentHeight, updateScrollPosition]);
 
-  const { y, opacity, blur, transition } = useScrollbarOnloadAnimations();
+  const { y, opacity, blur } = useScrollbarOnloadAnimations();
 
   const elementStyle = {
     transform: `translateY(${y}%)`,
@@ -93,10 +93,6 @@ const Scrollbar = ({ text = "", href, onClick }) => {
         ? `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding)))`
         : "var(--global-padding)",
   };
-
-  if (transition) {
-    elementStyle.transition = transition;
-  }
 
   return (
     <div className={`${styles["scrollbar-container"]} text-body-3 mf-hidden`}>

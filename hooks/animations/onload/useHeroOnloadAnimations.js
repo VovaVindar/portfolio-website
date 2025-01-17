@@ -4,7 +4,7 @@ import styles from "@/components/Home/Hero/Hero.module.css";
 import { useTransition } from "@/context/TransitionContext";
 
 export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
-  const { globalOnload, isPageChanging } = useTransition();
+  const { globalOnload, isPageChanged } = useTransition();
 
   useGSAP(() => {
     if (imgOnload.current?.length) {
@@ -49,9 +49,7 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
       );
     }
 
-    console.log("Adding animations, timeline time:", globalOnload.time());
-
-    if (isPageChanging) {
+    if (isPageChanged) {
       // Add in-view class to all images when page is changing
       if (imgOnload.current?.length) {
         [...imgOnload.current].forEach((img) => {
