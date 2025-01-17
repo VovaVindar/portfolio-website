@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import "@/styles/design-system.css";
 import "@/styles/mouse-follower.css";
 import { fonts } from "@/config/fonts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Preloader from "@/components/Onload/Preloader";
 import Lines from "@/components/Onload/Lines";
 import { ScrollProvider } from "@/context/ScrollContext";
@@ -14,19 +14,32 @@ import { PreloaderProvider, usePreloader } from "@/context/PreloaderContext";
 import CursorContainer from "@/components/Global/CursorContainer";
 import SmoothScrolling from "@/components/Global/SmoothScrolling";
 
-// Wrapper component to handle loading initiation
-const AppContent = ({ Component, pageProps, router }) => {
-  const { initiateLoading } = usePreloader();
+// Persistent layer that stays mounted
+const PersistentLayer = ({ onLoadComplete }) => {
+  const { initiateLoading, loadProgress } = usePreloader();
 
-  // Start loading when the app mounts
   useEffect(() => {
     initiateLoading();
   }, [initiateLoading]);
+
+  useEffect(() => {
+    if (loadProgress >= 100) {
+      onLoadComplete?.();
+    }
+  }, [loadProgress, onLoadComplete]);
 
   return (
     <>
       <Preloader className={fonts.variables} />
       <Lines />
+    </>
+  );
+};
+
+// Main app content that can change with routes
+const AppContent = ({ Component, pageProps, router }) => {
+  return (
+    <>
       <CursorContainer className={fonts.variables} />
       <SmoothScrolling>
         <TransitionLayout>
@@ -40,15 +53,22 @@ const AppContent = ({ Component, pageProps, router }) => {
 };
 
 function MyApp({ Component, pageProps, router }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <PreloaderProvider>
       <ScrollProvider>
         <TransitionProvider>
-          <AppContent
-            Component={Component}
-            pageProps={pageProps}
-            router={router}
-          />
+          <>
+            <PersistentLayer onLoadComplete={() => setIsLoaded(true)} />
+            {isLoaded && (
+              <AppContent
+                Component={Component}
+                pageProps={pageProps}
+                router={router}
+              />
+            )}
+          </>
         </TransitionProvider>
       </ScrollProvider>
     </PreloaderProvider>
