@@ -36,9 +36,21 @@ const Lines = () => {
   useEffect(() => {
     const generateLines = () => {
       const height = window.innerHeight;
-      const rootLineHeight = parseInt(
+      const width = document.documentElement.clientWidth;
+
+      // Determine root line height based on screen width
+      let rootLineHeight;
+      if (width >= 2400) {
+        rootLineHeight = 40;
+      } else if (width >= 1800) {
+        rootLineHeight = 30;
+      } else {
+        rootLineHeight = 23;
+      }
+
+      /*const rootLineHeight = parseInt(
         getComputedStyle(document.documentElement).lineHeight
-      );
+      );*/
       const lineHeight = 1;
       const totalLines = Math.floor(height / (rootLineHeight - lineHeight));
 
