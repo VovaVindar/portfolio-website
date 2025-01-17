@@ -36,7 +36,7 @@ const Lines = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOnloadLinesActive]); // Add isOnloadLinesActive as dependency
+  }, [isOnloadLinesActive]);
 
   // Generate lines based on screen height
   useEffect(() => {
@@ -56,7 +56,6 @@ const Lines = () => {
 
       if (containerRef.current) {
         containerRef.current.style.backgroundColor = "transparent";
-        containerRef.current.parentNode.classList.add("mounted");
       }
       linesReadyRef.current = true;
     };

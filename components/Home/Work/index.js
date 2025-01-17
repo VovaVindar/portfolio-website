@@ -7,7 +7,7 @@ const Work = () => {
   return (
     <div className={styles["work-container"]}>
       <div
-        className={`${styles["work"]} work-global mf-exclusion text-body-1-uppercase`}
+        className={`${styles["work"]} mf-exclusion text-body-1-uppercase`}
         ref={sectionRef}
       >
         <h2 className="text-header-2" ref={textRef}>
