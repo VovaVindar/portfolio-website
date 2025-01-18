@@ -1,6 +1,9 @@
 {
   "name": "Vova Vindar — Designer & Developer",
   "short_name": "VovaVindar",
+  "description": "Digital Designer & Developer based in Vancouver. Focused on creating immersive websites and intuitive digital interfaces.",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +18,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#0f1010",
-  "background_color": "#0f1010",
+  "theme_color": "#FF0000",
+  "background_color": "#FFFFFF",
   "display": "standalone"
 }
