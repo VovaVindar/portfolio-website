@@ -6,7 +6,7 @@
     "dev": "node scripts/scanImages.js && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0"
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",

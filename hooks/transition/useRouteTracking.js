@@ -5,7 +5,7 @@ export const useRouteTracking = (router) => {
 
   useEffect(() => {
     setPreviousRoute(router.route);
-  }, []);
+  }, [router.route]);
 
   return {
     previousRoute,

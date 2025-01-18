@@ -108,7 +108,17 @@ export function TransitionLayout({ children }) {
 
       setPreviousRoute(children.key);
     }
-  }, [children, previousRoute, transitionToHome, transitionFromHome]);
+  }, [
+    children,
+    previousRoute,
+    transitionToHome,
+    transitionFromHome,
+    homeChildren,
+    isPageMounted,
+    setIsPageChanged,
+    setIsPageMounted,
+    setPreviousRoute,
+  ]);
 
   return (
     <>

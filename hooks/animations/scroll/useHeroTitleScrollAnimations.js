@@ -45,7 +45,7 @@ export const useHeroTitleScrollAnimations = (titleRef, loadCompleted) => {
     } catch (error) {
       console.error("Failed to setup scroll animation:", error);
     }
-  }, [loadCompleted]);
+  }, [loadCompleted, cleanupScrollAnimations, titleRef]);
 
   useGSAP(() => {
     setupScrollAnimation();
