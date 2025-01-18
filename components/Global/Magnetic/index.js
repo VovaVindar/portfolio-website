@@ -1,12 +1,12 @@
 import { useMagnetic } from "@/hooks/animations/hover/useMagnetic";
 
 const Magnetic = ({ children, movement, type, scale, style }) => {
+  const { magneticAreaRef } = useMagnetic(type, scale, movement);
+
   if (!children) {
     console.warn("Magnetic component requires children");
     return null;
   }
-
-  const { magneticAreaRef } = useMagnetic(type, scale, movement);
 
   return type === "image" ? (
     <div

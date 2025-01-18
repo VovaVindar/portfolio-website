@@ -67,7 +67,7 @@ const Lines = () => {
     };
 
     generateLines();
-  }, []);
+  }, [containerRef]);
 
   if (noLines) return null;
 

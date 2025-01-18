@@ -15,6 +15,8 @@ const ClientItem = forwardRef(({ client }, ref) => (
   </div>
 ));
 
+ClientItem.displayName = "ClientItem";
+
 const ClientsList = ({ clientsOnscroll }) => (
   <>
     {CLIENTS.list.map((client, index) => (
