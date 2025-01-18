@@ -43,30 +43,35 @@
   position: relative;
   overflow: hidden;
 }
-.grid-cell .cell-image {
+.grid-cell .cell-image,
+.grid-cell .cell-video {
   background-color: black;
   width: 100%;
   height: 100%;
   object-fit: cover;
   image-rendering: smooth;
 }
-.grid-cell .cell-image {
+.grid-cell .cell-image,
+.grid-cell .cell-video {
   /*transform: scale(var(--image-scale));*/
-  filter: blur(var(--image-blur)) brightness(var(--image-brightness))
+  filter: blur(var(--media-blur)) brightness(var(--media-brightness))
     saturate(3.7);
   transition: transform 3s var(--easing-img-fade-in),
     filter 3s var(--easing-img-fade-in); /* power2.out */
   backface-visibility: hidden; /* to force GPU performance */
 }
-.grid-cell .cell-image.in-view {
+.grid-cell .cell-image.in-view,
+.grid-cell .cell-video.in-view {
   transform: scale(1);
   filter: blur(0px) brightness(1) saturate(1);
 }
-.hero-container.scroll .grid-cell .cell-image {
+.hero-container.scroll .grid-cell .cell-image,
+.hero-container.scroll .grid-cell .cell-video {
   transition: transform 0.2s var(--easing-img-fade-in),
     filter 0.2s var(--easing-img-fade-in); /* power2.out */
 }
-.hero-container.scroll .grid-cell .cell-image.in-view {
+.hero-container.scroll .grid-cell .cell-image.in-view,
+.hero-container.scroll .grid-cell .cell-video.in-view {
   transition: transform 2.1s var(--easing-img-fade-in),
     filter 2.1s var(--easing-img-fade-in); /* power2.out */
 }

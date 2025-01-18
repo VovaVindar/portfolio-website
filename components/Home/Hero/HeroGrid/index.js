@@ -4,10 +4,10 @@ import Magnetic from "@/components/Global/Magnetic";
 import { GRID_LAYOUT } from "@/constants/hero-grid";
 
 const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
-  let refIndex = 0; // For ref handling
-  let displayIndex = 0; // For alt text display
+  let refIndex = 0;
+  let displayIndex = 0;
 
-  const handleImageRef = (el) => {
+  const handleMediaRef = (el) => {
     if (!el || !imgOnload?.current) return;
     imgOnload.current[refIndex] = el;
     refIndex++;
@@ -18,56 +18,84 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
     cellOnload.current[index] = el;
   };
 
-  // Function to check if a cell has an image
-  const getCellImage = (row, col) => {
-    return GRID_LAYOUT.images.find((img) => img.row === row && img.col === col);
+  // Function to check if a cell has media content
+  const getCellMedia = (row, col) => {
+    return GRID_LAYOUT.media.find(
+      (item) => item.row === row && item.col === col
+    );
   };
 
   // Hover text logic
-  const handleMouseEnter = (image) => {
-    onHover(image.hoverText);
+  const handleMouseEnter = (media) => {
+    onHover(media.hoverText);
   };
 
   const handleMouseLeave = () => {
     onHover("");
   };
 
+  // Render media based on type
+  const renderMedia = (media, currentIndex) => {
+    const commonProps = {
+      style: {
+        "--media-brightness": media.brightness,
+        "--media-blur": `${media.blur}px`,
+        "--media-scale": `${media.scale}`,
+      },
+    };
+
+    if (media.type === "video") {
+      return (
+        <video
+          src={media.src}
+          autoPlay
+          loop
+          muted
+          playsInline
+          ref={handleMediaRef}
+          className={`${styles["cell-video"]}`}
+          {...commonProps}
+        />
+      );
+    }
+
+    return (
+      <Image
+        src={media.src}
+        alt={`${media.alt} (Index: ${currentIndex})`}
+        fill
+        className={`${styles["cell-image"]}`}
+        priority={true}
+        ref={handleMediaRef}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        {...commonProps}
+      />
+    );
+  };
+
   return (
     <>
       {GRID_LAYOUT.rows.map((row) =>
         GRID_LAYOUT.cols.map((col) => {
-          const image = getCellImage(row, col);
+          const media = getCellMedia(row, col);
           let currentIndex = displayIndex;
-          if (image) displayIndex++; // Increment only if there's an image
+          if (media) displayIndex++;
 
           return (
             <div
               key={`${row}-${col}`}
               className={`${styles["grid-cell"]}`}
-              ref={image ? (el) => handleCellRef(el, currentIndex) : undefined}
+              ref={media ? (el) => handleCellRef(el, currentIndex) : undefined}
             >
-              {image && (
+              {media && (
                 <Magnetic
                   type="image"
                   data-cursor-text={"Open Project"}
-                  onMouseEnter={() => image && handleMouseEnter(image)}
+                  onMouseEnter={() => media && handleMouseEnter(media)}
                   onMouseLeave={handleMouseLeave}
                   className={"mf-exclusion"}
                 >
-                  <Image
-                    src={image.src}
-                    alt={`${image.alt} (Index: ${currentIndex})`}
-                    fill
-                    className={`${styles["cell-image"]}`}
-                    style={{
-                      "--image-brightness": image.brightness,
-                      "--image-blur": `${image.blur}px`,
-                      "--image-scale": `${image.scale}`,
-                    }}
-                    priority={true}
-                    ref={handleImageRef}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
+                  {renderMedia(media, currentIndex)}
                 </Magnetic>
               )}
             </div>

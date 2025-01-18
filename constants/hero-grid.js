@@ -1,10 +1,11 @@
 export const GRID_LAYOUT = {
   rows: [0, 1, 2, 3, 4],
   cols: [0, 1, 2, 3, 4, 5, 6, 7],
-  images: [
+  media: [
     {
       row: 0,
       col: 0,
+      type: "image",
       src: "/images/rove/app/app_mockup.png",
       alt: "Rove App",
       brightness: 2.4,
@@ -15,6 +16,7 @@ export const GRID_LAYOUT = {
     {
       row: 0,
       col: 1,
+      type: "image",
       src: "/images/rove/card/card_render_1.png",
       alt: "Rove Card",
       brightness: 2,
@@ -25,6 +27,7 @@ export const GRID_LAYOUT = {
     {
       row: 0,
       col: 4,
+      type: "image",
       src: "/images/paradigm/logo/paradigm_logo_dark.png",
       alt: "Image 1",
       brightness: 3.7,
@@ -35,6 +38,7 @@ export const GRID_LAYOUT = {
     {
       row: 0,
       col: 5,
+      type: "image",
       src: "/images/paradigm/logo/paradigm_shirt.png",
       alt: "Paradigm Shirt",
       brightness: 2,
@@ -45,16 +49,18 @@ export const GRID_LAYOUT = {
     {
       row: 1,
       col: 0,
-      src: "/images/dg/dg_gallery.png",
+      type: "video",
+      src: "/images/dg/dg_animation.mp4",
       alt: "Dolce&Gabbana Website",
-      brightness: 3,
-      blur: 5,
+      brightness: 2.4,
+      blur: 4,
       scale: 1.21,
       hoverText: "Dolce & Gabbana",
     },
     {
       row: 1,
       col: 2,
+      type: "image",
       src: "/images/ayamuse/am_1.png",
       alt: "Aya Muse Website",
       brightness: 3.2,
@@ -65,6 +71,7 @@ export const GRID_LAYOUT = {
     {
       row: 1,
       col: 7,
+      type: "image",
       src: "/images/cognition/cognition.png",
       alt: "Cognition Website",
       brightness: 1,
@@ -75,6 +82,7 @@ export const GRID_LAYOUT = {
     {
       row: 2,
       col: 4,
+      type: "image",
       src: "/images/cognition/cognition_white.png",
       alt: "Cognition Graphic",
       brightness: 2,
@@ -85,6 +93,7 @@ export const GRID_LAYOUT = {
     {
       row: 2,
       col: 6,
+      type: "image",
       src: "/images/explorations/mobius_2.png",
       alt: "3D Mobius",
       brightness: 5,
@@ -95,6 +104,7 @@ export const GRID_LAYOUT = {
     {
       row: 3,
       col: 0,
+      type: "image",
       src: "/images/explorations/ai_value.png",
       alt: "Image 2",
       brightness: 1.05,
@@ -105,6 +115,7 @@ export const GRID_LAYOUT = {
     {
       row: 3,
       col: 2,
+      type: "image",
       src: "/images/paradigm/product/paradigm_product_1.png",
       alt: "Paradigm Product",
       brightness: 1.1,
@@ -115,6 +126,7 @@ export const GRID_LAYOUT = {
     {
       row: 3,
       col: 7,
+      type: "image",
       src: "/images/blackster/blackster_re.png",
       alt: "",
       brightness: 2.5,
@@ -125,6 +137,7 @@ export const GRID_LAYOUT = {
     {
       row: 4,
       col: 5,
+      type: "image",
       src: "/images/blackster/blackster_com.png",
       alt: "Blackster Website",
       brightness: 1.4,
