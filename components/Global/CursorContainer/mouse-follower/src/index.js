@@ -378,7 +378,9 @@ export default class MouseFollower {
         this.trigger("show");
         clearInterval(this.visibleInt);
         this.visibleInt = setTimeout(() => {
-            this.el.classList.remove(this.options.hiddenState);
+            if (this.el && this.options.hiddenState) {
+                this.el.classList.remove(this.options.hiddenState);
+            }
             this.visible = true;
             this.render(true);
         }, this.options.showTimeout);
