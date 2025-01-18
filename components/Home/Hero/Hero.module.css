@@ -31,6 +31,12 @@
     filter 1s var(--easing-text-fade-in);
   transition-delay: 0s;
 }
+.hero-container .hover-text {
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--global-padding) * 1.5);
+  will-change: transform, opacity;
+}
 .grid-cell {
   width: 100%;
   height: 100%;

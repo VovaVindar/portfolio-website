@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from "react";
+import { useRef } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { CONTACT } from "@/constants/animations";

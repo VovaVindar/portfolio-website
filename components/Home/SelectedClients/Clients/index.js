@@ -5,7 +5,7 @@ import { CLIENTS } from "@/constants/clients";
 const ClientItem = forwardRef(({ client }, ref) => (
   <div
     ref={ref}
-    data-cursor-text={client.description}
+    data-cursor-text={"Open Project"}
     className={`${styles["client-container"]} mf-exclusion`}
   >
     <div>

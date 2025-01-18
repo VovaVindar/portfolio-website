@@ -1,6 +1,6 @@
 import { useMagnetic } from "@/hooks/animations/hover/useMagnetic";
 
-const Magnetic = ({ children, movement, type, scale, style }) => {
+const Magnetic = ({ children, movement, type, scale, style, ...props }) => {
   const { magneticAreaRef } = useMagnetic(type, scale, movement);
 
   if (!children) {
@@ -17,11 +17,12 @@ const Magnetic = ({ children, movement, type, scale, style }) => {
         position: "relative",
         ...style,
       }}
+      {...props}
     >
       {children}
     </div>
   ) : (
-    <span ref={magneticAreaRef} style={{ willChange: "transform" }}>
+    <span ref={magneticAreaRef} style={{ willChange: "transform" }} {...props}>
       {children}
     </span>
   );

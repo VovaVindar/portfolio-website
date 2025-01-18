@@ -3,7 +3,7 @@ import Image from "next/image";
 import Magnetic from "@/components/Global/Magnetic";
 import { GRID_LAYOUT } from "@/constants/hero-grid";
 
-const HeroGrid = ({ imgOnload, cellOnload }) => {
+const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
   let refIndex = 0; // For ref handling
   let displayIndex = 0; // For alt text display
 
@@ -23,6 +23,15 @@ const HeroGrid = ({ imgOnload, cellOnload }) => {
     return GRID_LAYOUT.images.find((img) => img.row === row && img.col === col);
   };
 
+  // Hover text logic
+  const handleMouseEnter = (image) => {
+    onHover(image.hoverText);
+  };
+
+  const handleMouseLeave = () => {
+    onHover("");
+  };
+
   return (
     <>
       {GRID_LAYOUT.rows.map((row) =>
@@ -38,12 +47,18 @@ const HeroGrid = ({ imgOnload, cellOnload }) => {
               ref={image ? (el) => handleCellRef(el, currentIndex) : undefined}
             >
               {image && (
-                <Magnetic type="image">
+                <Magnetic
+                  type="image"
+                  data-cursor-text={"Open Project"}
+                  onMouseEnter={() => image && handleMouseEnter(image)}
+                  onMouseLeave={handleMouseLeave}
+                  className={"mf-exclusion"}
+                >
                   <Image
                     src={image.src}
                     alt={`${image.alt} (Index: ${currentIndex})`}
                     fill
-                    className={styles["cell-image"]}
+                    className={`${styles["cell-image"]}`}
                     style={{
                       "--image-brightness": image.brightness,
                       "--image-blur": `${image.blur}px`,

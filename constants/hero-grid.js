@@ -10,6 +10,7 @@ export const GRID_LAYOUT = {
       brightness: 2.4,
       blur: 6,
       scale: 1.15,
+      hoverText: "Rove",
     },
     {
       row: 0,
@@ -19,6 +20,7 @@ export const GRID_LAYOUT = {
       brightness: 2,
       blur: 4,
       scale: 1.4,
+      hoverText: "Rove",
     },
     {
       row: 0,
@@ -28,6 +30,7 @@ export const GRID_LAYOUT = {
       brightness: 3.7,
       blur: 8,
       scale: 1.24,
+      hoverText: "Paradigm",
     },
     {
       row: 0,
@@ -37,6 +40,7 @@ export const GRID_LAYOUT = {
       brightness: 2,
       blur: 6,
       scale: 1.24,
+      hoverText: "Paradigm",
     },
     {
       row: 1,
@@ -46,6 +50,7 @@ export const GRID_LAYOUT = {
       brightness: 3,
       blur: 5,
       scale: 1.21,
+      hoverText: "Dolce & Gabbana",
     },
     {
       row: 1,
@@ -55,6 +60,7 @@ export const GRID_LAYOUT = {
       brightness: 3.2,
       blur: 6,
       scale: 1.24,
+      hoverText: "Aya Muse",
     },
     {
       row: 1,
@@ -64,6 +70,7 @@ export const GRID_LAYOUT = {
       brightness: 1,
       blur: 2,
       scale: 1.18,
+      hoverText: "Cognition",
     },
     {
       row: 2,
@@ -73,6 +80,7 @@ export const GRID_LAYOUT = {
       brightness: 2,
       blur: 2,
       scale: 1.24,
+      hoverText: "Cognition",
     },
     {
       row: 2,
@@ -82,6 +90,7 @@ export const GRID_LAYOUT = {
       brightness: 5,
       blur: 4,
       scale: 1.38,
+      hoverText: "Explorations",
     },
     {
       row: 3,
@@ -91,6 +100,7 @@ export const GRID_LAYOUT = {
       brightness: 1.05,
       blur: 2,
       scale: 1.16,
+      hoverText: "Explorations",
     },
     {
       row: 3,
@@ -100,6 +110,7 @@ export const GRID_LAYOUT = {
       brightness: 1.1,
       blur: 5,
       scale: 1.26,
+      hoverText: "Paradigm",
     },
     {
       row: 3,
@@ -109,6 +120,7 @@ export const GRID_LAYOUT = {
       brightness: 2.5,
       blur: 5,
       scale: 1.19,
+      hoverText: "Blackster",
     },
     {
       row: 4,
@@ -118,6 +130,7 @@ export const GRID_LAYOUT = {
       brightness: 1.4,
       blur: 4,
       scale: 1.14,
+      hoverText: "Blackster",
     },
   ],
 };

@@ -10,7 +10,18 @@
 }
 .clients .subheader {
   margin-bottom: calc(-2 * (1rlh - var(--small-text-line-height)));
+  margin-top: -0.155rlh;
 }
+/*.clients .subheader::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  width: 105vw;
+  transform: translateX(-1vw);
+  height: 1px;
+  background-color: black;
+}*/
 .clients > div:nth-of-type(1) {
   width: var(--first-column-width);
   position: relative;
@@ -38,11 +49,32 @@
 .clients .client-container:first-of-type {
   padding-top: 0;
 }
+/*.clients .client-container:first-of-type::before {
+  content: "";
+  position: absolute;
+  top: 0.87rlh;
+  left: 0;
+  width: 105vw;
+  transform: translateX(-35%);
+  height: 1px;
+  background-color: black;
+}*/
 .clients .client-container:last-of-type {
   padding-bottom: 0;
 }
+/*.clients .client-container:last-of-type::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 105vw;
+  transform: translateX(-35%);
+  height: 1px;
+  background-color: black;
+}*/
 .clients .client-container span {
   margin-left: calc(0.347826rlh * 2.5); /* 8px * 2.5 */
+  margin-top: -0.13rlh;
 }
 .clients .client-container:nth-of-type(5) span,
 .clients .client-container:nth-of-type(6) span,

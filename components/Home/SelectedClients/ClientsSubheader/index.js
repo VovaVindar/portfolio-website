@@ -7,7 +7,7 @@ const MAX_HEIGHT_FOR_ANIMATION = 2900;
 
 const ClientsSubheader = ({ clientsOnscroll }) => {
   const subheaderRef = useRef(null);
-  const resizeObserverRef = useRef(null);
+  //const resizeObserverRef = useRef(null);
   const { scrollPosition } = useScroll();
 
   // State management
@@ -41,11 +41,7 @@ const ClientsSubheader = ({ clientsOnscroll }) => {
 
   // Calculate and update position
   useEffect(() => {
-    if (
-      !subheaderRef.current ||
-      !isWideScreen ||
-      window.innerHeight >= MAX_HEIGHT_FOR_ANIMATION
-    ) {
+    if (!subheaderRef.current || !isWideScreen || !isHeightCompatible) {
       setPosition("static");
       setTop("unset");
       setBottom("unset");
@@ -80,14 +76,14 @@ const ClientsSubheader = ({ clientsOnscroll }) => {
     setPosition(positionState.position);
     setTop(positionState.top);
     setBottom(positionState.bottom);
-  }, [scrollPosition, isWideScreen, clientsOnscroll]);
+  }, [scrollPosition, isWideScreen, isHeightCompatible, clientsOnscroll]);
 
   // Helper function to calculate position state
   const calculatePositionState = (measurements) => {
     const { firstClientRect, lastClientRect, rootLineHeight, scrollbarY } =
       measurements;
 
-    if (firstClientRect.top > scrollbarY) {
+    if (firstClientRect.top - 0.54 * rootLineHeight > scrollbarY) {
       return {
         position: "static",
         top: "unset",
@@ -96,8 +92,8 @@ const ClientsSubheader = ({ clientsOnscroll }) => {
     }
 
     if (
-      firstClientRect.top <= scrollbarY &&
-      lastClientRect.bottom - 1.1 * rootLineHeight >= scrollbarY
+      firstClientRect.top - 0.6 * rootLineHeight <= scrollbarY &&
+      lastClientRect.bottom - 1.34 * rootLineHeight >= scrollbarY
     ) {
       return {
         position: "fixed",
@@ -117,16 +113,14 @@ const ClientsSubheader = ({ clientsOnscroll }) => {
   const pStyle = {
     position,
     top:
-      top === false &&
-      isWideScreen &&
-      window.innerHeight < MAX_HEIGHT_FOR_ANIMATION
-        ? `clamp(var(--global-padding), calc(${scrollPosition}% - 2lh), calc(100% - 1lh - var(--global-padding)))`
+      top === false && isWideScreen && isHeightCompatible
+        ? `clamp(var(--global-padding), calc(${scrollPosition}% - 0.83rlh), calc(100% - 1lh - var(--global-padding)))`
         : top,
     bottom,
   };
 
   return (
-    <div className="text-body-3" ref={subheaderRef} style={pStyle}>
+    <div className="text-body-1" ref={subheaderRef} style={pStyle}>
       <p
         ref={(el) => (clientsOnscroll.current[0] = el)}
         className={styles["subheader"]}
