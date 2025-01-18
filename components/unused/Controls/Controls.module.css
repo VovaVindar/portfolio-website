@@ -1,9 +1,0 @@
-.controls-container {
-  position: absolute;
-  top: 1rlh;
-  right: 1rlh;
-  display: flex;
-  flex-direction: row;
-  z-index: 3;
-  pointer-events: none;
-}
