@@ -266,7 +266,14 @@ export const useConsoleMessage = (validRoute) => {
     }*/
 
     // Show meme count
-    if (isInitialized) {
+    if (shownMemes.size < 2) {
+      console.log(
+        `%cI have ${
+          memes.length - 1
+        } more memes. Navigate through the website to see them.`,
+        styles.message
+      );
+    } else {
       console.log(
         `%c${memes.length - shownMemes.size} memes remaining`,
         styles.message
@@ -275,7 +282,7 @@ export const useConsoleMessage = (validRoute) => {
 
     // Return the meme that was shown
     return memes[randomIndex];
-  }, [shownMemes, isInitialized]);
+  }, [shownMemes]);
 
   // Initial setup on mount
   useEffect(() => {
@@ -284,13 +291,6 @@ export const useConsoleMessage = (validRoute) => {
       console.log(
         "%c< Crafted with love by me />%c\nFeel free to check out the source code or get in touch!",
         styles.greeting,
-        styles.message
-      );
-
-      console.log(
-        `%cI have ${
-          memes.length - shownMemes.size
-        } more memes. Navigate through the website to see them.`,
         styles.message
       );
 
