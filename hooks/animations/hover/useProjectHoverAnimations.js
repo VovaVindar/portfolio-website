@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { CONTACT } from "@/constants/animations";
+import { PROJECT_HOVER } from "@/constants/animations";
 
-export const useHeroHoverAnimations = (text) => {
+export const useProjectHoverAnimations = (text) => {
   const animation = useRef(null);
   const elementRef = useRef(null);
   const [displayText, setDisplayText] = useState(text);
@@ -23,20 +23,20 @@ export const useHeroHoverAnimations = (text) => {
       setDisplayText(text);
 
       animation.current.to(elementRef.current, {
-        autoAlpha: 1,
-        duration: CONTACT.OPEN.CONTENT.DURATION,
-        ease: CONTACT.OPEN.CONTENT.EASING,
-        filter: `blur(${CONTACT.STYLES.BLUR.ACTIVE})`,
-        color: CONTACT.STYLES.COLOR.ACTIVE,
+        autoAlpha: PROJECT_HOVER.STYLES.AUTOALPHA.ACTIVE,
+        duration: PROJECT_HOVER.ENTER.DURATION,
+        ease: PROJECT_HOVER.ENTER.EASING,
+        filter: `blur(${PROJECT_HOVER.STYLES.BLUR.ACTIVE})`,
+        color: PROJECT_HOVER.STYLES.COLOR.ACTIVE,
       });
     } else {
       // Fade out and then update text
       animation.current.to(elementRef.current, {
-        autoAlpha: 0,
-        duration: CONTACT.CLOSE.CONTENT.DURATION,
-        ease: CONTACT.CLOSE.CONTENT.EASING,
-        filter: `blur(${CONTACT.STYLES.BLUR.INACTIVE})`,
-        color: CONTACT.STYLES.COLOR.INACTIVE,
+        autoAlpha: PROJECT_HOVER.STYLES.AUTOALPHA.INACTIVE,
+        duration: PROJECT_HOVER.EXIT.DURATION,
+        ease: PROJECT_HOVER.EXIT.EASING,
+        filter: `blur(${PROJECT_HOVER.STYLES.BLUR.INACTIVE})`,
+        color: PROJECT_HOVER.STYLES.COLOR.INACTIVE,
         onComplete: () => setDisplayText(""), // Clear text only after animation
       });
     }

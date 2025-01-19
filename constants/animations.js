@@ -291,3 +291,30 @@ export const MAGNETIC = {
     EASING: "power1.out",
   },
 };
+
+export const PROJECT_HOVER = {
+  ENTER: {
+    DURATION: ANIMATION_DURATION,
+    EASING: "power1.out",
+  },
+
+  EXIT: {
+    DURATION: ANIMATION_DURATION - 0.2,
+    EASING: "power1.in",
+  },
+
+  STYLES: {
+    BLUR: {
+      ACTIVE: "0px",
+      INACTIVE: "3px",
+    },
+    COLOR: {
+      ACTIVE: "#0F1010",
+      INACTIVE: "red",
+    },
+    AUTOALPHA: {
+      ACTIVE: 1,
+      INACTIVE: 0,
+    },
+  },
+};

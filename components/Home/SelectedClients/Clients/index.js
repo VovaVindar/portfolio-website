@@ -3,11 +3,7 @@ import styles from "../SelectedClients.module.css";
 import { CLIENTS } from "@/constants/clients";
 
 const ClientItem = forwardRef(({ client }, ref) => (
-  <div
-    ref={ref}
-    data-cursor-text={"Open Project"}
-    className={`${styles["client-container"]} mf-exclusion`}
-  >
+  <div ref={ref} className={`${styles["client-container"]} mf-hidden`}>
     <div>
       <h1>{client.name}</h1>
       <span className="text-header-3">{client.services}</span>

@@ -58,15 +58,18 @@ export const useWorkScrollAnimations = () => {
 
     if (startScroll) {
       // Container animation
-      triggers.container = ScrollTrigger.create({
+      {
+        /*triggers.container = ScrollTrigger.create({
         trigger: containerRef.current,
         start: WORK.SCROLL.CONTAINER.TRIGGER.START,
         toggleClass: styles["in-view"],
         once: WORK.SCROLL.CONTAINER.ONCE,
-      });
+      });*/
+      }
 
       // Text animation
-      triggers.text = ScrollTrigger.create({
+      {
+        /*triggers.text = ScrollTrigger.create({
         trigger: textRef.current,
         start: WORK.SCROLL.TEXT.TRIGGER.START,
         onEnter: () => {
@@ -78,7 +81,8 @@ export const useWorkScrollAnimations = () => {
         },
         once: WORK.SCROLL.TEXT.ONCE,
         fastScrollEnd: true,
-      });
+      });*/
+      }
     }
 
     return () => {

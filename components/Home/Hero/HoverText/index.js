@@ -1,8 +1,8 @@
 import styles from "../Hero.module.css";
-import { useHeroHoverAnimations } from "@/hooks/animations/hover/useHeroHoverAnimations";
+import { useProjectHoverAnimations } from "@/hooks/animations/hover/useProjectHoverAnimations";
 
 const HoverText = ({ text = "" }) => {
-  const { elementRef, displayText } = useHeroHoverAnimations(text);
+  const { elementRef, displayText } = useProjectHoverAnimations(text);
 
   return (
     <div

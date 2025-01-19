@@ -27,7 +27,7 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
 
   // Hover text logic
   const handleMouseEnter = (media) => {
-    onHover(media.hoverText);
+    onHover(media.industry);
   };
 
   const handleMouseLeave = () => {
@@ -41,6 +41,7 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
         "--media-brightness": media.brightness,
         "--media-blur": `${media.blur}px`,
         "--media-scale": `${media.scale}`,
+        ...media.styles,
       },
     };
 
@@ -53,7 +54,7 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
           muted
           playsInline
           ref={handleMediaRef}
-          className={`${styles["cell-video"]}`}
+          className={`${styles["cell-video"]} ${media.className}`}
           {...commonProps}
         />
       );
@@ -64,7 +65,7 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
         src={media.src}
         alt={`${media.alt} (Index: ${currentIndex})`}
         fill
-        className={`${styles["cell-image"]}`}
+        className={`${styles["cell-image"]} ${media.className}`}
         priority={true}
         ref={handleMediaRef}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -90,7 +91,7 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
               {media && (
                 <Magnetic
                   type="image"
-                  data-cursor-text={"Open Project"}
+                  data-cursor-text={media.hoverText}
                   onMouseEnter={() => media && handleMouseEnter(media)}
                   onMouseLeave={handleMouseLeave}
                   className={"mf-exclusion"}

@@ -18,7 +18,7 @@ export default function Home({}) {
         <Hero />
         <About />
         <SelectedClients />
-        {/*<Work />*/}
+        <Work />
         <Footer />
       </div>
     </>
