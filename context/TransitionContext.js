@@ -6,6 +6,7 @@ import { usePreloader } from "@/context/PreloaderContext";
 import { useScrollPreservation } from "@/hooks/transition/useScrollPreservation";
 import { useRouteTracking } from "@/hooks/transition/useRouteTracking";
 import { usePageTransitions } from "@/hooks/transition/usePageTransitions";
+import { useConsoleMessage } from "@/hooks/useConsoleMessage";
 
 // Create Context
 export const TransitionContext = createContext({});
@@ -70,6 +71,12 @@ export const useTransition = () => {
 };
 
 // Layout Component
+const VALID_ROUTES = new Set([
+  // Valid routes to show memes
+  "/",
+  "/privacy-policy",
+]);
+
 export function TransitionLayout({ children }) {
   const [homeChildren, setHomeChildren] = useState(null);
   const [secondaryChildren, setSecondaryChildren] = useState(null);
@@ -77,13 +84,25 @@ export function TransitionLayout({ children }) {
 
   const { setIsPageChanged, isPageMounted, setIsPageMounted } = useTransition();
 
+  // DOM manipulation logic
   const { transitionFromHome, transitionToHome } = usePageTransitions(
     setHomeChildren,
     setSecondaryChildren
   );
 
+  // Route tracking
   const { previousRoute, setPreviousRoute } = useRouteTracking(router);
+
+  // Homepage scroll preservation
   useScrollPreservation(router);
+
+  // Show memes in console
+  // Only initialize with current route if it's valid
+  const [visitedRoutes, setVisitedRoutes] = useState(() =>
+    VALID_ROUTES.has(children.key) ? new Set([children.key]) : new Set()
+  );
+
+  const { showNewMeme } = useConsoleMessage();
 
   useEffect(() => {
     if (!isPageMounted) {
@@ -99,6 +118,12 @@ export function TransitionLayout({ children }) {
 
     if (previousRoute !== children.key) {
       setIsPageChanged(true);
+
+      // Only show meme and update visited routes if the route is valid
+      if (VALID_ROUTES.has(children.key) && !visitedRoutes.has(children.key)) {
+        showNewMeme();
+        setVisitedRoutes((prev) => new Set([...prev, children.key]));
+      }
 
       if (children.key === "/") {
         transitionToHome(homeChildren ? undefined : children);
@@ -118,6 +143,8 @@ export function TransitionLayout({ children }) {
     setIsPageChanged,
     setIsPageMounted,
     setPreviousRoute,
+    showNewMeme,
+    visitedRoutes,
   ]);
 
   return (

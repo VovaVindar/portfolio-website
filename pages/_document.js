@@ -23,7 +23,6 @@ export default function Document() {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="apple-mobile-web-app-title" content="VOVA VINDAR" />
         <meta name="theme-color" content="#ff0000" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta
           name="apple-mobile-web-app-status-bar-style"

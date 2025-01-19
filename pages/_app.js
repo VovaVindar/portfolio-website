@@ -1,3 +1,4 @@
+import Head from "next/head";
 import "@/styles/globals.css";
 import "@/styles/design-system.css";
 import "@/styles/mouse-follower.css";
@@ -13,20 +14,16 @@ import {
 import { PreloaderProvider, usePreloader } from "@/context/PreloaderContext";
 import CursorContainer from "@/components/Global/CursorContainer";
 import SmoothScrolling from "@/components/Global/SmoothScrolling";
+import { useConsoleMessage } from "@/hooks/useConsoleMessage";
 
 // Persistent layer that stays mounted
-const PersistentLayer = ({ onLoadComplete }) => {
-  const { initiateLoading, loadProgress } = usePreloader();
+const PersistentLayer = ({ renderPage }) => {
+  const { initiateLoading } = usePreloader();
 
   useEffect(() => {
     initiateLoading();
-  }, [initiateLoading]);
-
-  useEffect(() => {
-    if (loadProgress >= 100) {
-      onLoadComplete?.();
-    }
-  }, [loadProgress, onLoadComplete]);
+    renderPage(true);
+  }, [initiateLoading, renderPage]);
 
   return (
     <>
@@ -53,25 +50,32 @@ const AppContent = ({ Component, pageProps, router }) => {
 };
 
 function MyApp({ Component, pageProps, router }) {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [startedLoading, setStartedLoading] = useState(false);
+
+  useConsoleMessage();
 
   return (
-    <PreloaderProvider>
-      <ScrollProvider>
-        <TransitionProvider>
-          <>
-            <PersistentLayer onLoadComplete={() => setIsLoaded(true)} />
-            {isLoaded && (
-              <AppContent
-                Component={Component}
-                pageProps={pageProps}
-                router={router}
-              />
-            )}
-          </>
-        </TransitionProvider>
-      </ScrollProvider>
-    </PreloaderProvider>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <PreloaderProvider>
+        <ScrollProvider>
+          <TransitionProvider>
+            <>
+              <PersistentLayer renderPage={setStartedLoading} />
+              {startedLoading && ( // Anti flash on reload
+                <AppContent
+                  Component={Component}
+                  pageProps={pageProps}
+                  router={router}
+                />
+              )}
+            </>
+          </TransitionProvider>
+        </ScrollProvider>
+      </PreloaderProvider>
+    </>
   );
 }
 
