@@ -31,11 +31,13 @@
   flex-direction: row;
   padding-top: 1.5rlh;
   padding-bottom: 1.5rlh;
-  cursor: pointer;
   width: fit-content;
 }
 .clients .client-container div {
   display: flex;
+}
+.clients .client-container h1 {
+  cursor: pointer;
 }
 /*.clients .client-container.in-view div {
   transition: all 0.4s var(--easing-text-fade-in);

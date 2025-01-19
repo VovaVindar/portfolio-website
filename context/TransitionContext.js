@@ -13,7 +13,7 @@ export const TransitionContext = createContext({});
 // Provider Component
 export const TransitionProvider = ({ children }) => {
   const [globalOnload, setGlobalOnload] = useState(() =>
-    gsap.timeline({ paused: true })
+    gsap.timeline({ paused: true, smoothChildTiming: true })
   );
   const [secondaryExit, setSecondaryExit] = useState(() =>
     gsap.timeline({ paused: true })

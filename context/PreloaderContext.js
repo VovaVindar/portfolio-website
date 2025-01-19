@@ -15,10 +15,9 @@ const PreloaderContext = createContext();
 
 export const PreloaderProvider = ({ children }) => {
   const [preloaderState, setPreloaderState] = useState({
-    isOnloadLinesActive: true,
+    isOnloadLinesActive: true, // set to 'false' when lines are completed
     loadProgress: 0,
-    startPageAnimation: false,
-    noLines: false,
+    startPageAnimation: false, // sets to 'true' when loadProgress == 100
   });
 
   const actualProgressRef = useRef(0);
@@ -110,13 +109,6 @@ export const PreloaderProvider = ({ children }) => {
     }
   }, []);
 
-  const removeLines = useCallback(() => {
-    setPreloaderState((prev) => ({
-      ...prev,
-      noLines: true,
-    }));
-  }, []);
-
   const completeTransition = useCallback(() => {
     setPreloaderState((prev) => ({
       ...prev,
@@ -129,7 +121,6 @@ export const PreloaderProvider = ({ children }) => {
       value={{
         ...preloaderState,
         initiateLoading,
-        removeLines,
         completeTransition,
       }}
     >

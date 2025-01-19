@@ -4,7 +4,7 @@ import { usePreloader } from "@/context/PreloaderContext";
 import { useLinesOnloadAnimations } from "@/hooks/animations/onload/useLinesOnloadAnimations";
 
 const Lines = () => {
-  const { completeTransition, noLines, isOnloadLinesActive } = usePreloader();
+  const { completeTransition, isOnloadLinesActive } = usePreloader();
   const [lines, setLines] = useState([]);
   const linesReadyRef = useRef(false);
 
@@ -13,7 +13,7 @@ const Lines = () => {
     linesReadyRef.current
   );
 
-  // Prevent space key scrolling only while isOnloadLinesActive is true
+  // Prevent space key scrolling only while lines are active
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (
@@ -69,7 +69,7 @@ const Lines = () => {
     generateLines();
   }, [containerRef]);
 
-  if (noLines) return null;
+  if (!isOnloadLinesActive) return null;
 
   return (
     <div className={`${styles["line-container"]}`} ref={containerRef}>
