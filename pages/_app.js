@@ -14,7 +14,6 @@ import {
 import { PreloaderProvider, usePreloader } from "@/context/PreloaderContext";
 import CursorContainer from "@/components/Global/CursorContainer";
 import SmoothScrolling from "@/components/Global/SmoothScrolling";
-import { useConsoleMessage } from "@/hooks/useConsoleMessage";
 
 // Persistent layer that stays mounted
 const PersistentLayer = ({ renderPage }) => {
@@ -51,8 +50,6 @@ const AppContent = ({ Component, pageProps, router }) => {
 
 function MyApp({ Component, pageProps, router }) {
   const [startedLoading, setStartedLoading] = useState(false);
-
-  useConsoleMessage();
 
   return (
     <>

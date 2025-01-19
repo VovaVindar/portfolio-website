@@ -108,7 +108,7 @@ const memes = [
 ║                              ║
 ║    MERGE CONFLICT (╯°□°)╯    ║
 ║                              ║
-║    ≪≪≪≪≪≪≪ HEAD             ║
+║    ≪≪≪≪≪≪≪ HEAD            ║
 ║    (ノಠ益ಠ)ノ彡┻━┻            ║
 ║    ≫≫≫≫≫≫≫ incoming         ║
 ║                              ║
@@ -173,7 +173,7 @@ const memes = [
 ║                              ║
 ║    (｡♥‿♥｡) Submit PR         ║
 ║    (⊙_⊙)？ First comment     ║
-║    (╬ಠ益ಠ) Changes needed     ║
+║    (╬ಠ益ಠ) Changes needed    ║
 ║    (ノಠ益ಠ)ノ Rewrite all     ║
 ║    (╯︵╰,) PR Rejected       ║
 ║                              ║
@@ -204,9 +204,9 @@ const memes = [
 ║    DEVELOPER FORECAST        ║
 ║                              ║
 ║    ☀ ヽ(◔ᴗ◔)ﾉ Clear Code     ║
-║    ☂ (｀㊥益㊥) Bug Storm      ║
+║    ☂ (｀㊥益㊥) Bug Storm     ║
 ║    ⚡ (⊙﹏⊙) Power Issue      ║
-║    ❆ (◞‸◟；) Server Frozen   ║
+║    ❆ (◞‸◟；) Server Frozen    ║
 ║    ☠ (×_×;） System Down     ║
 ║                              ║
 ╚══════════════════════════════╝
@@ -230,7 +230,7 @@ const styles = {
   ].join(";"),
 };
 
-export const useConsoleMessage = () => {
+export const useConsoleMessage = (validRoute) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   // Track which meme indexes have been shown
@@ -260,6 +260,11 @@ export const useConsoleMessage = () => {
     // Show the meme
     console.log(`%c${memes[randomIndex].art}`, styles.meme);
 
+    // Show all memes (for testing)
+    /*for (let i = 0; i < memes.length; i++) {
+      console.log(`%c${memes[i].art}`, styles.meme);
+    }*/
+
     // Show meme count
     if (isInitialized) {
       console.log(
@@ -274,16 +279,13 @@ export const useConsoleMessage = () => {
 
   // Initial setup on mount
   useEffect(() => {
-    if (!isInitialized) {
+    if (!isInitialized && validRoute) {
       // Print greeting
       console.log(
         "%c< Crafted with love by me />%c\nFeel free to check out the source code or get in touch!",
         styles.greeting,
         styles.message
       );
-
-      // Show first meme
-      showNewMeme();
 
       console.log(
         `%cI have ${
@@ -294,7 +296,7 @@ export const useConsoleMessage = () => {
 
       setIsInitialized(true);
     }
-  }, [showNewMeme, shownMemes.size, isInitialized]);
+  }, [showNewMeme, shownMemes.size, isInitialized, validRoute]);
 
   return {
     showNewMeme,

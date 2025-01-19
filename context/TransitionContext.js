@@ -102,7 +102,7 @@ export function TransitionLayout({ children }) {
     VALID_ROUTES.has(children.key) ? new Set([children.key]) : new Set()
   );
 
-  const { showNewMeme } = useConsoleMessage();
+  const { showNewMeme } = useConsoleMessage(VALID_ROUTES.has(children.key));
 
   useEffect(() => {
     if (!isPageMounted) {
@@ -111,6 +111,10 @@ export function TransitionLayout({ children }) {
         setHomeChildren(children);
       } else {
         setSecondaryChildren(children);
+      }
+
+      if (VALID_ROUTES.has(children.key)) {
+        showNewMeme();
       }
 
       setIsPageMounted(true);
