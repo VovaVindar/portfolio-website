@@ -4,7 +4,7 @@ import { usePreloader } from "@/context/PreloaderContext";
 const BaseConstants = () => {
   return useMemo(
     () => ({
-      STAGGER_INTERVAL: 0.12,
+      STAGGER_INTERVAL: 0.11,
       ANIMATION_DURATION: 1.15,
       ANIMATION_EASING: "power1.inOut", // Easing for: text fade in
       SCROLLTRIGGER_ONCE: true,
@@ -220,25 +220,28 @@ export const WORK = () => {
         TEXT: {
           DURATION: BASE.ANIMATION_DURATION + 0.1,
           BLUR: {
-            START: "4.5px",
+            START: "1.5px",
             END: "0px",
           },
+          OPACITY: {
+            START: 0.16,
+          },
           TRIGGER: {
-            START: "100% 100%",
+            START: "top bottom-=50",
           },
           ONCE: BASE.SCROLLTRIGGER_ONCE,
         },
 
         CONTAINER: {
           TRIGGER: {
-            START: "top 80%",
+            START: "top 85%",
           },
-          ONCE: false,
+          ONCE: false, // override
         },
 
         PARALLAX: {
           Y_PERCENT: {
-            START: 15,
+            START: 10,
             END: 0,
           },
           SCRUB: 1,
@@ -280,7 +283,7 @@ export const FOOTER = () => {
           END: "#0F1010",
         },
         TRIGGER: {
-          START: "top bottom-=75",
+          START: "top bottom-=50",
         },
         ONCE: BASE.SCROLLTRIGGER_ONCE,
       },

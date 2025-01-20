@@ -12,158 +12,78 @@
   overflow: hidden;
   z-index: 2;
 }
-.work h2 {
-  z-index: 3;
-  color: var(--token-color-surface-primary);
-  mix-blend-mode: difference;
+.work .clicks {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  z-index: 2;
+}
+.work .clicks div:nth-of-type(1) {
+  width: 50%;
+  height: 100%;
+  cursor: w-resize;
+}
+.work .clicks div:nth-of-type(2) {
+  width: 50%;
+  height: 100%;
+  cursor: e-resize;
+}
+.work .img-container {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translateX(-50%) translateY(calc(-50% - 0.5rlh));
-  user-select: none;
-}
-.work .click {
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
+  transform: translateX(-50%) translateY(-50%);
   z-index: 3;
-}
-.work .click.prev {
-  left: 0;
-  cursor: w-resize;
-}
-.work .click.next {
-  right: 0;
-  cursor: e-resize;
-}
-
-.work .el-container {
-  width: 100%;
-  position: absolute;
-}
-.work .el-container img {
-  transform: scale(1.24);
-  filter: blur(8px) brightness(3.7) saturate(3.7);
-  transition: transform 2.1s var(--easing-img-fade-in),
-    filter 2.1s var(--easing-img-fade-in); /* power2.out */
-}
-.work .el-container.in-view img {
-  transform: scale(1);
-  filter: blur(0px) brightness(1) saturate(1);
-}
-.work .el-container .el {
-  height: 6rlh;
-  aspect-ratio: 185 / 138;
-  position: relative;
-  overflow: hidden;
+  width: 21rlh;
+  height: 21rlh;
   background-color: black;
-  opacity: 0;
-  transition: opacity 3s var(--easing-img-fade-in),
-    filter 2.1s var(--easing-img-fade-in);
   cursor: pointer;
 }
-.work .el-container.in-view .el {
-  opacity: 1;
-}
-.work .el-container .el img {
-  object-fit: contain;
-  -webkit-user-drag: none;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+.work .work-pagination {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
   pointer-events: none;
-  opacity: 1;
-  background-color: black;
 }
-.work .el-container .el.num1 {
-  margin-top: 0rlh;
+.work .work-pagination p {
+  position: absolute;
+  width: fit-content;
 }
-.work .el-container .el.num2 {
-  margin-top: 17rlh;
-  margin-left: -2.217rlh;
+.work .work-pagination .counter p:nth-of-type(1) {
+  text-align: left;
+  left: 0.52rlh;
+  top: 0.2rlh;
 }
-.work .el-container .el.num3 {
-  margin-top: 6rlh;
-  margin-left: -1.565rlh;
+.work .work-pagination .counter p:nth-of-type(2) {
+  text-align: right;
+  right: 0.52rlh;
+  bottom: 0.52rlh;
 }
-.work .el-container .el.num4 {
-  margin-top: 12rlh;
-  margin-left: 7.956rlh;
+.work .work-pagination .project-name {
+  text-align: left;
+  left: 0.51rlh;
+  bottom: 0.52rlh;
 }
-.work .el-container .el.num5 {
-  margin-top: 2rlh;
-  margin-left: -0.478rlh;
+.work .work-pagination .control {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0.435rlh;
+  cursor: pointer;
+  pointer-events: all;
 }
-.work .el-container .el.num6 {
-  margin-top: 17rlh;
-  margin-left: -3rlh;
-}
-.work .el-container .el.num7 {
-  margin-top: 7rlh;
-  margin-left: 3.608rlh;
-}
-.work .el-container .el.num8 {
-  margin-top: 18rlh;
-  margin-left: 1.304rlh;
-}
-.work .el-container .el.num9 {
-  margin-top: 0rlh;
-  margin-left: -1.395rlh;
-}
-.work .el-container .el.num10 {
-  margin-top: 10rlh;
-  margin-left: -0.434rlh;
-}
-.work .el-container .el.num11 {
-  margin-top: 19rlh;
-  margin-left: 4.695rlh;
-}
-.work .el-container .el.num12 {
-  margin-top: 4rlh;
-  margin-left: -5.173rlh;
-}
-.work .el-container .el.num13 {
-  margin-top: 15rlh;
-  margin-left: 4.304rlh;
-}
-.work .el-container .el.num14 {
-  margin-top: 2rlh;
-  margin-left: -4.13rlh;
-}
-.work .el-container .el.num15 {
-  margin-top: 12rlh;
-  margin-left: 4.434rlh;
-}
-.work .el-container .el.num16 {
-  margin-top: 0rlh;
-  margin-left: -3.782rlh;
-}
-.work .el-container .el.num17 {
-  margin-top: 19rlh;
-  margin-left: 0.304rlh;
-}
-.work .el-container .el.num18 {
-  margin-top: 2rlh;
-  margin-left: -3.086;
-}
-.work .el-container .el.num19 {
-  margin-top: 16rlh;
-  margin-left: 1.347rlh;
-}
-.work .el-container .el.num20 {
-  margin-top: 5rlh;
-  margin-left: 0.173rlh;
-}
-.work .el-container .el.num21 {
-  margin-top: 10rlh;
-  margin-left: 6.391rlh;
-}
-.work .el-container .el.num22 {
-  margin-top: 19rlh;
-  margin-left: -2.173rlh;
-  margin-right: 4rlh;
+.work .work-pagination img {
+  width: 0.78rlh;
+  height: 0.78rlh;
+  min-width: 18px;
+  min-height: 18px;
 }
 
 @media all and (max-width: 1060px) {

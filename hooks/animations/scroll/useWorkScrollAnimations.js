@@ -10,12 +10,17 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const useWorkScrollAnimations = () => {
   const WORK = getWork();
-
   const { startPageAnimation } = usePreloader();
-  const containerRef = useRef(null);
-  const textRef = useRef(null);
+
+  const textRefs = useRef([]);
+  const addToTextRefs = (el) => {
+    if (el && !textRefs.current.includes(el)) {
+      textRefs.current.push(el);
+    }
+  };
+
+  const imgRef = useRef(null);
   const sectionRef = useRef(null);
-  const timelineRef = useRef(null);
   const [startScroll, setStartScroll] = useState(false);
 
   // Handle delayed scroll start
@@ -32,13 +37,12 @@ export const useWorkScrollAnimations = () => {
   const animConfig = {
     text: {
       hidden: {
-        opacity: 0,
+        opacity: WORK.SCROLL.TEXT.OPACITY.START,
         filter: `blur(${WORK.SCROLL.TEXT.BLUR.START})`,
       },
       visible: {
         opacity: 1,
         filter: `blur(${WORK.SCROLL.TEXT.BLUR.END})`,
-        delay: 0,
         duration: WORK.SCROLL.TEXT.DURATION,
         ease: WORK.EASING,
       },
@@ -49,48 +53,43 @@ export const useWorkScrollAnimations = () => {
   useGSAP(() => {
     let triggers = {
       container: null,
-      text: null,
+      text: [],
     };
 
-    if (timelineRef.current) timelineRef.current.kill();
-    timelineRef.current = gsap.timeline();
+    imgRef?.current?.classList.remove(styles["in-view"]);
 
-    containerRef?.current?.classList.remove(styles["in-view"]);
-    timelineRef.current.set(textRef.current, animConfig.text.hidden);
+    // Set initial state for all text elements
+    textRefs.current.forEach((ref) => {
+      gsap.set(ref, animConfig.text.hidden);
+    });
 
     if (startScroll) {
-      // Container animation
-      {
-        /*triggers.container = ScrollTrigger.create({
-        trigger: containerRef.current,
+      // Img animation
+      triggers.container = ScrollTrigger.create({
+        trigger: imgRef.current,
         start: WORK.SCROLL.CONTAINER.TRIGGER.START,
         toggleClass: styles["in-view"],
         once: WORK.SCROLL.CONTAINER.ONCE,
-      });*/
-      }
+      });
 
-      // Text animation
-      {
-        /*triggers.text = ScrollTrigger.create({
-        trigger: textRef.current,
-        start: WORK.SCROLL.TEXT.TRIGGER.START,
-        onEnter: () => {
-          timelineRef.current.fromTo(
-            textRef.current,
-            animConfig.text.hidden,
-            animConfig.text.visible
-          );
-        },
-        once: WORK.SCROLL.TEXT.ONCE,
-        fastScrollEnd: true,
-      });*/
-      }
+      // Text animations - create independent animation for each text element
+      textRefs.current.forEach((ref) => {
+        const textTrigger = ScrollTrigger.create({
+          trigger: ref,
+          start: WORK.SCROLL.TEXT.TRIGGER.START,
+          onEnter: () => {
+            // Create a new timeline for each element
+            gsap.to(ref, animConfig.text.visible);
+          },
+          once: WORK.SCROLL.TEXT.ONCE,
+        });
+        triggers.text.push(textTrigger);
+      });
     }
 
     return () => {
-      Object.values(triggers).forEach((trigger) => trigger?.kill());
-      timelineRef.current?.kill();
-      timelineRef.current = null;
+      triggers.container?.kill();
+      triggers.text.forEach((trigger) => trigger?.kill());
     };
   }, [startScroll]);
 
@@ -132,5 +131,5 @@ export const useWorkScrollAnimations = () => {
     };
   }, []);
 
-  return { containerRef, textRef, sectionRef };
+  return { imgRef, addToTextRefs, sectionRef };
 };
