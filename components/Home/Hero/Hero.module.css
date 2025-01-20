@@ -72,6 +72,9 @@
     filter 3s var(--easing-img-fade-in); /* power2.out */
   backface-visibility: hidden; /* to force GPU performance */
 }
+.grid-cell .cell-video.paradigm-logo {
+  transform: scale(1) translateY(-1%);
+}
 .grid-cell .cell-video.align {
   transform: scale(var(--media-scale)) translateY(2%);
 }
@@ -79,6 +82,9 @@
 .grid-cell .cell-video.in-view {
   transform: scale(1);
   filter: blur(0px) brightness(1) saturate(1);
+}
+.grid-cell .cell-video.in-view.paradigm-logo {
+  transform: scale(1) translateY(-1%);
 }
 .grid-cell .cell-image.in-view.cognition {
   transform: scale(1.05);

@@ -38,6 +38,7 @@ export const GRID_LAYOUT = {
       blur: 8,
       scale: 1.24,
       hoverText: "Paradigm",
+      className: `${styles["paradigm-logo"]}`,
       industry: "AI",
     },
     {
