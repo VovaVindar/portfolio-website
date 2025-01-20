@@ -14,8 +14,8 @@ const BaseConstants = () => {
 };
 
 export const PRELOADER = () => {
-  // usePreloader can't be used here
-  const { isTallScreen, interval, incrementCap } = usePreloader();
+  const { isTallScreen, interval, incrementCap, isVeryTallScreen } =
+    usePreloader();
 
   return useMemo(
     () => ({
@@ -35,7 +35,7 @@ export const PRELOADER = () => {
       },
 
       SLIDE: {
-        DURATION: isTallScreen ? 1.43 : 1.49,
+        DURATION: isVeryTallScreen ? 1.44 : isTallScreen ? 1.44 : 1.49,
         EASING: "power3.in",
         Y_OFFSET: 540,
       },
@@ -63,32 +63,29 @@ export const PRELOADER = () => {
         },
       },
     }),
-    [isTallScreen, interval, incrementCap]
+    [isTallScreen, interval, incrementCap, isVeryTallScreen]
   );
 };
 
 export const LINES = () => {
-  const { isTallScreen } = usePreloader();
+  const { isTallScreen, isVeryTallScreen } = usePreloader();
 
-  return useMemo(
-    () => ({
-      MAX_DURATION: 3,
+  return {
+    MAX_DURATION: 3,
 
-      COLORS: {
-        START: "#0F1010",
-        END: "#C34356",
-      },
+    COLORS: {
+      START: "#0F1010",
+      END: "#C34356",
+    },
 
-      TRANSITION: {
-        DURATION: 1.25,
-        DELAY: isTallScreen ? 1 : 0.71,
-        EASING: "power4.inOut",
-        COMPLETION_DELAY: isTallScreen ? 150 : 770,
-        STAGGER: isTallScreen ? 0.019 : 0.038,
-      },
-    }),
-    [isTallScreen]
-  );
+    TRANSITION: {
+      DURATION: isVeryTallScreen ? 1.1 : isTallScreen ? 1.1 : 1.25,
+      DELAY: isVeryTallScreen ? 0.95 : isTallScreen ? 0.95 : 0.71,
+      EASING: "power4.inOut",
+      COMPLETION_DELAY: isVeryTallScreen ? 150 : isTallScreen ? 150 : 770,
+      STAGGER: isVeryTallScreen ? 0.019 : isTallScreen ? 0.024 : 0.038,
+    },
+  };
 };
 
 export const HERO = () => {
@@ -135,14 +132,14 @@ export const HERO = () => {
 
 export const ABOUT = () => {
   const BASE = BaseConstants();
-  const { isTallScreen } = usePreloader();
+  const { isTallScreen, isVeryTallScreen } = usePreloader();
 
   return useMemo(
     () => ({
       EASING: BASE.ANIMATION_EASING,
 
       LOAD: {
-        START_DELAY: isTallScreen ? 2800 : 3400,
+        START_DELAY: isVeryTallScreen ? 2250 : isTallScreen ? 2550 : 3150,
       },
 
       SCROLL: {
@@ -161,24 +158,24 @@ export const ABOUT = () => {
         },
       },
     }),
-    [BASE, isTallScreen]
+    [BASE, isTallScreen, isVeryTallScreen]
   );
 };
 
 export const CLIENTS = () => {
   const BASE = BaseConstants();
-  const { isTallScreen } = usePreloader();
+  const { isTallScreen, isVeryTallScreen } = usePreloader();
 
   return useMemo(
     () => ({
       EASING: BASE.ANIMATION_EASING,
 
       LOAD: {
-        START_DELAY: isTallScreen ? 3540 : 3840,
+        START_DELAY: isVeryTallScreen ? 2480 : isTallScreen ? 2840 : 3480,
       },
 
       SCROLL: {
-        STAGGER: isTallScreen ? 0.18 : BASE.STAGGER_INTERVAL,
+        STAGGER: isTallScreen ? 0.16 : BASE.STAGGER_INTERVAL,
         DURATION: BASE.ANIMATION_DURATION,
         BLUR: {
           START: "4px",
@@ -195,7 +192,7 @@ export const CLIENTS = () => {
         },
       },
     }),
-    [BASE, isTallScreen]
+    [BASE, isTallScreen, isVeryTallScreen]
   );
 };
 
@@ -207,7 +204,7 @@ export const WORK = () => {
       EASING: BASE.ANIMATION_EASING,
 
       LOAD: {
-        START_DELAY: 4800,
+        START_DELAY: 3500,
       },
 
       SCROLL: {
@@ -255,7 +252,7 @@ export const FOOTER = () => {
       EASING: BASE.ANIMATION_EASING,
 
       LOAD: {
-        START_DELAY: 5300,
+        START_DELAY: 3500,
       },
 
       SCROLL: {

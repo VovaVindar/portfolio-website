@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import { LINES as getLines } from "@/constants/animations";
 import { useTransition } from "@/context/TransitionContext";
@@ -6,21 +6,33 @@ import { usePreloader } from "@/context/PreloaderContext";
 
 export const useLinesOnloadAnimations = (linesReady) => {
   const LINES = getLines();
-
   const containerRef = useRef(null);
   const hasAnimatedRef = useRef(false);
   const { globalOnload } = useTransition();
   const { completeTransition, setTallScreen } = usePreloader();
+  const [lines, setLines] = useState([]);
 
-  useGSAP(() => {
-    if (!linesReady || !containerRef.current || hasAnimatedRef.current) return;
+  // Set lines and screen height
+  useEffect(() => {
+    if (!linesReady || !containerRef.current) return;
 
-    const lines = Array.from(containerRef.current.children);
-    if (lines.length === 0) return;
+    const currentLines = Array.from(containerRef.current.children);
+    if (currentLines.length === 0) return;
 
-    if (lines.length > 60) {
-      setTallScreen();
+    // Set tall screen state based on line count
+    if (currentLines.length > 60 && currentLines.length < 100) {
+      setTallScreen(60);
+    } else if (currentLines.length >= 100) {
+      setTallScreen(100);
     }
+
+    setLines(currentLines);
+  }, [linesReady, setTallScreen]);
+
+  // Run animation when lines are ready
+  useGSAP(() => {
+    if (!lines.length || !containerRef.current || hasAnimatedRef.current)
+      return;
 
     globalOnload.fromTo(
       lines,
@@ -49,7 +61,7 @@ export const useLinesOnloadAnimations = (linesReady) => {
       },
       0
     );
-  }, [completeTransition, linesReady]);
+  }, [completeTransition, lines, LINES]);
 
   return containerRef;
 };
