@@ -185,8 +185,10 @@ p {
 }
 
 ::selection {
-  color: red;
-  background-color: red;
+  /*color: red;
+  background-color: red;*/
+  color: var(--token-color-surface-secondary);
+  background-color: var(--token-color-surface-secondary);
 }
 @supports (background: -webkit-named-image(i)) {
   /* Safari bug fix */

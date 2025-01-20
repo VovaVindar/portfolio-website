@@ -27,14 +27,14 @@ export const useClientsScrollAnimations = () => {
 
   const animConfig = {
     hidden: {
-      autoAlpha: 0,
+      autoAlpha: CLIENTS.SCROLL.AUTOALPHA.START,
       filter: `blur(${CLIENTS.SCROLL.BLUR.START})`,
-      color: CLIENTS.SCROLL.COLOR.START,
+      //color: CLIENTS.SCROLL.COLOR.START,
     },
     visible: {
       autoAlpha: 1,
       filter: `blur(${CLIENTS.SCROLL.BLUR.END})`,
-      color: CLIENTS.SCROLL.COLOR.END,
+      //color: CLIENTS.SCROLL.COLOR.END,
       duration: CLIENTS.SCROLL.DURATION,
       ease: CLIENTS.EASING,
       stagger: CLIENTS.SCROLL.STAGGER,

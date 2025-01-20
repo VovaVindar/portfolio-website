@@ -56,7 +56,7 @@
 }
 .social-links.in-view p.faded a,
 .social-links.in-view p.faded button {
-  color: red !important;
+  /*color: red !important;*/
   transition: color 0.65s var(--easing-text-fade-out);
 }
 

@@ -26,15 +26,14 @@ export const useAboutScrollAnimations = () => {
 
   const animConfig = {
     hidden: {
-      autoAlpha: 0,
+      autoAlpha: ABOUT.SCROLL.AUTOALPHA.START,
       filter: `blur(${ABOUT.SCROLL.BLUR.START})`,
-      color: ABOUT.SCROLL.COLOR.START,
+      //color: ABOUT.SCROLL.COLOR.START,
     },
     visible: {
       autoAlpha: 1,
       filter: `blur(${ABOUT.SCROLL.BLUR.END})`,
-      color: ABOUT.SCROLL.COLOR.END,
-      delay: 0,
+      //color: ABOUT.SCROLL.COLOR.END,
       duration: ABOUT.SCROLL.DURATION,
       ease: ABOUT.EASING,
       stagger: ABOUT.SCROLL.STAGGER,

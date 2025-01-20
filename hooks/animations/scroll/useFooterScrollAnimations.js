@@ -43,14 +43,14 @@ export const useFooterScrollAnimations = () => {
 
   const animConfig = {
     hidden: {
-      opacity: 0,
+      opacity: FOOTER.SCROLL.OPACITY.START,
       filter: `blur(${FOOTER.SCROLL.BLUR.START})`,
-      color: FOOTER.SCROLL.COLOR.START,
+      //color: FOOTER.SCROLL.COLOR.START,
     },
     visible: {
       opacity: 1,
       filter: `blur(${FOOTER.SCROLL.BLUR.END})`,
-      color: FOOTER.SCROLL.COLOR.END,
+      //color: FOOTER.SCROLL.COLOR.END,
       delay: 0,
       duration: FOOTER.SCROLL.DURATION,
       ease: FOOTER.EASING,

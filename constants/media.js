@@ -1,5 +1,5 @@
 // Auto-generated media paths
-// Generated on: 1/19/2025, 8:03:14 PM
+// Generated on: 1/20/2025, 3:04:45 AM
 
 export const SITE_IMAGES = [
   "/images/selected/am_1.png",

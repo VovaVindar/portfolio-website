@@ -1,8 +1,8 @@
 .about-container {
-  padding-top: 2.17391rlh;
+  padding-top: 3rlh;
   background-color: var(--token-color-surface-primary);
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 .about {
   width: fit-content;
@@ -17,6 +17,7 @@
   top: 0;
   display: flex;
   flex-direction: column;
+  gap: 0.025rlh;
   height: fit-content;
 }
 .about p {

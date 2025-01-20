@@ -30,8 +30,7 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
           scale: HERO.LOAD.TITLE.SCALE.END,
           transformOrigin: "bottom",
           ease: HERO.EASING,
-          duration:
-            HERO.LOAD.GRID.CELL_DURATION + HERO.LOAD.TITLE.DURATION_OFFSET,
+          duration: HERO.LOAD.TITLE.DURATION,
           onComplete: () => {
             setTimeout(() => {
               onLoadComplete(true);

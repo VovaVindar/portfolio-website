@@ -149,7 +149,7 @@ export const GRID_LAYOUT = {
       type: "video",
       src: "/images/align/align_1.mp4",
       alt: "Align Website",
-      brightness: 4,
+      brightness: 3.8,
       blur: 2,
       scale: 1.84,
       hoverText: "Align",

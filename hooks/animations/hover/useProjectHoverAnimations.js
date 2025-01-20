@@ -84,6 +84,7 @@ export const useProjectHoverAnimations = (text) => {
             autoAlpha: PROJECT_HOVER.STYLES.AUTOALPHA.ACTIVE,
             duration: PROJECT_HOVER.ENTER.DURATION,
             ease: PROJECT_HOVER.ENTER.EASING,
+            delay: PROJECT_HOVER.ENTER.DELAY,
             filter: `blur(${PROJECT_HOVER.STYLES.BLUR.ACTIVE})`,
             color: PROJECT_HOVER.STYLES.COLOR.ACTIVE,
           });

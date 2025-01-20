@@ -4,10 +4,11 @@ import { usePreloader } from "@/context/PreloaderContext";
 const BaseConstants = () => {
   return useMemo(
     () => ({
-      STAGGER_INTERVAL: 0.11,
-      ANIMATION_DURATION: 0.75,
-      ANIMATION_EASING: "power1.in", // Easing for: text fade in
+      STAGGER_INTERVAL: 0.12,
+      ANIMATION_DURATION: 1.15,
+      ANIMATION_EASING: "power1.inOut", // Easing for: text fade in
       SCROLLTRIGGER_ONCE: true,
+      TEXT_INACTIVE_COLOR: "red",
     }),
     []
   );
@@ -35,9 +36,9 @@ export const PRELOADER = () => {
       },
 
       SLIDE: {
-        DURATION: isVeryTallScreen ? 1.44 : isTallScreen ? 1.44 : 1.49,
+        DURATION: isVeryTallScreen ? 1.44 : isTallScreen ? 1.44 : 1.52,
         EASING: "power3.in",
-        Y_OFFSET: 540,
+        Y_OFFSET: 520,
       },
 
       PROGRESS: {
@@ -46,7 +47,7 @@ export const PRELOADER = () => {
         COLOR: {
           START: "red",
           LOADING: "white",
-          COMPLETE: "red",
+          COMPLETE: "rgba(255, 0, 0, 0.9)",
         },
         OPACITY: {
           START: 0.4,
@@ -71,8 +72,6 @@ export const LINES = () => {
   const { isTallScreen, isVeryTallScreen } = usePreloader();
 
   return {
-    MAX_DURATION: 3,
-
     COLORS: {
       START: "#0F1010",
       END: "#C34356",
@@ -82,8 +81,8 @@ export const LINES = () => {
       DURATION: isVeryTallScreen ? 1.1 : isTallScreen ? 1.1 : 1.25,
       DELAY: isVeryTallScreen ? 0.95 : isTallScreen ? 0.95 : 0.71,
       EASING: "power4.inOut",
-      COMPLETION_DELAY: isVeryTallScreen ? 150 : isTallScreen ? 150 : 770,
-      STAGGER: isVeryTallScreen ? 0.019 : isTallScreen ? 0.024 : 0.038,
+      COMPLETION_DELAY: isVeryTallScreen ? 150 : isTallScreen ? 150 : 780,
+      STAGGER: isVeryTallScreen ? 0.019 : isTallScreen ? 0.024 : 0.037,
     },
   };
 };
@@ -91,7 +90,7 @@ export const LINES = () => {
 export const HERO = () => {
   return useMemo(
     () => ({
-      EASING: "power3.out",
+      EASING: "power2.out",
 
       LOAD: {
         TITLE: {
@@ -99,15 +98,19 @@ export const HERO = () => {
             START: 1.4,
             END: 1,
           },
-          DURATION_OFFSET: -0.14,
-          INITIAL_BLUR: 4.5,
+          DURATION: 3,
+          INITIAL_BLUR: 7,
           SCROLLTRIGGER_START_DELAY: 50,
-          INITIAL_DELAY: 2.7,
+          INITIAL_DELAY: 2.5,
         },
 
         GRID: {
+          CELL_BLUR: {
+            START: "9px",
+            END: "0px",
+          },
           INITIAL_DELAY: 2.03,
-          CELL_DURATION: 3,
+          CELL_DURATION: 3.1,
           CELL_STAGGER: 0.07,
           IMG_EXTRA_STAGGER: 0.074,
         },
@@ -139,21 +142,24 @@ export const ABOUT = () => {
       EASING: BASE.ANIMATION_EASING,
 
       LOAD: {
-        START_DELAY: isVeryTallScreen ? 2250 : isTallScreen ? 2550 : 3150,
+        START_DELAY: isVeryTallScreen ? 2250 : isTallScreen ? 2550 : 3450,
       },
 
       SCROLL: {
-        STAGGER: BASE.STAGGER_INTERVAL,
+        AUTOALPHA: {
+          START: 0.16,
+        },
+        STAGGER: BASE.STAGGER_INTERVAL * 1.7,
         DURATION: BASE.ANIMATION_DURATION,
         ONCE: BASE.SCROLLTRIGGER_ONCE,
 
         BLUR: {
-          START: "2px",
+          START: "1.5px",
           END: "0px",
         },
 
         COLOR: {
-          START: "red",
+          START: BASE.TEXT_INACTIVE_COLOR,
           END: "#0F1010",
         },
       },
@@ -171,24 +177,27 @@ export const CLIENTS = () => {
       EASING: BASE.ANIMATION_EASING,
 
       LOAD: {
-        START_DELAY: isVeryTallScreen ? 2480 : isTallScreen ? 2840 : 3480,
+        START_DELAY: isVeryTallScreen ? 2480 : isTallScreen ? 2840 : 3490,
       },
 
       SCROLL: {
-        STAGGER: isTallScreen ? 0.16 : BASE.STAGGER_INTERVAL,
+        STAGGER: isTallScreen ? 0.16 : BASE.STAGGER_INTERVAL * 1.2,
         DURATION: BASE.ANIMATION_DURATION,
+        AUTOALPHA: {
+          START: 0.16,
+        },
         BLUR: {
-          START: "4px",
+          START: "5px",
           END: "0px",
         },
         COLOR: {
-          START: "red",
+          START: BASE.TEXT_INACTIVE_COLOR,
           END: "#0F1010",
         },
         ONCE: BASE.SCROLLTRIGGER_ONCE,
         TRIGGER: {
-          START: "top 100%",
-          END: "bottom+=100px top",
+          START: "bottom bottom",
+          END: "bottom bottom-=75",
         },
       },
     }),
@@ -229,7 +238,7 @@ export const WORK = () => {
 
         PARALLAX: {
           Y_PERCENT: {
-            START: 10,
+            START: 15,
             END: 0,
           },
           SCRUB: 1,
@@ -259,62 +268,21 @@ export const FOOTER = () => {
         DURATION: BASE.ANIMATION_DURATION,
         STAGGER: BASE.STAGGER_INTERVAL,
         STAGGER_MOBILE_OFFSET: -0.02,
+        OPACITY: {
+          START: 0.16,
+        },
         BLUR: {
-          START: "1px",
+          START: "2.5px",
           END: "0px",
         },
         COLOR: {
-          START: "red",
+          START: BASE.TEXT_INACTIVE_COLOR,
           END: "#0F1010",
         },
         TRIGGER: {
-          START: "top 100%",
+          START: "top bottom-=75",
         },
         ONCE: BASE.SCROLLTRIGGER_ONCE,
-      },
-    }),
-    [BASE]
-  );
-};
-
-export const CONTACT = () => {
-  const BASE = BaseConstants();
-
-  return useMemo(
-    () => ({
-      OPEN: {
-        CONTAINER: {
-          DURATION: BASE.ANIMATION_DURATION - 0.1,
-          EASING: "power1.inOut",
-        },
-        CONTENT: {
-          DURATION: BASE.ANIMATION_DURATION,
-          DELAY: 0.35,
-          EASING: "power1.out",
-        },
-      },
-
-      CLOSE: {
-        CONTAINER: {
-          DURATION: BASE.ANIMATION_DURATION - 0.1,
-          DELAY: 0.4,
-          EASING: "power1.inOut",
-        },
-        CONTENT: {
-          DURATION: BASE.ANIMATION_DURATION - 0.2,
-          EASING: "power1.in",
-        },
-      },
-
-      STYLES: {
-        BLUR: {
-          ACTIVE: "0px",
-          INACTIVE: "3px",
-        },
-        COLOR: {
-          ACTIVE: "#0F1010",
-          INACTIVE: "red",
-        },
       },
     }),
     [BASE]
@@ -370,13 +338,62 @@ export const PROJECT_HOVER = () => {
   return useMemo(
     () => ({
       ENTER: {
-        DURATION: BASE.ANIMATION_DURATION,
-        EASING: "power1.out",
+        DURATION: BASE.ANIMATION_DURATION - 0.1,
+        EASING: BASE.ANIMATION_EASING,
+        DELAY: -0.025,
       },
 
       EXIT: {
-        DURATION: BASE.ANIMATION_DURATION - 0.2,
+        DURATION: 0.5,
         EASING: "power1.in",
+      },
+
+      STYLES: {
+        BLUR: {
+          ACTIVE: "0px",
+          INACTIVE: "2px",
+        },
+        COLOR: {
+          ACTIVE: "#0F1010",
+          INACTIVE: BASE.TEXT_INACTIVE_COLOR,
+        },
+        AUTOALPHA: {
+          ACTIVE: 1,
+          INACTIVE: 0,
+        },
+      },
+    }),
+    [BASE]
+  );
+};
+
+export const CONTACT = () => {
+  const BASE = BaseConstants();
+
+  return useMemo(
+    () => ({
+      OPEN: {
+        CONTAINER: {
+          DURATION: 1.35,
+          EASING: BASE.ANIMATION_EASING,
+        },
+        CONTENT: {
+          DURATION: BASE.ANIMATION_DURATION,
+          DELAY: 0.3,
+          EASING: BASE.ANIMATION_EASING,
+        },
+      },
+
+      CLOSE: {
+        CONTAINER: {
+          DURATION: 1.1,
+          DELAY: 0.15,
+          EASING: BASE.ANIMATION_EASING,
+        },
+        CONTENT: {
+          DURATION: 0.6,
+          EASING: "power1.in",
+        },
       },
 
       STYLES: {
@@ -387,10 +404,6 @@ export const PROJECT_HOVER = () => {
         COLOR: {
           ACTIVE: "#0F1010",
           INACTIVE: "red",
-        },
-        AUTOALPHA: {
-          ACTIVE: 1,
-          INACTIVE: 0,
         },
       },
     }),

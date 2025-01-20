@@ -37,8 +37,10 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
           y: -(containerHeight + 5),
           autoAlpha: 0,
           scale: 1.8,
+          filter: `blur(${HERO.LOAD.GRID.CELL_BLUR.START})`,
         },
         {
+          filter: `blur(${HERO.LOAD.GRID.CELL_BLUR.END})`,
           y: 0,
           autoAlpha: 1,
           scale: 1,

@@ -14,7 +14,11 @@ export const useContactTransition = (isOpen) => {
     // Skip animation on initial mount
     if (isInitialMount.current) {
       if (containerRef.current && contentRef.current) {
-        gsap.set(containerRef.current, { autoAlpha: 0 });
+        gsap.set(containerRef.current, {
+          visibility: "hidden",
+          backdropFilter: "blur(0px)",
+          backgroundColor: "rgba(255, 255, 255, 0)",
+        });
         gsap.set(contentRef.current, {
           autoAlpha: 0,
           filter: `blur(${CONTACT.STYLES.BLUR.INACTIVE})`,
@@ -32,9 +36,16 @@ export const useContactTransition = (isOpen) => {
       if (isOpen) {
         // Opening animation
         containerAnimation.to(containerRef.current, {
-          autoAlpha: 1,
+          onStart: () => {
+            gsap.set(containerRef.current, {
+              visibility: "visible",
+            });
+          },
           duration: CONTACT.OPEN.CONTAINER.DURATION,
           ease: CONTACT.OPEN.CONTAINER.EASING,
+
+          backdropFilter: "blur(4px)",
+          backgroundColor: "rgba(255, 255, 255, 1)",
         });
 
         contentAnimation.to(contentRef.current, {
@@ -56,10 +67,16 @@ export const useContactTransition = (isOpen) => {
         });
 
         containerAnimation.to(containerRef.current, {
-          autoAlpha: 0,
           duration: CONTACT.CLOSE.CONTAINER.DURATION,
           ease: CONTACT.CLOSE.CONTAINER.EASING,
           delay: CONTACT.CLOSE.CONTAINER.DELAY,
+          backdropFilter: "blur(0px)",
+          backgroundColor: "rgba(255, 255, 255, 0)",
+          onComplete: () => {
+            gsap.set(containerRef.current, {
+              visibility: "hidden",
+            });
+          },
         });
       }
     }
