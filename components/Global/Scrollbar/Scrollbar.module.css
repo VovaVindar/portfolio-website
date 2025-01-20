@@ -20,6 +20,8 @@
 }
 .scrollbar-container span {
   display: block;
+  min-width: 2.857rlh;
+  text-align: right;
 }
 
 @media all and (min-width: 2560px) {
