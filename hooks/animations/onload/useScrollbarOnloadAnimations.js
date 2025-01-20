@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { usePreloader } from "@/context/PreloaderContext";
-import { SCROLLBAR } from "@/constants/animations";
+import { SCROLLBAR as getScrollbar } from "@/constants/animations";
 
 export const useScrollbarOnloadAnimations = () => {
+  const SCROLLBAR = getScrollbar();
+
   const { isOnloadLinesActive } = usePreloader();
   const [opacity, setOpacity] = useState(SCROLLBAR.LOAD.INITIAL.OPACITY);
   const [blur, setBlur] = useState(SCROLLBAR.LOAD.INITIAL.BLUR);
@@ -18,7 +20,7 @@ export const useScrollbarOnloadAnimations = () => {
       setBlur(SCROLLBAR.LOAD.INITIAL.BLUR);
       setY(SCROLLBAR.LOAD.INITIAL.Y);
     }
-  }, [isOnloadLinesActive]);
+  }, [isOnloadLinesActive, SCROLLBAR]);
 
   return { y, opacity, blur };
 };

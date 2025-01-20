@@ -1,9 +1,11 @@
 import { useGSAP } from "@gsap/react";
-import { HERO } from "@/constants/animations";
+import { HERO as getHero } from "@/constants/animations";
 import styles from "@/components/Home/Hero/Hero.module.css";
 import { useTransition } from "@/context/TransitionContext";
 
 export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
+  const HERO = getHero();
+
   const { globalOnload, isPageChanged } = useTransition();
 
   useGSAP(() => {

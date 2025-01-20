@@ -1,8 +1,10 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import gsap from "gsap";
-import { MAGNETIC } from "@/constants/animations";
+import { MAGNETIC as getMagnetic } from "@/constants/animations";
 
 export const useMagnetic = (type, passedScale, passedMovement) => {
+  const MAGNETIC = getMagnetic();
+
   const magneticAreaRef = useRef(null);
   const timelineRef = useRef(null);
 
@@ -44,17 +46,20 @@ export const useMagnetic = (type, passedScale, passedMovement) => {
 
   const [scale, setScale] = useState(maxScale);
 
-  const animate = useCallback((target, props) => {
-    if (timelineRef.current) {
-      timelineRef.current.kill();
-    }
+  const animate = useCallback(
+    (target, props) => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+      }
 
-    timelineRef.current = gsap.to(target, {
-      ...props,
-      ease: MAGNETIC.ANIMATION.EASING,
-      duration: MAGNETIC.ANIMATION.DURATION,
-    });
-  }, []);
+      timelineRef.current = gsap.to(target, {
+        ...props,
+        ease: MAGNETIC.ANIMATION.EASING,
+        duration: MAGNETIC.ANIMATION.DURATION,
+      });
+    },
+    [MAGNETIC]
+  );
 
   const calculateParallax = useCallback(
     (e, element, currentScale) => {

@@ -2,11 +2,13 @@ import { useRef, useCallback } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { HERO } from "@/constants/animations";
+import { HERO as getHero } from "@/constants/animations";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useHeroTitleScrollAnimations = (titleRef, loadCompleted) => {
+  const HERO = getHero();
+
   const scrollRef = useRef({ scrollTrigger: null, parallax: null });
 
   const cleanupScrollAnimations = useCallback(() => {
@@ -45,7 +47,7 @@ export const useHeroTitleScrollAnimations = (titleRef, loadCompleted) => {
     } catch (error) {
       console.error("Failed to setup scroll animation:", error);
     }
-  }, [loadCompleted, cleanupScrollAnimations, titleRef]);
+  }, [loadCompleted, cleanupScrollAnimations, titleRef, HERO]);
 
   useGSAP(() => {
     setupScrollAnimation();

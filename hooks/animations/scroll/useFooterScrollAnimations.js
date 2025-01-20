@@ -2,13 +2,15 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { FOOTER } from "@/constants/animations";
+import { FOOTER as getFooter } from "@/constants/animations";
 import styles from "@/components/Home/Footer/Footer.module.css";
 import { usePreloader } from "@/context/PreloaderContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useFooterScrollAnimations = () => {
+  const FOOTER = getFooter();
+
   const { startPageAnimation } = usePreloader();
   const elementRef = useRef([]);
   const socialRef = useRef(null);
@@ -37,7 +39,7 @@ export const useFooterScrollAnimations = () => {
       }, FOOTER.LOAD.START_DELAY);
       return () => clearTimeout(timer);
     }
-  }, [startPageAnimation]);
+  }, [startPageAnimation, FOOTER]);
 
   const animConfig = {
     hidden: {

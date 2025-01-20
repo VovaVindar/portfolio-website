@@ -1,9 +1,11 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap/dist/gsap";
-import { PRELOADER } from "@/constants/animations";
+import { PRELOADER as getPreloader } from "@/constants/animations";
 
 export const usePreloaderOnloadAnimations = (loadProgress) => {
+  const PRELOADER = getPreloader();
+
   const containerRef = useRef(null);
   const progressIndicatorRef = useRef(null);
   const timelineRefs = useRef({});

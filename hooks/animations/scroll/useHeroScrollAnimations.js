@@ -3,11 +3,13 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import styles from "@/components/Home/Hero/Hero.module.css";
-import { HERO } from "@/constants/animations";
+import { HERO as getHero } from "@/constants/animations";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useHeroScrollAnimations = (containerRef, imgOnload) => {
+  const HERO = getHero();
+
   const scrollTriggerRef = useRef(null);
 
   useGSAP(() => {

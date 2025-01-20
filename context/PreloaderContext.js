@@ -7,7 +7,6 @@ import {
   useEffect,
 } from "react";
 import { SITE_IMAGES, SITE_VIDEOS } from "@/constants/media";
-import { PRELOADER } from "@/constants/animations";
 
 const allMedia = [...SITE_IMAGES, ...SITE_VIDEOS];
 
@@ -18,6 +17,9 @@ export const PreloaderProvider = ({ children }) => {
     isOnloadLinesActive: true, // set to 'false' when lines are completed
     loadProgress: 0,
     startPageAnimation: false, // sets to 'true' when loadProgress == 100
+    isTallScreen: false, // sets to 'true' if >60 onload lines
+    incrementCap: 15,
+    interval: 206,
   });
 
   const actualProgressRef = useRef(0);
@@ -32,7 +34,7 @@ export const PreloaderProvider = ({ children }) => {
       if (currentProgress < actualProgressRef.current) {
         const increment = Math.min(
           actualProgressRef.current - currentProgress,
-          PRELOADER.LOADING.INCREMENT_CAP
+          preloaderState.incrementCap
         );
         currentProgress += increment;
 
@@ -43,17 +45,17 @@ export const PreloaderProvider = ({ children }) => {
         }));
 
         // Schedule next update
-        timeoutId = setTimeout(updateProgress, PRELOADER.LOADING.INTERVAL);
+        timeoutId = setTimeout(updateProgress, preloaderState.interval);
       }
     }
 
     // Start progress updates
-    timeoutId = setTimeout(updateProgress, PRELOADER.LOADING.INTERVAL);
+    timeoutId = setTimeout(updateProgress, preloaderState.interval);
 
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, []); // Empty deps array - only run once on mount
+  }, [preloaderState.incrementCap, preloaderState.interval]);
 
   const initiateLoading = useCallback(async () => {
     if (isLoadingInitiatedRef.current) {
@@ -116,12 +118,20 @@ export const PreloaderProvider = ({ children }) => {
     }));
   }, []);
 
+  const setTallScreen = useCallback(() => {
+    setPreloaderState((prev) => ({
+      ...prev,
+      isTallScreen: true,
+    }));
+  }, []);
+
   return (
     <PreloaderContext.Provider
       value={{
         ...preloaderState,
         initiateLoading,
         completeTransition,
+        setTallScreen,
       }}
     >
       {children}

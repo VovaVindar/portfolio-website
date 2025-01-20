@@ -4,14 +4,11 @@ import { usePreloader } from "@/context/PreloaderContext";
 import { useLinesOnloadAnimations } from "@/hooks/animations/onload/useLinesOnloadAnimations";
 
 const Lines = () => {
-  const { completeTransition, isOnloadLinesActive } = usePreloader();
+  const { isOnloadLinesActive } = usePreloader();
   const [lines, setLines] = useState([]);
   const linesReadyRef = useRef(false);
 
-  const containerRef = useLinesOnloadAnimations(
-    completeTransition,
-    linesReadyRef.current
-  );
+  const containerRef = useLinesOnloadAnimations(linesReadyRef.current);
 
   // Prevent space key scrolling only while lines are active
   useEffect(() => {

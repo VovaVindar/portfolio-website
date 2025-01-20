@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
-import { HERO } from "@/constants/animations";
+import { HERO as getHero } from "@/constants/animations";
 import { usePreloader } from "@/context/PreloaderContext";
 import { useTransition } from "@/context/TransitionContext";
 
 export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
+  const HERO = getHero();
+
   const { startPageAnimation } = usePreloader();
   const { globalOnload } = useTransition();
 
@@ -70,7 +72,7 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
         setBlur(0);
       }
     }
-  }, [startPageAnimation, globalOnload]);
+  }, [startPageAnimation, globalOnload, HERO]);
 
   return { opacity, blur, transition };
 };

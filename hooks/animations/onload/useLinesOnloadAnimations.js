@@ -1,12 +1,16 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { LINES } from "@/constants/animations";
+import { LINES as getLines } from "@/constants/animations";
 import { useTransition } from "@/context/TransitionContext";
+import { usePreloader } from "@/context/PreloaderContext";
 
-export const useLinesOnloadAnimations = (completeTransition, linesReady) => {
+export const useLinesOnloadAnimations = (linesReady) => {
+  const LINES = getLines();
+
   const containerRef = useRef(null);
   const hasAnimatedRef = useRef(false);
   const { globalOnload } = useTransition();
+  const { completeTransition, setTallScreen } = usePreloader();
 
   useGSAP(() => {
     if (!linesReady || !containerRef.current || hasAnimatedRef.current) return;
@@ -14,10 +18,9 @@ export const useLinesOnloadAnimations = (completeTransition, linesReady) => {
     const lines = Array.from(containerRef.current.children);
     if (lines.length === 0) return;
 
-    const isHighDensity = lines.length > 60;
-    const staggerInterval = isHighDensity
-      ? LINES.TRANSITION.STAGGER.HIGH_DENSITY
-      : LINES.TRANSITION.STAGGER.NORMAL;
+    if (lines.length > 60) {
+      setTallScreen();
+    }
 
     globalOnload.fromTo(
       lines,
@@ -33,7 +36,7 @@ export const useLinesOnloadAnimations = (completeTransition, linesReady) => {
         delay: LINES.TRANSITION.DELAY,
         ease: LINES.TRANSITION.EASING,
         stagger: {
-          each: staggerInterval,
+          each: LINES.TRANSITION.STAGGER,
           from: "start",
         },
         onComplete: () => {

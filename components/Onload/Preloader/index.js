@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import styles from "./Preloader.module.css";
 import { usePreloader } from "@/context/PreloaderContext";
 import { usePreloaderOnloadAnimations } from "@/hooks/animations/onload/usePreloaderOnloadAnimations";
-import { PRELOADER } from "@/constants/animations";
+import { PRELOADER as getPreloader } from "@/constants/animations";
 
 const Preloader = ({ className }) => {
+  const PRELOADER = getPreloader();
+
   const { loadProgress } = usePreloader();
   const [isLoading, setIsLoading] = useState(true);
   const [opacity, setOpacity] = useState(0);
@@ -25,7 +27,7 @@ const Preloader = ({ className }) => {
         setIsLoading(false);
       }, hideDelay);
     }
-  }, [loadProgress, containerRef]);
+  }, [loadProgress, containerRef, PRELOADER]);
 
   // Track progress changes
   useEffect(() => {}, [loadProgress]);

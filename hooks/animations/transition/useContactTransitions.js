@@ -1,9 +1,11 @@
 import { useRef } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
-import { CONTACT } from "@/constants/animations";
+import { CONTACT as getContact } from "@/constants/animations";
 
 export const useContactTransition = (isOpen) => {
+  const CONTACT = getContact();
+
   const containerRef = useRef(null);
   const contentRef = useRef(null);
   const isInitialMount = useRef(true);

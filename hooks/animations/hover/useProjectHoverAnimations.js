@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { PROJECT_HOVER } from "@/constants/animations";
+import { PROJECT_HOVER as getProjectHover } from "@/constants/animations";
 import { usePreloader } from "@/context/PreloaderContext";
 
 export const useProjectHoverAnimations = (text) => {
+  const PROJECT_HOVER = getProjectHover();
+
   const animation = useRef(null);
   const elementRef = useRef(null);
   const [displayText, setDisplayText] = useState(text);

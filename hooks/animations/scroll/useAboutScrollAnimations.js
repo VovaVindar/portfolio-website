@@ -2,12 +2,14 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { ABOUT } from "@/constants/animations";
+import { ABOUT as getAbout } from "@/constants/animations";
 import { usePreloader } from "@/context/PreloaderContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useAboutScrollAnimations = () => {
+  const ABOUT = getAbout();
+
   const { startPageAnimation } = usePreloader();
   const timelineRef = useRef(null);
   const [startScroll, setStartScroll] = useState(false);
@@ -20,7 +22,7 @@ export const useAboutScrollAnimations = () => {
       }, ABOUT.LOAD.START_DELAY);
       return () => clearTimeout(timer);
     }
-  }, [startPageAnimation]);
+  }, [startPageAnimation, ABOUT]);
 
   const animConfig = {
     hidden: {

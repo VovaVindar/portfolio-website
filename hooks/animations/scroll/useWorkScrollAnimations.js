@@ -2,13 +2,15 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { WORK } from "@/constants/animations";
+import { WORK as getWork } from "@/constants/animations";
 import styles from "@/components/Home/Work/Work.module.css";
 import { usePreloader } from "@/context/PreloaderContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useWorkScrollAnimations = () => {
+  const WORK = getWork();
+
   const { startPageAnimation } = usePreloader();
   const containerRef = useRef(null);
   const textRef = useRef(null);
@@ -24,7 +26,7 @@ export const useWorkScrollAnimations = () => {
       }, WORK.LOAD.START_DELAY);
       return () => clearTimeout(timer);
     }
-  }, [startPageAnimation]);
+  }, [startPageAnimation, WORK]);
 
   // Text animation config
   const animConfig = {
