@@ -6,8 +6,8 @@
   height: 100vh;
   min-height: 600px;
   max-height: min(1440px, 61.706vw);
-  grid-template-columns: repeat(8, 9.7222vw);
-  grid-template-rows: repeat(5, 9.5139vw);
+  grid-template-columns: repeat(8, min(9.7222vw, 249px));
+  grid-template-rows: repeat(5, min(9.5139vw, 243px));
   justify-content: space-between;
   align-content: space-between;
   position: relative;
@@ -105,4 +105,17 @@
 .hero-container.scroll .grid-cell .cell-video.in-view {
   transition: transform 2.1s var(--easing-img-fade-in),
     filter 2.1s var(--easing-img-fade-in); /* power2.out */
+}
+
+@media all and (max-width: 1060px) {
+  .hero-container {
+    min-height: 500px;
+    grid-template-columns: repeat(8, 11.240837vw);
+    grid-template-rows: repeat(5, 11vw);
+  }
+  .hero-container h1.hero-title {
+    font-size: calc(var(--token-font-size-1) * 0.95);
+  }
+}
+@media all and (max-width: 820px) {
 }

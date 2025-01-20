@@ -75,12 +75,17 @@
   }
   .footer-bottom {
     padding-top: 6rlh;
-    align-items: flex-end;
+    align-items: flex-start;
+    gap: 0.8em;
   }
   .footer-bottom > div {
     display: flex;
     flex-direction: column;
     gap: 0rlh;
+  }
+  .footer-bottom > div > div:nth-of-type(1),
+  .footer-bottom > div > div:nth-of-type(2) {
+    width: fit-content;
   }
   .footer-bottom span > span {
     display: none;
