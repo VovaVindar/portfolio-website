@@ -10,38 +10,50 @@ import Magnetic from "@/components/Global/Magnetic";
 const AUTOPLAY_DELAY = 5000;
 
 // Memoized Controls Component
-const Controls = memo(({ onPrevious, onNext }) => (
-  <div className={styles["clicks"]}>
-    <div
-      role="button"
-      aria-label="Previous"
-      onClick={onPrevious}
-      className={styles["click-area"]}
-    />
-    <div
-      role="button"
-      aria-label="Next"
-      onClick={onNext}
-      className={styles["click-area"]}
-    />
-  </div>
-));
+const Controls = memo(({ onPrevious, onNext }) => {
+  return (
+    <div className={styles["clicks"]}>
+      <button
+        type="button"
+        aria-label="Previous"
+        onClick={onPrevious}
+        className={styles["click-area"]}
+      />
+      <button
+        type="button"
+        aria-label="Next"
+        onClick={onNext}
+        className={styles["click-area"]}
+      />
+    </div>
+  );
+});
+Controls.displayName = "Controls";
 
 // Memoized PlayControl Component
 const PlayControl = memo(
-  ({ isPlaying, isHovered, isInView, onToggle, textRef }) => (
-    <div className={styles["control"]} ref={textRef} onClick={onToggle}>
-      <Image
-        src={`/icons/${
-          isPlaying && !isHovered && isInView ? "pause" : "play"
-        }.png`}
-        alt={isPlaying && !isHovered ? "Pause" : "Play"}
-        height="18"
-        width="18"
-      />
-    </div>
-  )
+  ({ isPlaying, isHovered, isInView, onToggle, textRef }) => {
+    return (
+      <button
+        className={styles["control"]}
+        ref={textRef}
+        onClick={onToggle}
+        type="button"
+        aria-label={isPlaying && !isHovered ? "Pause" : "Play"}
+      >
+        <Image
+          src={`/icons/${
+            isPlaying && !isHovered && isInView ? "pause" : "play"
+          }.png`}
+          alt={isPlaying && !isHovered ? "Pause" : "Play"}
+          height="18"
+          width="18"
+        />
+      </button>
+    );
+  }
 );
+PlayControl.displayName = "PlayControl";
 
 // Memoized Project Content
 const ProjectContent = memo(({ media, title, imgRef }) => (
@@ -55,6 +67,7 @@ const ProjectContent = memo(({ media, title, imgRef }) => (
     </Magnetic>
   </div>
 ));
+ProjectContent.displayName = "ProjectContent";
 
 const Work = () => {
   const { imgRef, addToTextRefs, sectionRef } = useWorkScrollAnimations();
