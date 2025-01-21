@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styles from "./Work.module.css";
 import { useWorkScrollAnimations } from "@/hooks/animations/scroll/useWorkScrollAnimations";
 import Image from "next/image";
 import { work } from "@/constants/work";
+import HoverText from "@/components/Global/HoverText"; // Adjust this import path as needed
 
-const AUTOPLAY_DELAY = 2500; // 5 seconds between transitions
+const AUTOPLAY_DELAY = 3500;
 
 const Work = () => {
   const { imgRef, addToTextRefs, sectionRef } = useWorkScrollAnimations();
@@ -12,32 +13,27 @@ const Work = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? work.length - 1 : prevIndex - 1
     );
-  };
+  }, []);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prevIndex) =>
       prevIndex === work.length - 1 ? 0 : prevIndex + 1
     );
-  };
+  }, []);
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
-  // Handle auto-play
   useEffect(() => {
     let interval;
-
     if (isPlaying && !isHovered) {
-      interval = setInterval(() => {
-        handleNext();
-      }, AUTOPLAY_DELAY);
+      interval = setInterval(handleNext, AUTOPLAY_DELAY);
     }
-
     return () => {
       if (interval) {
         clearInterval(interval);
@@ -45,21 +41,27 @@ const Work = () => {
     };
   }, [isPlaying, isHovered, handleNext]);
 
-  // Handle keyboard navigation when image is in view
   useEffect(() => {
-    const imgContainer = imgRef.current;
     const handleKeyPress = (e) => {
-      if (imgContainer?.classList.contains("in-view")) {
-        if (e.key === "ArrowLeft") {
-          handlePrevious();
-        } else if (e.key === "ArrowRight") {
-          handleNext();
+      const imgContainer = imgRef.current;
+      const isInView = imgContainer?.classList.contains(`${styles["in-view"]}`);
+
+      if (isInView) {
+        switch (e.key) {
+          case "ArrowLeft":
+            handlePrevious();
+            break;
+          case "ArrowRight":
+            handleNext();
+            break;
         }
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
-    return () => window.removeEventListener("keydown", handleKeyPress);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
   }, [handleNext, handlePrevious, imgRef]);
 
   return (
@@ -92,12 +94,15 @@ const Work = () => {
               /{work.length}
             </p>
           </div>
-          <p
-            className={`${styles["project-name"]} text-header-3`}
-            ref={addToTextRefs}
-          >
-            {work[currentIndex].title}
-          </p>
+
+          {/* Replaced the static text with HoverText component */}
+          <div ref={addToTextRefs} className={styles["project-name"]}>
+            <HoverText
+              text={work[currentIndex].title}
+              className={"text-header-3"}
+            />
+          </div>
+
           <div
             className={styles["control"]}
             ref={addToTextRefs}

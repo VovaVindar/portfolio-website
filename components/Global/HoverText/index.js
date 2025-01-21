@@ -1,16 +1,14 @@
-import styles from "../Hero.module.css";
 import { useProjectHoverAnimations } from "@/hooks/animations/hover/useProjectHoverAnimations";
 
-const HoverText = ({ text = "" }) => {
+const HoverText = ({ text = "", className }) => {
   const { elementRef, displayText } = useProjectHoverAnimations(text);
 
   return (
     <div
       ref={elementRef}
-      className={`${styles["hover-text"]} text-header-3`}
+      className={className}
       style={{
-        opacity: 0, // Start invisible
-        visibility: "hidden",
+        width: "fit-content",
       }}
     >
       {displayText}

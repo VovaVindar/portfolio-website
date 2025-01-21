@@ -43,6 +43,8 @@
   background-color: black;
   cursor: pointer;
 }
+.work .img-container.in-view {
+}
 .work .work-pagination {
   position: absolute;
   top: 0;
@@ -67,9 +69,10 @@
   bottom: 0.52rlh;
 }
 .work .work-pagination .project-name {
-  text-align: left;
   left: 0.51rlh;
   bottom: 0.52rlh;
+  position: absolute;
+  width: fit-content;
 }
 .work .work-pagination .control {
   position: absolute;
