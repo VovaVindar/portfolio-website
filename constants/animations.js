@@ -197,7 +197,7 @@ export const CLIENTS = () => {
         ONCE: BASE.SCROLLTRIGGER_ONCE,
         TRIGGER: {
           START: "bottom bottom",
-          END: "bottom bottom-=75",
+          END: "bottom bottom-=50",
         },
       },
     }),
@@ -227,7 +227,7 @@ export const WORK = () => {
             START: 0.16,
           },
           TRIGGER: {
-            START: "top bottom-=25",
+            START: "top bottom-=5",
           },
           ONCE: BASE.SCROLLTRIGGER_ONCE,
         },
@@ -335,7 +335,7 @@ export const MAGNETIC = () => {
   );
 };
 
-export const PROJECT_HOVER = () => {
+export const CHANGE_TEXT = () => {
   const BASE = BaseConstants();
 
   return useMemo(

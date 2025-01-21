@@ -1,12 +1,10 @@
 import { forwardRef, useState } from "react";
 import styles from "../SelectedClients.module.css";
 import { CLIENTS } from "@/constants/clients";
-import { useProjectHoverAnimations } from "@/hooks/animations/hover/useProjectHoverAnimations";
+import ChangeText from "@/components/Global/ChangeText";
 
 const ClientItem = forwardRef(({ client }, ref) => {
   const [hoverText, setHoverText] = useState(client.services);
-
-  const { elementRef, displayText } = useProjectHoverAnimations(hoverText);
 
   // Hover text logic
   const handleMouseEnter = () => {
@@ -27,9 +25,7 @@ const ClientItem = forwardRef(({ client }, ref) => {
         >
           {client.name}
         </h1>
-        <span ref={elementRef} className="text-header-3 mf-hidden">
-          {displayText}
-        </span>
+        <ChangeText text={hoverText} className={"text-header-3 mf-hidden"} />
       </div>
     </div>
   );

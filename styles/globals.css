@@ -205,6 +205,10 @@ p {
   outline-offset: 2px;
 }
 
+img {
+  image-rendering: smooth;
+}
+
 @media all and (max-width: 820px) {
   main {
     padding: 0 5px;

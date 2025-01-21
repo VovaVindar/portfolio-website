@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { PROJECT_HOVER as getProjectHover } from "@/constants/animations";
+import { CHANGE_TEXT as getChangeText } from "@/constants/animations";
 import { usePreloader } from "@/context/PreloaderContext";
 
-export const useProjectHoverAnimations = (text) => {
-  const PROJECT_HOVER = getProjectHover();
+export const useChangeTextAnimations = (text) => {
+  const CHANGE_TEXT = getChangeText();
 
   const animation = useRef(null);
   const elementRef = useRef(null);
@@ -41,15 +41,15 @@ export const useProjectHoverAnimations = (text) => {
       if (isInitialRender) {
         if (!isTextEmpty) {
           gsap.set(elementRef.current, {
-            autoAlpha: PROJECT_HOVER.STYLES.AUTOALPHA.ACTIVE,
-            filter: `blur(${PROJECT_HOVER.STYLES.BLUR.ACTIVE})`,
-            color: PROJECT_HOVER.STYLES.COLOR.ACTIVE,
+            autoAlpha: CHANGE_TEXT.STYLES.AUTOALPHA.ACTIVE,
+            filter: `blur(${CHANGE_TEXT.STYLES.BLUR.ACTIVE})`,
+            color: CHANGE_TEXT.STYLES.COLOR.ACTIVE,
           });
         } else {
           gsap.set(elementRef.current, {
-            autoAlpha: PROJECT_HOVER.STYLES.AUTOALPHA.INACTIVE,
-            filter: `blur(${PROJECT_HOVER.STYLES.BLUR.INACTIVE})`,
-            color: PROJECT_HOVER.STYLES.COLOR.INACTIVE,
+            autoAlpha: CHANGE_TEXT.STYLES.AUTOALPHA.INACTIVE,
+            filter: `blur(${CHANGE_TEXT.STYLES.BLUR.INACTIVE})`,
+            color: CHANGE_TEXT.STYLES.COLOR.INACTIVE,
           });
         }
         previousTextRef.current = text;
@@ -60,11 +60,11 @@ export const useProjectHoverAnimations = (text) => {
       if (isTextChanging && isTextEmpty) {
         animation.current.add(
           gsap.to(elementRef.current, {
-            autoAlpha: PROJECT_HOVER.STYLES.AUTOALPHA.INACTIVE,
-            duration: PROJECT_HOVER.EXIT.DURATION,
-            ease: PROJECT_HOVER.EXIT.EASING,
-            filter: `blur(${PROJECT_HOVER.STYLES.BLUR.INACTIVE})`,
-            color: PROJECT_HOVER.STYLES.COLOR.INACTIVE,
+            autoAlpha: CHANGE_TEXT.STYLES.AUTOALPHA.INACTIVE,
+            duration: CHANGE_TEXT.EXIT.DURATION,
+            ease: CHANGE_TEXT.EXIT.EASING,
+            filter: `blur(${CHANGE_TEXT.STYLES.BLUR.INACTIVE})`,
+            color: CHANGE_TEXT.STYLES.COLOR.INACTIVE,
             onComplete: () => setDisplayText(""),
           })
         );
@@ -73,20 +73,20 @@ export const useProjectHoverAnimations = (text) => {
       else if (isTextChanging && !isTextEmpty && !wasPreviousTextEmpty) {
         animation.current
           .to(elementRef.current, {
-            autoAlpha: PROJECT_HOVER.STYLES.AUTOALPHA.INACTIVE,
-            duration: PROJECT_HOVER.EXIT.DURATION,
-            ease: PROJECT_HOVER.EXIT.EASING,
-            filter: `blur(${PROJECT_HOVER.STYLES.BLUR.INACTIVE})`,
-            color: PROJECT_HOVER.STYLES.COLOR.INACTIVE,
+            autoAlpha: CHANGE_TEXT.STYLES.AUTOALPHA.INACTIVE,
+            duration: CHANGE_TEXT.EXIT.DURATION,
+            ease: CHANGE_TEXT.EXIT.EASING,
+            filter: `blur(${CHANGE_TEXT.STYLES.BLUR.INACTIVE})`,
+            color: CHANGE_TEXT.STYLES.COLOR.INACTIVE,
             onComplete: () => setDisplayText(text),
           })
           .to(elementRef.current, {
-            autoAlpha: PROJECT_HOVER.STYLES.AUTOALPHA.ACTIVE,
-            duration: PROJECT_HOVER.ENTER.DURATION,
-            ease: PROJECT_HOVER.ENTER.EASING,
-            delay: PROJECT_HOVER.ENTER.DELAY,
-            filter: `blur(${PROJECT_HOVER.STYLES.BLUR.ACTIVE})`,
-            color: PROJECT_HOVER.STYLES.COLOR.ACTIVE,
+            autoAlpha: CHANGE_TEXT.STYLES.AUTOALPHA.ACTIVE,
+            duration: CHANGE_TEXT.ENTER.DURATION,
+            ease: CHANGE_TEXT.ENTER.EASING,
+            delay: CHANGE_TEXT.ENTER.DELAY,
+            filter: `blur(${CHANGE_TEXT.STYLES.BLUR.ACTIVE})`,
+            color: CHANGE_TEXT.STYLES.COLOR.ACTIVE,
           });
       }
       // Case 3: Fade in from empty to non-empty
@@ -94,11 +94,11 @@ export const useProjectHoverAnimations = (text) => {
         animation.current.add(
           gsap.to(elementRef.current, {
             onStart: () => setDisplayText(text),
-            autoAlpha: PROJECT_HOVER.STYLES.AUTOALPHA.ACTIVE,
-            duration: PROJECT_HOVER.ENTER.DURATION,
-            ease: PROJECT_HOVER.ENTER.EASING,
-            filter: `blur(${PROJECT_HOVER.STYLES.BLUR.ACTIVE})`,
-            color: PROJECT_HOVER.STYLES.COLOR.ACTIVE,
+            autoAlpha: CHANGE_TEXT.STYLES.AUTOALPHA.ACTIVE,
+            duration: CHANGE_TEXT.ENTER.DURATION,
+            ease: CHANGE_TEXT.ENTER.EASING,
+            filter: `blur(${CHANGE_TEXT.STYLES.BLUR.ACTIVE})`,
+            color: CHANGE_TEXT.STYLES.COLOR.ACTIVE,
           })
         );
       }

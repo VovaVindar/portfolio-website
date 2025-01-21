@@ -1,138 +1,155 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef, memo } from "react";
 import styles from "./Work.module.css";
 import { useWorkScrollAnimations } from "@/hooks/animations/scroll/useWorkScrollAnimations";
 import Image from "next/image";
 import { work } from "@/constants/work";
-import HoverText from "@/components/Global/HoverText"; // Adjust this import path as needed
+import ChangeText from "@/components/Global/ChangeText";
+import MediaContent from "@/components/Home/Work/MediaContent";
+import Magnetic from "@/components/Global/Magnetic";
 
-const AUTOPLAY_DELAY = 3500;
+const AUTOPLAY_DELAY = 6000;
+
+// Memoized Controls Component
+const Controls = memo(({ onPrevious, onNext }) => (
+  <div className={styles["clicks"]}>
+    <div
+      role="button"
+      aria-label="Previous"
+      onClick={onPrevious}
+      className={styles["click-area"]}
+    />
+    <div
+      role="button"
+      aria-label="Next"
+      onClick={onNext}
+      className={styles["click-area"]}
+    />
+  </div>
+));
+
+// Memoized PlayControl Component
+const PlayControl = memo(({ isPlaying, isHovered, onToggle, textRef }) => (
+  <div className={styles["control"]} ref={textRef} onClick={onToggle}>
+    <Image
+      src={`/icons/${isPlaying && !isHovered ? "pause" : "play"}.png`}
+      alt={isPlaying && !isHovered ? "Pause" : "Play"}
+      height="18"
+      width="18"
+    />
+  </div>
+));
+
+// Memoized Project Content
+const ProjectContent = memo(({ media, title, imgRef }) => (
+  <div
+    className={styles["img-container"]}
+    data-cursor-text="Open Project"
+    ref={imgRef}
+  >
+    <Magnetic type="image">
+      <MediaContent content={media} title={title} />
+    </Magnetic>
+  </div>
+));
 
 const Work = () => {
   const { imgRef, addToTextRefs, sectionRef } = useWorkScrollAnimations();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const intervalRef = useRef(null);
 
-  const handlePrevious = useCallback(() => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? work.length - 1 : prevIndex - 1
-    );
-  }, []);
+  // Stable reference for current state values
+  const stateRef = useRef({ isPlaying, isHovered });
+  useEffect(() => {
+    stateRef.current = { isPlaying, isHovered };
+  }, [isPlaying, isHovered]);
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === work.length - 1 ? 0 : prevIndex + 1
-    );
+    setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
   }, []);
 
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
+  const handlePrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? work.length - 1 : prev - 1));
+  }, []);
 
-  useEffect(() => {
-    let interval;
-    if (isPlaying && !isHovered) {
-      interval = setInterval(handleNext, AUTOPLAY_DELAY);
+  const resetInterval = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
     }
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
-  }, [isPlaying, isHovered, handleNext]);
+    const { isPlaying, isHovered } = stateRef.current;
+    if (isPlaying && !isHovered) {
+      intervalRef.current = setInterval(handleNext, AUTOPLAY_DELAY);
+    }
+  }, [handleNext]);
 
+  const togglePlayPause = useCallback(() => {
+    setIsPlaying((prev) => !prev);
+  }, []);
+
+  // Autoplay effect
+  useEffect(() => {
+    resetInterval();
+    return () => clearInterval(intervalRef.current);
+  }, [isPlaying, isHovered, resetInterval]);
+
+  // Keyboard navigation effect
   useEffect(() => {
     const handleKeyPress = (e) => {
       const imgContainer = imgRef.current;
       const isInView = imgContainer?.classList.contains(`${styles["in-view"]}`);
 
       if (isInView) {
-        switch (e.key) {
-          case "ArrowLeft":
-            handlePrevious();
-            break;
-          case "ArrowRight":
-            handleNext();
-            break;
-        }
+        if (e.key === "ArrowLeft") handlePrevious();
+        if (e.key === "ArrowRight") handleNext();
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
+    return () => window.removeEventListener("keydown", handleKeyPress);
   }, [handleNext, handlePrevious, imgRef]);
+
+  const currentWork = work[currentIndex];
 
   return (
     <div className={styles["work-container"]}>
       <div
         className={`${styles["work"]} mf-exclusion text-body-1-uppercase`}
         ref={sectionRef}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <div className={styles["clicks"]}>
-          <div
-            role="button"
-            aria-label="Previous"
-            onClick={handlePrevious}
-            className={styles["click-area"]}
-          />
-          <div
-            role="button"
-            aria-label="Next"
-            onClick={handleNext}
-            className={styles["click-area"]}
-          />
-        </div>
+        <Controls onPrevious={handlePrevious} onNext={handleNext} />
 
         <div className={styles["work-pagination"]}>
           <div className={styles["counter"]}>
             <p className="text-body-3" ref={addToTextRefs}>
-              {currentIndex + 1}
+              <ChangeText text={currentIndex + 1} />
             </p>
             <p className="text-body-3" ref={addToTextRefs}>
               /{work.length}
             </p>
           </div>
 
-          {/* Replaced the static text with HoverText component */}
           <div ref={addToTextRefs} className={styles["project-name"]}>
-            <HoverText
-              text={work[currentIndex].title}
-              className={"text-header-3"}
-            />
+            <ChangeText text={currentWork.title} className="text-header-3" />
           </div>
 
-          <div
-            className={styles["control"]}
-            ref={addToTextRefs}
-            onClick={togglePlayPause}
-          >
-            <Image
-              src={`/icons/${isPlaying && !isHovered ? "pause" : "play"}.png`}
-              alt={isPlaying && !isHovered ? "Pause" : "Play"}
-              height="18"
-              width="18"
-            />
-          </div>
-        </div>
-
-        <div
-          className={styles["img-container"]}
-          data-cursor-text="Open Project"
-          ref={imgRef}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <Image
-            src={work[currentIndex].image}
-            alt={work[currentIndex].title}
-            fill
-            style={{ objectFit: "cover" }}
+          <PlayControl
+            isPlaying={isPlaying}
+            isHovered={isHovered}
+            onToggle={togglePlayPause}
+            textRef={addToTextRefs}
           />
         </div>
 
-        <div className="text-body-1 left-layout"></div>
+        <ProjectContent
+          media={currentWork.media}
+          title={currentWork.title}
+          imgRef={imgRef}
+        />
+
+        <div className="text-body-1 left-layout" />
         <div className="text-header-1 right-layout" />
       </div>
     </div>

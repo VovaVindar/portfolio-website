@@ -38,10 +38,11 @@
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: 3;
-  width: 21rlh;
-  height: 21rlh;
+  width: 22rlh;
+  height: 22rlh;
   background-color: black;
   cursor: pointer;
+  overflow: hidden;
 }
 .work .img-container.in-view {
 }
