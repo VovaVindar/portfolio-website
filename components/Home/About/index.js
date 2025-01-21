@@ -9,13 +9,13 @@ const About = () => {
       <div className={`text-body-3 ${styles["text-container"]}`}>
         <p>
           <span ref={(el) => (elementRef.current[0] = el)}>
-            I'm a detail-oriented designer-developer based in Vancouver,
+            I&apos;m a detail-oriented designer-developer based in Vancouver,
             obsessed with creating immersive websites and beautiful digital
             interfaces.
           </span>{" "}
           <span ref={(el) => (elementRef.current[1] = el)}>
-            I've had the privilege of working with clients like UNIT9, Twitch,
-            Dolce & Gabbana, Paradigm, and Cognition, delivering web
+            I&apos;ve had the privilege of working with clients like UNIT9,
+            Twitch, Dolce & Gabbana, Paradigm, and Cognition, delivering web
             experiences, digital
           </span>{" "}
           <span ref={(el) => (elementRef.current[2] = el)}>

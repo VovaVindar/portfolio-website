@@ -63,12 +63,12 @@ const Work = () => {
   const handleNext = useCallback(() => {
     resetInterval();
     setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
-  }, []);
+  }, [resetInterval]);
 
   const handlePrevious = useCallback(() => {
     resetInterval();
     setCurrentIndex((prev) => (prev === 0 ? work.length - 1 : prev - 1));
-  }, []);
+  }, [resetInterval]);
 
   const resetInterval = useCallback(() => {
     if (intervalRef.current) {

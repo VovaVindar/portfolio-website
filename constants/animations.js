@@ -370,10 +370,10 @@ export const CHANGE_TEXT = () => {
     [BASE]
   );
 };
-export const SLIDESHOW = () => {
-  const BASE = BaseConstants();
 
-  return useMemo(() => ({
+export const SLIDESHOW = () => {
+  //return useMemo(() => ({
+  return {
     ENTER: {
       DURATION: 4,
       EASING: "power2.out",
@@ -385,7 +385,8 @@ export const SLIDESHOW = () => {
       EASING: "power1.in",
       SCALE: 0.97,
     },
-  }));
+    //}));
+  };
 };
 
 export const CONTACT = () => {
