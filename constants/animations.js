@@ -241,7 +241,7 @@ export const WORK = () => {
 
         PARALLAX: {
           Y_PERCENT: {
-            START: 10,
+            START: 9,
             END: 0,
           },
           SCRUB: 1,

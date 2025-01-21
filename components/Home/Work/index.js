@@ -148,10 +148,7 @@ const Work = () => {
         </div>
 
         <div className={styles["pagination"]} ref={addToTextRefs}>
-          <div className={styles["text-container"]}>
-            <p className="text-body-3">{currentIndex + 1}</p>
-            <p className="text-body-3">/{work.length}</p>
-          </div>
+          <p className="text-body-3">{currentIndex + 1}</p>
         </div>
 
         <div className={styles["image-container"]}>

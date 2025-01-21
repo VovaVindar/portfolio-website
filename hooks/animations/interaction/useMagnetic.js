@@ -84,7 +84,6 @@ export const useMagnetic = (type, passedScale, passedMovement) => {
     if (!element) return;
 
     const handleMouseMove = (e) => {
-      console.log(element);
       animate(element, calculateParallax(e, element, scale));
     };
 

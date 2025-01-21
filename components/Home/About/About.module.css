@@ -8,18 +8,30 @@
   position: relative;
   left: 0;
   top: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.025rlh;
-  height: fit-content;
+  height: 4lh;
+  line-height: 117%;
   width: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.about-container .text-container > div {
+  height: 100%;
 }
 .about-container p {
+  text-wrap: wrap;
+  line-height: 117%;
+  position: absolute;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+.about-container p span {
   width: 100%;
   text-align: justify;
   text-align-last: justify;
 }
-.about-container p:last-of-type {
+.about-container p span:last-of-type {
   text-align-last: left;
 }
 
