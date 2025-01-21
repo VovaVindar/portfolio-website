@@ -47,12 +47,12 @@ export const PRELOADER = () => {
         COLOR: {
           START: "red",
           LOADING: "white",
-          COMPLETE: "rgba(255, 0, 0, 0.9)",
+          COMPLETE: "red",
         },
         OPACITY: {
           START: 0.4,
           LOADING: 1,
-          COMPLETE: 0.85,
+          COMPLETE: 0.8,
         },
         BLUR: {
           START: "0px",
@@ -354,7 +354,7 @@ export const CHANGE_TEXT = () => {
       STYLES: {
         BLUR: {
           ACTIVE: "0px",
-          INACTIVE: "2px",
+          INACTIVE: "1.5px",
         },
         COLOR: {
           ACTIVE: "#0F1010",

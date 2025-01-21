@@ -21,6 +21,7 @@ export const usePreloaderOnloadAnimations = (loadProgress) => {
 
     if (containerRef.current) {
       timelineRefs.current.numbers.to(containerRef.current, {
+        // Container fade out
         autoAlpha: isComplete ? 0 : 1,
         filter: `blur(${
           isComplete ? PRELOADER.FADE.BLUR.COMPLETE : PRELOADER.FADE.BLUR.ACTIVE
@@ -30,6 +31,7 @@ export const usePreloaderOnloadAnimations = (loadProgress) => {
         ease: PRELOADER.FADE.EASING,
       });
 
+      // Sliding down animation
       timelineRefs.current.numbersOut
         .set(containerRef.current, { y: 0 })
         .to(containerRef.current, {
@@ -41,6 +43,7 @@ export const usePreloaderOnloadAnimations = (loadProgress) => {
     }
 
     if (progressIndicatorRef.current) {
+      // Progress animation
       timelineRefs.current.movement
         .set(progressIndicatorRef.current, {
           color: PRELOADER.PROGRESS.COLOR.START,

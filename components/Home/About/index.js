@@ -29,8 +29,8 @@ const About = () => {
           </span>
         </p>
 
-        <div class="text-body-1 left-layout"></div>
-        <div class="text-header-1 right-layout"></div>
+        <div className="text-body-1 left-layout"></div>
+        <div className="text-header-1 right-layout"></div>
       </div>
     </div>
   );

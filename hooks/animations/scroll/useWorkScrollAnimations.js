@@ -116,7 +116,7 @@ export const useWorkScrollAnimations = () => {
         // Different values for imgRef
         const startPercent =
           ref === imgRef
-            ? WORK.SCROLL.PARALLAX.Y_PERCENT.START * 0.8
+            ? WORK.SCROLL.PARALLAX.Y_PERCENT.START * 0.9
             : WORK.SCROLL.PARALLAX.Y_PERCENT.START;
 
         const endTrigger =

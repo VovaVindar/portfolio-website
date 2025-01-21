@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, memo } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import styles from "./Work.module.css";
 import { useWorkScrollAnimations } from "@/hooks/animations/scroll/useWorkScrollAnimations";
 import { work } from "@/constants/work";
@@ -6,46 +6,6 @@ import ChangeText from "@/components/Global/ChangeText";
 import MediaContent from "@/components/Home/Work/MediaContent";
 
 const AUTOPLAY_DELAY = 5000;
-
-// Memoized PlayControl Component
-/*<PlayControl
-            isPlaying={isPlaying}
-            isHovered={isHovered}
-            isInView={isInView}
-            onToggle={togglePlayPause}
-            textRef={addToTextRefs}
-          />*/
-
-/*
-  const [isPlaying, setIsPlaying] = useState(true);
-
-  const togglePlayPause = useCallback(() => {
-    setIsPlaying((prev) => !prev);
-  }, []);
-
-const PlayControl = memo(
-  ({ isPlaying, isHovered, isInView, onToggle, textRef }) => {
-    return (
-      <button
-        className={styles["control"]}
-        ref={textRef}
-        onClick={onToggle}
-        type="button"
-        aria-label={isPlaying && !isHovered ? "Pause" : "Play"}
-      >
-        <Image
-          src={`/icons/${
-            isPlaying && !isHovered && isInView ? "pause" : "play"
-          }.png`}
-          alt={isPlaying && !isHovered ? "Pause" : "Play"}
-          height="18"
-          width="18"
-        />
-      </button>
-    );
-  }
-);
-PlayControl.displayName = "PlayControl";*/
 
 const Work = () => {
   const { imgRef, addToTextRefs, sectionRef } = useWorkScrollAnimations();
@@ -60,25 +20,27 @@ const Work = () => {
     stateRef.current = { isHovered, isInView };
   }, [isHovered, isInView]);
 
-  const handleNext = useCallback(() => {
-    resetInterval();
-    setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
-  }, [resetInterval]);
-
-  const handlePrevious = useCallback(() => {
-    resetInterval();
-    setCurrentIndex((prev) => (prev === 0 ? work.length - 1 : prev - 1));
-  }, [resetInterval]);
-
   const resetInterval = useCallback(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
     const { isHovered, isInView } = stateRef.current;
     if (!isHovered && isInView) {
-      intervalRef.current = setInterval(handleNext, AUTOPLAY_DELAY);
+      intervalRef.current = setInterval(() => {
+        setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
+      }, AUTOPLAY_DELAY);
     }
-  }, [handleNext]);
+  }, []);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
+    resetInterval();
+  }, [resetInterval]);
+
+  const handlePrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? work.length - 1 : prev - 1));
+    resetInterval();
+  }, [resetInterval]);
 
   // Check for in-view class
   useEffect(() => {
@@ -126,31 +88,17 @@ const Work = () => {
 
   const currentWork = work[currentIndex];
 
+  // Function to handle index looping for display
+  const getLoopedIndex = (index) => {
+    return (((index % work.length) + work.length) % work.length) + 1;
+  };
+
   return (
     <div className={styles["work-container"]}>
       <div
         className={`${styles["work"]} mf-exclusion text-body-1-uppercase`}
         ref={sectionRef}
       >
-        <div className={styles["clicks"]}>
-          <button
-            type="button"
-            aria-label="Previous"
-            onClick={handlePrevious}
-            className={styles["click-area"]}
-          />
-          <button
-            type="button"
-            aria-label="Next"
-            onClick={handleNext}
-            className={styles["click-area"]}
-          />
-        </div>
-
-        <div className={styles["pagination"]} ref={addToTextRefs}>
-          <p className="text-body-3">{currentIndex + 1}</p>
-        </div>
-
         <div className={styles["image-container"]}>
           <div
             className={styles["project-image"]}
@@ -168,13 +116,36 @@ const Work = () => {
 
         <div ref={addToTextRefs} className={styles["project-details"]}>
           <div>
-            <span className="text-header-3">Year:</span>
-            <ChangeText text={currentWork.year} className="text-body-1" />
+            <span className="text-header-3">Client:</span>
+            <ChangeText
+              text={currentWork.title}
+              className={`${styles["info"]} text-body-1`}
+            />
           </div>
           <div>
-            <span className="text-header-3">Client:</span>
-            <ChangeText text={currentWork.title} className="text-body-1" />
+            <span className="text-header-3">Year:</span>
+            <ChangeText
+              text={currentWork.year}
+              className={`${styles["info"]} text-body-1`}
+            />
           </div>
+        </div>
+
+        <div className={styles["clicks"]}>
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={handlePrevious}
+            className={styles["click-area"]}
+            data-cursor-text={getLoopedIndex(currentIndex - 1)}
+          />
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={handleNext}
+            className={styles["click-area"]}
+            data-cursor-text={getLoopedIndex(currentIndex + 1)}
+          />
         </div>
 
         <div className="text-body-1 left-layout" />

@@ -33,18 +33,29 @@
 }
 
 .work .project-details {
-  left: 0.51rlh;
-  bottom: 0.52rlh;
+  top: 50%;
+  transform: translateY(-50%);
   position: absolute;
   width: fit-content;
   display: flex;
   flex-direction: row;
-  gap: 1.3rlh;
+  gap: 32rlh;
 }
 .work .project-details > div {
   display: flex;
   flex-direction: row;
   gap: 0.25rlh;
+  min-width: 5rlh;
+  position: absolute;
+}
+.work .project-details > div:nth-of-type(1) {
+  left: 2.65rlh;
+}
+.work .project-details > div:nth-of-type(2) {
+  left: 42rlh;
+}
+.work .project-details > div .info {
+  margin-top: 0.061rlh;
 }
 .work .project-name span {
   height: auto;
@@ -62,8 +73,8 @@
 }
 .work .project-image {
   z-index: 3;
-  width: 24rlh;
-  height: 24rlh;
+  width: 25rlh;
+  height: 25rlh;
   background-color: black;
   cursor: pointer;
 }
@@ -90,39 +101,6 @@
   transform: scale(1);
   transition: transform 4s var(--easing-img-fade-in); /* power2.out */
 }
-
-.work .pagination {
-  height: 100%;
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 0.52rlh 0.435rlh;
-}
-.work .pagination p {
-  position: relative;
-  width: fit-content;
-  height: auto;
-  text-align: right;
-}
-.work .pagination p span {
-  height: auto;
-}
-
-/*.work .work-pagination .control {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 0.435rlh;
-  cursor: pointer;
-  pointer-events: all;
-  display: none;
-}
-.work .work-pagination img {
-  width: 0.78rlh;
-  height: 0.78rlh;
-  min-width: 18px;
-  min-height: 18px;
-}*/
 
 @media all and (max-width: 1060px) {
   .work {
