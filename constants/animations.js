@@ -187,7 +187,7 @@ export const CLIENTS = () => {
           START: 0.16,
         },
         BLUR: {
-          START: "5px",
+          START: "4.5px",
           END: "0px",
         },
         COLOR: {
@@ -197,7 +197,7 @@ export const CLIENTS = () => {
         ONCE: BASE.SCROLLTRIGGER_ONCE,
         TRIGGER: {
           START: "bottom bottom",
-          END: "bottom bottom-=50",
+          END: "bottom bottom-=25",
         },
       },
     }),

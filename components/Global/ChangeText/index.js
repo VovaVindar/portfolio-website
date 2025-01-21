@@ -1,4 +1,4 @@
-import { useChangeTextAnimations } from "@/hooks/animations/hover/useChangeTextAnimations";
+import { useChangeTextAnimations } from "@/hooks/animations/interaction/useChangeTextAnimations";
 
 const ChangeText = ({ text = "", className }) => {
   const { elementRef, displayText } = useChangeTextAnimations(text);

@@ -7,7 +7,7 @@ import ChangeText from "@/components/Global/ChangeText";
 import MediaContent from "@/components/Home/Work/MediaContent";
 import Magnetic from "@/components/Global/Magnetic";
 
-const AUTOPLAY_DELAY = 6000;
+const AUTOPLAY_DELAY = 5000;
 
 // Memoized Controls Component
 const Controls = memo(({ onPrevious, onNext }) => (
@@ -28,16 +28,20 @@ const Controls = memo(({ onPrevious, onNext }) => (
 ));
 
 // Memoized PlayControl Component
-const PlayControl = memo(({ isPlaying, isHovered, onToggle, textRef }) => (
-  <div className={styles["control"]} ref={textRef} onClick={onToggle}>
-    <Image
-      src={`/icons/${isPlaying && !isHovered ? "pause" : "play"}.png`}
-      alt={isPlaying && !isHovered ? "Pause" : "Play"}
-      height="18"
-      width="18"
-    />
-  </div>
-));
+const PlayControl = memo(
+  ({ isPlaying, isHovered, isInView, onToggle, textRef }) => (
+    <div className={styles["control"]} ref={textRef} onClick={onToggle}>
+      <Image
+        src={`/icons/${
+          isPlaying && !isHovered && isInView ? "pause" : "play"
+        }.png`}
+        alt={isPlaying && !isHovered ? "Pause" : "Play"}
+        height="18"
+        width="18"
+      />
+    </div>
+  )
+);
 
 // Memoized Project Content
 const ProjectContent = memo(({ media, title, imgRef }) => (
@@ -58,12 +62,13 @@ const Work = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef = useRef(null);
+  const [isInView, setIsInView] = useState(false);
 
   // Stable reference for current state values
-  const stateRef = useRef({ isPlaying, isHovered });
+  const stateRef = useRef({ isPlaying, isHovered, isInView });
   useEffect(() => {
-    stateRef.current = { isPlaying, isHovered };
-  }, [isPlaying, isHovered]);
+    stateRef.current = { isPlaying, isHovered, isInView };
+  }, [isPlaying, isHovered, isInView]);
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
@@ -77,8 +82,8 @@ const Work = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
-    const { isPlaying, isHovered } = stateRef.current;
-    if (isPlaying && !isHovered) {
+    const { isPlaying, isHovered, isInView } = stateRef.current;
+    if (isPlaying && !isHovered && isInView) {
       intervalRef.current = setInterval(handleNext, AUTOPLAY_DELAY);
     }
   }, [handleNext]);
@@ -87,18 +92,40 @@ const Work = () => {
     setIsPlaying((prev) => !prev);
   }, []);
 
+  // Check for in-view class
+  useEffect(() => {
+    const checkInView = () => {
+      const imgContainer = imgRef.current;
+      const isNowInView = imgContainer?.classList.contains(styles["in-view"]);
+      if (isNowInView !== stateRef.current.isInView) {
+        setIsInView(isNowInView);
+      }
+    };
+
+    // Initial check
+    checkInView();
+
+    // Set up mutation observer to watch for class changes
+    const observer = new MutationObserver(checkInView);
+    if (imgRef.current) {
+      observer.observe(imgRef.current, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    }
+
+    return () => observer.disconnect();
+  }, [imgRef]);
+
   // Autoplay effect
   useEffect(() => {
     resetInterval();
     return () => clearInterval(intervalRef.current);
-  }, [isPlaying, isHovered, resetInterval]);
+  }, [isPlaying, isHovered, isInView, resetInterval]);
 
   // Keyboard navigation effect
   useEffect(() => {
     const handleKeyPress = (e) => {
-      const imgContainer = imgRef.current;
-      const isInView = imgContainer?.classList.contains(`${styles["in-view"]}`);
-
       if (isInView) {
         if (e.key === "ArrowLeft") handlePrevious();
         if (e.key === "ArrowRight") handleNext();
@@ -107,7 +134,7 @@ const Work = () => {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [handleNext, handlePrevious, imgRef]);
+  }, [handleNext, handlePrevious, isInView]);
 
   const currentWork = work[currentIndex];
 
@@ -138,6 +165,7 @@ const Work = () => {
           <PlayControl
             isPlaying={isPlaying}
             isHovered={isHovered}
+            isInView={isInView}
             onToggle={togglePlayPause}
             textRef={addToTextRefs}
           />

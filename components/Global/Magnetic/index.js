@@ -1,4 +1,4 @@
-import { useMagnetic } from "@/hooks/animations/hover/useMagnetic";
+import { useMagnetic } from "@/hooks/animations/interaction/useMagnetic";
 
 const Magnetic = ({ children, movement, type, scale, style, ...props }) => {
   const { magneticAreaRef } = useMagnetic(type, scale, movement);

@@ -1,24 +1,37 @@
 import Image from "next/image";
+import { useSlideshowAnimations } from "@/hooks/animations/interaction/useSlideshowAnimations";
 
 const MediaContent = ({ content, title }) => {
-  if (content.type === "video") {
-    return (
-      <video
-        key={content.url} // To update the video when the project changes
-        autoPlay={true}
-        loop={true}
-        muted={true}
-        playsInline
-        style={{ objectFit: "cover", width: "100%", height: "100%" }}
-      >
-        <source src={content.url} type={content.mimeType || "video/mp4"} />
-        Your browser does not support the video tag.
-      </video>
-    );
-  }
+  const { containerRef, displayContent } = useSlideshowAnimations(content);
+
+  if (!displayContent) return null;
 
   return (
-    <Image src={content.url} alt={title} fill style={{ objectFit: "cover" }} />
+    <div ref={containerRef} style={{ width: "100%", height: "100%" }}>
+      {displayContent.type === "video" ? (
+        <video
+          key={displayContent.url}
+          autoPlay={true}
+          loop={true}
+          muted={true}
+          playsInline
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+        >
+          <source
+            src={displayContent.url}
+            type={displayContent.mimeType || "video/mp4"}
+          />
+          Your browser does not support the video tag.
+        </video>
+      ) : (
+        <Image
+          src={displayContent.url}
+          alt={title}
+          fill
+          style={{ objectFit: "cover" }}
+        />
+      )}
+    </div>
   );
 };
 
