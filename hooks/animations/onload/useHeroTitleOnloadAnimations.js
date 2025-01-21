@@ -8,7 +8,7 @@ import { useTransition } from "@/context/TransitionContext";
 export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
   const HERO = getHero();
 
-  const { startPageAnimation } = usePreloader();
+  const { isStartedLines } = usePreloader();
   const { globalOnload } = useTransition();
 
   useGSAP(() => {
@@ -51,7 +51,7 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
     setOpacity(0);
     setBlur(HERO.LOAD.TITLE.INITIAL_BLUR);
 
-    if (startPageAnimation) {
+    if (isStartedLines) {
       if (
         HERO.LOAD.TITLE.INITIAL_DELAY - globalOnload.time() >
         -1 * HERO.LOAD.TITLE.INITIAL_DELAY
@@ -71,7 +71,7 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
         setBlur(0);
       }
     }
-  }, [startPageAnimation, globalOnload, HERO]);
+  }, [isStartedLines, globalOnload, HERO]);
 
   return { opacity, blur, transition };
 };

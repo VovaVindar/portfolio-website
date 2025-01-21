@@ -9,7 +9,7 @@ export const useLinesOnloadAnimations = (linesReady) => {
   const containerRef = useRef(null);
   const hasAnimatedRef = useRef(false);
   const { globalOnload } = useTransition();
-  const { completeTransition, setTallScreen } = usePreloader();
+  const { completeTransition, setTallScreen, startedLines } = usePreloader();
   const [lines, setLines] = useState([]);
 
   // Set lines and screen height
@@ -42,6 +42,9 @@ export const useLinesOnloadAnimations = (linesReady) => {
         backgroundColor: LINES.COLORS.START,
       },
       {
+        onStart: () => {
+          startedLines();
+        },
         scaleY: 0,
         backgroundColor: LINES.COLORS.END,
         duration: LINES.TRANSITION.DURATION,

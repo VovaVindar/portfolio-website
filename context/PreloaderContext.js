@@ -19,6 +19,7 @@ export const PreloaderProvider = ({ children }) => {
     startPageAnimation: false, // sets to 'true' when loadProgress == 100
     isTallScreen: false, // sets to 'true' if >60 onload lines
     isVeryTallScreen: false, // sets to 'true' if >=100 onload lines
+    isStartedLines: false,
     incrementCap: 15,
     interval: 206,
   });
@@ -119,6 +120,13 @@ export const PreloaderProvider = ({ children }) => {
     }));
   }, []);
 
+  const startedLines = useCallback(() => {
+    setPreloaderState((prev) => ({
+      ...prev,
+      isStartedLines: true,
+    }));
+  }, []);
+
   const setTallScreen = useCallback((lines) => {
     if (lines > 60) {
       setPreloaderState((prev) => ({
@@ -140,6 +148,7 @@ export const PreloaderProvider = ({ children }) => {
         initiateLoading,
         completeTransition,
         setTallScreen,
+        startedLines,
       }}
     >
       {children}
