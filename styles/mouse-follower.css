@@ -73,9 +73,8 @@
   font-size: var(--token-font-size-4);
   font-family: var(--lausanne);
   font-weight: 600;
-  letter-spacing: var(--token-letter-spacing-5);
+  letter-spacing: var(--token-letter-spacing-4);
   line-height: 1rlh;
-  text-transform: uppercase;
   width: max-content;
   max-width: 45ch;
   min-height: 1rlh;
