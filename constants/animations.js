@@ -317,17 +317,17 @@ export const MAGNETIC = () => {
     () => ({
       SCALE: {
         IMAGE: 1.04,
-        MEDIUM_TEXT: 1.034,
+        MEDIUM_TEXT: 1.032,
         SMALL_TEXT: 1.054,
         MIN: 0.95,
       },
       MOVEMENT: {
-        IMAGE: 0.06,
-        MEDIUM_TEXT: 0.11,
+        IMAGE: 0.05,
+        MEDIUM_TEXT: 0.1,
         SMALL_TEXT: 0.125,
       },
       ANIMATION: {
-        DURATION: 0.55,
+        DURATION: 0.65,
         EASING: "power1.out",
       },
     }),
@@ -343,7 +343,7 @@ export const CHANGE_TEXT = () => {
       ENTER: {
         DURATION: BASE.ANIMATION_DURATION - 0.1,
         EASING: BASE.ANIMATION_EASING,
-        DELAY: -0.025,
+        DELAY: -0.0125,
       },
 
       EXIT: {
@@ -358,7 +358,8 @@ export const CHANGE_TEXT = () => {
         },
         COLOR: {
           ACTIVE: "#0F1010",
-          INACTIVE: BASE.TEXT_INACTIVE_COLOR,
+          //INACTIVE: BASE.TEXT_INACTIVE_COLOR,
+          INACTIVE: "#0F1010",
         },
         AUTOALPHA: {
           ACTIVE: 1,
@@ -368,6 +369,23 @@ export const CHANGE_TEXT = () => {
     }),
     [BASE]
   );
+};
+export const SLIDESHOW = () => {
+  const BASE = BaseConstants();
+
+  return useMemo(() => ({
+    ENTER: {
+      DURATION: 4,
+      EASING: "power2.out",
+      DELAY: -0.0125,
+      SCALE: 1,
+    },
+    EXIT: {
+      DURATION: 0.5,
+      EASING: "power1.in",
+      SCALE: 0.97,
+    },
+  }));
 };
 
 export const CONTACT = () => {

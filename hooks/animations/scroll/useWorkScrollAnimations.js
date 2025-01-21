@@ -21,9 +21,21 @@ export const useWorkScrollAnimations = () => {
 
   const imgRef = useRef(null);
   const sectionRef = useRef(null);
-  const [startScroll, setStartScroll] = useState(false);
+
+  // Calculate lineHeight and endOffset after mount
+  const [endOffset, setEndOffset] = useState(0);
+
+  useEffect(() => {
+    const lineHeight = parseFloat(
+      getComputedStyle(document.documentElement).lineHeight
+    );
+    setEndOffset(
+      lineHeight * WORK.SCROLL.PARALLAX.TRIGGER.END_OFFSET_MULTIPLIER
+    );
+  }, [WORK.SCROLL.PARALLAX.TRIGGER.END_OFFSET_MULTIPLIER]);
 
   // Handle delayed scroll start
+  const [startScroll, setStartScroll] = useState(false);
   useEffect(() => {
     if (startPageAnimation) {
       const timer = setTimeout(() => {
@@ -93,43 +105,53 @@ export const useWorkScrollAnimations = () => {
     };
   }, [startScroll]);
 
-  // Parallax scroll animation
+  // Combined parallax scroll animation
   useGSAP(() => {
-    let parallaxAnimation;
-    let scrollTriggerInstance;
+    if (!endOffset) return;
 
-    if (sectionRef.current) {
-      const lineHeight = parseFloat(
-        getComputedStyle(document.documentElement).lineHeight
-      );
-      const endOffset =
-        lineHeight * WORK.SCROLL.PARALLAX.TRIGGER.END_OFFSET_MULTIPLIER;
+    let scrollTriggers = [];
 
-      parallaxAnimation = gsap.fromTo(
-        sectionRef.current,
-        {
-          yPercent: WORK.SCROLL.PARALLAX.Y_PERCENT.START,
-        },
-        {
-          yPercent: WORK.SCROLL.PARALLAX.Y_PERCENT.END,
-          ease: "none",
-        }
-      );
+    [sectionRef, imgRef].forEach((ref) => {
+      if (ref.current) {
+        // Different values for imgRef
+        const startPercent =
+          ref === imgRef
+            ? WORK.SCROLL.PARALLAX.Y_PERCENT.START * 0.8
+            : WORK.SCROLL.PARALLAX.Y_PERCENT.START;
 
-      scrollTriggerInstance = ScrollTrigger.create({
-        trigger: sectionRef.current,
-        animation: parallaxAnimation,
-        scrub: WORK.SCROLL.PARALLAX.SCRUB,
-        start: WORK.SCROLL.PARALLAX.TRIGGER.START,
-        end: `bottom bottom-=${endOffset}`,
-      });
-    }
+        const endTrigger =
+          ref === imgRef ? "center center" : `bottom bottom-=${endOffset}`;
+
+        const animation = gsap.fromTo(
+          ref.current,
+          {
+            yPercent: startPercent,
+          },
+          {
+            yPercent: WORK.SCROLL.PARALLAX.Y_PERCENT.END,
+            ease: "none",
+          }
+        );
+
+        const trigger = ScrollTrigger.create({
+          trigger: ref.current,
+          animation: animation,
+          scrub: WORK.SCROLL.PARALLAX.SCRUB,
+          start: WORK.SCROLL.PARALLAX.TRIGGER.START,
+          end: endTrigger,
+        });
+
+        scrollTriggers.push({ trigger, animation });
+      }
+    });
 
     return () => {
-      scrollTriggerInstance?.kill();
-      parallaxAnimation?.kill();
+      scrollTriggers.forEach(({ trigger, animation }) => {
+        trigger?.kill();
+        animation?.kill();
+      });
     };
-  }, []);
+  }, [endOffset]);
 
   return { imgRef, addToTextRefs, sectionRef };
 };

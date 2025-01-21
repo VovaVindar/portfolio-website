@@ -1,36 +1,28 @@
 import { useState, useEffect, useCallback, useRef, memo } from "react";
 import styles from "./Work.module.css";
 import { useWorkScrollAnimations } from "@/hooks/animations/scroll/useWorkScrollAnimations";
-import Image from "next/image";
 import { work } from "@/constants/work";
 import ChangeText from "@/components/Global/ChangeText";
 import MediaContent from "@/components/Home/Work/MediaContent";
-import Magnetic from "@/components/Global/Magnetic";
 
 const AUTOPLAY_DELAY = 5000;
 
-// Memoized Controls Component
-const Controls = memo(({ onPrevious, onNext }) => {
-  return (
-    <div className={styles["clicks"]}>
-      <button
-        type="button"
-        aria-label="Previous"
-        onClick={onPrevious}
-        className={styles["click-area"]}
-      />
-      <button
-        type="button"
-        aria-label="Next"
-        onClick={onNext}
-        className={styles["click-area"]}
-      />
-    </div>
-  );
-});
-Controls.displayName = "Controls";
-
 // Memoized PlayControl Component
+/*<PlayControl
+            isPlaying={isPlaying}
+            isHovered={isHovered}
+            isInView={isInView}
+            onToggle={togglePlayPause}
+            textRef={addToTextRefs}
+          />*/
+
+/*
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const togglePlayPause = useCallback(() => {
+    setIsPlaying((prev) => !prev);
+  }, []);
+
 const PlayControl = memo(
   ({ isPlaying, isHovered, isInView, onToggle, textRef }) => {
     return (
@@ -53,41 +45,28 @@ const PlayControl = memo(
     );
   }
 );
-PlayControl.displayName = "PlayControl";
-
-// Memoized Project Content
-const ProjectContent = memo(({ media, title, imgRef }) => (
-  <div
-    className={styles["img-container"]}
-    data-cursor-text="Open Project"
-    ref={imgRef}
-  >
-    <Magnetic type="image">
-      <MediaContent content={media} title={title} />
-    </Magnetic>
-  </div>
-));
-ProjectContent.displayName = "ProjectContent";
+PlayControl.displayName = "PlayControl";*/
 
 const Work = () => {
   const { imgRef, addToTextRefs, sectionRef } = useWorkScrollAnimations();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
 
   // Stable reference for current state values
-  const stateRef = useRef({ isPlaying, isHovered, isInView });
+  const stateRef = useRef({ isHovered, isInView });
   useEffect(() => {
-    stateRef.current = { isPlaying, isHovered, isInView };
-  }, [isPlaying, isHovered, isInView]);
+    stateRef.current = { isHovered, isInView };
+  }, [isHovered, isInView]);
 
   const handleNext = useCallback(() => {
+    resetInterval();
     setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
   }, []);
 
   const handlePrevious = useCallback(() => {
+    resetInterval();
     setCurrentIndex((prev) => (prev === 0 ? work.length - 1 : prev - 1));
   }, []);
 
@@ -95,15 +74,11 @@ const Work = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
-    const { isPlaying, isHovered, isInView } = stateRef.current;
-    if (isPlaying && !isHovered && isInView) {
+    const { isHovered, isInView } = stateRef.current;
+    if (!isHovered && isInView) {
       intervalRef.current = setInterval(handleNext, AUTOPLAY_DELAY);
     }
   }, [handleNext]);
-
-  const togglePlayPause = useCallback(() => {
-    setIsPlaying((prev) => !prev);
-  }, []);
 
   // Check for in-view class
   useEffect(() => {
@@ -134,7 +109,7 @@ const Work = () => {
   useEffect(() => {
     resetInterval();
     return () => clearInterval(intervalRef.current);
-  }, [isPlaying, isHovered, isInView, resetInterval]);
+  }, [isHovered, isInView, resetInterval]);
 
   // Keyboard navigation effect
   useEffect(() => {
@@ -156,39 +131,54 @@ const Work = () => {
       <div
         className={`${styles["work"]} mf-exclusion text-body-1-uppercase`}
         ref={sectionRef}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
-        <Controls onPrevious={handlePrevious} onNext={handleNext} />
-
-        <div className={styles["work-pagination"]}>
-          <div className={styles["counter"]}>
-            <p className="text-body-3" ref={addToTextRefs}>
-              <ChangeText text={currentIndex + 1} />
-            </p>
-            <p className="text-body-3" ref={addToTextRefs}>
-              /{work.length}
-            </p>
-          </div>
-
-          <div ref={addToTextRefs} className={styles["project-name"]}>
-            <ChangeText text={currentWork.title} className="text-header-3" />
-          </div>
-
-          <PlayControl
-            isPlaying={isPlaying}
-            isHovered={isHovered}
-            isInView={isInView}
-            onToggle={togglePlayPause}
-            textRef={addToTextRefs}
+        <div className={styles["clicks"]}>
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={handlePrevious}
+            className={styles["click-area"]}
+          />
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={handleNext}
+            className={styles["click-area"]}
           />
         </div>
 
-        <ProjectContent
-          media={currentWork.media}
-          title={currentWork.title}
-          imgRef={imgRef}
-        />
+        <div className={styles["pagination"]} ref={addToTextRefs}>
+          <div className={styles["text-container"]}>
+            <p className="text-body-3">{currentIndex + 1}</p>
+            <p className="text-body-3">/{work.length}</p>
+          </div>
+        </div>
+
+        <div className={styles["image-container"]}>
+          <div
+            className={styles["project-image"]}
+            data-cursor-text="Open Project"
+            ref={imgRef}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <MediaContent
+              content={currentWork.media}
+              title={currentWork.title}
+            />
+          </div>
+        </div>
+
+        <div ref={addToTextRefs} className={styles["project-details"]}>
+          <div>
+            <span className="text-header-3">Year:</span>
+            <ChangeText text={currentWork.year} className="text-body-1" />
+          </div>
+          <div>
+            <span className="text-header-3">Client:</span>
+            <ChangeText text={currentWork.title} className="text-body-1" />
+          </div>
+        </div>
 
         <div className="text-body-1 left-layout" />
         <div className="text-header-1 right-layout" />

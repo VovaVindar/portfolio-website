@@ -9,7 +9,6 @@
   background-color: var(--token-color-surface-secondary);
   display: flex;
   position: relative;
-  overflow: hidden;
   z-index: 2;
 }
 .work .clicks {
@@ -22,29 +21,53 @@
   flex-direction: row;
   z-index: 2;
 }
-.work .clicks div:nth-of-type(1) {
+.work .clicks button:nth-of-type(1) {
   width: 50%;
   height: 100%;
   cursor: w-resize;
 }
-.work .clicks div:nth-of-type(2) {
+.work .clicks button:nth-of-type(2) {
   width: 50%;
   height: 100%;
   cursor: e-resize;
 }
-.work .img-container {
+
+.work .project-details {
+  left: 0.51rlh;
+  bottom: 0.52rlh;
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 1.3rlh;
+}
+.work .project-details > div {
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rlh;
+}
+.work .project-name span {
+  height: auto;
+}
+
+.work .image-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.work .project-image {
   z-index: 3;
-  width: 26rlh;
-  height: 26rlh;
+  width: 24rlh;
+  height: 24rlh;
   background-color: black;
   cursor: pointer;
-  overflow: hidden;
 }
-.work .img-container::after {
+.work .project-image::after {
   position: absolute;
   z-index: 4;
   width: 100%;
@@ -54,55 +77,65 @@
   opacity: 1;
   left: 0;
   top: 0;
+  pointer-events: none;
 }
-.work .img-container.in-view::after {
+.work .project-image.in-view::after {
   transition: opacity 4s var(--easing-img-fade-in); /* power2.out */
   opacity: 0;
 }
+.work .project-image img {
+  transform: scale(0.955);
+}
+.work .project-image.in-view img {
+  transform: scale(1);
+  transition: transform 4s var(--easing-img-fade-in); /* power2.out */
+}
 
-.work .work-pagination {
-  position: absolute;
-  top: 0;
-  left: 0;
+.work .pagination {
   width: 100%;
-  height: 100%;
-  z-index: 3;
-  pointer-events: none;
-}
-.work .work-pagination p {
   position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0.52rlh 0.435rlh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.work .pagination .text-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: max-content;
+  width: 100%;
+}
+.work .pagination p {
+  position: relative;
   width: fit-content;
-}
-.work .work-pagination .counter p:nth-of-type(1) {
-  text-align: left;
-  left: 0.52rlh;
-  top: 0.2rlh;
-}
-.work .work-pagination .counter p:nth-of-type(2) {
+  height: auto;
   text-align: right;
-  right: 0.52rlh;
-  bottom: 0.52rlh;
 }
-.work .work-pagination .project-name {
-  left: 0.51rlh;
-  bottom: 0.52rlh;
-  position: absolute;
-  width: fit-content;
+.work .pagination p:nth-child(1) {
+  margin-right: 1px;
 }
-.work .work-pagination .control {
+.work .pagination p span {
+  height: auto;
+}
+
+/*.work .work-pagination .control {
   position: absolute;
   right: 0;
   top: 0;
   padding: 0.435rlh;
   cursor: pointer;
   pointer-events: all;
+  display: none;
 }
 .work .work-pagination img {
   width: 0.78rlh;
   height: 0.78rlh;
   min-width: 18px;
   min-height: 18px;
-}
+}*/
 
 @media all and (max-width: 1060px) {
   .work {

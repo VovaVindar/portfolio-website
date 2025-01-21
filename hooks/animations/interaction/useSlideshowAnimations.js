@@ -1,8 +1,11 @@
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { SLIDESHOW as getSlideshow } from "@/constants/animations";
 
 export const useSlideshowAnimations = (content) => {
+  const SLIDESHOW = getSlideshow();
+
   const containerRef = useRef(null);
   const [displayContent, setDisplayContent] = useState(content);
 
@@ -15,17 +18,19 @@ export const useSlideshowAnimations = (content) => {
         .timeline()
         .to(containerRef.current, {
           autoAlpha: 0,
-          duration: 0.5,
-          ease: "power1.in",
+          duration: SLIDESHOW.EXIT.DURATION,
+          //scale: SLIDESHOW.EXIT.SCALE,
+          ease: SLIDESHOW.EXIT.EASING,
           onComplete: () => {
             setDisplayContent(content);
           },
         })
         .to(containerRef.current, {
           autoAlpha: 1,
-          delay: -0.025,
-          duration: 4,
-          ease: "power2.out",
+          //scale: 1,
+          delay: SLIDESHOW.ENTER.DELAY,
+          duration: SLIDESHOW.ENTER.DURATION,
+          ease: SLIDESHOW.ENTER.EASING,
         });
     }
   }, [content, displayContent]);
