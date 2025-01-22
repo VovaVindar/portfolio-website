@@ -12,7 +12,7 @@ const Footer = () => {
   const copyTimeoutRef = useRef(null);
 
   // Handle email copy
-  const handleCopyEmail = useCallback((e) => {
+  const handleCopyEmail = (e) => {
     e.preventDefault();
     if (copyTimeoutRef.current) {
       clearTimeout(copyTimeoutRef.current);
@@ -24,7 +24,7 @@ const Footer = () => {
     copyTimeoutRef.current = setTimeout(() => {
       setCopyEmail("Email");
     }, 850);
-  }, []);
+  };
 
   return (
     <div className={`${styles["footer-container"]} text-body-1`}>

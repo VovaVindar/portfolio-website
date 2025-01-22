@@ -91,9 +91,9 @@ const Work = () => {
   const currentWork = work[currentIndex];
 
   // Function to handle index looping for display
-  const getLoopedIndex = (index) => {
+  const getLoopedIndex = useCallback((index) => {
     return (((index % work.length) + work.length) % work.length) + 1;
-  };
+  }, []);
 
   return (
     <div className={styles["work-container"]}>

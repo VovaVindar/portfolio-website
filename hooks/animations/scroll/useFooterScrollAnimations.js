@@ -9,6 +9,8 @@ import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const DESKTOP_BREAKPOINT = 820;
+
 export const useFooterScrollAnimations = () => {
   const FOOTER = getFooter();
   const { width } = useWindowDimensions();
@@ -58,7 +60,7 @@ export const useFooterScrollAnimations = () => {
         duration: FOOTER.SCROLL.DURATION,
         ease: FOOTER.EASING,
         stagger: (index) =>
-          width > 820
+          width > DESKTOP_BREAKPOINT
             ? footerStaggerDesktop(index, FOOTER.SCROLL.STAGGER)
             : footerStaggerMobile(
                 index,

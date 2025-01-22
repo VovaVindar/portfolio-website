@@ -85,6 +85,4 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
       addInView();
     }
   }, []);
-
-  return {};
 };

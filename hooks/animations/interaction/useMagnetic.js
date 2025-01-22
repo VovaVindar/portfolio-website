@@ -3,28 +3,28 @@ import gsap from "gsap";
 import { MAGNETIC as getMagnetic } from "@/constants/animations";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 
+// Get the appropriate scale based on type
+const getMaxScale = () => {
+  if (passedScale) return passedScale;
+
+  switch (type) {
+    case "image":
+      return MAGNETIC.SCALE.IMAGE;
+    case "medium-text":
+      return MAGNETIC.SCALE.MEDIUM_TEXT;
+    case "small-text":
+      return MAGNETIC.SCALE.SMALL_TEXT;
+    default:
+      return MAGNETIC.SCALE.MEDIUM_TEXT;
+  }
+};
+
 export const useMagnetic = (type, passedScale, passedMovement) => {
   const isHoverCapable = useHoverCapable();
   const MAGNETIC = getMagnetic();
 
   const magneticAreaRef = useRef(null);
   const timelineRef = useRef(null);
-
-  // Get the appropriate scale based on type
-  const getMaxScale = () => {
-    if (passedScale) return passedScale;
-
-    switch (type) {
-      case "image":
-        return MAGNETIC.SCALE.IMAGE;
-      case "medium-text":
-        return MAGNETIC.SCALE.MEDIUM_TEXT;
-      case "small-text":
-        return MAGNETIC.SCALE.SMALL_TEXT;
-      default:
-        return MAGNETIC.SCALE.MEDIUM_TEXT;
-    }
-  };
 
   // Get the appropriate movement based on type
   const getMovement = () => {

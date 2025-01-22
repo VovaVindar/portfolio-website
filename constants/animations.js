@@ -316,7 +316,7 @@ export const MAGNETIC = () => {
   return useMemo(
     () => ({
       SCALE: {
-        IMAGE: 1.04,
+        IMAGE: 1.041,
         MEDIUM_TEXT: 1.032,
         SMALL_TEXT: 1.054,
         MIN: 0.95,
