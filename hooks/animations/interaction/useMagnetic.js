@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import gsap from "gsap";
 import { MAGNETIC as getMagnetic } from "@/constants/animations";
-import { useHoverCapable } from "@/hooks/useHoverCapable";
+import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 
 export const useMagnetic = (type, passedScale, passedMovement) => {
   const isHoverCapable = useHoverCapable();

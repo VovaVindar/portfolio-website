@@ -1,13 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "../SelectedClients.module.css";
 import { useScroll } from "@/context/ScrollContext";
+import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
 
 const WIDE_SCREEN_BREAKPOINT = 1060;
-const MAX_HEIGHT_FOR_ANIMATION = 2900;
+const MAX_HEIGHT_FOR_ANIMATION = 2800;
 
 const ClientsSubheader = ({ clientsOnscroll }) => {
   const subheaderRef = useRef(null);
   //const resizeObserverRef = useRef(null);
+  const { width, height } = useWindowDimensions();
   const { scrollPosition } = useScroll();
 
   // State management
@@ -19,25 +21,9 @@ const ClientsSubheader = ({ clientsOnscroll }) => {
 
   // Handle screen size changes
   useEffect(() => {
-    const updateScreenSize = () => {
-      setIsWideScreen(window.innerWidth > WIDE_SCREEN_BREAKPOINT);
-      setIsHeightCompatible(window.innerHeight < MAX_HEIGHT_FOR_ANIMATION);
-    };
-
-    // Initial check
-    updateScreenSize();
-
-    // Handle resize events
-    const handleResize = () => {
-      updateScreenSize();
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+    setIsWideScreen(width > WIDE_SCREEN_BREAKPOINT);
+    setIsHeightCompatible(height < MAX_HEIGHT_FOR_ANIMATION);
+  }, [width, height]);
 
   // Calculate and update position
   useEffect(() => {
@@ -65,7 +51,7 @@ const ClientsSubheader = ({ clientsOnscroll }) => {
         getComputedStyle(document.documentElement).lineHeight
       ),
       scrollbarY:
-        window.innerHeight * (scrollPosition * 0.01) -
+        height * (scrollPosition * 0.01) -
         2 *
           parseFloat(window.getComputedStyle(subheaderRef.current).lineHeight),
     };
@@ -76,7 +62,13 @@ const ClientsSubheader = ({ clientsOnscroll }) => {
     setPosition(positionState.position);
     setTop(positionState.top);
     setBottom(positionState.bottom);
-  }, [scrollPosition, isWideScreen, isHeightCompatible, clientsOnscroll]);
+  }, [
+    scrollPosition,
+    isWideScreen,
+    isHeightCompatible,
+    clientsOnscroll,
+    height,
+  ]);
 
   // Helper function to calculate position state
   const calculatePositionState = (measurements) => {

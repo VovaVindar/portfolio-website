@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import gsap from "gsap";
 import MouseFollower from "@/components/Global/CursorContainer/mouse-follower/src";
 import { usePreloader } from "@/context/PreloaderContext";
-import { useHoverCapable } from "@/hooks/useHoverCapable";
+import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 
 MouseFollower.registerGSAP(gsap);
 

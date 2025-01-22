@@ -6,7 +6,7 @@ import { usePreloader } from "@/context/PreloaderContext";
 import { useScrollPreservation } from "@/hooks/transition/useScrollPreservation";
 import { useRouteTracking } from "@/hooks/transition/useRouteTracking";
 import { usePageTransitions } from "@/hooks/transition/usePageTransitions";
-import { useConsoleMessage } from "@/hooks/useConsoleMessage";
+import { useConsoleMessage } from "@/hooks/utils/useConsoleMessage";
 
 // Create Context
 export const TransitionContext = createContext({});

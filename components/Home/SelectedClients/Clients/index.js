@@ -2,7 +2,7 @@ import { forwardRef, useState } from "react";
 import styles from "../SelectedClients.module.css";
 import { CLIENTS } from "@/constants/clients";
 import ChangeText from "@/components/Global/ChangeText";
-import { useHoverCapable } from "@/hooks/useHoverCapable";
+import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 
 const ClientItem = forwardRef(({ client }, ref) => {
   const isHoverCapable = useHoverCapable();

@@ -4,15 +4,15 @@ import Magnetic from "@/components/Global/Magnetic";
 import Link from "next/link";
 import { useScroll } from "@/context/ScrollContext";
 import { useScrollbarOnloadAnimations } from "@/hooks/animations/onload/useScrollbarOnloadAnimations";
+import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
 
-const MAX_HEIGHT_FOR_ANIMATION = 2900;
+const MAX_HEIGHT_FOR_ANIMATION = 2800;
 
 const Scrollbar = ({ text = "", href, onClick }) => {
+  const { height, scrollHeight, scrollY } = useWindowDimensions();
   const { scrollPosition, setScrollPosition } = useScroll();
 
   // Refs for cleanup and optimization
-  const scrollHandlerRef = useRef(null);
-  const resizeObserverRef = useRef(null);
   const documentHeightRef = useRef(0);
   const isHeightCompatibleRef = useRef(true);
 
@@ -21,27 +21,21 @@ const Scrollbar = ({ text = "", href, onClick }) => {
 
   // Calculate document height and check height compatibility
   const updateDocumentHeight = useCallback(() => {
-    if (typeof window === "undefined") return;
-
-    documentHeightRef.current =
-      document.documentElement.scrollHeight - window.innerHeight;
-    isHeightCompatibleRef.current =
-      window.innerHeight < MAX_HEIGHT_FOR_ANIMATION;
-  }, []);
+    documentHeightRef.current = scrollHeight - height;
+    isHeightCompatibleRef.current = height < MAX_HEIGHT_FOR_ANIMATION;
+  }, [height, scrollHeight]);
 
   // Update scroll position with RAF
   const updateScrollPosition = useCallback(() => {
-    if (typeof window === "undefined") return;
-
     if (!isHeightCompatibleRef.current) {
       setScrollPosition(0);
       return;
     }
 
-    const scrollTop = window.scrollY;
+    const scrollTop = scrollY;
     const scrollPercent = (scrollTop / documentHeightRef.current) * 100;
     setScrollPosition(scrollPercent);
-  }, [setScrollPosition]);
+  }, [setScrollPosition, scrollY]);
 
   // Handle mounting
   useEffect(() => {
@@ -56,30 +50,8 @@ const Scrollbar = ({ text = "", href, onClick }) => {
     // Initial height calculation
     updateDocumentHeight();
 
-    scrollHandlerRef.current = () => {
-      requestAnimationFrame(updateScrollPosition);
-    };
-
-    // Setup ResizeObserver for height updates
-    resizeObserverRef.current = new ResizeObserver(() => {
-      updateDocumentHeight();
-      requestAnimationFrame(updateScrollPosition);
-    });
-
-    // Observe document root
-    resizeObserverRef.current.observe(document.documentElement);
-
-    // Add scroll listener
-    window.addEventListener("scroll", scrollHandlerRef.current);
-
     // Initial position update
     updateScrollPosition();
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("scroll", scrollHandlerRef.current);
-      resizeObserverRef.current?.disconnect();
-    };
   }, [isMounted, updateDocumentHeight, updateScrollPosition]);
 
   const { y, opacity, blur } = useScrollbarOnloadAnimations();
