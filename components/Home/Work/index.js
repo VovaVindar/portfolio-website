@@ -5,6 +5,7 @@ import { work } from "@/constants/work";
 import ChangeText from "@/components/Global/ChangeText";
 import MediaContent from "@/components/Home/Work/MediaContent";
 import Link from "next/link";
+import Magnetic from "@/components/Global/Magnetic";
 
 const AUTOPLAY_DELAY = 5000;
 
@@ -135,7 +136,7 @@ const Work = () => {
             className={`text-body-3`}
             target="_blank"
           >
-            Open Project
+            <Magnetic type="small-text">Open Project</Magnetic>
           </Link>
         </div>
 

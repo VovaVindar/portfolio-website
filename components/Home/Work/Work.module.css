@@ -33,41 +33,6 @@
   cursor: e-resize;
 }
 
-.work .project-details {
-  top: 50%;
-  position: absolute;
-  width: fit-content;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  left: 0;
-}
-.work .project-details > div {
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: 0.25rlh;
-  min-width: 5rlh;
-  position: absolute;
-}
-.work .project-details > div:nth-of-type(1) {
-  left: 4.45%;
-}
-.work .project-details > div:nth-of-type(2) {
-  left: 77%;
-}
-.work .project-details > div .info {
-  margin-bottom: -0.061rlh;
-  height: 1lh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-.work .project-details > div span {
-  height: 1lh;
-}
-
 .work .image-container {
   position: absolute;
   width: 100%;
@@ -109,30 +74,57 @@
   transition: transform 4s var(--easing-img-fade-in); /* power2.out */
 }
 
+.work .project-details {
+  position: absolute;
+  top: auto;
+  bottom: 0.86rlh;
+  transform: translateY(0%);
+  display: flex;
+  flex-direction: row;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.work .project-details > div {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.25rlh;
+  min-width: 5rlh;
+}
+.work .project-details > div:nth-of-type(1) {
+  left: 1.4rlh;
+}
+.work .project-details > div:nth-of-type(2) {
+  left: 0.54rlh;
+}
+.work .project-details > div .info {
+  margin-bottom: -0.061rlh;
+  height: 1lh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.work .project-details > div span {
+  height: 1lh;
+}
+
 .work .mobile-link {
-  display: none;
+  display: block;
+  position: absolute;
+  width: fit-content;
+  bottom: 0.18rlh;
+  right: 0;
+  z-index: 3;
+}
+.work .mobile-link a {
+  padding: 0.6rlh 0.54rlh;
+  height: 2rlh;
 }
 
 @media all and (max-width: 1060px) {
   .work {
     max-width: calc(100% - 7.42ch - 1rlh);
-  }
-
-  .work .project-details {
-    top: auto;
-    bottom: 0.54rlh;
-    transform: translateY(0%);
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-  }
-  .work .project-details > div {
-    position: relative;
-  }
-  .work .project-details > div:nth-of-type(1) {
-    left: 1.4rlh;
-  }
-  .work .project-details > div:nth-of-type(2) {
-    left: 0.54rlh;
   }
 }
 @media all and (max-width: 820px) {
@@ -182,14 +174,12 @@
   }
 
   .work .mobile-link {
+    position: relative;
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    margin-bottom: 0.1rlh;
-    margin-top: 2.54rlh;
-    z-index: 3;
-  }
-  .work .mobile-link a {
-    padding: 0.6rlh 0.55rlh;
+    padding-bottom: 0.1rlh;
+    padding-top: 1.72rlh;
+    bottom: 0;
   }
 }
