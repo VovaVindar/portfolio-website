@@ -2,11 +2,38 @@ import { useGSAP } from "@gsap/react";
 import { HERO as getHero } from "@/constants/animations";
 import styles from "@/components/Home/Hero/Hero.module.css";
 import { useTransition } from "@/context/TransitionContext";
+import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useCallback, useEffect, useRef } from "react";
 
 export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
+  const { width } = useWindowDimensions();
   const HERO = getHero();
 
+  const isWideScreen = width > 820;
+  const renderCount = useRef(0);
+
   const { globalOnload, isPageChanged } = useTransition();
+
+  // Function to add in-view class to all images
+  const addInView = useCallback(() => {
+    if (imgOnload.current?.length) {
+      [...imgOnload.current].forEach((img) => {
+        img.classList.add(styles["in-view"]);
+      });
+    }
+  }, [imgOnload]);
+
+  // Monitor isWideScreen changes, skip initial 2 renders
+  useEffect(() => {
+    renderCount.current += 1;
+    if (renderCount.current <= 2) {
+      return;
+    }
+
+    if (imgOnload.current?.length) {
+      addInView();
+    }
+  }, [isWideScreen, imgOnload, addInView]);
 
   useGSAP(() => {
     if (imgOnload.current?.length) {
@@ -36,7 +63,7 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
         {
           y: -(containerHeight + 5),
           autoAlpha: 0,
-          scale: 1.8,
+          scale: isWideScreen ? 1.8 : 1,
           filter: `blur(${HERO.LOAD.GRID.CELL_BLUR.START})`,
         },
         {
@@ -55,11 +82,7 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
 
     if (isPageChanged) {
       // Add in-view class to all images when page is changing
-      if (imgOnload.current?.length) {
-        [...imgOnload.current].forEach((img) => {
-          img.classList.add(styles["in-view"]);
-        });
-      }
+      addInView();
     }
   }, []);
 

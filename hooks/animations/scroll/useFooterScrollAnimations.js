@@ -71,7 +71,7 @@ export const useFooterScrollAnimations = () => {
         },
       },
     }),
-    [FOOTER, footerStaggerDesktop, footerStaggerMobile, socialRef]
+    [FOOTER, footerStaggerDesktop, footerStaggerMobile, socialRef, width]
   );
 
   useGSAP(() => {

@@ -64,7 +64,7 @@ const Lines = () => {
     };
 
     generateLines();
-  }, [containerRef]);
+  }, [containerRef, height, width]);
 
   if (!isOnloadLinesActive) return null;
 

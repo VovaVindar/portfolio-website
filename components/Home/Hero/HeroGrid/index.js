@@ -1,9 +1,13 @@
 import styles from "../Hero.module.css";
 import Image from "next/image";
 import Magnetic from "@/components/Global/Magnetic";
-import { GRID_LAYOUT } from "@/constants/hero-grid";
+import { GRID_LAYOUT_DESKTOP, GRID_LAYOUT_MOBILE } from "@/constants/hero-grid";
+import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
 
 const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
+  const { width } = useWindowDimensions();
+  const gridLayout = width > 820 ? GRID_LAYOUT_DESKTOP : GRID_LAYOUT_MOBILE;
+
   let refIndex = 0;
   let displayIndex = 0;
 
@@ -20,7 +24,7 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
 
   // Function to check if a cell has media content
   const getCellMedia = (row, col) => {
-    return GRID_LAYOUT.media.find(
+    return gridLayout.media.find(
       (item) => item.row === row && item.col === col
     );
   };
@@ -75,9 +79,9 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
   };
 
   return (
-    <>
-      {GRID_LAYOUT.rows.map((row) =>
-        GRID_LAYOUT.cols.map((col) => {
+    <div className={`${styles["grid"]}`}>
+      {gridLayout.rows.map((row) =>
+        gridLayout.cols.map((col) => {
           const media = getCellMedia(row, col);
           let currentIndex = displayIndex;
           if (media) displayIndex++;
@@ -103,7 +107,7 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
           );
         })
       )}
-    </>
+    </div>
   );
 };
 

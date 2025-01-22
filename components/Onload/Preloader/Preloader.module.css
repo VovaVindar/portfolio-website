@@ -33,3 +33,9 @@
   text-align: right;
   margin-left: -3ch;
 }
+
+@media all and (max-width: 820px) {
+  .preloader .text-container {
+    max-width: var(--mobile-max-width);
+  }
+}

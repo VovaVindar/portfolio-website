@@ -3,10 +3,14 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { HERO as getHero } from "@/constants/animations";
 import { usePreloader } from "@/context/PreloaderContext";
+import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
 import { useTransition } from "@/context/TransitionContext";
 
 export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
+  const { width } = useWindowDimensions();
   const HERO = getHero();
+
+  const isWideScreen = width > 820;
 
   const { isStartedLines } = usePreloader();
   const { globalOnload } = useTransition();
@@ -18,15 +22,15 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
 
       // Set initial styles
       gsap.set(titleRef.current, {
-        yPercent: startY,
-        scale: HERO.LOAD.TITLE.SCALE.START,
+        y: startY,
+        scale: isWideScreen ? HERO.LOAD.TITLE.SCALE.START : 1,
       });
 
       // Create timeline for better control
       globalOnload.to(
         titleRef.current,
         {
-          yPercent: 0,
+          y: 0,
           scale: HERO.LOAD.TITLE.SCALE.END,
           transformOrigin: "bottom",
           ease: HERO.EASING,
