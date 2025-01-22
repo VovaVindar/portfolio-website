@@ -122,8 +122,19 @@
     grid-template-rows: repeat(5, 11vw);
   }
   .hero-container h1.hero-title {
-    font-size: calc(var(--token-font-size-1) * 0.95);
+    font-size: calc(var(--token-font-size-1) * 0.94);
   }
 }
 @media all and (max-width: 820px) {
+}
+@media all and (max-width: 470px) {
+  .hero-container h1.hero-title {
+    font-size: calc(var(--token-font-size-1) * 1.04);
+    margin-left: 0px;
+  }
+}
+@media all and (max-width: 360px) {
+  .hero-container h1.hero-title {
+    font-size: calc(var(--token-font-size-1) * 0.97);
+  }
 }
