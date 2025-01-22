@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useSlideshowAnimations } from "@/hooks/animations/interaction/useSlideshowAnimations";
 import Magnetic from "@/components/Global/Magnetic";
 
@@ -29,7 +28,7 @@ const MediaContent = ({ content, title }) => {
             Your browser does not support the video tag.
           </video>
         ) : (
-          <Image
+          <img
             src={displayContent.url}
             alt={title}
             fill

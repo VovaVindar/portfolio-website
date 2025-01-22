@@ -8,9 +8,12 @@ const withPWA = require("next-pwa")({
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    scrollRestoration: false,
+    scrollRestoration: false, // Disable scroll restoration on arrow (pop) navigation
   },
+  // Static site output:
+  output: "export", // Enables static HTML export
   webpack: (config, options) => {
+    // Enable GLSL files
     config.module.rules.push({
       test: /\.glsl/,
       type: "asset/source",

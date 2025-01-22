@@ -1,5 +1,4 @@
 import styles from "../Hero.module.css";
-import Image from "next/image";
 import Magnetic from "@/components/Global/Magnetic";
 import { GRID_LAYOUT_DESKTOP, GRID_LAYOUT_MOBILE } from "@/constants/hero-grid";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
@@ -65,7 +64,7 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
     }
 
     return (
-      <Image
+      <img
         src={media.src}
         alt={`${media.alt} (Index: ${currentIndex})`}
         fill
