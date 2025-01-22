@@ -1,9 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import styles from "./Lines.module.css";
 import { usePreloader } from "@/context/PreloaderContext";
 import { useLinesOnloadAnimations } from "@/hooks/animations/onload/useLinesOnloadAnimations";
+import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
 
 const Lines = () => {
+  const { width, height } = useWindowDimensions();
+
   const { isOnloadLinesActive } = usePreloader();
   const [lines, setLines] = useState([]);
   const linesReadyRef = useRef(false);
@@ -30,11 +33,8 @@ const Lines = () => {
   }, [isOnloadLinesActive]);
 
   // Generate lines based on screen height
-  useEffect(() => {
+  useLayoutEffect(() => {
     const generateLines = () => {
-      const height = window.innerHeight;
-      const width = document.documentElement.clientWidth;
-
       // Determine root line height based on screen width
       let rootLineHeight;
       if (width >= 2400) {

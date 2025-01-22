@@ -1,4 +1,10 @@
-import { useState, useContext, useEffect, createContext, useRef } from "react";
+import {
+  useState,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  createContext,
+} from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRouter } from "next/router";
@@ -104,7 +110,7 @@ export function TransitionLayout({ children }) {
 
   const { showNewMeme } = useConsoleMessage(VALID_ROUTES.has(children.key));
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isPageMounted) {
       // Set initial children on load
       if (children.key === "/") {

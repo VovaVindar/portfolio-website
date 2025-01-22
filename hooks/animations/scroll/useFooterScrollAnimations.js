@@ -1,15 +1,17 @@
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { FOOTER as getFooter } from "@/constants/animations";
 import styles from "@/components/Home/Footer/Footer.module.css";
 import { usePreloader } from "@/context/PreloaderContext";
+import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useFooterScrollAnimations = () => {
   const FOOTER = getFooter();
+  const { width } = useWindowDimensions();
 
   const { startPageAnimation } = usePreloader();
   const elementRef = useRef([]);
@@ -41,33 +43,36 @@ export const useFooterScrollAnimations = () => {
     }
   }, [startPageAnimation, FOOTER]);
 
-  const animConfig = {
-    hidden: {
-      opacity: FOOTER.SCROLL.OPACITY.START,
-      filter: `blur(${FOOTER.SCROLL.BLUR.START})`,
-      //color: FOOTER.SCROLL.COLOR.START,
-    },
-    visible: {
-      opacity: 1,
-      filter: `blur(${FOOTER.SCROLL.BLUR.END})`,
-      //color: FOOTER.SCROLL.COLOR.END,
-      delay: 0,
-      duration: FOOTER.SCROLL.DURATION,
-      ease: FOOTER.EASING,
-      stagger: (index) =>
-        window.innerWidth > 820
-          ? footerStaggerDesktop(index, FOOTER.SCROLL.STAGGER)
-          : footerStaggerMobile(
-              index,
-              FOOTER.SCROLL.STAGGER + FOOTER.SCROLL.STAGGER_MOBILE_OFFSET
-            ),
-      onComplete: () => {
-        if (socialRef.current) {
-          socialRef.current.classList.add(styles["in-view"]);
-        }
+  const animConfig = useMemo(
+    () => ({
+      hidden: {
+        opacity: FOOTER.SCROLL.OPACITY.START,
+        filter: `blur(${FOOTER.SCROLL.BLUR.START})`,
+        //color: FOOTER.SCROLL.COLOR.START,
       },
-    },
-  };
+      visible: {
+        opacity: 1,
+        filter: `blur(${FOOTER.SCROLL.BLUR.END})`,
+        //color: FOOTER.SCROLL.COLOR.END,
+        delay: 0,
+        duration: FOOTER.SCROLL.DURATION,
+        ease: FOOTER.EASING,
+        stagger: (index) =>
+          width > 820
+            ? footerStaggerDesktop(index, FOOTER.SCROLL.STAGGER)
+            : footerStaggerMobile(
+                index,
+                FOOTER.SCROLL.STAGGER + FOOTER.SCROLL.STAGGER_MOBILE_OFFSET
+              ),
+        onComplete: () => {
+          if (socialRef.current) {
+            socialRef.current.classList.add(styles["in-view"]);
+          }
+        },
+      },
+    }),
+    [FOOTER, footerStaggerDesktop, footerStaggerMobile, socialRef]
+  );
 
   useGSAP(() => {
     let scrollTriggerInstance;

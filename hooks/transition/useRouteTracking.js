@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export const useRouteTracking = (router) => {
   const [previousRoute, setPreviousRoute] = useState("/");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setPreviousRoute(router.route);
   }, [router.route]);
 

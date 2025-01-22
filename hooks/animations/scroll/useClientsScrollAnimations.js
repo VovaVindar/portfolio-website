@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -25,21 +25,24 @@ export const useClientsScrollAnimations = () => {
     }
   }, [startPageAnimation, CLIENTS]);
 
-  const animConfig = {
-    hidden: {
-      autoAlpha: CLIENTS.SCROLL.AUTOALPHA.START,
-      filter: `blur(${CLIENTS.SCROLL.BLUR.START})`,
-      //color: CLIENTS.SCROLL.COLOR.START,
-    },
-    visible: {
-      autoAlpha: 1,
-      filter: `blur(${CLIENTS.SCROLL.BLUR.END})`,
-      //color: CLIENTS.SCROLL.COLOR.END,
-      duration: CLIENTS.SCROLL.DURATION,
-      ease: CLIENTS.EASING,
-      stagger: CLIENTS.SCROLL.STAGGER,
-    },
-  };
+  const animConfig = useMemo(
+    () => ({
+      hidden: {
+        autoAlpha: CLIENTS.SCROLL.AUTOALPHA.START,
+        filter: `blur(${CLIENTS.SCROLL.BLUR.START})`,
+        //color: CLIENTS.SCROLL.COLOR.START,
+      },
+      visible: {
+        autoAlpha: 1,
+        filter: `blur(${CLIENTS.SCROLL.BLUR.END})`,
+        //color: CLIENTS.SCROLL.COLOR.END,
+        duration: CLIENTS.SCROLL.DURATION,
+        ease: CLIENTS.EASING,
+        stagger: CLIENTS.SCROLL.STAGGER,
+      },
+    }),
+    [CLIENTS]
+  );
 
   useGSAP(() => {
     let batchInstance;

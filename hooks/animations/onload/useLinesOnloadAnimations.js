@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import { LINES as getLines } from "@/constants/animations";
 import { useTransition } from "@/context/TransitionContext";
@@ -13,7 +13,7 @@ export const useLinesOnloadAnimations = (linesReady) => {
   const [lines, setLines] = useState([]);
 
   // Set lines and screen height
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!linesReady || !containerRef.current) return;
 
     const currentLines = Array.from(containerRef.current.children);

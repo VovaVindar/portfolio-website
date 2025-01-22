@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export const useWindowDimensions = () => {
   const [windowDimensions, setWindowDimensions] = useState({
-    width: 0,
-    height: 0,
-    scrollHeight: 0,
-    scrollY: 0,
+    width: typeof window !== "undefined" ? window.innerWidth : 0,
+    height: typeof window !== "undefined" ? window.innerHeight : 0,
+    scrollHeight:
+      typeof document !== "undefined"
+        ? document.documentElement.scrollHeight
+        : 0,
+    scrollY: typeof window !== "undefined" ? window.scrollY : 0,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateDimensions = () => {
       setWindowDimensions({
         width: window.innerWidth,
@@ -18,7 +21,11 @@ export const useWindowDimensions = () => {
       });
     };
 
+    // Initial measurement
     updateDimensions();
+
+    // Event listeners for subsequent updates can use regular event listeners
+    // since they happen after initial render
     window.addEventListener("resize", updateDimensions);
     window.addEventListener("scroll", updateDimensions);
 

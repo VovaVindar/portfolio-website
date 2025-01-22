@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import "@/styles/design-system.css";
 import "@/styles/mouse-follower.css";
 import { fonts } from "@/config/fonts";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import Preloader from "@/components/Onload/Preloader";
 import Lines from "@/components/Onload/Lines";
 import { ScrollProvider } from "@/context/ScrollContext";
@@ -19,7 +19,7 @@ import SmoothScrolling from "@/components/Global/SmoothScrolling";
 const PersistentLayer = ({ renderPage }) => {
   const { initiateLoading } = usePreloader();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     initiateLoading();
     renderPage(true);
   }, [initiateLoading, renderPage]);
@@ -49,7 +49,14 @@ const AppContent = ({ Component, pageProps, router }) => {
 };
 
 function MyApp({ Component, pageProps, router }) {
+  // Keep useState here because:
+  // 1. We need reactivity for conditional rendering
+  // 2. State changes should trigger re-renders
+  // 3. It's a UI flag that affects the DOM structure
   const [startedLoading, setStartedLoading] = useState(false);
+  // Using useRef would not be appropriate here because:
+  // 1. Changes to ref values don't trigger re-renders
+  // 2. You need the UI to update when the loading state changes
 
   return (
     <>

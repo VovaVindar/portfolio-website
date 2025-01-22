@@ -1,9 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 export const useScrollPreservation = (router) => {
   const scrollPosRef = useRef(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
@@ -18,9 +18,7 @@ export const useScrollPreservation = (router) => {
     };
 
     const handleRouteChangeComplete = () => {
-      requestAnimationFrame(() => {
-        window.scrollTo(0, scrollPosRef.current);
-      });
+      window.scrollTo(0, scrollPosRef.current);
     };
 
     router.beforePopState(handleBeforePopState);

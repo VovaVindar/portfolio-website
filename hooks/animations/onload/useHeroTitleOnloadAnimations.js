@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { HERO as getHero } from "@/constants/animations";
@@ -47,7 +47,8 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
   const [blur, setBlur] = useState(HERO.LOAD.TITLE.INITIAL_BLUR);
   const [transition, setTransition] = useState(null);
 
-  useEffect(() => {
+  // Change to useLayoutEffect for immediate visual updates
+  useLayoutEffect(() => {
     setOpacity(0);
     setBlur(HERO.LOAD.TITLE.INITIAL_BLUR);
 

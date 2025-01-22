@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useLayoutEffect, useMemo } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -25,7 +25,7 @@ export const useWorkScrollAnimations = () => {
   // Calculate lineHeight and endOffset after mount
   const [endOffset, setEndOffset] = useState(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const lineHeight = parseFloat(
       getComputedStyle(document.documentElement).lineHeight
     );
@@ -46,20 +46,23 @@ export const useWorkScrollAnimations = () => {
   }, [startPageAnimation, WORK]);
 
   // Text animation config
-  const animConfig = {
-    text: {
-      hidden: {
-        opacity: WORK.SCROLL.TEXT.OPACITY.START,
-        filter: `blur(${WORK.SCROLL.TEXT.BLUR.START})`,
+  const animConfig = useMemo(
+    () => ({
+      text: {
+        hidden: {
+          opacity: WORK.SCROLL.TEXT.OPACITY.START,
+          filter: `blur(${WORK.SCROLL.TEXT.BLUR.START})`,
+        },
+        visible: {
+          opacity: 1,
+          filter: `blur(${WORK.SCROLL.TEXT.BLUR.END})`,
+          duration: WORK.SCROLL.TEXT.DURATION,
+          ease: WORK.EASING,
+        },
       },
-      visible: {
-        opacity: 1,
-        filter: `blur(${WORK.SCROLL.TEXT.BLUR.END})`,
-        duration: WORK.SCROLL.TEXT.DURATION,
-        ease: WORK.EASING,
-      },
-    },
-  };
+    }),
+    [WORK]
+  );
 
   // Text and container scroll animations
   useGSAP(() => {
@@ -103,7 +106,7 @@ export const useWorkScrollAnimations = () => {
       triggers.container?.kill();
       triggers.text.forEach((trigger) => trigger?.kill());
     };
-  }, [startScroll]);
+  }, [startScroll, animConfig]);
 
   // Combined parallax scroll animation
   useGSAP(() => {

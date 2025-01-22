@@ -29,9 +29,6 @@ const Preloader = ({ className }) => {
     }
   }, [loadProgress, containerRef, PRELOADER]);
 
-  // Track progress changes
-  useEffect(() => {}, [loadProgress]);
-
   if (!isLoading) {
     return null;
   }
