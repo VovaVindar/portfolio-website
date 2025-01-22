@@ -227,7 +227,7 @@ export const WORK = () => {
             START: 0.16,
           },
           TRIGGER: {
-            START: "top bottom-=5",
+            START: "top bottom-=35",
           },
           ONCE: BASE.SCROLLTRIGGER_ONCE,
         },

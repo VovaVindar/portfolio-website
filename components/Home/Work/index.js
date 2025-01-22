@@ -135,6 +135,7 @@ const Work = () => {
             href="https://dribbble.com/VovaVindar"
             className={`text-body-3`}
             target="_blank"
+            ref={addToTextRefs}
           >
             <Magnetic type="small-text">Open Project</Magnetic>
           </Link>
