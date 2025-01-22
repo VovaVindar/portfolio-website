@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState } from "react";
+import { useLayoutEffect, useCallback, useState } from "react";
 
 // Collection of memes
 const memes = [
@@ -285,7 +285,7 @@ export const useConsoleMessage = (validRoute) => {
   }, [shownMemes]);
 
   // Initial setup on mount
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isInitialized && validRoute) {
       // Print greeting
       console.log(
