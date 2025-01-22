@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import gsap from "gsap";
 import MouseFollower from "@/components/Global/CursorContainer/mouse-follower/src";
 import { usePreloader } from "@/context/PreloaderContext";
+import { useHoverCapable } from "@/hooks/useHoverCapable";
 
 MouseFollower.registerGSAP(gsap);
 
@@ -19,6 +20,8 @@ const FAVICON_CONFIG = {
 };
 
 const CursorContainer = ({ className = "" }) => {
+  const isHoverCapable = useHoverCapable();
+
   const { isOnloadLinesActive } = usePreloader();
   const cursorRef = useRef(null);
   const rotationDegRef = useRef(0);
@@ -73,6 +76,8 @@ const CursorContainer = ({ className = "" }) => {
 
   // Initialize cursor
   useEffect(() => {
+    if (!isHoverCapable) return;
+
     const cursor = new MouseFollower({
       speed: 1.1,
       skewingText: 0,
@@ -116,7 +121,7 @@ const CursorContainer = ({ className = "" }) => {
     }
 
     return () => cursor.destroy();
-  }, [className, isOnloadLinesActive, toggleFavicon]);
+  }, [className, isOnloadLinesActive, toggleFavicon, isHoverCapable]);
 
   // Visibility change listener
   useEffect(() => {

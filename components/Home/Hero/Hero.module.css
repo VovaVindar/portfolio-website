@@ -31,11 +31,20 @@
     filter 1s var(--easing-text-fade-in);
   transition-delay: 0s;
 }
+
 .hero-container .hover-text {
   position: absolute;
   right: 0;
   bottom: calc(var(--global-padding) * 1.5);
   will-change: transform, opacity;
+}
+.hero-container .hover-text {
+  display: none;
+}
+@media (hover: hover) {
+  .hero-container .hover-text {
+    display: block;
+  }
 }
 .grid-cell {
   width: 100%;

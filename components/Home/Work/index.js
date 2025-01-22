@@ -4,6 +4,7 @@ import { useWorkScrollAnimations } from "@/hooks/animations/scroll/useWorkScroll
 import { work } from "@/constants/work";
 import ChangeText from "@/components/Global/ChangeText";
 import MediaContent from "@/components/Home/Work/MediaContent";
+import Link from "next/link";
 
 const AUTOPLAY_DELAY = 5000;
 
@@ -95,25 +96,7 @@ const Work = () => {
 
   return (
     <div className={styles["work-container"]}>
-      <div
-        className={`${styles["work"]} mf-exclusion text-body-1-uppercase`}
-        ref={sectionRef}
-      >
-        <div className={styles["image-container"]}>
-          <div
-            className={styles["project-image"]}
-            data-cursor-text="Open Project"
-            ref={imgRef}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <MediaContent
-              content={currentWork.media}
-              title={currentWork.title}
-            />
-          </div>
-        </div>
-
+      <div className={`${styles["work"]} mf-exclusion`} ref={sectionRef}>
         <div ref={addToTextRefs} className={styles["project-details"]}>
           <div>
             <span className="text-header-3">Client:</span>
@@ -129,6 +112,31 @@ const Work = () => {
               className={`${styles["info"]} text-body-1`}
             />
           </div>
+        </div>
+
+        <div className={styles["image-container"]}>
+          <div
+            className={styles["project-image"]}
+            data-cursor-text="Open Project"
+            ref={imgRef}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <MediaContent
+              content={currentWork.media}
+              title={currentWork.title}
+            />
+          </div>
+        </div>
+
+        <div className={styles["mobile-link"]}>
+          <Link
+            href="https://dribbble.com/VovaVindar"
+            className={`text-body-3`}
+            target="_blank"
+          >
+            Open Project
+          </Link>
         </div>
 
         <div className={styles["clicks"]}>

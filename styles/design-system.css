@@ -44,7 +44,7 @@
   --second-column-width: calc(
     6.8935ch + var(--columns-canvas-margin) + (6rlh - 1px)
   );
-  --mobile-max-width: 17.7225rlh; /* 319px on mobile */
+  --mobile-max-width: 600px;
 
   /* Easings */
   --easing-text-fade-in: cubic-bezier(0.6, 0.4, 0.7, 0.5); /* power1.in */
@@ -53,6 +53,7 @@
 
   /* Global padding */
   --global-padding: 6px;
+  --global-padding-bottom: var(--global-padding);
   --small-text-line-height: 0.86956rlh; /* 20px */
 }
 @media all and (max-width: 940px) {
@@ -182,6 +183,9 @@ h2,
 
     --token-font-size-1: 1.85rlh;
     --token-font-size-2: 1.85rlh;
+
+    --global-padding: 2px;
+    --global-padding-bottom: 6.5px;
   }
   h1,
   .text-header-1 {

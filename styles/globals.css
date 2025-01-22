@@ -210,9 +210,6 @@ img {
 }
 
 @media all and (max-width: 820px) {
-  main {
-    padding: 0 5px;
-  }
   html {
     line-height: 24px;
   }
@@ -248,4 +245,10 @@ img {
 }
 .right-layout {
   width: 12.71ch;
+}
+@media all and (max-width: 820px) {
+  .left-layout,
+  .right-layout {
+    display: none;
+  }
 }

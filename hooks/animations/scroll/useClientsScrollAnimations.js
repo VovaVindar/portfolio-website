@@ -61,7 +61,6 @@ export const useClientsScrollAnimations = () => {
           once: CLIENTS.SCROLL.ONCE,
           start: CLIENTS.SCROLL.TRIGGER.START,
           end: CLIENTS.SCROLL.TRIGGER.END,
-          fastScrollEnd: true,
         });
       }
     }

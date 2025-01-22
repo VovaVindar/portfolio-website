@@ -2,17 +2,24 @@ import { forwardRef, useState } from "react";
 import styles from "../SelectedClients.module.css";
 import { CLIENTS } from "@/constants/clients";
 import ChangeText from "@/components/Global/ChangeText";
+import { useHoverCapable } from "@/hooks/useHoverCapable";
 
 const ClientItem = forwardRef(({ client }, ref) => {
+  const isHoverCapable = useHoverCapable();
+
   const [hoverText, setHoverText] = useState(client.services);
 
   // Hover text logic
   const handleMouseEnter = () => {
-    setHoverText("Open Project");
+    if (isHoverCapable) {
+      setHoverText("Open Project");
+    }
   };
 
   const handleMouseLeave = () => {
-    setHoverText(client.services);
+    if (isHoverCapable) {
+      setHoverText(client.services);
+    }
   };
 
   return (

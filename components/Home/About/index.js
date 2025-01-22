@@ -6,12 +6,13 @@ const About = () => {
 
   return (
     <div className={styles["about-container"]}>
-      <div className={`text-body-3 ${styles["text-container"]}`}>
+      <div className={`${styles["text-container"]} text-body-3`}>
         <p>
           <span ref={(el) => (elementRef.current[0] = el)}>
             I&apos;m a detail-oriented designer-developer based in Vancouver,
             obsessed with creating immersive websites and beautiful digital
             interfaces.
+            <span className={`${styles["mobile-breaker"]}`}></span>
           </span>{" "}
           <span ref={(el) => (elementRef.current[1] = el)}>
             I&apos;ve had the privilege of working with clients like UNIT9,

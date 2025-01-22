@@ -49,7 +49,7 @@ function SmoothScrolling({ children }) {
   }, [isOnloadLinesActive, lenis]);
 
   return (
-    <ReactLenis root options={{ lerp: LERP_VALUE }}>
+    <ReactLenis root options={{ lerp: LERP_VALUE, syncTouch: true }}>
       {children}
     </ReactLenis>
   );

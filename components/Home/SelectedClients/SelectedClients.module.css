@@ -29,8 +29,8 @@
 .clients .client-container {
   display: flex;
   flex-direction: row;
-  padding-top: 1.5rlh;
-  padding-bottom: 1.5rlh;
+  padding-top: 1.6rlh;
+  padding-bottom: 1.6rlh;
   width: fit-content;
 }
 .clients .client-container div {
@@ -103,24 +103,34 @@
     max-width: var(--mobile-max-width); /* 319px on mobile */
     width: 100%;
     gap: 1rlh;
-    margin-top: calc(4rlh - 1px);
-    margin-bottom: calc(5rlh + 1px);
+    padding-top: 5rlh;
+    padding-bottom: 4.5rlh;
+  }
+  .clients .subheader {
+    font-size: var(--token-font-size-4);
+    letter-spacing: var(--token-letter-spacing-4);
+    height: var(--small-text-line-height);
   }
   .clients .client-container {
     padding-bottom: 0rlh;
-    padding-top: 0.5rlh;
+    padding-top: 1rlh;
     align-items: flex-end;
   }
+
   .clients .client-container span {
-    margin-bottom: 0.5px;
+    margin-left: calc((0.347826rlh * 2.5) * 0.5); /* (8px * 2.5) / 2 */
   }
-  .clients .client-container span {
-    margin-left: 0.23rlh;
+  .clients .client-container:nth-of-type(5) span,
+  .clients .client-container:nth-of-type(6) span,
+  .clients .client-container:nth-of-type(7) span {
+    margin-left: calc(
+      (0.347826rlh * 2.5 + 0.086956rlh) * 0.5
+    ); /* (8px * 2.5 + 2px) / 2 */
   }
-  .clients .client-container.rove span {
-    margin-left: 0.23rlh;
-  }
-  .clients .client-container.jpw span {
-    margin-left: 0.2rlh;
+  .clients .client-container:nth-of-type(10) span,
+  .clients .client-container:last-of-type span {
+    margin-left: calc(
+      (0.347826rlh * 2.5 + 0.043478rlh) * 0.5
+    ); /* (8px * 2.5 + 1px) / 2*/
   }
 }

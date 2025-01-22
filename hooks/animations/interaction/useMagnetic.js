@@ -1,8 +1,10 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import gsap from "gsap";
 import { MAGNETIC as getMagnetic } from "@/constants/animations";
+import { useHoverCapable } from "@/hooks/useHoverCapable";
 
 export const useMagnetic = (type, passedScale, passedMovement) => {
+  const isHoverCapable = useHoverCapable();
   const MAGNETIC = getMagnetic();
 
   const magneticAreaRef = useRef(null);
@@ -48,6 +50,8 @@ export const useMagnetic = (type, passedScale, passedMovement) => {
 
   const animate = useCallback(
     (target, props) => {
+      if (!isHoverCapable) return; // Skip animation if hover is not supported
+
       if (timelineRef.current) {
         timelineRef.current.kill();
       }
@@ -58,7 +62,7 @@ export const useMagnetic = (type, passedScale, passedMovement) => {
         duration: MAGNETIC.ANIMATION.DURATION,
       });
     },
-    [MAGNETIC]
+    [MAGNETIC, isHoverCapable]
   );
 
   const calculateParallax = useCallback(
@@ -81,7 +85,7 @@ export const useMagnetic = (type, passedScale, passedMovement) => {
 
   useEffect(() => {
     const element = magneticAreaRef.current;
-    if (!element) return;
+    if (!element || !isHoverCapable) return; // Skip effect if hover is not supported
 
     const handleMouseMove = (e) => {
       animate(element, calculateParallax(e, element, scale));
@@ -123,7 +127,7 @@ export const useMagnetic = (type, passedScale, passedMovement) => {
       });
       timelineRef.current?.kill();
     };
-  }, [scale, animate, calculateParallax, maxScale, minScale]);
+  }, [scale, animate, calculateParallax, maxScale, minScale, isHoverCapable]);
 
   return { magneticAreaRef, scale };
 };
