@@ -4,7 +4,7 @@ import { MAGNETIC as getMagnetic } from "@/constants/animations";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 
 // Get the appropriate scale based on type
-const getMaxScale = () => {
+const getMaxScale = (type, passedScale, MAGNETIC) => {
   if (passedScale) return passedScale;
 
   switch (type) {
@@ -42,7 +42,7 @@ export const useMagnetic = (type, passedScale, passedMovement) => {
     }
   };
 
-  const maxScale = getMaxScale();
+  const maxScale = getMaxScale(type, passedScale, MAGNETIC);
   const minScale = MAGNETIC.SCALE.MIN;
   const pMovement = getMovement();
 
