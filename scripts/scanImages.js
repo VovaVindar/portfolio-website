@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 // Next.js public directory
-const mediaDir = path.join(process.cwd(), "public", "images", "selected");
+const mediaDir = path.join(process.cwd(), "public", "selected");
 const outputFilePath = path.join(process.cwd(), "constants", "media.js");
 
 // Supported file extensions

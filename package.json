@@ -7,7 +7,7 @@
     "build": "next build && next-sitemap",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0",
-    "update-img": "node scripts/update-img.js"
+    "update-img": "node scripts/scanImages.js"
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",

@@ -110,7 +110,7 @@ export const GRID_LAYOUT = {
       row: 2,
       col: 6,
       type: "image",
-      src: "/images/explorations/mobius_2.png",
+      src: "/images/explorations/mobius_1.png",
       alt: "3D Mobius",
       brightness: 5,
       blur: 4,

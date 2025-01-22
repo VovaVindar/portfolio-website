@@ -1,17 +1,25 @@
 // Auto-generated media paths
-// Generated on: 1/20/2025, 3:04:45 AM
+// Generated on: 1/22/2025, 6:18:02 AM
 
 export const SITE_IMAGES = [
-  "/images/selected/am_1.png",
-  "/images/selected/app_mockup.png",
-  "/images/selected/card_render_1.png",
-  "/images/selected/dg_gallery.png",
-  "/images/selected/paradigm_login.png",
-  "/images/selected/paradigm_logo_dark.png",
-  "/images/selected/paradigm_product_1.png",
-  "/images/selected/paradigm_shirt.png"
+  "/selected/ayamuse/am_1.png",
+  "/selected/blackster/blackster_logos.png",
+  "/selected/cognition/cognition.png",
+  "/selected/explorations/mobius_1.png",
+  "/selected/explorations/mobius_2.png",
+  "/selected/paradigm/product/paradigm_product_1.png",
+  "/selected/rove/app/app_mockup.png",
+  "/selected/rove/card/card_render_1.png"
 ];
 
 export const SITE_VIDEOS = [
-  "/images/selected/paradigm_cube.mp4"
+  "/selected/align/align_1.mp4",
+  "/selected/align/align_2.mp4",
+  "/selected/dg/dg_animation.mp4",
+  "/selected/endex/endex_dark.mp4",
+  "/selected/endex/endex_light.mp4",
+  "/selected/explorations/crystal.mp4",
+  "/selected/paradigm/paradigm_cube.mp4",
+  "/selected/paradigm/paradigm_launch.mp4",
+  "/selected/twitch/twitch_clips.mp4"
 ];
