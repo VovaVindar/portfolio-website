@@ -19,7 +19,7 @@ export const useSlideshowAnimations = (content) => {
         .to(containerRef.current, {
           autoAlpha: 0,
           duration: SLIDESHOW.EXIT.DURATION,
-          //scale: SLIDESHOW.EXIT.SCALE,
+          scale: SLIDESHOW.EXIT.SCALE,
           ease: SLIDESHOW.EXIT.EASING,
           onComplete: () => {
             setDisplayContent(content);
@@ -27,7 +27,7 @@ export const useSlideshowAnimations = (content) => {
         })
         .to(containerRef.current, {
           autoAlpha: 1,
-          //scale: 1,
+          scale: SLIDESHOW.ENTER.SCALE,
           delay: SLIDESHOW.ENTER.DELAY,
           duration: SLIDESHOW.ENTER.DURATION,
           ease: SLIDESHOW.ENTER.EASING,

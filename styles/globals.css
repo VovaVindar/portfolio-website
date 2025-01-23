@@ -205,8 +205,13 @@ p {
   outline-offset: 2px;
 }
 
-img {
+img,
+video {
   image-rendering: smooth;
+  transform: translateZ(0); /* or translate3d(0,0,0) */
+  backface-visibility: hidden;
+  perspective: 1000;
+  will-change: transform;
 }
 
 @media all and (max-width: 820px) {

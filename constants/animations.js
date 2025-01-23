@@ -112,7 +112,7 @@ export const HERO = () => {
           INITIAL_DELAY: 2.03,
           CELL_DURATION: 3.1,
           CELL_STAGGER: 0.07,
-          IMG_EXTRA_STAGGER: 0.074,
+          IMG_EXTRA_STAGGER: 0.084,
         },
       },
 
@@ -375,15 +375,16 @@ export const SLIDESHOW = () => {
   //return useMemo(() => ({
   return {
     ENTER: {
-      DURATION: 4,
+      DURATION: 3,
       EASING: "power2.out",
-      DELAY: -0.0125,
-      SCALE: 1,
+      //DELAY: -0.0125,
+      DELAY: 0,
+      SCALE: 1.04,
     },
     EXIT: {
       DURATION: 0.5,
       EASING: "power1.in",
-      SCALE: 0.97,
+      SCALE: 1.005,
     },
     //}));
   };

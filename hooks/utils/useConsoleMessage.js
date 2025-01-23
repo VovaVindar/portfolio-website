@@ -266,7 +266,7 @@ export const useConsoleMessage = (validRoute) => {
     }*/
 
     // Show meme count
-    if (shownMemes.size < 2) {
+    /*if (shownMemes.size < 2) {
       console.log(
         `%cI have ${
           memes.length - 1
@@ -278,7 +278,7 @@ export const useConsoleMessage = (validRoute) => {
         `%c${memes.length - shownMemes.size} memes remaining`,
         styles.message
       );
-    }
+    }*/
 
     // Return the meme that was shown
     return memes[randomIndex];

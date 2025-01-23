@@ -86,8 +86,11 @@
     filter 3s var(--easing-img-fade-in); /* power2.out */
   backface-visibility: hidden; /* to force GPU performance */
 }
-.grid-cell .cell-video.paradigm-logo {
-  transform: scale(1) translateY(-1%);
+.grid-cell .cell-video.paradigm-cube {
+  transform: scale(var(--media-scale)) translateY(-1%);
+}
+.grid-cell .cell-video.align-card {
+  transform: scale(var(--media-scale)) translateY(2.51%);
 }
 .grid-cell .cell-video.align {
   transform: scale(var(--media-scale)) translateY(2%);
@@ -97,7 +100,7 @@
   transform: scale(1);
   filter: blur(0px) brightness(1) saturate(1);
 }
-.grid-cell .cell-video.in-view.paradigm-logo {
+.grid-cell .cell-video.in-view.paradigm-cube {
   transform: scale(1) translateY(-1%);
 }
 .grid-cell .cell-image.in-view.cognition {
@@ -107,8 +110,11 @@
   transform: scale(1.3);
 }
 .grid-cell .cell-video.in-view.align {
-  transform: scale(1.6) translateY(2%);
-  filter: blur(0px) brightness(1.4) saturate(1);
+  transform: scale(1.58) translateY(2%);
+  filter: blur(0px) brightness(1.35) saturate(1);
+}
+.grid-cell .cell-video.in-view.align-card {
+  transform: scale(1.1) translateY(2.51%);
 }
 .hero-container.scroll .grid-cell .cell-image,
 .hero-container.scroll .grid-cell .cell-video {

@@ -12,35 +12,55 @@ const AUTOPLAY_DELAY = 5000;
 const Work = () => {
   const { imgRef, addToTextRefs, sectionRef } = useWorkScrollAnimations();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [arrowUpdate, setArrowUpdate] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isInteracted, setIsInteracted] = useState(false);
   const intervalRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
 
   // Stable reference for current state values
-  const stateRef = useRef({ isHovered, isInView });
+  const stateRef = useRef({ isHovered, isInView, isInteracted });
   useEffect(() => {
-    stateRef.current = { isHovered, isInView };
-  }, [isHovered, isInView]);
+    stateRef.current = { isHovered, isInView, isInteracted };
+  }, [isHovered, isInView, isInteracted]);
 
   const resetInterval = useCallback(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
-    const { isHovered, isInView } = stateRef.current;
-    if (!isHovered && isInView) {
-      intervalRef.current = setInterval(() => {
-        setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
-      }, AUTOPLAY_DELAY);
+
+    const { isHovered, isInView, isInteracted } = stateRef.current;
+
+    if (isInView) {
+      // Only start interval if:
+      // 1. User hasn't interacted yet (autoplay) OR
+      // 2. User has interacted AND is not hovering (resume autoplay)
+      if (!isInteracted || (!isHovered && isInteracted)) {
+        intervalRef.current = setInterval(() => {
+          setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
+          setArrowUpdate((prevCount) => prevCount + 1);
+
+          console.log(stateRef.current.isHovered);
+        }, AUTOPLAY_DELAY);
+      }
     }
   }, []);
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
+    if (!isInteracted) {
+      setIsInteracted(true);
+    }
+
     resetInterval();
   }, [resetInterval]);
 
   const handlePrevious = useCallback(() => {
     setCurrentIndex((prev) => (prev === 0 ? work.length - 1 : prev - 1));
+    if (!isInteracted) {
+      setIsInteracted(true);
+    }
+
     resetInterval();
   }, [resetInterval]);
 
@@ -73,7 +93,7 @@ const Work = () => {
   useEffect(() => {
     resetInterval();
     return () => clearInterval(intervalRef.current);
-  }, [isHovered, isInView, resetInterval]);
+  }, [isHovered, isInView, resetInterval, isInteracted]);
 
   // Keyboard navigation effect
   useEffect(() => {
@@ -81,6 +101,8 @@ const Work = () => {
       if (isInView) {
         if (e.key === "ArrowLeft") handlePrevious();
         if (e.key === "ArrowRight") handleNext();
+
+        setArrowUpdate((prevCount) => prevCount + 1);
       }
     };
 
@@ -90,14 +112,17 @@ const Work = () => {
 
   const currentWork = work[currentIndex];
 
-  // Function to handle index looping for display
-  const getLoopedIndex = useCallback((index) => {
-    return (((index % work.length) + work.length) % work.length) + 1;
-  }, []);
-
   return (
     <div className={styles["work-container"]}>
-      <div className={`${styles["work"]} mf-exclusion`} ref={sectionRef}>
+      <div
+        className={`${styles["work"]} mf-exclusion`}
+        ref={sectionRef}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          setIsInteracted(false);
+        }}
+      >
         <div ref={addToTextRefs} className={styles["project-details"]}>
           <div>
             <span className="text-header-3">Client:</span>
@@ -120,8 +145,6 @@ const Work = () => {
             className={styles["project-image"]}
             data-cursor-text="Open Project"
             ref={imgRef}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
           >
             <MediaContent
               content={currentWork.media}
@@ -130,7 +153,7 @@ const Work = () => {
           </div>
         </div>
 
-        <div className={styles["mobile-link"]}>
+        <div className={styles["project-link"]}>
           <Link
             href="https://dribbble.com/VovaVindar"
             className={`text-body-3`}
@@ -141,22 +164,13 @@ const Work = () => {
           </Link>
         </div>
 
-        <div className={styles["clicks"]}>
-          <button
-            type="button"
-            aria-label="Previous"
-            onClick={handlePrevious}
-            className={styles["click-area"]}
-            data-cursor-text={getLoopedIndex(currentIndex - 1)}
-          />
-          <button
-            type="button"
-            aria-label="Next"
-            onClick={handleNext}
-            className={styles["click-area"]}
-            data-cursor-text={getLoopedIndex(currentIndex + 1)}
-          />
-        </div>
+        <ClickAreas
+          currentIndex={currentIndex}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+          totalLength={work.length}
+          arrowUpdate={arrowUpdate}
+        />
 
         <div className="text-body-1 left-layout" />
         <div className="text-header-1 right-layout" />
@@ -166,3 +180,34 @@ const Work = () => {
 };
 
 export default Work;
+
+const ClickAreas = ({
+  currentIndex,
+  onPrevious,
+  onNext,
+  totalLength,
+  arrowUpdate,
+}) => {
+  const getLoopedIndex = (index) => {
+    return (((index % totalLength) + totalLength) % totalLength) + 1;
+  };
+
+  return (
+    <div className={styles["clicks"]} key={arrowUpdate}>
+      <button
+        type="button"
+        aria-label="Previous"
+        onClick={onPrevious}
+        className={styles["click-area"]}
+        data-cursor-text={getLoopedIndex(currentIndex - 1)}
+      />
+      <button
+        type="button"
+        aria-label="Next"
+        onClick={onNext}
+        className={styles["click-area"]}
+        data-cursor-text={getLoopedIndex(currentIndex + 1)}
+      />
+    </div>
+  );
+};
