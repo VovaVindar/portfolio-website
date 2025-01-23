@@ -16,7 +16,7 @@ const FAVICON_TYPES = {
 const FAVICON_CONFIG = {
   svg: { rel: "icon", type: "image/svg+xml" },
   png: { rel: "icon", type: "image/png", sizes: "96x96" },
-  ico: { rel: "shortcut icon", type: "image/png", sizes: "48x48" },
+  ico: { rel: "shortcut icon", type: "image/x-icon" },
 };
 
 const CursorContainer = ({ className = "" }) => {
@@ -41,11 +41,14 @@ const CursorContainer = ({ className = "" }) => {
     // Create new favicon links
     Object.entries(FAVICON_CONFIG).forEach(([ext, config]) => {
       const link = document.createElement("link");
+      const path =
+        ext === "ico"
+          ? `/${baseName}.${ext}` // ico files are in /public root
+          : `/favicon/${baseName}${ext === "png" ? "-96x96" : ""}.${ext}`; // other files in /public/favicon
+
       Object.assign(link, {
         rel: config.rel,
-        href: `/${baseName}${
-          ext === "png" ? "-96x96" : ""
-        }.${ext}${cacheBuster}`,
+        href: `${path}${cacheBuster}`,
         type: config.type,
         ...(config.sizes && { sizes: config.sizes }),
       });
