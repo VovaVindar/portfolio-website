@@ -28,6 +28,14 @@ const Work = () => {
   stateRef.current = carouselState;
 
   const updateCarouselState = useCallback((updates) => {
+    // If update includes hover state, only apply on devices with hover
+    if (
+      "isHovered" in updates &&
+      !window.matchMedia("(hover: hover)").matches
+    ) {
+      return;
+    }
+
     setCarouselState((prev) => ({
       ...prev,
       ...updates,
