@@ -55,6 +55,7 @@ const Work = () => {
     //if (isInView && (!isInteracted || (!isHovered && isInteracted))) {
     if (isInView && !isHovered) {
       intervalRef.current = setInterval(() => {
+        setArrowUpdate((prev) => prev + 1);
         setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
       }, AUTOPLAY_DELAY);
     }
@@ -68,8 +69,6 @@ const Work = () => {
         }
         return prev === 0 ? work.length - 1 : prev - 1;
       });
-
-      updateCarouselState({ isHovered: true });
 
       /*if (!stateRef.current.isInteracted) {
         updateCarouselState({ isInteracted: true });
@@ -119,12 +118,12 @@ const Work = () => {
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (carouselState.isInView) {
-        if (e.key === "ArrowLeft") handleNavigation("prev");
-        if (e.key === "ArrowRight") handleNavigation("next");
-
         //if (carouselState.isInteracted) {
         setArrowUpdate((prev) => prev + 1);
         //}
+
+        if (e.key === "ArrowLeft") handleNavigation("prev");
+        if (e.key === "ArrowRight") handleNavigation("next");
       }
     };
 
@@ -143,13 +142,13 @@ const Work = () => {
       <div
         className={`${styles["work"]} mf-exclusion`}
         ref={sectionRef}
-        //onMouseEnter={() => updateCarouselState({ isHovered: true })}
+        /*onMouseEnter={() => updateCarouselState({ isHovered: true })}
         onMouseLeave={() =>
           updateCarouselState({
             isHovered: false,
             //isInteracted: false,
           })
-        }
+        }*/
       >
         <div ref={addToTextRefs} className={styles["project-details"]}>
           <div>
@@ -173,6 +172,8 @@ const Work = () => {
             className={styles["project-image"]}
             data-cursor-text="Open Project"
             ref={imgRef}
+            onMouseEnter={() => updateCarouselState({ isHovered: true })}
+            onMouseLeave={() => updateCarouselState({ isHovered: false })}
           >
             <MediaContent
               content={currentWork.media}
