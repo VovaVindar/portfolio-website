@@ -69,7 +69,10 @@ const Lines = () => {
   if (!isOnloadLinesActive) return null;
 
   return (
-    <div className={`${styles["line-container"]}`} ref={containerRef}>
+    <div
+      className={`${styles["line-container"]} scroll-block`}
+      ref={containerRef}
+    >
       {lines}
     </div>
   );

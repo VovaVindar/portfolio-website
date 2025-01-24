@@ -31,7 +31,7 @@ const Scrollbar = ({ text = "", href, onClick }) => {
     const scrollTop = scrollY;
     const scrollPercent = (scrollTop / documentHeightRef.current) * 100;
     setScrollPosition(scrollPercent);
-  }, [setScrollPosition, scrollY]);
+  }, [setScrollPosition, scrollY, isHoverCapable]);
 
   useLayoutEffect(() => {
     updateDocumentHeight();

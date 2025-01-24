@@ -35,7 +35,7 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
     if (imgOnload.current?.length) {
       addInView();
     }
-  }, [isWideScreen, imgOnload, addInView]);
+  }, [isWideScreen, imgOnload, addInView, isOnloadLinesActive]);
 
   useGSAP(() => {
     if (imgOnload.current?.length) {

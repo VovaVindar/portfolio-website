@@ -30,8 +30,8 @@ body {
 
 html:has(.scroll-block),
 body:has(.scroll-block) {
-  overflow-y: hidden;
-} /* just an extra safety. Actual scroll blocking is inside SmoothScrolling component */
+  overflow: hidden;
+} /* Block onload scroll on touch devices */
 
 /* Hidden Scrollbar */
 body {
