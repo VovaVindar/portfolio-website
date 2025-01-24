@@ -68,6 +68,8 @@
   opacity: 0;
 }
 .work .project-image img {
+  width: 100%;
+  height: 100%;
   transform: scale(1.005);
 }
 .work .project-image.in-view img {

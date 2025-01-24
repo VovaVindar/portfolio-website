@@ -11,8 +11,14 @@ const MediaRenderer = ({ media, currentIndex, handleMediaRef }) => {
     if (width < 1520) return urls.desktop; // 400px
     return urls.largeDesktop; // 650px
   };
-
   const responsiveUrl = getResponsiveUrl(media.src);
+
+  const getImageDimensions = () => {
+    if (width < 420) return { width: 105, height: 105 };
+    if (width < 1520) return { width: 147, height: 144 };
+    return { width: 249, height: 243 };
+  };
+  const dimensions = getImageDimensions();
 
   const commonProps = {
     style: {
@@ -53,11 +59,11 @@ const MediaRenderer = ({ media, currentIndex, handleMediaRef }) => {
     <img
       src={responsiveUrl}
       alt={`${media.alt} (Index: ${currentIndex})`}
-      fill="true"
       className={`${styles["cell-image"]} ${media.className}`}
       priority="true"
       ref={handleMediaRef}
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      width={dimensions.width}
+      height={dimensions.height}
       {...commonProps}
     />
   );

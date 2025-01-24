@@ -10,8 +10,14 @@ const MediaContent = ({ content, title }) => {
     if (width < 1520) return urls.desktop; // 1260px
     return urls.largeDesktop; // 1880px
   };
-
   const responsiveUrl = getResponsiveUrl(content.url);
+
+  const getImageDimensions = () => {
+    if (width < 1520) return { width: 630, height: 630 };
+    return { width: 936, height: 936 };
+  };
+  const dimensions = getImageDimensions();
+
   const { containerRef, displayContent } = useSlideshowAnimations({
     ...content,
     url: responsiveUrl,
@@ -45,9 +51,10 @@ const MediaContent = ({ content, title }) => {
           <img
             src={displayContent.url}
             alt={title}
-            fill="true"
             style={{ objectFit: "cover" }}
             className={displayContent.className}
+            width={dimensions.width}
+            height={dimensions.height}
           />
         )}
       </Magnetic>
