@@ -24,13 +24,24 @@ const MediaRenderer = ({ media, currentIndex, handleMediaRef }) => {
   };
 
   if (media.type === "video") {
+    const handleVideoError = (e) => {
+      console.error("Video loading error:", e, responsiveUrl);
+    };
+
     return (
       <div
         ref={handleMediaRef}
         className={`${styles["cell-video"]} ${media.className}`}
         {...commonProps}
       >
-        <video key={responsiveUrl} autoPlay loop muted playsInline>
+        <video
+          key={responsiveUrl}
+          autoPlay
+          loop
+          muted
+          playsInline
+          onError={handleVideoError}
+        >
           <source src={responsiveUrl} type="video/webm; codecs=vp9" />
           Your browser does not support the video tag.
         </video>

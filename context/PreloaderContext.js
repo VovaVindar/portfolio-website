@@ -80,8 +80,8 @@ export const PreloaderProvider = ({ children }) => {
         img.src = src;
       } else {
         const video = document.createElement("video");
-        video.preload = "metadata";
-        video.onloadedmetadata = () => resolve();
+        video.preload = "auto";
+        video.onloadeddata = () => resolve();
         video.onerror = () => {
           console.warn("Failed to load video:", src);
           resolve();
