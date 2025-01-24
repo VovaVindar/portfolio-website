@@ -50,7 +50,10 @@ export default function Document() {
           property="og:description"
           content="Digital Designer & Developer based in Vancouver. Focused on creating immersive websites and intuitive digital interfaces."
         />
-        <meta property="og:image" content="https://www.vovavindar.com/og.png" />
+        <meta
+          property="og:image"
+          content="https://www.vovavindar.com/images/og.png"
+        />
         <meta
           property="og:site_name"
           content="Vova Vindar — Digital Designer & Developer"
@@ -66,7 +69,7 @@ export default function Document() {
         />
         <meta
           name="twitter:image"
-          content="https://www.vovavindar.com/og.png"
+          content="https://www.vovavindar.com/images/og.png"
         />
 
         {/* Pinterest verification */}
@@ -94,7 +97,7 @@ export default function Document() {
                 "@id": "https://www.vovavindar.com/#person",
                 name: "Vova Vindar",
                 url: "https://www.vovavindar.com",
-                image: "https://www.vovavindar.com/og.png",
+                image: "https://www.vovavindar.com/images/og.png",
                 jobTitle: "Digital Designer & Developer",
                 description:
                   "Digital Designer & Developer based in Vancouver. Focused on creating immersive websites and intuitive digital interfaces.",

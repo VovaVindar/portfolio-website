@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/cleanBuild.js",
     "start": "next start",
     "serve": "npx serve out",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0",

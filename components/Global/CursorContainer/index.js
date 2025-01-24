@@ -31,7 +31,8 @@ const CursorContainer = ({ className = "" }) => {
   const setFavicon = useCallback((baseName) => {
     if (!baseName) return; // Add protection against undefined baseName
 
-    const cacheBuster = `?v=${Date.now()}`;
+    //const cacheBuster = `?v=${Date.now()}`;
+    const cacheBuster = ``; // Removed so service worker can cache it
 
     // Remove existing favicons
     document

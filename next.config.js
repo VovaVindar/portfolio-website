@@ -4,10 +4,31 @@ const withPWA = require("next-pwa")({
   skipWaiting: true,
   disable: process.env.NODE_ENV === "development",
   buildExcludes: [
-    /\/images\/selected\//,
-    /\/images\/uncompressed\//,
+    /\/images\/selected\/.*/,
+    /\/images\/uncompressed\/.*/,
     /\.map$/, // Exclude source maps
     /^manifest\..*$/, // Exclude manifest files if needed
+    /\/images\/selected\/hero-grid\/.*/,
+  ],
+  additionalManifestEntries: [
+    { url: "/site.webmanifest", revision: null },
+    {
+      url: "/images/optimized/**/*.{jpg,jpeg,png,gif,webp,avif,webm,mp4}",
+      revision: null,
+    },
+    { url: "/favicon.ico", revision: null },
+    { url: "/favicon/favicon2.ico", revision: null },
+    { url: "/favicon/favicon3.ico", revision: null },
+    { url: "/favicon/favicon4.ico", revision: null },
+    { url: "/favicon/favicon.svg", revision: null },
+    { url: "/favicon/favicon2.svg", revision: null },
+    { url: "/favicon/favicon3.svg", revision: null },
+    { url: "/favicon/favicon4.svg", revision: null },
+    { url: "/favicon/favicon-96x96.png", revision: null },
+    { url: "/favicon/favicon2-96x96.png", revision: null },
+    { url: "/favicon/favicon3-96x96.png", revision: null },
+    { url: "/favicon/favicon4-96x96.png", revision: null },
+    { url: "/favicon/apple-touch-icon.png", revision: null },
   ],
   runtimeCaching: [
     {
@@ -16,9 +37,8 @@ const withPWA = require("next-pwa")({
       handler: "NetworkOnly", // This will prevent any caching of these images
     },
     {
-      // Cache media files from optimized folder
-      urlPattern:
-        /\/images\/optimized\/.*\.(jpg|jpeg|png|gif|webp|avif|webm|mp4)$/i,
+      // Images
+      urlPattern: /\/images\/optimized\/.*/,
       handler: "CacheFirst",
       options: {
         cacheName: "media-assets",
@@ -35,7 +55,7 @@ const withPWA = require("next-pwa")({
       },
     },
     {
-      // Cache First for more static assets like fonts
+      // Fonts
       urlPattern: /^https:\/\/.*\.(woff|woff2|ttf|eot)$/,
       handler: "CacheFirst",
       options: {
@@ -47,7 +67,7 @@ const withPWA = require("next-pwa")({
       },
     },
     {
-      // Network First for CSS and JS files
+      // CSS & JS
       urlPattern: /^https:\/\/.*\.(js|css)$/,
       handler: "NetworkFirst",
       options: {
@@ -62,6 +82,43 @@ const withPWA = require("next-pwa")({
         },
       },
     },
+    {
+      // Favicons
+      urlPattern: /\/favicon(?:\.ico|\/.*\.(ico|png|svg|webmanifest))$/,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "favicon-assets",
+        expiration: {
+          maxEntries: 20,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+        },
+      },
+    },
+    {
+      // Web manifest
+      urlPattern: /\.webmanifest$/,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "manifest-assets",
+        expiration: {
+          maxEntries: 10,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+        },
+      },
+    },
+    {
+      // Specific caching for screenshots
+      urlPattern:
+        /\/images\/(desktop-screenshot|mobile-screenshot)\.(png|jpg|webp)$/,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "screenshots",
+        expiration: {
+          maxEntries: 10,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+        },
+      },
+    },
   ],
 });
 
@@ -73,11 +130,11 @@ const nextConfig = {
   // Static site output:
   output: "export", // Enables static HTML export
   webpack: (config, options) => {
-    // Enable GLSL files
     config.module.rules.push({
-      test: /\.glsl/,
+      test: /\.glsl/, // Enable GLSL files
       type: "asset/source",
     });
+
     return config;
   },
 };

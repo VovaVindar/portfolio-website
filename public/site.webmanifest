@@ -16,6 +16,25 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "/favicon/favicon.svg",
+      "sizes": "1000x1000",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/desktop-screenshot.png",
+      "form_factor": "wide",
+      "sizes": "1920x1080",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/mobile-screenshot.png",
+      "sizes": "792x1540",
+      "type": "image/png"
     }
   ],
   "theme_color": "#FF0000",
