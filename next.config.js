@@ -12,10 +12,6 @@ const withPWA = require("next-pwa")({
   ],
   additionalManifestEntries: [
     { url: "/site.webmanifest", revision: null },
-    {
-      url: "/images/optimized/**/*.{jpg,jpeg,png,gif,webp,avif,webm,mp4}",
-      revision: null,
-    },
     { url: "/favicon.ico", revision: null },
     { url: "/favicon/favicon2.ico", revision: null },
     { url: "/favicon/favicon3.ico", revision: null },

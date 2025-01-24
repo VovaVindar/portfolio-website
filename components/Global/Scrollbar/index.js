@@ -5,10 +5,12 @@ import Link from "next/link";
 import { useScroll } from "@/context/ScrollContext";
 import { useScrollbarOnloadAnimations } from "@/hooks/animations/onload/useScrollbarOnloadAnimations";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 
 const MAX_HEIGHT_FOR_ANIMATION = 2800;
 
 const Scrollbar = ({ text = "", href, onClick }) => {
+  const isHoverCapable = useHoverCapable(); // Scrollbar text jitters onscroll on touch devices due to FPS limit
   const { height, scrollHeight, scrollY } = useWindowDimensions();
   const { scrollPosition, setScrollPosition } = useScroll();
 
@@ -21,7 +23,7 @@ const Scrollbar = ({ text = "", href, onClick }) => {
   }, [height, scrollHeight]);
 
   const updateScrollPosition = useCallback(() => {
-    if (!isHeightCompatibleRef.current) {
+    if (!isHeightCompatibleRef.current || !isHoverCapable) {
       setScrollPosition(0);
       return;
     }
@@ -42,9 +44,10 @@ const Scrollbar = ({ text = "", href, onClick }) => {
     transform: `translateY(${y}%)`,
     opacity,
     filter: `blur(${blur}px)`,
-    top: isHeightCompatibleRef.current
-      ? `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding-bottom)))`
-      : "var(--global-padding)",
+    top:
+      isHeightCompatibleRef.current || !isHoverCapable
+        ? `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding-bottom)))`
+        : "var(--global-padding)",
   };
 
   return (
