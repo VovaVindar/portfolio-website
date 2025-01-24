@@ -4,16 +4,16 @@ import styles from "@/components/Home/Hero/Hero.module.css";
 import { useTransition } from "@/context/TransitionContext";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
 import { useCallback, useEffect, useRef } from "react";
+import { usePreloader } from "@/context/PreloaderContext";
 
 export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
+  const { isOnloadLinesActive } = usePreloader();
+
   const { width } = useWindowDimensions();
   const HERO = getHero();
 
   // Track breakpoints
   const isWideScreen = width > 820;
-
-  // Track previous values to detect threshold crossings
-  const renderCount = useRef(0);
 
   const { globalOnload, isPageChanged } = useTransition();
 
@@ -28,9 +28,8 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
 
   // Monitor width changes and threshold crossings
   useEffect(() => {
-    renderCount.current += 1;
-    if (renderCount.current <= 2) {
-      return; // Skip initial 2 renders for Onload animation
+    if (isOnloadLinesActive) {
+      return; // Wait for Onload animation
     }
 
     if (imgOnload.current?.length) {
