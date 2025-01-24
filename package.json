@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next-sitemap",
+    "build": "next build",
     "start": "next start",
     "serve": "npx serve out",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0",
-    "analyze": "ANALYZE=true next build"
+    "sitemap": "next-sitemap"
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
