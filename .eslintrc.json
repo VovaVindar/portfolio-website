@@ -1,3 +1,7 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:jsx-a11y/recommended"]
+  "extends": ["next/core-web-vitals", "plugin:jsx-a11y/recommended"],
+  "rules": {
+    "@next/next/no-img-element": "off",
+    "@next/next/no-sync-scripts": "off" // Disabled 'useLayoutEffect' warning since I'm building for SSG
+  }
 }
