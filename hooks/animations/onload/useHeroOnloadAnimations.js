@@ -30,7 +30,7 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
   useEffect(() => {
     renderCount.current += 1;
     if (renderCount.current <= 2) {
-      return; // Skip initial 2 renders
+      return; // Skip initial 2 renders for Onload animation
     }
 
     if (imgOnload.current?.length) {

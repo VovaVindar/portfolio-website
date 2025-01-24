@@ -3,6 +3,7 @@ const withPWA = require("next-pwa")({
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === "development",
+  buildExcludes: [/\/images\/selected\//, /\/images\/uncompressed\//],
   runtimeCaching: [
     {
       // Cache media files from optimized folder
