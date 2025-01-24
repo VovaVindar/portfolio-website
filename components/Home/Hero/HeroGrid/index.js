@@ -2,8 +2,9 @@ import styles from "../Hero.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import { GRID_LAYOUT_DESKTOP, GRID_LAYOUT_MOBILE } from "@/constants/hero-grid";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { memo } from "react";
 
-const MediaRenderer = ({ media, currentIndex, handleMediaRef }) => {
+const MediaRenderer = memo(({ media, currentIndex, handleMediaRef }) => {
   const { width } = useWindowDimensions();
 
   const getResponsiveUrl = (urls) => {
@@ -67,9 +68,11 @@ const MediaRenderer = ({ media, currentIndex, handleMediaRef }) => {
       {...commonProps}
     />
   );
-};
+});
 
-const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
+MediaRenderer.displayName = "MediaRenderer";
+
+const HeroGrid = memo(({ imgOnload, cellOnload, onHover }) => {
   const { width } = useWindowDimensions();
   const gridLayout = width > 820 ? GRID_LAYOUT_DESKTOP : GRID_LAYOUT_MOBILE;
 
@@ -136,6 +139,7 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
       )}
     </div>
   );
-};
+});
 
-export default HeroGrid;
+HeroGrid.displayName = "HeroGrid";
+export default memo(HeroGrid);

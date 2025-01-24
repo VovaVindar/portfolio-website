@@ -38,3 +38,5 @@ const About = () => {
 };
 
 export default About;
+
+About.whyDidYouRender = true;

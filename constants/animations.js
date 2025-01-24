@@ -155,6 +155,7 @@ export const ABOUT = () => {
 
         BLUR: {
           START: "1.5px",
+          //START: "0px", // Safari bug
           END: "0px",
         },
 
@@ -276,6 +277,7 @@ export const FOOTER = () => {
         },
         BLUR: {
           START: "2.5px",
+          //START: "0px", // Safari bug
           END: "0px",
         },
         COLOR: {

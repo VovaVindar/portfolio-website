@@ -63,3 +63,5 @@ const MediaContent = ({ content, title }) => {
 };
 
 export default MediaContent;
+
+MediaContent.whyDidYouRender = true;

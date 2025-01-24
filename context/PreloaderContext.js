@@ -5,6 +5,7 @@ import {
   useCallback,
   useRef,
   useEffect,
+  useMemo,
 } from "react";
 import { SITE_IMAGES, SITE_VIDEOS } from "@/constants/media";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
@@ -53,15 +54,20 @@ const PreloaderContext = createContext();
 
 export const PreloaderProvider = ({ children }) => {
   const { width } = useWindowDimensions();
-  const [preloaderState, setPreloaderState] = useState({
-    isOnloadLinesActive: true,
+
+  // Split state into logical groups
+  const [loadingState, setLoadingState] = useState({
     loadProgress: 0,
     startPageAnimation: false,
+    incrementCap: 15,
+    interval: 206,
+  });
+
+  const [interfaceState, setInterfaceState] = useState({
+    isOnloadLinesActive: true,
     isTallScreen: false,
     isVeryTallScreen: false,
     isStartedLines: false,
-    incrementCap: 15,
-    interval: 206,
   });
 
   const actualProgressRef = useRef(0);
@@ -174,59 +180,94 @@ export const PreloaderProvider = ({ children }) => {
       if (currentProgress < actualProgressRef.current) {
         const increment = Math.min(
           actualProgressRef.current - currentProgress,
-          preloaderState.incrementCap
+          loadingState.incrementCap
         );
         currentProgress += increment;
 
-        setPreloaderState((prev) => ({
+        setLoadingState((prev) => ({
           ...prev,
           loadProgress: currentProgress.toFixed(0),
           startPageAnimation: currentProgress >= 100,
         }));
 
-        timeoutId = setTimeout(updateProgress, preloaderState.interval);
+        timeoutId = setTimeout(updateProgress, loadingState.interval);
       }
     }
 
-    timeoutId = setTimeout(updateProgress, preloaderState.interval);
+    timeoutId = setTimeout(updateProgress, loadingState.interval);
 
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [preloaderState.incrementCap, preloaderState.interval]);
+  }, [loadingState.incrementCap, loadingState.interval]);
 
   const completeTransition = useCallback(() => {
-    setPreloaderState((prev) => ({
+    setInterfaceState((prev) => ({
       ...prev,
       isOnloadLinesActive: false,
     }));
   }, []);
 
   const startedLines = useCallback(() => {
-    setPreloaderState((prev) => ({
+    setInterfaceState((prev) => ({
       ...prev,
       isStartedLines: true,
     }));
   }, []);
 
   const setTallScreen = useCallback((lines) => {
-    setPreloaderState((prev) => ({
+    setInterfaceState((prev) => ({
       ...prev,
       isTallScreen: lines > 60,
       isVeryTallScreen: lines >= 100,
     }));
   }, []);
 
+  // Split context value into separate memoized objects
+  const loadingValue = useMemo(
+    () => ({
+      loadProgress: loadingState.loadProgress,
+      startPageAnimation: loadingState.startPageAnimation,
+      initiateLoading,
+    }),
+    [
+      loadingState.loadProgress,
+      loadingState.startPageAnimation,
+      initiateLoading,
+    ]
+  );
+
+  const interfaceValue = useMemo(
+    () => ({
+      isOnloadLinesActive: interfaceState.isOnloadLinesActive,
+      isTallScreen: interfaceState.isTallScreen,
+      isVeryTallScreen: interfaceState.isVeryTallScreen,
+      isStartedLines: interfaceState.isStartedLines,
+      completeTransition,
+      setTallScreen,
+      startedLines,
+    }),
+    [
+      interfaceState.isOnloadLinesActive,
+      interfaceState.isTallScreen,
+      interfaceState.isVeryTallScreen,
+      interfaceState.isStartedLines,
+      completeTransition,
+      setTallScreen,
+      startedLines,
+    ]
+  );
+
+  const value = useMemo(
+    () => ({
+      ...loadingValue,
+      ...interfaceValue,
+    }),
+    [loadingValue, interfaceValue]
+  );
+
   return (
-    <PreloaderContext.Provider
-      value={{
-        ...preloaderState,
-        initiateLoading,
-        completeTransition,
-        setTallScreen,
-        startedLines,
-      }}
-    >
+    <PreloaderContext.Provider value={value}>
       {children}
     </PreloaderContext.Provider>
   );

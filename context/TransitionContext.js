@@ -4,6 +4,7 @@ import {
   useEffect,
   useLayoutEffect,
   createContext,
+  useMemo,
 } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -47,21 +48,25 @@ export const TransitionProvider = ({ children }) => {
     }
   }, [startPageAnimation, globalOnload, playOnloadAnimation]);
 
+  // Memoize the context value
+  const contextValue = useMemo(
+    () => ({
+      globalOnload,
+      setGlobalOnload,
+      secondaryExit,
+      setSecondaryExit,
+      secondaryEnter,
+      setSecondaryEnter,
+      isPageMounted,
+      setIsPageMounted,
+      isPageChanged,
+      setIsPageChanged,
+    }),
+    [globalOnload, secondaryExit, secondaryEnter, isPageMounted, isPageChanged]
+  );
+
   return (
-    <TransitionContext.Provider
-      value={{
-        globalOnload,
-        setGlobalOnload,
-        secondaryExit,
-        setSecondaryExit,
-        secondaryEnter,
-        setSecondaryEnter,
-        isPageMounted,
-        setIsPageMounted,
-        isPageChanged,
-        setIsPageChanged,
-      }}
-    >
+    <TransitionContext.Provider value={contextValue}>
       {children}
     </TransitionContext.Provider>
   );

@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV === "development") {
+  require("../scripts/wdyr");
+}
+
 import Head from "next/head";
 import "@/styles/globals.css";
 import "@/styles/design-system.css";

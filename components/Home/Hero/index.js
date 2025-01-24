@@ -33,3 +33,5 @@ const Hero = ({}) => {
 };
 
 export default Hero;
+
+Hero.whyDidYouRender = true;

@@ -159,3 +159,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
+Footer.whyDidYouRender = true;

@@ -19,3 +19,5 @@ const SelectedClients = () => {
 };
 
 export default SelectedClients;
+
+SelectedClients.whyDidYouRender = true;

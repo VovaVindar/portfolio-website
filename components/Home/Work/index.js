@@ -76,7 +76,7 @@ const Work = () => {
 
       resetInterval();
     },
-    [resetInterval, updateCarouselState]
+    [resetInterval]
   );
 
   // Check for in-view class
@@ -209,6 +209,8 @@ const Work = () => {
 };
 
 export default Work;
+
+Work.whyDidYouRender = true;
 
 const ClickAreas = ({
   currentIndex,

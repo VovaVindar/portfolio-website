@@ -5,6 +5,10 @@ const withPWA = require("next-pwa")({
   disable: process.env.NODE_ENV === "development",
 });
 
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
@@ -22,4 +26,5 @@ const nextConfig = {
   },
 };
 
-module.exports = withPWA(nextConfig);
+// Chain the configurations
+module.exports = withBundleAnalyzer(withPWA(nextConfig));
