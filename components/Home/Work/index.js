@@ -69,15 +69,15 @@ const Work = () => {
         return prev === 0 ? work.length - 1 : prev - 1;
       });
 
+      updateCarouselState({ isHovered: true });
+
       /*if (!stateRef.current.isInteracted) {
         updateCarouselState({ isInteracted: true });
       }*/
 
       resetInterval();
     },
-    [
-      resetInterval, //updateCarouselState
-    ]
+    [resetInterval, updateCarouselState]
   );
 
   // Check for in-view class
@@ -143,7 +143,7 @@ const Work = () => {
       <div
         className={`${styles["work"]} mf-exclusion`}
         ref={sectionRef}
-        onMouseEnter={() => updateCarouselState({ isHovered: true })}
+        //onMouseEnter={() => updateCarouselState({ isHovered: true })}
         onMouseLeave={() =>
           updateCarouselState({
             isHovered: false,
