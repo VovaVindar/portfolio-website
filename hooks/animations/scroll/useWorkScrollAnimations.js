@@ -71,7 +71,7 @@ export const useWorkScrollAnimations = () => {
       text: [],
     };
 
-    imgRef?.current?.classList.remove(styles["in-view"]);
+    //imgRef?.current?.classList.remove(styles["in-view"]);
 
     // Set initial state for all text elements
     textRefs.current.forEach((ref) => {

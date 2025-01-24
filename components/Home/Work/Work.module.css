@@ -62,15 +62,18 @@
   left: 0;
   top: 0;
   pointer-events: none;
+  transition: opacity 1s var(--easing-img-fade-in); /* power2.out */
 }
 .work .project-image.in-view::after {
-  transition: opacity 4s var(--easing-img-fade-in); /* power2.out */
+  transition: opacity 3s var(--easing-img-fade-in); /* power2.out */
   opacity: 0;
 }
-.work .project-image img {
+.work .project-image img,
+.work .project-image video {
   width: 100%;
   height: 100%;
   transform: scale(1.005);
+  transition: transform 1s var(--easing-img-fade-in); /* power2.out */
 }
 .work .project-image.in-view img {
   transform: scale(1.04);

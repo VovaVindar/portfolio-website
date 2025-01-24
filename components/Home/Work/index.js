@@ -14,52 +14,23 @@ const Work = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [arrowUpdate, setArrowUpdate] = useState(0);
 
-  // Combine related states into a single object to reduce re-renders
-  const [carouselState, setCarouselState] = useState({
-    isHovered: false,
-    //isInteracted: false,
-    isInView: false,
-  });
-
+  // Use refs for both hover and inView states
+  const hoverRef = useRef(false);
+  const isInViewRef = useRef(false);
   const intervalRef = useRef(null);
-
-  // Use ref for state access in intervals/timeouts
-  const stateRef = useRef(carouselState);
-  stateRef.current = carouselState;
-
-  const updateCarouselState = useCallback((updates) => {
-    // If update includes hover state, only apply on devices with hover
-    if (
-      "isHovered" in updates &&
-      !window.matchMedia("(hover: hover)").matches
-    ) {
-      return;
-    }
-
-    setCarouselState((prev) => ({
-      ...prev,
-      ...updates,
-    }));
-  }, []);
 
   const resetInterval = useCallback(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
 
-    const {
-      isHovered,
-      isInView, //isInteracted
-    } = stateRef.current;
-
-    //if (isInView && (!isInteracted || (!isHovered && isInteracted))) {
-    if (isInView && !isHovered) {
+    if (isInViewRef.current && !hoverRef.current) {
       intervalRef.current = setInterval(() => {
         setArrowUpdate((prev) => prev + 1);
         setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
       }, AUTOPLAY_DELAY);
     }
-  }, []);
+  }, [isInViewRef.current]);
 
   const handleNavigation = useCallback(
     (direction) => {
@@ -69,10 +40,6 @@ const Work = () => {
         }
         return prev === 0 ? work.length - 1 : prev - 1;
       });
-
-      /*if (!stateRef.current.isInteracted) {
-        updateCarouselState({ isInteracted: true });
-      }*/
 
       resetInterval();
     },
@@ -85,8 +52,9 @@ const Work = () => {
       const imgContainer = imgRef.current;
       const isNowInView = imgContainer?.classList.contains(styles["in-view"]);
 
-      if (isNowInView !== stateRef.current.isInView) {
-        updateCarouselState({ isInView: isNowInView });
+      if (isNowInView !== isInViewRef.current) {
+        isInViewRef.current = isNowInView;
+        resetInterval();
       }
     };
 
@@ -101,26 +69,19 @@ const Work = () => {
     }
 
     return () => observer.disconnect();
-  }, [imgRef, updateCarouselState]);
+  }, [imgRef, resetInterval]);
 
   // Autoplay effect
   useEffect(() => {
     resetInterval();
     return () => clearInterval(intervalRef.current);
-  }, [
-    carouselState.isHovered,
-    carouselState.isInView,
-    resetInterval,
-    //carouselState.isInteracted,
-  ]);
+  }, [resetInterval]);
 
   // Keyboard navigation effect
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (carouselState.isInView) {
-        //if (carouselState.isInteracted) {
+      if (isInViewRef.current) {
         setArrowUpdate((prev) => prev + 1);
-        //}
 
         if (e.key === "ArrowLeft") handleNavigation("prev");
         if (e.key === "ArrowRight") handleNavigation("next");
@@ -129,37 +90,29 @@ const Work = () => {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [
-    handleNavigation,
-    carouselState.isInView,
-    //carouselState.isInteracted
-  ]);
+  }, [handleNavigation]);
 
-  // Memoize the current work object since it's used in multiple places
+  // Memoize the current work object
   const currentWork = useMemo(() => work[currentIndex], [currentIndex]);
 
-  // Memoize hover handlers
+  // Simplified hover handlers using ref
   const handleMouseEnter = useCallback(() => {
-    updateCarouselState({ isHovered: true });
-  }, [updateCarouselState]);
+    if (window.matchMedia("(hover: hover)").matches) {
+      hoverRef.current = true;
+      resetInterval();
+    }
+  }, [resetInterval]);
 
   const handleMouseLeave = useCallback(() => {
-    updateCarouselState({ isHovered: false });
-  }, [updateCarouselState]);
+    if (window.matchMedia("(hover: hover)").matches) {
+      hoverRef.current = false;
+      resetInterval();
+    }
+  }, [resetInterval]);
 
   return (
     <div className={styles["work-container"]}>
-      <div
-        className={`${styles["work"]} mf-exclusion`}
-        ref={sectionRef}
-        /*onMouseEnter={() => updateCarouselState({ isHovered: true })}
-        onMouseLeave={() =>
-          updateCarouselState({
-            isHovered: false,
-            //isInteracted: false,
-          })
-        }*/
-      >
+      <div className={`${styles["work"]} mf-exclusion`} ref={sectionRef}>
         <div ref={addToTextRefs} className={styles["project-details"]}>
           <div>
             <span className="text-header-3">Client:</span>
