@@ -1,56 +1,97 @@
+import styles from "@/components/Home/Work/Work.module.css";
+
 export const work = [
   {
-    id: 1,
+    title: "Paradigm",
+    year: "2024",
+    media: {
+      type: "video",
+      url: "/images/optimized/1260/paradigm_cube.webm",
+      mimeType: "video/webm; codecs=vp9",
+      className: `${styles["paradigm"]}`,
+    },
+  },
+  {
+    title: "Dolce & Gabbana",
+    year: "2023",
+    media: {
+      type: "video",
+      url: "/images/optimized/1260/dg_animation.webm",
+      mimeType: "video/webm; codecs=vp9",
+    },
+  },
+  {
+    title: "Aya Muse",
+    year: "2025",
+    media: {
+      type: "image",
+      url: "/images/optimized/1260/am_1.avif",
+      mimeType: "video/webm; codecs=vp9",
+    },
+  },
+  {
+    title: "Endex",
+    year: "2024",
+    media: {
+      type: "video",
+      url: "/images/optimized/1260/endex_light.webm",
+      mimeType: "video/webm; codecs=vp9",
+    },
+  },
+  {
     title: "Rove Miles",
     year: "2023",
     media: {
       type: "image",
-      url: "/images/rove/card/card_render_1.png",
+      url: "/images/optimized/1260/card_render_1.avif",
+      mimeType: "video/webm; codecs=vp9",
     },
   },
   {
-    id: 2,
     title: "Align Fund",
     year: "2024",
     media: {
       type: "video",
-      url: "/images/align/align_2.mp4",
+      url: "/images/optimized/1260/align_2.webm",
+      mimeType: "video/webm; codecs=vp9",
+      className: `${styles["align"]}`,
     },
   },
   {
-    id: 3,
     title: "Cognition",
     year: "2024",
     media: {
       type: "image",
-      url: "/images/cognition/cognition_white.png",
+      url: "/images/optimized/1260/cognition_grey.avif",
+      mimeType: "video/webm; codecs=vp9",
     },
   },
   {
-    id: 4,
-    title: "Rove Miles",
+    title: "Twitch",
     year: "2023",
     media: {
-      type: "image",
-      url: "/images/rove/card/card_render_1.png",
-    },
-  },
-  {
-    id: 5,
-    title: "Align Fund",
-    year: "2024",
-    media: {
       type: "video",
-      url: "/images/align/align_2.mp4",
+      url: "/images/optimized/1260/twitch_clips.webm",
+      mimeType: "video/webm; codecs=vp9",
     },
   },
   {
-    id: 6,
-    title: "Cognition",
-    year: "2024",
+    title: "Jon-Paul Wheatley",
+    year: "2022",
     media: {
       type: "image",
-      url: "/images/cognition/cognition_white.png",
+      url: "/images/optimized/1260/jonpaulsballs.avif",
+      mimeType: "video/webm; codecs=vp9",
+      className: `${styles["jpw"]}`,
+    },
+  },
+  {
+    title: "Blackster",
+    year: "2021",
+    media: {
+      type: "image",
+      url: "/images/optimized/1260/blackster_re.avif",
+      mimeType: "video/webm; codecs=vp9",
     },
   },
 ];

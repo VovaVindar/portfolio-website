@@ -1,8 +1,13 @@
 import { useSlideshowAnimations } from "@/hooks/animations/interaction/useSlideshowAnimations";
+import { useResponsiveMedia } from "@/hooks/utils/useResponsiveMedia";
 import Magnetic from "@/components/Global/Magnetic";
 
 const MediaContent = ({ content, title }) => {
-  const { containerRef, displayContent } = useSlideshowAnimations(content);
+  const responsiveUrl = useResponsiveMedia(content.url);
+  const { containerRef, displayContent } = useSlideshowAnimations({
+    ...content,
+    url: responsiveUrl,
+  });
 
   if (!displayContent) return null;
 
@@ -14,25 +19,27 @@ const MediaContent = ({ content, title }) => {
       <Magnetic type="image" scale={1.016} movement={0.035}>
         {displayContent.type === "video" ? (
           <video
-            key={displayContent.url}
-            autoPlay={true}
-            loop={true}
-            muted={true}
+            key={responsiveUrl}
+            autoPlay
+            loop
+            muted
             playsInline
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
+            className={displayContent.className}
           >
             <source
-              src={displayContent.url}
-              type={displayContent.mimeType || "video/mp4"}
+              src={responsiveUrl}
+              type={displayContent.mimeType || "video/webm; codecs=vp9"}
             />
             Your browser does not support the video tag.
           </video>
         ) : (
           <img
-            src={displayContent.url}
+            src={responsiveUrl}
             alt={title}
-            fill
+            fill="true"
             style={{ objectFit: "cover" }}
+            className={displayContent.className}
           />
         )}
       </Magnetic>

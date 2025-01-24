@@ -39,8 +39,6 @@ const Work = () => {
         intervalRef.current = setInterval(() => {
           setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
           setArrowUpdate((prevCount) => prevCount + 1);
-
-          console.log(stateRef.current.isHovered);
         }, AUTOPLAY_DELAY);
       }
     }

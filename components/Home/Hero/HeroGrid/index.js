@@ -2,6 +2,44 @@ import styles from "../Hero.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import { GRID_LAYOUT_DESKTOP, GRID_LAYOUT_MOBILE } from "@/constants/hero-grid";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useResponsiveMedia } from "@/hooks/utils/useResponsiveMedia";
+
+const MediaRenderer = ({
+  media,
+  currentIndex,
+  handleMediaRef,
+  commonProps,
+}) => {
+  const responsiveUrl = useResponsiveMedia(media.src);
+
+  if (media.type === "video") {
+    return (
+      <div
+        ref={handleMediaRef}
+        className={`${styles["cell-video"]} ${media.className}`}
+        {...commonProps}
+      >
+        <video key={responsiveUrl} autoPlay loop muted playsInline>
+          <source src={responsiveUrl} type="video/webm; codecs=vp9" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={responsiveUrl}
+      alt={`${media.alt} (Index: ${currentIndex})`}
+      fill="true"
+      className={`${styles["cell-image"]} ${media.className}`}
+      priority="true"
+      ref={handleMediaRef}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      {...commonProps}
+    />
+  );
+};
 
 const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
   const { width } = useWindowDimensions();
@@ -21,60 +59,18 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
     cellOnload.current[index] = el;
   };
 
-  // Function to check if a cell has media content
   const getCellMedia = (row, col) => {
     return gridLayout.media.find(
       (item) => item.row === row && item.col === col
     );
   };
 
-  // Hover text logic
   const handleMouseEnter = (media) => {
     onHover(media.industry);
   };
 
   const handleMouseLeave = () => {
     onHover("");
-  };
-
-  // Render media based on type
-  const renderMedia = (media, currentIndex) => {
-    const commonProps = {
-      style: {
-        "--media-brightness": media.brightness,
-        "--media-blur": `${media.blur}px`,
-        "--media-scale": `${media.scale}`,
-        ...media.styles,
-      },
-    };
-
-    if (media.type === "video") {
-      return (
-        <video
-          src={media.src}
-          autoPlay
-          loop
-          muted
-          playsInline
-          ref={handleMediaRef}
-          className={`${styles["cell-video"]} ${media.className}`}
-          {...commonProps}
-        />
-      );
-    }
-
-    return (
-      <img
-        src={media.src}
-        alt={`${media.alt} (Index: ${currentIndex})`}
-        fill
-        className={`${styles["cell-image"]} ${media.className}`}
-        priority={true}
-        ref={handleMediaRef}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        {...commonProps}
-      />
-    );
   };
 
   return (
@@ -99,7 +95,19 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
                   onMouseLeave={handleMouseLeave}
                   className={"mf-exclusion"}
                 >
-                  {renderMedia(media, currentIndex)}
+                  <MediaRenderer
+                    media={media}
+                    currentIndex={currentIndex}
+                    handleMediaRef={handleMediaRef}
+                    commonProps={{
+                      style: {
+                        "--media-brightness": media.brightness,
+                        "--media-blur": `${media.blur}px`,
+                        "--media-scale": `${media.scale}`,
+                        ...media.styles,
+                      },
+                    }}
+                  />
                 </Magnetic>
               )}
             </div>

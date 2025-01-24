@@ -1,13 +1,17 @@
+// Script to scan and catalog media files in the Next.js public directory
+// Use:
+// node scripts/scanImages.js
+
 const fs = require("fs");
 const path = require("path");
 
-// Next.js public directory
-const mediaDir = path.join(process.cwd(), "public", "selected");
+// Base directory for optimized media assets in Next.js public folder
+const mediaDir = path.join(process.cwd(), "public", "images", "optimized");
 const outputFilePath = path.join(process.cwd(), "constants", "media.js");
 
-// Supported file extensions
+// Supported media file extensions for scanning
 const extensions = {
-  images: [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"],
+  images: [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".avif"],
   videos: [".mp4", ".webm", ".ogg", ".mov"],
 };
 

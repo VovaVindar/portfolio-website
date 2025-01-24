@@ -5,18 +5,18 @@ export default function Document() {
     <Html lang="en">
       <Head>
         {/* Favicons */}
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
         <link
           rel="icon"
           type="image/png"
-          href="/favicon-96x96.png"
+          href="/favicon/favicon-96x96.png"
           sizes="96x96"
         />
         <link rel="shortcut icon" href="/favicon.ico" sizes="48x48" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/apple-touch-icon.png"
+          href="/favicon/apple-touch-icon.png"
         />
 
         {/* PWA */}

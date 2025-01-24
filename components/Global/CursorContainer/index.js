@@ -42,7 +42,7 @@ const CursorContainer = ({ className = "" }) => {
     Object.entries(FAVICON_CONFIG).forEach(([ext, config]) => {
       const link = document.createElement("link");
       const path =
-        ext === "ico"
+        ext === "ico" && baseName === "favicon"
           ? `/${baseName}.${ext}` // ico files are in /public root
           : `/favicon/${baseName}${ext === "png" ? "-96x96" : ""}.${ext}`; // other files in /public/favicon
 
