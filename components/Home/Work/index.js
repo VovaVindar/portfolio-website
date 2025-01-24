@@ -51,7 +51,7 @@ const Work = () => {
     }
 
     resetInterval();
-  }, [resetInterval]);
+  }, [resetInterval, isInteracted]);
 
   const handlePrevious = useCallback(() => {
     setCurrentIndex((prev) => (prev === 0 ? work.length - 1 : prev - 1));
@@ -60,7 +60,7 @@ const Work = () => {
     }
 
     resetInterval();
-  }, [resetInterval]);
+  }, [resetInterval, isInteracted]);
 
   // Check for in-view class
   useEffect(() => {
