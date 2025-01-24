@@ -7,7 +7,7 @@ import MediaContent from "@/components/Home/Work/MediaContent";
 import Link from "next/link";
 import Magnetic from "@/components/Global/Magnetic";
 
-const AUTOPLAY_DELAY = 5000;
+const AUTOPLAY_DELAY = 5500;
 
 const Work = () => {
   const { imgRef, addToTextRefs, sectionRef } = useWorkScrollAnimations();

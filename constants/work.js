@@ -1,12 +1,20 @@
 import styles from "@/components/Home/Work/Work.module.css";
 
+const getResponsivePaths = (filename) => {
+  const basePath = "/images/optimized";
+  return {
+    desktop: `${basePath}/1260/${filename}`,
+    largeDesktop: `${basePath}/1880/${filename}`,
+  };
+};
+
 export const work = [
   {
     title: "Paradigm",
     year: "2024",
     media: {
       type: "video",
-      url: "/images/optimized/1260/paradigm_cube.webm",
+      url: getResponsivePaths("paradigm_cube.webm"),
       mimeType: "video/webm; codecs=vp9",
       className: `${styles["paradigm"]}`,
     },
@@ -16,7 +24,7 @@ export const work = [
     year: "2023",
     media: {
       type: "video",
-      url: "/images/optimized/1260/dg_animation.webm",
+      url: getResponsivePaths("dg_animation.webm"),
       mimeType: "video/webm; codecs=vp9",
     },
   },
@@ -25,7 +33,7 @@ export const work = [
     year: "2025",
     media: {
       type: "image",
-      url: "/images/optimized/1260/am_1.avif",
+      url: getResponsivePaths("am_1.avif"),
       mimeType: "video/webm; codecs=vp9",
     },
   },
@@ -34,7 +42,7 @@ export const work = [
     year: "2024",
     media: {
       type: "video",
-      url: "/images/optimized/1260/endex_light.webm",
+      url: getResponsivePaths("endex_light.webm"),
       mimeType: "video/webm; codecs=vp9",
     },
   },
@@ -43,7 +51,7 @@ export const work = [
     year: "2023",
     media: {
       type: "image",
-      url: "/images/optimized/1260/card_render_1.avif",
+      url: getResponsivePaths("card_render_1.avif"),
       mimeType: "video/webm; codecs=vp9",
     },
   },
@@ -52,7 +60,7 @@ export const work = [
     year: "2024",
     media: {
       type: "video",
-      url: "/images/optimized/1260/align_2.webm",
+      url: getResponsivePaths("align_2.webm"),
       mimeType: "video/webm; codecs=vp9",
       className: `${styles["align"]}`,
     },
@@ -62,7 +70,7 @@ export const work = [
     year: "2024",
     media: {
       type: "image",
-      url: "/images/optimized/1260/cognition_grey.avif",
+      url: getResponsivePaths("cognition_grey.avif"),
       mimeType: "video/webm; codecs=vp9",
     },
   },
@@ -71,7 +79,7 @@ export const work = [
     year: "2023",
     media: {
       type: "video",
-      url: "/images/optimized/1260/twitch_clips.webm",
+      url: getResponsivePaths("twitch_clips.webm"),
       mimeType: "video/webm; codecs=vp9",
     },
   },
@@ -80,7 +88,7 @@ export const work = [
     year: "2022",
     media: {
       type: "image",
-      url: "/images/optimized/1260/jonpaulsballs.avif",
+      url: getResponsivePaths("jonpaulsballs.avif"),
       mimeType: "video/webm; codecs=vp9",
       className: `${styles["jpw"]}`,
     },
@@ -90,7 +98,7 @@ export const work = [
     year: "2021",
     media: {
       type: "image",
-      url: "/images/optimized/1260/blackster_re.avif",
+      url: getResponsivePaths("blackster_re.avif"),
       mimeType: "video/webm; codecs=vp9",
     },
   },

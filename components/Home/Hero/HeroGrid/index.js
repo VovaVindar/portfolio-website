@@ -2,15 +2,26 @@ import styles from "../Hero.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import { GRID_LAYOUT_DESKTOP, GRID_LAYOUT_MOBILE } from "@/constants/hero-grid";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
-import { useResponsiveMedia } from "@/hooks/utils/useResponsiveMedia";
 
-const MediaRenderer = ({
-  media,
-  currentIndex,
-  handleMediaRef,
-  commonProps,
-}) => {
-  const responsiveUrl = useResponsiveMedia(media.src);
+const MediaRenderer = ({ media, currentIndex, handleMediaRef }) => {
+  const { width } = useWindowDimensions();
+
+  const getResponsiveUrl = (urls) => {
+    if (width < 420) return urls.mobile; // 300px
+    if (width < 1520) return urls.desktop; // 400px
+    return urls.largeDesktop; // 650px
+  };
+
+  const responsiveUrl = getResponsiveUrl(media.src);
+
+  const commonProps = {
+    style: {
+      "--media-brightness": media.brightness,
+      "--media-blur": `${media.blur}px`,
+      "--media-scale": `${media.scale}`,
+      ...media.styles,
+    },
+  };
 
   if (media.type === "video") {
     return (
@@ -99,14 +110,6 @@ const HeroGrid = ({ imgOnload, cellOnload, onHover }) => {
                     media={media}
                     currentIndex={currentIndex}
                     handleMediaRef={handleMediaRef}
-                    commonProps={{
-                      style: {
-                        "--media-brightness": media.brightness,
-                        "--media-blur": `${media.blur}px`,
-                        "--media-scale": `${media.scale}`,
-                        ...media.styles,
-                      },
-                    }}
                   />
                 </Magnetic>
               )}

@@ -106,11 +106,13 @@
   .work .project-details > div,
   .work .project-link {
     opacity: 0;
-    transition: opacity 1.05s ease-in-out;
+    filter: blur(2px);
+    transition: opacity 1.05s ease-in-out, filter 1.05s ease-in-out;
   }
   .work:hover .project-details > div,
   .work:hover .project-link {
     opacity: 1;
+    filter: blur(0px);
   }
 }
 .work .project-details > div:nth-of-type(1) {
@@ -208,5 +210,6 @@
   .work .project-details > div,
   .work .project-link {
     opacity: 1;
+    filter: blur(0px);
   }
 }
