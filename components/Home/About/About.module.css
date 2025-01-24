@@ -71,3 +71,8 @@
     display: block;
   }
 }
+@media all and (max-width: 403px) {
+  .about-container .text-container p {
+    text-wrap: pretty;
+  }
+}

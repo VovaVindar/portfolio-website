@@ -201,12 +201,12 @@
 
   .work .project-link {
     position: relative;
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    padding-bottom: 0.1rlh;
-    padding-top: 1.72rlh;
+    margin-left: auto;
+    margin-top: 1.62rlh;
     bottom: 0;
+  }
+  .work .project-link a {
+    padding: 0.7rlh 0.54rlh;
   }
 
   .work .project-details > div,
