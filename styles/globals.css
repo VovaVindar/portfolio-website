@@ -34,29 +34,37 @@ body:has(.scroll-block) {
 } /* just an extra safety. Actual scroll blocking is inside SmoothScrolling component */
 
 /* Hidden Scrollbar */
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+  overflow: -moz-scrollbars-none;
+}
 ::-webkit-scrollbar {
   height: 0rem;
   width: 0px;
+  display: none;
+  background: transparent;
+  -webkit-appearance: none;
 }
 ::-webkit-scrollbar:horizontal {
   height: 0px;
   width: 0rem;
+  background: transparent;
 }
+/* Handle: */
 ::-webkit-scrollbar-thumb {
   background: transparent;
   border-color: transparent;
   border-radius: 0px;
 }
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+/* Track: */
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  background: transparent;
   border: none;
   border-radius: 0px;
-}
-.scrollbar-hidden::-webkit-scrollbar-thumb {
-  visibility: hidden;
-}
-.scrollbar-hidden:hover::-webkit-scrollbar-thumb {
-  visibility: hidden;
 }
 ::-webkit-scrollbar-corner {
   display: none;
