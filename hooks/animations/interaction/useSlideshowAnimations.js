@@ -33,7 +33,7 @@ export const useSlideshowAnimations = (content) => {
           ease: SLIDESHOW.ENTER.EASING,
         });
     }
-  }, [content, displayContent]);
+  }, [content?.url, displayContent?.url]); // Only depend on urls
 
   return { containerRef, displayContent };
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, memo, useMemo } from "react";
 import styles from "./Work.module.css";
 import { useWorkScrollAnimations } from "@/hooks/animations/scroll/useWorkScrollAnimations";
 import { work } from "@/constants/work";
@@ -135,7 +135,17 @@ const Work = () => {
     //carouselState.isInteracted
   ]);
 
-  const currentWork = work[currentIndex];
+  // Memoize the current work object since it's used in multiple places
+  const currentWork = useMemo(() => work[currentIndex], [currentIndex]);
+
+  // Memoize hover handlers
+  const handleMouseEnter = useCallback(() => {
+    updateCarouselState({ isHovered: true });
+  }, [updateCarouselState]);
+
+  const handleMouseLeave = useCallback(() => {
+    updateCarouselState({ isHovered: false });
+  }, [updateCarouselState]);
 
   return (
     <div className={styles["work-container"]}>
@@ -172,8 +182,8 @@ const Work = () => {
             className={styles["project-image"]}
             data-cursor-text="Open Project"
             ref={imgRef}
-            onMouseEnter={() => updateCarouselState({ isHovered: true })}
-            onMouseLeave={() => updateCarouselState({ isHovered: false })}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             <MediaContent
               content={currentWork.media}
@@ -212,16 +222,19 @@ export default Work;
 
 Work.whyDidYouRender = true;
 
-const ClickAreas = ({
+const ClickAreas = memo(function ClickAreas({
   currentIndex,
   onPrevious,
   onNext,
   totalLength,
   arrowUpdate,
-}) => {
-  const getLoopedIndex = (index) => {
-    return (((index % totalLength) + totalLength) % totalLength) + 1;
-  };
+}) {
+  const getLoopedIndex = useCallback(
+    (index) => {
+      return (((index % totalLength) + totalLength) % totalLength) + 1;
+    },
+    [totalLength]
+  );
 
   return (
     <div className={styles["clicks"]}>
@@ -243,4 +256,6 @@ const ClickAreas = ({
       />
     </div>
   );
-};
+});
+
+ClickAreas.displayName = "ClickAreas";

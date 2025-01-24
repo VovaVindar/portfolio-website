@@ -1,27 +1,43 @@
 import { useSlideshowAnimations } from "@/hooks/animations/interaction/useSlideshowAnimations";
 import Magnetic from "@/components/Global/Magnetic";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useCallback, memo, useMemo } from "react";
 
-const MediaContent = ({ content, title }) => {
+const MediaContent = memo(function MediaContent({ content, title }) {
   const { width } = useWindowDimensions();
 
   // Get appropriate URL based on screen width
-  const getResponsiveUrl = (urls) => {
-    if (width < 1520) return urls.desktop; // 1260px
-    return urls.largeDesktop; // 1880px
-  };
-  const responsiveUrl = getResponsiveUrl(content.url);
+  const getResponsiveUrl = useCallback(
+    (urls) => {
+      if (width < 1520) return urls.desktop; // 1260px
+      return urls.largeDesktop; // 1880px
+    },
+    [width]
+  );
 
-  const getImageDimensions = () => {
+  const getImageDimensions = useCallback(() => {
     if (width < 1520) return { width: 630, height: 630 };
     return { width: 936, height: 936 };
-  };
-  const dimensions = getImageDimensions();
+  }, [width]);
 
-  const { containerRef, displayContent } = useSlideshowAnimations({
-    ...content,
-    url: responsiveUrl,
-  });
+  const responsiveUrl = useMemo(
+    () => getResponsiveUrl(content.url),
+    [content.url, getResponsiveUrl]
+  );
+
+  const dimensions = useMemo(() => getImageDimensions(), [getImageDimensions]);
+
+  // Memoize the content object
+  const slideShowContent = useMemo(
+    () => ({
+      ...content,
+      url: responsiveUrl,
+    }),
+    [content, responsiveUrl]
+  );
+
+  const { containerRef, displayContent } =
+    useSlideshowAnimations(slideShowContent);
 
   if (!displayContent) return null;
 
@@ -60,8 +76,9 @@ const MediaContent = ({ content, title }) => {
       </Magnetic>
     </div>
   );
-};
+});
 
+MediaContent.displayName = "MediaContent";
 export default MediaContent;
 
 MediaContent.whyDidYouRender = true;

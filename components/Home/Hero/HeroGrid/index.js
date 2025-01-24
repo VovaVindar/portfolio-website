@@ -2,24 +2,32 @@ import styles from "../Hero.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import { GRID_LAYOUT_DESKTOP, GRID_LAYOUT_MOBILE } from "@/constants/hero-grid";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
-import { memo } from "react";
+import { memo, useCallback, useMemo } from "react";
 
 const MediaRenderer = memo(({ media, currentIndex, handleMediaRef }) => {
   const { width } = useWindowDimensions();
 
-  const getResponsiveUrl = (urls) => {
-    if (width < 420) return urls.mobile; // 300px
-    if (width < 1520) return urls.desktop; // 400px
-    return urls.largeDesktop; // 650px
-  };
-  const responsiveUrl = getResponsiveUrl(media.src);
+  const getResponsiveUrl = useCallback(
+    (urls) => {
+      if (width < 420) return urls.mobile;
+      if (width < 1520) return urls.desktop;
+      return urls.largeDesktop;
+    },
+    [width]
+  );
 
-  const getImageDimensions = () => {
+  const getImageDimensions = useCallback(() => {
     if (width < 420) return { width: 105, height: 105 };
     if (width < 1520) return { width: 147, height: 144 };
     return { width: 249, height: 243 };
-  };
-  const dimensions = getImageDimensions();
+  }, [width]);
+
+  const responsiveUrl = useMemo(
+    () => getResponsiveUrl(media.src),
+    [media.src, getResponsiveUrl]
+  );
+
+  const dimensions = useMemo(() => getImageDimensions(), [getImageDimensions]);
 
   const commonProps = {
     style: {
@@ -96,13 +104,16 @@ const HeroGrid = memo(({ imgOnload, cellOnload, onHover }) => {
     );
   };
 
-  const handleMouseEnter = (media) => {
-    onHover(media.industry);
-  };
+  const handleMouseEnter = useCallback(
+    (media) => {
+      onHover(media.industry);
+    },
+    [onHover]
+  );
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     onHover("");
-  };
+  }, [onHover]);
 
   return (
     <div className={`${styles["grid"]}`}>
@@ -142,4 +153,4 @@ const HeroGrid = memo(({ imgOnload, cellOnload, onHover }) => {
 });
 
 HeroGrid.displayName = "HeroGrid";
-export default memo(HeroGrid);
+export default HeroGrid;

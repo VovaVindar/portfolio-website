@@ -3,6 +3,27 @@ const withPWA = require("next-pwa")({
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === "development",
+  runtimeCaching: [
+    {
+      // Cache media files from optimized folder
+      urlPattern:
+        /\/images\/optimized\/.*\.(jpg|jpeg|png|gif|webp|avif|webm|mp4)$/i,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "media-assets",
+        expiration: {
+          maxEntries: 100, // Adjust based on your total media files
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+        },
+        matchOptions: {
+          ignoreVary: true, // Ignore variations in headers
+        },
+        cacheableResponse: {
+          statuses: [0, 200], // Cache successful responses and opaque responses
+        },
+      },
+    },
+  ],
 });
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
