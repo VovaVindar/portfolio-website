@@ -70,7 +70,10 @@ export default function Document() {
         />
 
         {/* Pinterest verification */}
-        {/*<meta name="p:domain_verify" content="117d8171a44b094216c651a045b56130"/> */}
+        <meta
+          name="p:domain_verify"
+          content="117d8171a44b094216c651a045b56130"
+        />
 
         {/* Structured Data */}
         <script type="application/ld+json">

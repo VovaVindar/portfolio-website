@@ -13,16 +13,26 @@ const Work = () => {
   const { imgRef, addToTextRefs, sectionRef } = useWorkScrollAnimations();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [arrowUpdate, setArrowUpdate] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isInteracted, setIsInteracted] = useState(false);
-  const intervalRef = useRef(null);
-  const [isInView, setIsInView] = useState(false);
 
-  // Stable reference for current state values
-  const stateRef = useRef({ isHovered, isInView, isInteracted });
-  useEffect(() => {
-    stateRef.current = { isHovered, isInView, isInteracted };
-  }, [isHovered, isInView, isInteracted]);
+  // Combine related states into a single object to reduce re-renders
+  const [carouselState, setCarouselState] = useState({
+    isHovered: false,
+    isInteracted: false,
+    isInView: false,
+  });
+
+  const intervalRef = useRef(null);
+
+  // Use ref for state access in intervals/timeouts
+  const stateRef = useRef(carouselState);
+  stateRef.current = carouselState;
+
+  const updateCarouselState = useCallback((updates) => {
+    setCarouselState((prev) => ({
+      ...prev,
+      ...updates,
+    }));
+  }, []);
 
   const resetInterval = useCallback(() => {
     if (intervalRef.current) {
@@ -31,51 +41,45 @@ const Work = () => {
 
     const { isHovered, isInView, isInteracted } = stateRef.current;
 
-    if (isInView) {
-      // Only start interval if:
-      // 1. User hasn't interacted yet (autoplay) OR
-      // 2. User has interacted AND is not hovering (resume autoplay)
-      if (!isInteracted || (!isHovered && isInteracted)) {
-        intervalRef.current = setInterval(() => {
-          setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
-          setArrowUpdate((prevCount) => prevCount + 1);
-        }, AUTOPLAY_DELAY);
-      }
+    if (isInView && (!isInteracted || (!isHovered && isInteracted))) {
+      intervalRef.current = setInterval(() => {
+        setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
+        setArrowUpdate((prev) => prev + 1);
+      }, AUTOPLAY_DELAY);
     }
   }, []);
 
-  const handleNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
-    if (!isInteracted) {
-      setIsInteracted(true);
-    }
+  const handleNavigation = useCallback(
+    (direction) => {
+      setCurrentIndex((prev) => {
+        if (direction === "next") {
+          return prev === work.length - 1 ? 0 : prev + 1;
+        }
+        return prev === 0 ? work.length - 1 : prev - 1;
+      });
 
-    resetInterval();
-  }, [resetInterval, isInteracted]);
+      if (!stateRef.current.isInteracted) {
+        updateCarouselState({ isInteracted: true });
+      }
 
-  const handlePrevious = useCallback(() => {
-    setCurrentIndex((prev) => (prev === 0 ? work.length - 1 : prev - 1));
-    if (!isInteracted) {
-      setIsInteracted(true);
-    }
-
-    resetInterval();
-  }, [resetInterval, isInteracted]);
+      resetInterval();
+    },
+    [resetInterval, updateCarouselState]
+  );
 
   // Check for in-view class
   useEffect(() => {
     const checkInView = () => {
       const imgContainer = imgRef.current;
       const isNowInView = imgContainer?.classList.contains(styles["in-view"]);
+
       if (isNowInView !== stateRef.current.isInView) {
-        setIsInView(isNowInView);
+        updateCarouselState({ isInView: isNowInView });
       }
     };
 
-    // Initial check
     checkInView();
 
-    // Set up mutation observer to watch for class changes
     const observer = new MutationObserver(checkInView);
     if (imgRef.current) {
       observer.observe(imgRef.current, {
@@ -85,28 +89,32 @@ const Work = () => {
     }
 
     return () => observer.disconnect();
-  }, [imgRef]);
+  }, [imgRef, updateCarouselState]);
 
   // Autoplay effect
   useEffect(() => {
     resetInterval();
     return () => clearInterval(intervalRef.current);
-  }, [isHovered, isInView, resetInterval, isInteracted]);
+  }, [
+    carouselState.isHovered,
+    carouselState.isInView,
+    resetInterval,
+    carouselState.isInteracted,
+  ]);
 
   // Keyboard navigation effect
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (isInView) {
-        if (e.key === "ArrowLeft") handlePrevious();
-        if (e.key === "ArrowRight") handleNext();
-
-        setArrowUpdate((prevCount) => prevCount + 1);
+      if (carouselState.isInView) {
+        if (e.key === "ArrowLeft") handleNavigation("prev");
+        if (e.key === "ArrowRight") handleNavigation("next");
+        setArrowUpdate((prev) => prev + 1);
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [handleNext, handlePrevious, isInView]);
+  }, [handleNavigation, carouselState.isInView]);
 
   const currentWork = work[currentIndex];
 
@@ -115,11 +123,13 @@ const Work = () => {
       <div
         className={`${styles["work"]} mf-exclusion`}
         ref={sectionRef}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => {
-          setIsHovered(false);
-          setIsInteracted(false);
-        }}
+        onMouseEnter={() => updateCarouselState({ isHovered: true })}
+        onMouseLeave={() =>
+          updateCarouselState({
+            isHovered: false,
+            isInteracted: false,
+          })
+        }
       >
         <div ref={addToTextRefs} className={styles["project-details"]}>
           <div>
@@ -154,7 +164,7 @@ const Work = () => {
         <div className={styles["project-link"]}>
           <Link
             href="https://dribbble.com/VovaVindar"
-            className={`text-body-3`}
+            className="text-body-3"
             target="_blank"
             ref={addToTextRefs}
           >
@@ -164,8 +174,8 @@ const Work = () => {
 
         <ClickAreas
           currentIndex={currentIndex}
-          onPrevious={handlePrevious}
-          onNext={handleNext}
+          onPrevious={() => handleNavigation("prev")}
+          onNext={() => handleNavigation("next")}
           totalLength={work.length}
           arrowUpdate={arrowUpdate}
         />
