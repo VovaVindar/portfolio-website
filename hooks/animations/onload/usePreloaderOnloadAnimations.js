@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap/dist/gsap";
 import { PRELOADER as getPreloader } from "@/constants/animations";
@@ -9,6 +9,20 @@ export const usePreloaderOnloadAnimations = (loadProgress) => {
   const containerRef = useRef(null);
   const progressIndicatorRef = useRef(null);
   const timelineRefs = useRef({});
+
+  useEffect(() => {
+    // Force cleanup of animations if stuck at low progress for too long
+    const forceCleanupTimeout = setTimeout(() => {
+      if (loadProgress < 20) {
+        console.warn("Force cleaning up stuck animations");
+        Object.values(timelineRefs.current).forEach((timeline) =>
+          timeline?.kill()
+        );
+      }
+    }, 10000); // 10s
+
+    return () => clearTimeout(forceCleanupTimeout);
+  }, [loadProgress]);
 
   useGSAP(() => {
     timelineRefs.current = {

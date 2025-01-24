@@ -75,20 +75,36 @@ export const PreloaderProvider = ({ children }) => {
   const previousWidthRef = useRef(width);
 
   const loadFile = useCallback((src) => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       if (src.match(/\.(jpg|jpeg|png|gif|webp|svg|avif)$/i)) {
         const img = new Image();
-        img.onload = () => resolve();
-        img.onerror = () => {
-          console.warn("Failed to load image:", src);
+        const timeoutId = setTimeout(() => {
+          reject(new Error(`Timeout loading image: ${src}`));
+        }, 5000); // 5s timeout
+
+        img.onload = () => {
+          clearTimeout(timeoutId);
           resolve();
+        };
+        img.onerror = () => {
+          clearTimeout(timeoutId);
+          console.warn("Failed to load image:", src);
+          resolve(); // Still resolve to continue loading
         };
         img.src = src;
       } else {
         const video = document.createElement("video");
+        const timeoutId = setTimeout(() => {
+          reject(new Error(`Timeout loading video: ${src}`));
+        }, 5000); // 5s timeout
+
         video.preload = "auto";
-        video.onloadeddata = () => resolve();
+        video.onloadeddata = () => {
+          clearTimeout(timeoutId);
+          resolve();
+        };
         video.onerror = () => {
+          clearTimeout(timeoutId);
           console.warn("Failed to load video:", src);
           resolve();
         };
@@ -125,33 +141,61 @@ export const PreloaderProvider = ({ children }) => {
     if (isLoadingInitiatedRef.current) return;
     isLoadingInitiatedRef.current = true;
 
-    const mediaToLoad = getMediaForScreenSize(width);
-    const totalFiles = mediaToLoad.length;
-    let loadedCount = 0;
-
-    const updateProgress = () => {
-      loadedCount++;
-      actualProgressRef.current = (loadedCount / totalFiles) * 100;
-    };
-
     try {
-      const loadingPromises = mediaToLoad.map(async (src) => {
-        await loadFile(src);
-        updateProgress();
-      });
+      const mediaToLoad = getMediaForScreenSize(width);
+      const totalFiles = mediaToLoad.length;
 
-      await Promise.all(loadingPromises);
+      if (totalFiles === 0) {
+        actualProgressRef.current = 100;
+        return;
+      }
 
-      // Mark initial sizes as loaded
-      getSizesForWidth(width).forEach((size) => {
-        loadedSizesRef[size] = true;
-      });
+      let loadedCount = 0;
 
-      actualProgressRef.current = 100;
+      const updateProgress = () => {
+        loadedCount++;
+        actualProgressRef.current = (loadedCount / totalFiles) * 100;
+      };
+
+      try {
+        const loadingPromises = mediaToLoad.map(async (src) => {
+          await loadFile(src);
+          updateProgress();
+        });
+
+        await Promise.all(loadingPromises);
+
+        // Mark initial sizes as loaded
+        getSizesForWidth(width).forEach((size) => {
+          loadedSizesRef[size] = true;
+        });
+
+        actualProgressRef.current = 100;
+      } catch (error) {
+        console.error("Error loading files:", error);
+      }
     } catch (error) {
-      console.error("Error loading files:", error);
+      console.error("Fatal error in initiateLoading:", error);
+      actualProgressRef.current = 100; // Force completion on fatal error
     }
   }, [width, loadFile]);
+
+  // Fallback timer
+  useEffect(() => {
+    if (loadingState.loadProgress > 0 && loadingState.loadProgress < 100) {
+      const fallbackTimer = setTimeout(() => {
+        console.warn("Forcing preloader completion after timeout");
+        actualProgressRef.current = 100;
+        setLoadingState((prev) => ({
+          ...prev,
+          loadProgress: "100",
+          startPageAnimation: true,
+        }));
+      }, 10000);
+
+      return () => clearTimeout(fallbackTimer);
+    }
+  }, [loadingState.loadProgress]);
 
   // Watch for width changes that cross thresholds
   useEffect(() => {
@@ -173,6 +217,11 @@ export const PreloaderProvider = ({ children }) => {
 
   // Progress update effect
   useEffect(() => {
+    // For unhandled promise rejections
+    window.addEventListener("unhandledrejection", (event) => {
+      console.log("Unhandled promise rejection:", event);
+    });
+
     let currentProgress = 0;
     let timeoutId = null;
 
@@ -191,6 +240,12 @@ export const PreloaderProvider = ({ children }) => {
         }));
 
         timeoutId = setTimeout(updateProgress, loadingState.interval);
+      } else if (actualProgressRef.current === 100 && currentProgress < 100) {
+        setLoadingState((prev) => ({
+          ...prev,
+          loadProgress: "100",
+          startPageAnimation: true,
+        }));
       }
     }
 
