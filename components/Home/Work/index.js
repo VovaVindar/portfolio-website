@@ -17,7 +17,7 @@ const Work = () => {
   // Combine related states into a single object to reduce re-renders
   const [carouselState, setCarouselState] = useState({
     isHovered: false,
-    isInteracted: false,
+    //isInteracted: false,
     isInView: false,
   });
 
@@ -39,12 +39,15 @@ const Work = () => {
       clearInterval(intervalRef.current);
     }
 
-    const { isHovered, isInView, isInteracted } = stateRef.current;
+    const {
+      isHovered,
+      isInView, //isInteracted
+    } = stateRef.current;
 
-    if (isInView && (!isInteracted || (!isHovered && isInteracted))) {
+    //if (isInView && (!isInteracted || (!isHovered && isInteracted))) {
+    if (isInView && !isHovered) {
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
-        setArrowUpdate((prev) => prev + 1);
       }, AUTOPLAY_DELAY);
     }
   }, []);
@@ -58,13 +61,15 @@ const Work = () => {
         return prev === 0 ? work.length - 1 : prev - 1;
       });
 
-      if (!stateRef.current.isInteracted) {
+      /*if (!stateRef.current.isInteracted) {
         updateCarouselState({ isInteracted: true });
-      }
+      }*/
 
       resetInterval();
     },
-    [resetInterval, updateCarouselState]
+    [
+      resetInterval, //updateCarouselState
+    ]
   );
 
   // Check for in-view class
@@ -99,7 +104,7 @@ const Work = () => {
     carouselState.isHovered,
     carouselState.isInView,
     resetInterval,
-    carouselState.isInteracted,
+    //carouselState.isInteracted,
   ]);
 
   // Keyboard navigation effect
@@ -108,13 +113,20 @@ const Work = () => {
       if (carouselState.isInView) {
         if (e.key === "ArrowLeft") handleNavigation("prev");
         if (e.key === "ArrowRight") handleNavigation("next");
+
+        //if (carouselState.isInteracted) {
         setArrowUpdate((prev) => prev + 1);
+        //}
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [handleNavigation, carouselState.isInView]);
+  }, [
+    handleNavigation,
+    carouselState.isInView,
+    //carouselState.isInteracted
+  ]);
 
   const currentWork = work[currentIndex];
 
@@ -127,7 +139,7 @@ const Work = () => {
         onMouseLeave={() =>
           updateCarouselState({
             isHovered: false,
-            isInteracted: false,
+            //isInteracted: false,
           })
         }
       >
@@ -201,13 +213,14 @@ const ClickAreas = ({
   };
 
   return (
-    <div className={styles["clicks"]} key={arrowUpdate}>
+    <div className={styles["clicks"]}>
       <button
         type="button"
         aria-label="Previous"
         onClick={onPrevious}
         className={styles["click-area"]}
         data-cursor-text={getLoopedIndex(currentIndex - 1)}
+        key={arrowUpdate}
       />
       <button
         type="button"
@@ -215,6 +228,7 @@ const ClickAreas = ({
         onClick={onNext}
         className={styles["click-area"]}
         data-cursor-text={getLoopedIndex(currentIndex + 1)}
+        key={`next-${arrowUpdate}`}
       />
     </div>
   );

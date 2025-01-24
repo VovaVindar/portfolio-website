@@ -101,7 +101,7 @@ export const HERO = () => {
           DURATION: 3,
           INITIAL_BLUR: 7,
           SCROLLTRIGGER_START_DELAY: 50,
-          INITIAL_DELAY: 2.5,
+          INITIAL_DELAY: 2.4,
         },
 
         GRID: {
@@ -109,7 +109,7 @@ export const HERO = () => {
             START: "9px",
             END: "0px",
           },
-          INITIAL_DELAY: 2.03,
+          INITIAL_DELAY: 1.93,
           CELL_DURATION: 3.1,
           CELL_STAGGER: 0.07,
           IMG_EXTRA_STAGGER: 0.084,
@@ -227,7 +227,7 @@ export const WORK = () => {
             START: 0.16,
           },
           TRIGGER: {
-            START: "top bottom-=35",
+            START: "top bottom-=5",
           },
           ONCE: BASE.SCROLLTRIGGER_ONCE,
         },
