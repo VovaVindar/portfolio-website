@@ -79,7 +79,8 @@ export const PreloaderProvider = ({ children }) => {
       if (src.match(/\.(jpg|jpeg|png|gif|webp|svg|avif)$/i)) {
         const img = new Image();
         const timeoutId = setTimeout(() => {
-          reject(new Error(`Timeout loading image: ${src}`));
+          console.warn(`Timeout loading image: ${src}`);
+          resolve();
         }, 5000); // 5s timeout
 
         img.onload = () => {
@@ -95,20 +96,39 @@ export const PreloaderProvider = ({ children }) => {
       } else {
         const video = document.createElement("video");
         const timeoutId = setTimeout(() => {
-          reject(new Error(`Timeout loading video: ${src}`));
-        }, 5000); // 5s timeout
-
-        video.preload = "auto";
-        video.onloadeddata = () => {
-          clearTimeout(timeoutId);
+          console.warn(`Timeout loading video: ${src}`);
           resolve();
-        };
+        }, 15000); // 15s
+
+        // Create a reference that will persist
+        window._preloadedVideos = window._preloadedVideos || new Map();
+
+        // This is the key event we want to wait for - it means we have enough data
+        video.addEventListener("canplay", () => {
+          //console.log(`Video ${src} can play`);
+          clearTimeout(timeoutId);
+
+          // Store the video element in our map so it continues loading
+          window._preloadedVideos.set(src, video);
+          resolve();
+        });
+
+        // Track full load completion
+        /*video.addEventListener("canplaythrough", () => {
+          console.log(`Video ${src} fully loaded`);
+        });*/
+
         video.onerror = () => {
           clearTimeout(timeoutId);
           console.warn("Failed to load video:", src);
-          resolve();
+          resolve(); // Still resolve to continue loading
         };
+
+        video.preload = "auto";
+        // Set muted to allow autoplay in some browsers
+        video.muted = true;
         video.src = src;
+        video.load();
       }
     });
   }, []);
@@ -143,40 +163,57 @@ export const PreloaderProvider = ({ children }) => {
 
     try {
       const mediaToLoad = getMediaForScreenSize(width);
-      const totalFiles = mediaToLoad.length;
 
-      if (totalFiles === 0) {
-        actualProgressRef.current = 100;
-        return;
-      }
+      // Separate images and videos
+      const images = mediaToLoad.filter((src) =>
+        src.match(/\.(jpg|jpeg|png|gif|webp|svg|avif)$/i)
+      );
+      const videos = mediaToLoad.filter(
+        (src) => !src.match(/\.(jpg|jpeg|png|gif|webp|svg|avif)$/i)
+      );
+
+      // Give more weight to videos (e.g., images = 30% total, videos = 70% total)
+      const IMAGE_WEIGHT = 0.1;
+      const VIDEO_WEIGHT = 0.8;
+
+      // Calculate individual weights
+      const imageIncrement = (IMAGE_WEIGHT * 100) / images.length;
+      const videoIncrement = (VIDEO_WEIGHT * 100) / videos.length;
 
       let loadedCount = 0;
 
-      const updateProgress = () => {
-        loadedCount++;
-        actualProgressRef.current = (loadedCount / totalFiles) * 100;
-      };
-
+      // Load images first (they're faster)
       try {
-        const loadingPromises = mediaToLoad.map(async (src) => {
+        const imagePromises = images.map(async (src) => {
           await loadFile(src);
-          updateProgress();
+          loadedCount += imageIncrement;
+          actualProgressRef.current = Math.min(loadedCount, 100);
         });
 
-        await Promise.all(loadingPromises);
+        await Promise.all(imagePromises);
+
+        // Then load videos
+        const videoPromises = videos.map(async (src) => {
+          await loadFile(src);
+          loadedCount += videoIncrement;
+          actualProgressRef.current = Math.min(loadedCount, 100);
+        });
+
+        await Promise.all(videoPromises);
+
+        // Ensure we end at exactly 100%
+        actualProgressRef.current = 100;
 
         // Mark initial sizes as loaded
         getSizesForWidth(width).forEach((size) => {
           loadedSizesRef[size] = true;
         });
-
-        actualProgressRef.current = 100;
       } catch (error) {
         console.error("Error loading files:", error);
       }
     } catch (error) {
       console.error("Fatal error in initiateLoading:", error);
-      actualProgressRef.current = 100; // Force completion on fatal error
+      actualProgressRef.current = 100;
     }
   }, [width, loadFile]);
 
@@ -191,7 +228,7 @@ export const PreloaderProvider = ({ children }) => {
           loadProgress: "100",
           startPageAnimation: true,
         }));
-      }, 10000);
+      }, 20000); // 20s
 
       return () => clearTimeout(fallbackTimer);
     }
@@ -219,14 +256,15 @@ export const PreloaderProvider = ({ children }) => {
   useEffect(() => {
     // For unhandled promise rejections
     window.addEventListener("unhandledrejection", (event) => {
-      console.log("Unhandled promise rejection:", event);
+      console.warn("Unhandled promise rejection:", event);
     });
 
     let currentProgress = 0;
     let timeoutId = null;
 
     function updateProgress() {
-      if (currentProgress < actualProgressRef.current) {
+      // Always schedule next update if we haven't reached 100%
+      if (currentProgress < 100) {
         const increment = Math.min(
           actualProgressRef.current - currentProgress,
           loadingState.incrementCap
@@ -235,7 +273,7 @@ export const PreloaderProvider = ({ children }) => {
 
         setLoadingState((prev) => ({
           ...prev,
-          loadProgress: currentProgress.toFixed(0),
+          loadProgress: parseFloat(currentProgress.toFixed(0)),
           startPageAnimation: currentProgress >= 100,
         }));
 
@@ -249,6 +287,7 @@ export const PreloaderProvider = ({ children }) => {
       }
     }
 
+    // Start the update cycle
     timeoutId = setTimeout(updateProgress, loadingState.interval);
 
     return () => {

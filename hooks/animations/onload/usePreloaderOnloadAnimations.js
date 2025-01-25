@@ -10,20 +10,6 @@ export const usePreloaderOnloadAnimations = (loadProgress) => {
   const progressIndicatorRef = useRef(null);
   const timelineRefs = useRef({});
 
-  useEffect(() => {
-    // Force cleanup of animations if stuck at low progress for too long
-    const forceCleanupTimeout = setTimeout(() => {
-      if (loadProgress < 20) {
-        console.warn("Force cleaning up stuck animations");
-        Object.values(timelineRefs.current).forEach((timeline) =>
-          timeline?.kill()
-        );
-      }
-    }, 10000); // 10s
-
-    return () => clearTimeout(forceCleanupTimeout);
-  }, [loadProgress]);
-
   useGSAP(() => {
     timelineRefs.current = {
       numbers: gsap.timeline({}),
