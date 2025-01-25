@@ -1,5 +1,5 @@
 // Auto-generated media paths
-// Generated on: 1/25/2025, 12:06:49 AM
+// Generated on: 1/25/2025, 1:11:11 AM
 
 export const SITE_IMAGES = [
   "/images/optimized/1260/avif/am_1.avif",

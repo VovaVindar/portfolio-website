@@ -24,7 +24,7 @@ export const work = [
     media: {
       type: "video",
       url: getResponsivePaths("paradigm_cube", "video"),
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
       className: `${styles["paradigm"]}`,
     },
   },
@@ -34,7 +34,7 @@ export const work = [
     media: {
       type: "video",
       url: getResponsivePaths("dg_animation", "video"),
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
   },
   {
@@ -51,7 +51,7 @@ export const work = [
     media: {
       type: "video",
       url: getResponsivePaths("endex_light", "video"),
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
   },
   {
@@ -68,7 +68,7 @@ export const work = [
     media: {
       type: "video",
       url: getResponsivePaths("align_2", "video"),
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
       className: `${styles["align"]}`,
     },
   },
@@ -86,7 +86,7 @@ export const work = [
     media: {
       type: "video",
       url: getResponsivePaths("twitch_clips", "video"),
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
   },
   {

@@ -70,7 +70,7 @@ export const GRID_LAYOUT_DESKTOP = {
       hoverText: "Align Fund",
       className: `${styles["align-card"]}`,
       industry: "Private Equity",
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
     /*{
       row: 0,
@@ -96,7 +96,7 @@ export const GRID_LAYOUT_DESKTOP = {
       scale: 1.21,
       hoverText: "Dolce & Gabbana",
       industry: "NFT",
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
     {
       row: 1,
@@ -124,7 +124,7 @@ export const GRID_LAYOUT_DESKTOP = {
         backgroundColor: "transparent",
       },
       industry: "AI",
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
     {
       row: 2,
@@ -201,7 +201,7 @@ export const GRID_LAYOUT_DESKTOP = {
       hoverText: "Paradigm",
       className: `${styles["paradigm-cube"]}`,
       industry: "AI",
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
     {
       row: 4,
@@ -214,7 +214,7 @@ export const GRID_LAYOUT_DESKTOP = {
       scale: 1.2,
       hoverText: "Explorations",
       industry: "3D Art",
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
   ],
 };
@@ -258,7 +258,7 @@ export const GRID_LAYOUT_MOBILE = {
       scale: 1.21,
       hoverText: "Dolce & Gabbana",
       industry: "NFT",
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
     {
       row: 1,
@@ -286,7 +286,7 @@ export const GRID_LAYOUT_MOBILE = {
         backgroundColor: "transparent",
       },
       industry: "AI",
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
     {
       row: 3,
@@ -311,7 +311,7 @@ export const GRID_LAYOUT_MOBILE = {
       scale: 1.2,
       hoverText: "Explorations",
       industry: "3D Art",
-      mimeType: isHEVC ? "video/mp4; codecs=hevc" : "video/webm; codecs=vp9",
+      mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
     },
   ],
 };
