@@ -2,10 +2,12 @@ import styles from "../Hero.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import { GRID_LAYOUT_DESKTOP, GRID_LAYOUT_MOBILE } from "@/constants/hero-grid";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useVideoPoster } from "@/hooks/utils/useVideoPoster";
 import { memo, useCallback, useMemo } from "react";
 
 const MediaRenderer = memo(({ media, currentIndex, handleMediaRef }) => {
   const { width } = useWindowDimensions();
+  const { videoRef } = useVideoPoster();
 
   const getResponsiveUrl = useCallback(
     (urls) => {
@@ -50,6 +52,7 @@ const MediaRenderer = memo(({ media, currentIndex, handleMediaRef }) => {
         {...commonProps}
       >
         <video
+          ref={videoRef}
           key={responsiveUrl}
           autoPlay
           loop

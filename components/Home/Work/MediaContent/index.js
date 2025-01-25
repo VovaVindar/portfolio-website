@@ -1,10 +1,12 @@
 import { useSlideshowAnimations } from "@/hooks/animations/interaction/useSlideshowAnimations";
 import Magnetic from "@/components/Global/Magnetic";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useVideoPoster } from "@/hooks/utils/useVideoPoster";
 import { useCallback, memo, useMemo } from "react";
 
 const MediaContent = memo(function MediaContent({ content, title }) {
   const { width } = useWindowDimensions();
+  const { videoRef } = useVideoPoster();
 
   // Get appropriate URL based on screen width
   const getResponsiveUrl = useCallback(
@@ -49,6 +51,7 @@ const MediaContent = memo(function MediaContent({ content, title }) {
       <Magnetic type="image" scale={1.016} movement={0.035}>
         {displayContent.type === "video" ? (
           <video
+            ref={videoRef}
             key={displayContent.url}
             autoPlay
             loop
