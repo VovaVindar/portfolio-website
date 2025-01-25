@@ -104,7 +104,7 @@
     width: 100%;
     gap: 1rlh;
     padding-top: 5rlh;
-    padding-bottom: 4.5rlh;
+    padding-bottom: 3.5rlh;
   }
   .clients .subheader {
     font-size: var(--token-font-size-4);

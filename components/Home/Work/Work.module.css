@@ -180,7 +180,7 @@
     flex-direction: row;
     justify-content: flex-start;
     padding: 0.955rlh;
-    padding-bottom: 0.98rlh;
+    padding-bottom: 1.98rlh;
     position: relative;
     top: 0;
     bottom: 0;
@@ -205,7 +205,7 @@
   .work .project-link {
     position: relative;
     margin-left: auto;
-    margin-top: 1.62rlh;
+    margin-top: 2.62rlh;
     bottom: 0;
   }
   .work .project-link a {
