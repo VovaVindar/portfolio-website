@@ -153,6 +153,11 @@ async function processVideo(filePath, outputDir, filename, videoQualities) {
           `Starting HEVC Main10 encoding for ${filename} at ${targetWidth}x${targetHeight}`
         );
         await new Promise((resolve, reject) => {
+          // Determine HEVC level based on dimensions
+          const hevcLevel =
+            targetWidth >= 1800 || targetHeight >= 1800 ? "5.1" : "4.1";
+          const crf = targetWidth >= 1800 || targetHeight >= 1800 ? "25" : "24";
+
           let command = ffmpeg(filePath)
             .videoCodec("libx265")
             .audioCodec("aac")
@@ -164,11 +169,11 @@ async function processVideo(filePath, outputDir, filename, videoQualities) {
               "-tag:v hvc1", // Important: QuickTime needs this tag
               "-pix_fmt yuv420p10le",
               "-preset slower",
-              "-crf 24",
+              `-crf ${crf}`,
 
               // HEVC params
               "-x265-params",
-              "profile=main10:level=4.1",
+              `profile=main10:level=${hevcLevel}`,
 
               // Container settings
               "-movflags +faststart+write_colr",
