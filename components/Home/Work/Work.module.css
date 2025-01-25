@@ -26,11 +26,13 @@
   width: 50%;
   height: 100%;
   cursor: w-resize;
+  -webkit-tap-highlight-color: transparent;
 }
 .work .clicks button:nth-of-type(2) {
   width: 50%;
   height: 100%;
   cursor: e-resize;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .work .image-container {
