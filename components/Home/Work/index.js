@@ -30,7 +30,7 @@ const Work = () => {
         setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
       }, AUTOPLAY_DELAY);
     }
-  }, [isInViewRef.current]);
+  }, []);
 
   const handleNavigation = useCallback(
     (direction) => {
