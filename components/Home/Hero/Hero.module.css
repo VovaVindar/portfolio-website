@@ -13,8 +13,15 @@
   width: 100%;
   min-height: 600px;
   max-height: min(1440px, 61.706vw);
-  grid-template-columns: repeat(8, min(9.7222vw, 249px));
-  grid-template-rows: repeat(5, min(9.5139vw, 243px));
+  grid-template-columns: repeat(
+    8,
+    min(calc(9.7222vw + var(--global-padding)), 255px)
+  );
+  grid-template-rows: repeat(
+    5,
+    min(calc(9.5139vw + var(--global-padding)), 249px)
+  );
+  gap: var(--global-padding);
   justify-content: space-between;
   align-content: space-between;
   position: relative;
