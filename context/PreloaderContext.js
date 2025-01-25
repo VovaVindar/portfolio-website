@@ -7,7 +7,7 @@ import {
   useEffect,
   useMemo,
 } from "react";
-import { SITE_IMAGES, SITE_VIDEOS } from "@/constants/media";
+import { getMediaForScreenSize } from "@/hooks/utils/useSiteMedia";
 import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
 
 // Track which sizes have been loaded
@@ -17,31 +17,6 @@ const loadedSizesRef = {
   650: false,
   1260: false,
   1880: false,
-};
-
-const getMediaForScreenSize = (width) => {
-  const filterBySize = (media, sizes) => {
-    return media.filter((path) =>
-      sizes.some((size) => path.includes(`/${size}/`))
-    );
-  };
-
-  if (width < 420) {
-    return [
-      ...filterBySize(SITE_IMAGES, ["300", "1260"]),
-      ...filterBySize(SITE_VIDEOS, ["300", "1260"]),
-    ];
-  } else if (width < 1520) {
-    return [
-      ...filterBySize(SITE_IMAGES, ["400", "1260"]),
-      ...filterBySize(SITE_VIDEOS, ["400", "1260"]),
-    ];
-  } else {
-    return [
-      ...filterBySize(SITE_IMAGES, ["650", "1880"]),
-      ...filterBySize(SITE_VIDEOS, ["650", "1880"]),
-    ];
-  }
 };
 
 const getSizesForWidth = (width) => {

@@ -57,10 +57,7 @@ const MediaContent = memo(function MediaContent({ content, title }) {
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
             className={displayContent.className}
           >
-            <source
-              src={displayContent.url}
-              type={displayContent.mimeType || "video/webm; codecs=vp9"}
-            />
+            <source src={displayContent.url} type={displayContent.mimeType} />
             Your browser does not support the video tag.
           </video>
         ) : (

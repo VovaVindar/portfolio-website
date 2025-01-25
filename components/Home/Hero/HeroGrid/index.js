@@ -57,7 +57,7 @@ const MediaRenderer = memo(({ media, currentIndex, handleMediaRef }) => {
           playsInline
           onError={handleVideoError}
         >
-          <source src={responsiveUrl} type="video/webm; codecs=vp9" />
+          <source src={responsiveUrl} type={media.mimeType} />
           Your browser does not support the video tag.
         </video>
       </div>

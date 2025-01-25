@@ -28,7 +28,7 @@ export default function Contact() {
         setContactOpen(true);
         stopLenis();
         window.removeEventListener("blur", handleBlur);
-      }, 210);
+      }, 250);
     };
 
     const mailtoLinks = document.querySelectorAll('a[href^="mailto"]');

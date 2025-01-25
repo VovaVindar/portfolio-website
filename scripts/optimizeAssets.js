@@ -56,53 +56,159 @@ async function fileExists(filePath) {
 }
 
 async function processVideo(filePath, outputDir, filename, videoQualities) {
-  for (const quality of videoQualities) {
-    // Create size-specific folder: e.g., "images/optimized/projects/300"
-    const sizeDir = path.join(outputDir, quality.width.toString());
-    await fs.mkdir(sizeDir, { recursive: true });
+  try {
+    // First analyze input video
+    const probePromise = new Promise((resolve, reject) => {
+      ffmpeg.ffprobe(filePath, (err, metadata) => {
+        if (err) {
+          console.error("FFprobe error:", err);
+          reject(err);
+        } else {
+          resolve(metadata);
+        }
+      });
+    });
 
-    // Final path will be like: "images/optimized/projects/300/video.webm"
-    const webmPath = path.join(sizeDir, `${filename}.webm`);
+    const metadata = await probePromise;
+    const videoStream = metadata.streams.find(
+      (stream) => stream.codec_type === "video"
+    );
 
-    // Skip if file exists and not forcing reprocess
-    if (!FORCE_REPROCESS && (await fileExists(webmPath))) {
-      console.log(
-        `Skipping existing video size: ${filename}-${quality.width}px`
-      );
-      continue;
+    if (!videoStream) {
+      throw new Error("No video stream found");
     }
 
-    await new Promise((resolve, reject) => {
-      ffmpeg(filePath)
-        .videoCodec("libvpx-vp9")
-        .audioCodec("libopus")
-        .size(`${quality.width}x?`)
-        .videoBitrate(quality.bitrate)
-        .outputOptions([
-          `-crf ${quality.crf}`, // Main quality control
-          "-b:v 0", // Use CRF instead of target bitrate
-          "-deadline good", // Balanced encoding speed
-          "-cpu-used 2", // 0-4: Lower = better quality but slower
-          "-row-mt 1", // Enable row-based multithreading
-          "-auto-alt-ref 1", // Enable alternative reference frames
-          "-lag-in-frames 25", // Maximum frames to look ahead
-          "-keyint_min 60", // Minimum interval between keyframes
-          "-g 240", // Maximum interval between keyframes
-          "-sc_threshold 60", // Scene change threshold (0-100), lower = more sensitive
-        ])
-        .audioQuality(3) // Opus audio quality (0-10, lower is better)
-        .on("end", () => {
-          console.log(
-            `Processed video: ${filename} to ${quality.width}px WebM`
-          );
-          resolve();
-        })
-        .on("error", (err) => {
-          console.error(`Error processing WebM ${filename}:`, err);
-          reject(err);
-        })
-        .save(webmPath);
-    });
+    for (const quality of videoQualities) {
+      // Ensure width is valid
+      const targetWidth = Math.min(quality.width, videoStream.width);
+      // Calculate height maintaining aspect ratio and ensuring it's even
+      const targetHeight =
+        Math.round(
+          (targetWidth * (videoStream.height / videoStream.width)) / 2
+        ) * 2;
+
+      // Create size-specific folder: e.g., "images/optimized/projects/300"
+      const sizeDir = path.join(outputDir, quality.width.toString());
+      await fs.mkdir(sizeDir, { recursive: true });
+
+      // Create format-specific directories
+      const webmDir = path.join(sizeDir, "webm");
+      const hevcDir = path.join(sizeDir, "mp4");
+      await fs.mkdir(webmDir, { recursive: true });
+      await fs.mkdir(hevcDir, { recursive: true });
+
+      // Define paths for both formats in their respective directories
+      const webmPath = path.join(webmDir, `${filename}.webm`);
+      const hevcPath = path.join(hevcDir, `${filename}.mp4`);
+
+      // Process WebM/VP9 version
+      if (!FORCE_REPROCESS && (await fileExists(webmPath))) {
+        console.log(
+          `Skipping existing WebM video: ${filename}-${quality.width}px`
+        );
+      } else {
+        console.log(
+          `Starting WebM encoding for ${filename} at ${quality.width}px`
+        );
+        await new Promise((resolve, reject) => {
+          ffmpeg(filePath)
+            .videoCodec("libvpx-vp9")
+            .audioCodec("libopus")
+            .size(`${quality.width}x?`)
+            .videoBitrate(quality.bitrate)
+            .outputOptions([
+              `-crf ${quality.crf}`, // Main quality control
+              "-b:v 0", // Use CRF instead of target bitrate
+              "-deadline good", // Balanced encoding speed
+              "-cpu-used 2", // 0-4: Lower = better quality but slower
+              "-row-mt 1", // Enable row-based multithreading
+              "-auto-alt-ref 1", // Enable alternative reference frames
+              "-lag-in-frames 25", // Maximum frames to look ahead
+              "-keyint_min 60", // Minimum interval between keyframes
+              "-g 240", // Maximum interval between keyframes
+              "-sc_threshold 60", // Scene change threshold (0-100), lower = more sensitive
+            ])
+            .audioQuality(3) // Opus audio quality (0-10, lower is better)
+            .on("end", () => {
+              console.log(
+                `Processed video: ${filename} to ${quality.width}px WebM`
+              );
+              resolve();
+            })
+            .on("error", (err) => {
+              console.error(`Error processing WebM ${filename}:`, err);
+              reject(err);
+            })
+            .save(webmPath);
+        });
+      }
+
+      // HEVC/H.265 for Apple devices
+      if (!FORCE_REPROCESS && (await fileExists(hevcPath))) {
+        console.log(
+          `Skipping existing HEVC video: ${filename}-${quality.width}px`
+        );
+      } else {
+        console.log(
+          `Starting HEVC Main10 encoding for ${filename} at ${targetWidth}x${targetHeight}`
+        );
+        await new Promise((resolve, reject) => {
+          let command = ffmpeg(filePath)
+            .videoCodec("libx265")
+            .audioCodec("aac")
+            .outputOptions([
+              // Basic scaling
+              `-vf scale=${quality.width}:-2:flags=lanczos`,
+
+              // Simple HEVC settings
+              "-tag:v hvc1", // Important: QuickTime needs this tag
+              "-pix_fmt yuv420p10le",
+              "-preset slower",
+              "-crf 24",
+
+              // HEVC params
+              "-x265-params",
+              "profile=main10:level=4.1",
+
+              // Container settings
+              "-movflags +faststart+write_colr",
+
+              // Audio settings
+              "-ac 2", // Stereo
+              "-ar 48000", // High quality audio
+              "-b:a 256k", // Higher audio bitrate
+            ])
+            .audioQuality(2);
+
+          // Log the full command for debugging
+          /*command.on("start", function (commandLine) {
+            console.log("Spawned FFmpeg with command: " + commandLine);
+          });*/
+
+          command
+            .on("progress", (progress) => {
+              if (progress.percent) {
+                console.log(`HEVC Progress: ${Math.round(progress.percent)}%`);
+              }
+            })
+            .on("end", () => {
+              console.log(
+                `Processed HEVC: ${filename} to ${targetWidth}x${targetHeight}`
+              );
+              resolve();
+            })
+            .on("error", (err, stdout, stderr) => {
+              console.error(`\nError processing HEVC ${filename}:`, err);
+              console.error("FFmpeg stderr:", stderr);
+              reject(err);
+            })
+            .save(hevcPath);
+        });
+      }
+    }
+  } catch (error) {
+    console.error(`\nFatal error processing ${filename}:`, error);
+    throw error;
   }
 }
 
@@ -152,7 +258,7 @@ async function processAsset(filePath, config) {
         await fs.mkdir(sizeDir, { recursive: true });
 
         // Final path: "images/optimized/project1/300/image.avif"
-        const outputPath = path.join(sizeDir, `${filename}.avif`);
+        const outputPath = path.join(sizeDir, "avif", `${filename}.avif`);
 
         // Skip if file exists and not forcing reprocess
         if (!FORCE_REPROCESS && (await fileExists(outputPath))) {

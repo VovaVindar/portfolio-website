@@ -7,8 +7,6 @@ const withPWA = require("next-pwa")({
     /\/images\/selected\/.*/,
     /\/images\/uncompressed\/.*/,
     /\.map$/, // Exclude source maps
-    /^manifest\..*$/, // Exclude manifest files if needed
-    /\/images\/selected\/hero-grid\/.*/,
   ],
   additionalManifestEntries: [
     { url: "/site.webmanifest", revision: null },
