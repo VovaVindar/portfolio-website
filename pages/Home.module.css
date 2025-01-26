@@ -1,3 +1,9 @@
+.safari-bug-fix {
+  position: absolute;
+  mix-blend-mode: difference;
+  z-index: 6;
+}
+
 .home-container {
   display: flex;
   flex-direction: column;

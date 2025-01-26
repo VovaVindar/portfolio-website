@@ -16,9 +16,10 @@ import {
   TransitionLayout,
 } from "@/context/TransitionContext";
 import { PreloaderProvider, usePreloader } from "@/context/PreloaderContext";
+import { DimensionsProvider } from "@/context/DimensionsContext";
 import CursorContainer from "@/components/Global/CursorContainer";
-import SmoothScrolling from "@/components/Global/SmoothScrolling";
 import { usePreventStyleRemoval } from "@/hooks/transition/usePreventStyleRemoval";
+import Contact from "@/components/Home/Contact";
 
 // Persistent layer that stays mounted
 const PersistentLayer = ({ renderPage }) => {
@@ -42,13 +43,12 @@ const AppContent = ({ Component, pageProps, router }) => {
   return (
     <>
       <CursorContainer className={fonts.variables} />
-      <SmoothScrolling>
-        <TransitionLayout>
-          <main key={router.route} className={fonts.variables}>
-            <Component {...pageProps} />
-          </main>
-        </TransitionLayout>
-      </SmoothScrolling>
+      <Contact className={fonts.variables} />
+      <TransitionLayout>
+        <main key={router.route} className={fonts.variables}>
+          <Component {...pageProps} />
+        </main>
+      </TransitionLayout>
     </>
   );
 };
@@ -70,22 +70,24 @@ function MyApp({ Component, pageProps, router }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <PreloaderProvider>
-        <ScrollProvider>
-          <TransitionProvider>
-            <>
-              <PersistentLayer renderPage={setStartedLoading} />
-              {startedLoading && ( // Anti flash on reload
-                <AppContent
-                  Component={Component}
-                  pageProps={pageProps}
-                  router={router}
-                />
-              )}
-            </>
-          </TransitionProvider>
-        </ScrollProvider>
-      </PreloaderProvider>
+      <DimensionsProvider>
+        <PreloaderProvider>
+          <ScrollProvider>
+            <TransitionProvider>
+              <>
+                <PersistentLayer renderPage={setStartedLoading} />
+                {startedLoading && ( // Anti flash on reload
+                  <AppContent
+                    Component={Component}
+                    pageProps={pageProps}
+                    router={router}
+                  />
+                )}
+              </>
+            </TransitionProvider>
+          </ScrollProvider>
+        </PreloaderProvider>
+      </DimensionsProvider>
     </>
   );
 }

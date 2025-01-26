@@ -2,7 +2,7 @@ import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import styles from "./Lines.module.css";
 import { usePreloader } from "@/context/PreloaderContext";
 import { useLinesOnloadAnimations } from "@/hooks/animations/onload/useLinesOnloadAnimations";
-import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useWindowDimensions } from "@/context/DimensionsContext";
 
 const Lines = () => {
   const { width, height } = useWindowDimensions();

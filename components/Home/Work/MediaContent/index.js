@@ -1,6 +1,6 @@
 import { useSlideshowAnimations } from "@/hooks/animations/interaction/useSlideshowAnimations";
 import Magnetic from "@/components/Global/Magnetic";
-import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useVideoPoster } from "@/hooks/utils/useVideoPoster";
 import { useCallback, memo, useMemo } from "react";
 

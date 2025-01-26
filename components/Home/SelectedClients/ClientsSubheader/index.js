@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "../SelectedClients.module.css";
 import { useScroll } from "@/context/ScrollContext";
-import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useWindowDimensions } from "@/context/DimensionsContext";
 
 const WIDE_SCREEN_BREAKPOINT = 1060;
 const MAX_HEIGHT_FOR_ANIMATION = 2800;

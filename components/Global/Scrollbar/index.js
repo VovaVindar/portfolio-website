@@ -1,18 +1,31 @@
-import { useLayoutEffect, useCallback, useRef } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
 import styles from "./Scrollbar.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import Link from "next/link";
 import { useScroll } from "@/context/ScrollContext";
 import { useScrollbarOnloadAnimations } from "@/hooks/animations/onload/useScrollbarOnloadAnimations";
-import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 
 const MAX_HEIGHT_FOR_ANIMATION = 2800;
 
-const Scrollbar = ({ text = "", href, onClick }) => {
+const Scrollbar = ({ text = "", href, onClick, className }) => {
   const isHoverCapable = useHoverCapable(); // Scrollbar text jitters onscroll on touch devices due to FPS limit
-  const { height, scrollHeight, scrollY } = useWindowDimensions();
+  const { height, scrollHeight } = useWindowDimensions();
   const { scrollPosition, setScrollPosition } = useScroll();
+  const [scrollY, setScrollY] = useState(
+    typeof window !== "undefined" ? window.scrollY : 0
+  );
+
+  // Add scroll listener
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const documentHeightRef = useRef(0);
   const isHeightCompatibleRef = useRef(true);
@@ -31,12 +44,15 @@ const Scrollbar = ({ text = "", href, onClick }) => {
     const scrollTop = scrollY;
     const scrollPercent = (scrollTop / documentHeightRef.current) * 100;
     setScrollPosition(scrollPercent);
-  }, [setScrollPosition, scrollY, isHoverCapable]);
+  }, [setScrollPosition, scrollY, isHoverCapable, documentHeightRef.current]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     updateDocumentHeight();
+  }, [updateDocumentHeight]);
+
+  useEffect(() => {
     updateScrollPosition();
-  }, [updateDocumentHeight, updateScrollPosition]);
+  }, [updateScrollPosition]);
 
   const { y, opacity, blur } = useScrollbarOnloadAnimations();
 
@@ -51,7 +67,9 @@ const Scrollbar = ({ text = "", href, onClick }) => {
   };
 
   return (
-    <div className={`${styles["scrollbar-container"]} text-body-3 mf-hidden`}>
+    <div
+      className={`${styles["scrollbar-container"]} text-body-3 mf-hidden ${className}`}
+    >
       {href ? (
         <Link href={href} style={elementStyle} scroll={false}>
           <Magnetic type="small-text">{text}</Magnetic>
@@ -66,3 +84,5 @@ const Scrollbar = ({ text = "", href, onClick }) => {
 };
 
 export default Scrollbar;
+
+Scrollbar.whyDidYouRender = true;

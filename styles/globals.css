@@ -265,3 +265,8 @@ img {
     display: none;
   }
 }
+
+.lenis {
+  overflow-y: auto;
+  height: 100vh;
+}

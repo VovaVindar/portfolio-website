@@ -3,7 +3,7 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { HERO as getHero } from "@/constants/animations";
 import { usePreloader } from "@/context/PreloaderContext";
-import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useTransition } from "@/context/TransitionContext";
 
 export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {

@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react";
 import { HERO as getHero } from "@/constants/animations";
 import styles from "@/components/Home/Hero/Hero.module.css";
 import { useTransition } from "@/context/TransitionContext";
-import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useCallback, useEffect, useRef } from "react";
 import { usePreloader } from "@/context/PreloaderContext";
 

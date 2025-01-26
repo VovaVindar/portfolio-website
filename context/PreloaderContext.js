@@ -8,7 +8,7 @@ import {
   useMemo,
 } from "react";
 import { getMediaForScreenSize } from "@/hooks/utils/useSiteMedia";
-import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useWindowDimensions } from "@/context/DimensionsContext";
 
 // Track which sizes have been loaded
 const loadedSizesRef = {

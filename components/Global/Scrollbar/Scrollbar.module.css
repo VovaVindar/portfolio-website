@@ -1,7 +1,7 @@
 .scrollbar-container {
   position: absolute;
   mix-blend-mode: difference;
-  z-index: 4;
+  z-index: 6;
 }
 .scrollbar-container a,
 .scrollbar-container button {

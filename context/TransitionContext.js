@@ -14,6 +14,16 @@ import { useScrollPreservation } from "@/hooks/transition/useScrollPreservation"
 import { useRouteTracking } from "@/hooks/transition/useRouteTracking";
 import { usePageTransitions } from "@/hooks/transition/usePageTransitions";
 import { useConsoleMessage } from "@/hooks/utils/useConsoleMessage";
+//import SecondaryWrapper from "@/components/Global/SecondaryWrapper";
+import dynamic from "next/dynamic";
+const SecondaryWrapper = dynamic(
+  () => import("@/components/Global/SecondaryWrapper"),
+  { ssr: false }
+);
+const SmoothScrolling = dynamic(
+  () => import("@/components/Global/SmoothScrolling"),
+  { ssr: false }
+);
 
 // Create Context
 export const TransitionContext = createContext({});
@@ -135,10 +145,10 @@ export function TransitionLayout({ children }) {
       setIsPageChanged(true);
 
       // Only show meme and update visited routes if the route is valid
-      if (VALID_ROUTES.has(children.key) && !visitedRoutes.has(children.key)) {
+      /*if (VALID_ROUTES.has(children.key) && !visitedRoutes.has(children.key)) {
         showNewMeme();
         setVisitedRoutes((prev) => new Set([...prev, children.key]));
-      }
+      }*/
 
       if (children.key === "/") {
         transitionToHome(homeChildren ? undefined : children);
@@ -164,20 +174,9 @@ export function TransitionLayout({ children }) {
 
   return (
     <>
-      {homeChildren}
+      {homeChildren && <SmoothScrolling>{homeChildren}</SmoothScrolling>}
       {secondaryChildren && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            zIndex: 100,
-            width: "100vw",
-            height: "100vh",
-          }}
-        >
-          {secondaryChildren}
-        </div>
+        <SecondaryWrapper>{secondaryChildren}</SecondaryWrapper>
       )}
     </>
   );

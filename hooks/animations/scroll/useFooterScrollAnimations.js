@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { FOOTER as getFooter } from "@/constants/animations";
 import styles from "@/components/Home/Footer/Footer.module.css";
 import { usePreloader } from "@/context/PreloaderContext";
-import { useWindowDimensions } from "@/hooks/utils/useWindowDimensions";
+import { useWindowDimensions } from "@/context/DimensionsContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
