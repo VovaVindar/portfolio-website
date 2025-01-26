@@ -198,6 +198,7 @@ const ClickAreas = memo(function ClickAreas({
         className={styles["click-area"]}
         data-cursor-text={getLoopedIndex(currentIndex - 1)}
         key={arrowUpdate}
+        tabIndex={-1}
       />
       <button
         type="button"
@@ -206,6 +207,7 @@ const ClickAreas = memo(function ClickAreas({
         className={styles["click-area"]}
         data-cursor-text={getLoopedIndex(currentIndex + 1)}
         key={`next-${arrowUpdate}`}
+        tabIndex={-1}
       />
     </div>
   );

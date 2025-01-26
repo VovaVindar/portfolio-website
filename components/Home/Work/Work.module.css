@@ -117,7 +117,10 @@
     transition: opacity 1.05s ease-in-out, filter 1.05s ease-in-out;
   }
   .work:hover .project-details > div,
-  .work:hover .project-link {
+  .work:hover .project-link,
+  .work:hover .project-details > div,
+  .work:focus-within .project-link,
+  .work:focus-within .project-details > div {
     opacity: 1;
     filter: blur(0px);
   }
