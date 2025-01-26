@@ -18,6 +18,7 @@ import {
 import { PreloaderProvider, usePreloader } from "@/context/PreloaderContext";
 import CursorContainer from "@/components/Global/CursorContainer";
 import SmoothScrolling from "@/components/Global/SmoothScrolling";
+import { usePreventStyleRemoval } from "@/hooks/transition/usePreventStyleRemoval";
 
 // Persistent layer that stays mounted
 const PersistentLayer = ({ renderPage }) => {
@@ -61,6 +62,8 @@ function MyApp({ Component, pageProps, router }) {
   // Using useRef would not be appropriate here because:
   // 1. Changes to ref values don't trigger re-renders
   // 2. You need the UI to update when the loading state changes
+
+  usePreventStyleRemoval();
 
   return (
     <>
