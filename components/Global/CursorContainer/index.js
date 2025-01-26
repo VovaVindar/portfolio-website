@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import gsap from "gsap";
 import MouseFollower from "@/components/Global/CursorContainer/mouse-follower/src";
-import { usePreloader } from "@/context/PreloaderContext";
+import { useLinesStatus } from "@/context/PreloaderContext";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 
 MouseFollower.registerGSAP(gsap);
@@ -22,7 +22,7 @@ const FAVICON_CONFIG = {
 const CursorContainer = ({ className = "" }) => {
   const isHoverCapable = useHoverCapable();
 
-  const { isOnloadLinesActive } = usePreloader();
+  const { isOnloadLinesActive } = useLinesStatus();
   const cursorRef = useRef(null);
   const rotationDegRef = useRef(0);
   const [currentFavicon, setCurrentFavicon] = useState(FAVICON_TYPES.MAIN);

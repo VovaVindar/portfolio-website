@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Preloader.module.css";
-import { usePreloader } from "@/context/PreloaderContext";
+import { useLoading } from "@/context/PreloaderContext";
 import { usePreloaderOnloadAnimations } from "@/hooks/animations/onload/usePreloaderOnloadAnimations";
 import { PRELOADER as getPreloader } from "@/constants/animations";
 
 const Preloader = ({ className }) => {
   const PRELOADER = getPreloader();
 
-  const { loadProgress } = usePreloader();
+  const { loadProgress } = useLoading();
   const [isLoading, setIsLoading] = useState(true);
   const [opacity, setOpacity] = useState(0);
 

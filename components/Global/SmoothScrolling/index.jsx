@@ -1,7 +1,7 @@
 import { ReactLenis, useLenis } from "lenis/react";
 import { useEffect } from "react";
-import { usePreloader } from "@/context/PreloaderContext";
-import gsap from "gsap";
+import { useLinesStatus } from "@/context/PreloaderContext";
+//import gsap from "gsap";
 
 // Create a shared reference for Lenis
 export const lenisRef = { current: null };
@@ -21,7 +21,7 @@ export const stopLenis = () => {
 };*/
 
 function SmoothScrolling({ children }) {
-  const { isOnloadLinesActive } = usePreloader();
+  const { isOnloadLinesActive } = useLinesStatus();
 
   const lenis = useLenis(() => {});
 

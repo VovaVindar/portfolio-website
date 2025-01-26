@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { usePreloader } from "@/context/PreloaderContext";
+import { useInterface } from "@/context/PreloaderContext";
 
 const BaseConstants = () => {
   return useMemo(
@@ -16,7 +16,7 @@ const BaseConstants = () => {
 
 export const PRELOADER = () => {
   const { isTallScreen, interval, incrementCap, isVeryTallScreen } =
-    usePreloader();
+    useInterface();
 
   return useMemo(
     () => ({
@@ -69,7 +69,7 @@ export const PRELOADER = () => {
 };
 
 export const LINES = () => {
-  const { isTallScreen, isVeryTallScreen } = usePreloader();
+  const { isTallScreen, isVeryTallScreen } = useInterface();
 
   return {
     COLORS: {
@@ -135,7 +135,7 @@ export const HERO = () => {
 
 export const ABOUT = () => {
   const BASE = BaseConstants();
-  const { isTallScreen, isVeryTallScreen } = usePreloader();
+  const { isTallScreen, isVeryTallScreen } = useInterface();
 
   return useMemo(
     () => ({
@@ -171,7 +171,7 @@ export const ABOUT = () => {
 
 export const CLIENTS = () => {
   const BASE = BaseConstants();
-  const { isTallScreen, isVeryTallScreen } = usePreloader();
+  const { isTallScreen, isVeryTallScreen } = useInterface();
 
   return useMemo(
     () => ({

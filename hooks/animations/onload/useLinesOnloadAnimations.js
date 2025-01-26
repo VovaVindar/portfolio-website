@@ -2,14 +2,14 @@ import { useRef, useState, useLayoutEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import { LINES as getLines } from "@/constants/animations";
 import { useTransition } from "@/context/TransitionContext";
-import { usePreloader } from "@/context/PreloaderContext";
+import { useInterface } from "@/context/PreloaderContext";
 
 export const useLinesOnloadAnimations = (linesReady) => {
   const LINES = getLines();
   const containerRef = useRef(null);
   const hasAnimatedRef = useRef(false);
   const { globalOnload } = useTransition();
-  const { completeTransition, setTallScreen, startedLines } = usePreloader();
+  const { completeTransition, setTallScreen, startedLines } = useInterface();
   const [lines, setLines] = useState([]);
 
   // Set lines and screen height

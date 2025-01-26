@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import styles from "./Footer.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import Link from "next/link";

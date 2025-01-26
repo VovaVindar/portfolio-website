@@ -9,7 +9,7 @@ import {
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRouter } from "next/router";
-import { usePreloader } from "@/context/PreloaderContext";
+import { useStart } from "@/context/PreloaderContext";
 import { useScrollPreservation } from "@/hooks/transition/useScrollPreservation";
 import { useRouteTracking } from "@/hooks/transition/useRouteTracking";
 import { usePageTransitions } from "@/hooks/transition/usePageTransitions";
@@ -43,7 +43,7 @@ export const TransitionProvider = ({ children }) => {
   const [isPageChanged, setIsPageChanged] = useState(false);
 
   // Play onload when loading is 100
-  const { startPageAnimation } = usePreloader();
+  const { startPageAnimation } = useStart();
   const { contextSafe } = useGSAP();
 
   const playOnloadAnimation = contextSafe(() => {

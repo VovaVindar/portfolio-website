@@ -1,13 +1,13 @@
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import styles from "./Lines.module.css";
-import { usePreloader } from "@/context/PreloaderContext";
+import { useLinesStatus } from "@/context/PreloaderContext";
 import { useLinesOnloadAnimations } from "@/hooks/animations/onload/useLinesOnloadAnimations";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 
 const Lines = () => {
   const { width, height } = useWindowDimensions();
 
-  const { isOnloadLinesActive } = usePreloader();
+  const { isOnloadLinesActive } = useLinesStatus();
   const [lines, setLines] = useState([]);
   const linesReadyRef = useRef(false);
 

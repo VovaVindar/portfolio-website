@@ -7,7 +7,6 @@ import "@/styles/globals.css";
 import "@/styles/design-system.css";
 import "@/styles/mouse-follower.css";
 import { fonts } from "@/config/fonts";
-import { useLayoutEffect, useState } from "react";
 import Preloader from "@/components/Onload/Preloader";
 import Lines from "@/components/Onload/Lines";
 import { ScrollProvider } from "@/context/ScrollContext";
@@ -15,21 +14,14 @@ import {
   TransitionProvider,
   TransitionLayout,
 } from "@/context/TransitionContext";
-import { PreloaderProvider, usePreloader } from "@/context/PreloaderContext";
+import { PreloaderProvider } from "@/context/PreloaderContext";
 import { DimensionsProvider } from "@/context/DimensionsContext";
 import CursorContainer from "@/components/Global/CursorContainer";
 import { usePreventStyleRemoval } from "@/hooks/transition/usePreventStyleRemoval";
 import Contact from "@/components/Home/Contact";
 
 // Persistent layer that stays mounted
-const PersistentLayer = ({ renderPage }) => {
-  const { initiateLoading } = usePreloader();
-
-  useLayoutEffect(() => {
-    initiateLoading();
-    renderPage(true);
-  }, [initiateLoading, renderPage]);
-
+const PersistentLayer = () => {
   return (
     <>
       <Preloader className={fonts.variables} />
@@ -54,15 +46,6 @@ const AppContent = ({ Component, pageProps, router }) => {
 };
 
 function MyApp({ Component, pageProps, router }) {
-  // Keep useState here because:
-  // 1. We need reactivity for conditional rendering
-  // 2. State changes should trigger re-renders
-  // 3. It's a UI flag that affects the DOM structure
-  const [startedLoading, setStartedLoading] = useState(false);
-  // Using useRef would not be appropriate here because:
-  // 1. Changes to ref values don't trigger re-renders
-  // 2. You need the UI to update when the loading state changes
-
   usePreventStyleRemoval();
 
   return (
@@ -75,14 +58,13 @@ function MyApp({ Component, pageProps, router }) {
           <ScrollProvider>
             <TransitionProvider>
               <>
-                <PersistentLayer renderPage={setStartedLoading} />
-                {startedLoading && ( // Anti flash on reload
-                  <AppContent
-                    Component={Component}
-                    pageProps={pageProps}
-                    router={router}
-                  />
-                )}
+                <PersistentLayer />
+
+                <AppContent
+                  Component={Component}
+                  pageProps={pageProps}
+                  router={router}
+                />
               </>
             </TransitionProvider>
           </ScrollProvider>

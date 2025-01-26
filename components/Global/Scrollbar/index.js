@@ -6,25 +6,33 @@ import { useScroll } from "@/context/ScrollContext";
 import { useScrollbarOnloadAnimations } from "@/hooks/animations/onload/useScrollbarOnloadAnimations";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
+import { Router } from "next/router";
 
 const MAX_HEIGHT_FOR_ANIMATION = 2800;
 
 const Scrollbar = ({ text = "", href, onClick, className }) => {
   const isHoverCapable = useHoverCapable(); // Scrollbar text jitters onscroll on touch devices due to FPS limit
-  const { height, scrollHeight } = useWindowDimensions();
+  const { height } = useWindowDimensions();
   const { scrollPosition, setScrollPosition } = useScroll();
-  const [scrollY, setScrollY] = useState(
-    typeof window !== "undefined" ? window.scrollY : 0
+  const scrollYRef = useRef(typeof window !== "undefined" ? window.scrollY : 0);
+  const [scrollHeight, setScrollHeight] = useState(
+    typeof document !== "undefined" ? document.documentElement.scrollHeight : 0
   );
 
-  // Add scroll listener
+  // Set scroll height
+  const updateScrollHeight = () => {
+    setTimeout(() => {
+      setScrollHeight(document.documentElement.scrollHeight);
+    }, 100);
+  };
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+    updateScrollHeight();
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    Router.events.on("routeChangeComplete", updateScrollHeight);
+
+    return () => {
+      Router.events.off("routeChangeComplete", updateScrollHeight);
+    };
   }, []);
 
   const documentHeightRef = useRef(0);
@@ -41,10 +49,22 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
       return;
     }
 
-    const scrollTop = scrollY;
+    const scrollTop = scrollYRef.current;
     const scrollPercent = (scrollTop / documentHeightRef.current) * 100;
     setScrollPosition(scrollPercent);
-  }, [setScrollPosition, scrollY, isHoverCapable, documentHeightRef.current]);
+  }, [setScrollPosition, isHoverCapable, documentHeightRef.current]);
+
+  // Add scroll listener
+  useEffect(() => {
+    const handleScroll = () => {
+      scrollYRef.current = window.scrollY;
+      // Since updateScrollPosition depends on scrollY, we need to call it here
+      updateScrollPosition();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [updateScrollPosition]);
 
   useEffect(() => {
     updateDocumentHeight();

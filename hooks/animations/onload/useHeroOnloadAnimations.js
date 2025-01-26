@@ -4,10 +4,10 @@ import styles from "@/components/Home/Hero/Hero.module.css";
 import { useTransition } from "@/context/TransitionContext";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useCallback, useEffect, useRef } from "react";
-import { usePreloader } from "@/context/PreloaderContext";
+import { useLinesStatus } from "@/context/PreloaderContext";
 
 export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
-  const { isOnloadLinesActive } = usePreloader();
+  const { isOnloadLinesActive } = useLinesStatus();
 
   const { width } = useWindowDimensions();
   const HERO = getHero();

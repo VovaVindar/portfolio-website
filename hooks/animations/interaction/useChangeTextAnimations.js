@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { CHANGE_TEXT as getChangeText } from "@/constants/animations";
-import { usePreloader } from "@/context/PreloaderContext";
+import { useLinesStatus } from "@/context/PreloaderContext";
 
 export const useChangeTextAnimations = (text) => {
   const CHANGE_TEXT = getChangeText();
@@ -12,7 +12,7 @@ export const useChangeTextAnimations = (text) => {
   const [displayText, setDisplayText] = useState(text);
   const previousTextRef = useRef(text);
   const [isAnimating, setIsAnimating] = useState(false);
-  const { isOnloadLinesActive } = usePreloader();
+  const { isOnloadLinesActive } = useLinesStatus();
 
   useGSAP(() => {
     if (!elementRef.current) return;
