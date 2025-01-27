@@ -49,9 +49,6 @@ export const useLinesOnloadAnimations = (linesReady) => {
         backgroundColor: LINES.COLORS.START,
       },
       {
-        onStart: () => {
-          startedLines();
-        },
         scaleY: 0,
         backgroundColor: LINES.COLORS.END,
         duration: LINES.TRANSITION.DURATION,
@@ -60,6 +57,9 @@ export const useLinesOnloadAnimations = (linesReady) => {
         stagger: {
           each: LINES.TRANSITION.STAGGER,
           from: "start",
+        },
+        onStart: () => {
+          startedLines();
         },
         onComplete: () => {
           hasAnimatedRef.current = true;

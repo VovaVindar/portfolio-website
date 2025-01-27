@@ -14,7 +14,6 @@ import { useScrollPreservation } from "@/hooks/transition/useScrollPreservation"
 import { useRouteTracking } from "@/hooks/transition/useRouteTracking";
 import { usePageTransitions } from "@/hooks/transition/usePageTransitions";
 import { useConsoleMessage } from "@/hooks/utils/useConsoleMessage";
-//import SecondaryWrapper from "@/components/Global/SecondaryWrapper";
 import dynamic from "next/dynamic";
 const SecondaryWrapper = dynamic(
   () => import("@/components/Global/SecondaryWrapper"),
@@ -101,6 +100,7 @@ const VALID_ROUTES = new Set([
 export function TransitionLayout({ children }) {
   const [homeChildren, setHomeChildren] = useState(null);
   const [secondaryChildren, setSecondaryChildren] = useState(null);
+  const [notFoundChildren, setNotFoundChildren] = useState(null);
   const router = useRouter();
 
   const { setIsPageChanged, isPageMounted, setIsPageMounted } = useTransition();
@@ -130,18 +130,23 @@ export function TransitionLayout({ children }) {
       // Set initial children on load
       if (children.key === "/") {
         setHomeChildren(children);
+      } else if (children.key === "/404") {
+        setNotFoundChildren(children);
       } else {
         setSecondaryChildren(children);
       }
 
       if (VALID_ROUTES.has(children.key)) {
         showNewMeme();
+        setIsPageMounted(true);
       }
-
-      setIsPageMounted(true);
     }
 
-    if (previousRoute !== children.key) {
+    if (
+      previousRoute !== children.key &&
+      children.key !== "/404" &&
+      previousRoute !== "/404"
+    ) {
       setIsPageChanged(true);
 
       // Only show meme and update visited routes if the route is valid
@@ -174,6 +179,7 @@ export function TransitionLayout({ children }) {
 
   return (
     <>
+      {!homeChildren && notFoundChildren}
       {homeChildren && <SmoothScrolling>{homeChildren}</SmoothScrolling>}
       {secondaryChildren && (
         <SecondaryWrapper>{secondaryChildren}</SecondaryWrapper>

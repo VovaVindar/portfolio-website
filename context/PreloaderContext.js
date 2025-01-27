@@ -161,7 +161,7 @@ export const PreloaderProvider = ({ children }) => {
   // Loading state
   const [loadProgress, setLoadProgress] = useState(0);
   const [startPageAnimation, setStartPageAnimation] = useState(false);
-  const [isStartedLines, setIsStartedLines] = useState(true);
+  const [isStartedLines, setIsStartedLines] = useState(false);
   const [isOnloadLinesActive, setIsOnloadLinesActive] = useState(true);
 
   // Loading config
@@ -317,10 +317,16 @@ export const PreloaderProvider = ({ children }) => {
     () => ({
       isOnloadLinesActive,
       completeTransition,
+    }),
+    [isOnloadLinesActive, completeTransition]
+  );
+
+  const startedLinesValue = useMemo(
+    () => ({
       isStartedLines,
       startedLines,
     }),
-    [isOnloadLinesActive, startedLines, isStartedLines, completeTransition]
+    [startedLines, isStartedLines]
   );
 
   return (
