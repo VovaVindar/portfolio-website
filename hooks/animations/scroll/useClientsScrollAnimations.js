@@ -50,7 +50,7 @@ export const useClientsScrollAnimations = () => {
           start: CLIENTS.SCROLL.TRIGGER.START,
           end: CLIENTS.SCROLL.TRIGGER.END,
         });
-      }, CLIENTS.LOAD.START_DELAY / 1000); // Convert ms to seconds for GSAP
+      }, CLIENTS.LOAD.START_DELAY); // Convert ms to seconds for GSAP
     }
 
     return () => {

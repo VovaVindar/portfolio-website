@@ -52,7 +52,7 @@ export const useAboutScrollAnimations = () => {
             gsap.to(elementRef.current, animConfig.visible);
           },
         });
-      }, ABOUT.LOAD.START_DELAY / 1000);
+      }, ABOUT.LOAD.START_DELAY);
     }
 
     return () => {

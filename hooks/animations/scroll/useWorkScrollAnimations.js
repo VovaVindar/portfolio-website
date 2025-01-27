@@ -88,7 +88,7 @@ export const useWorkScrollAnimations = () => {
         });
         triggers.text.push(textTrigger);
       });
-    }, WORK.LOAD.START_DELAY / 1000);
+    }, WORK.LOAD.START_DELAY);
 
     return () => {
       triggers.container?.kill();

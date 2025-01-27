@@ -142,7 +142,7 @@ export const ABOUT = () => {
       EASING: BASE.ANIMATION_EASING,
 
       LOAD: {
-        START_DELAY: isVeryTallScreen ? 2250 : isTallScreen ? 2550 : 3450,
+        START_DELAY: isVeryTallScreen ? 2.25 : isTallScreen ? 2.55 : 3.45,
       },
 
       SCROLL: {
@@ -178,7 +178,7 @@ export const CLIENTS = () => {
       EASING: BASE.ANIMATION_EASING,
 
       LOAD: {
-        START_DELAY: isVeryTallScreen ? 2480 : isTallScreen ? 2840 : 3490,
+        START_DELAY: isVeryTallScreen ? 2.48 : isTallScreen ? 2.84 : 3.49,
       },
 
       SCROLL: {
@@ -214,7 +214,7 @@ export const WORK = () => {
       EASING: BASE.ANIMATION_EASING,
 
       LOAD: {
-        START_DELAY: 3500,
+        START_DELAY: 3.5,
       },
 
       SCROLL: {
@@ -265,7 +265,7 @@ export const FOOTER = () => {
       EASING: BASE.ANIMATION_EASING,
 
       LOAD: {
-        START_DELAY: 3500,
+        START_DELAY: 3.5,
       },
 
       SCROLL: {
