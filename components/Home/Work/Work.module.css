@@ -119,8 +119,8 @@
   .work:hover .project-details > div,
   .work:hover .project-link,
   .work:hover .project-details > div,
-  .work:focus-within .project-link,
-  .work:focus-within .project-details > div {
+  .work:focus-visible .project-link,
+  .work:focus-visible .project-details > div {
     opacity: 1;
     filter: blur(0px);
   }

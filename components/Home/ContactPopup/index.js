@@ -87,3 +87,5 @@ export default function ContactPopup({ className }) {
     </div>
   );
 }
+
+ContactPopup.whyDidYouRender = true;
