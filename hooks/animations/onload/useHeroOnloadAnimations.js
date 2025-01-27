@@ -3,7 +3,7 @@ import { HERO as getHero } from "@/constants/animations";
 import styles from "@/components/Home/Hero/Hero.module.css";
 import { useTransition } from "@/context/TransitionContext";
 import { useWindowDimensions } from "@/context/DimensionsContext";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect } from "react";
 import { useLinesStatus } from "@/context/PreloaderContext";
 
 export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {

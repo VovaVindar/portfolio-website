@@ -33,7 +33,7 @@ const getSizesForWidth = (width) => {
 
 // Functions
 const loadFile = (src) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     if (src.match(/\.(jpg|jpeg|png|gif|webp|svg|avif)$/i)) {
       const img = new Image();
       const timeoutId = setTimeout(() => {
@@ -219,7 +219,7 @@ export const PreloaderProvider = ({ children }) => {
     }
 
     previousWidthRef.current = width;
-  }, [width, loadNewSizes]);
+  }, [width]);
 
   // Progress update effect
   useEffect(() => {

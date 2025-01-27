@@ -119,7 +119,7 @@ export function TransitionLayout({ children }) {
 
   // Show memes in console
   // Only initialize with current route if it's valid
-  const [visitedRoutes, setVisitedRoutes] = useState(() =>
+  const [visitedRoutes] = useState(() =>
     VALID_ROUTES.has(children.key) ? new Set([children.key]) : new Set()
   );
 

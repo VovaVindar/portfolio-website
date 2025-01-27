@@ -52,7 +52,7 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
     const scrollTop = scrollYRef.current;
     const scrollPercent = (scrollTop / documentHeightRef.current) * 100;
     setScrollPosition(scrollPercent);
-  }, [setScrollPosition, isHoverCapable, documentHeightRef.current]);
+  }, [setScrollPosition, isHoverCapable]);
 
   // Add scroll listener
   useEffect(() => {

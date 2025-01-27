@@ -27,7 +27,7 @@ export function DimensionsProvider({ children }) {
     return () => {
       window.removeEventListener("resize", updateDimensions);
     };
-  }, []);
+  }, [updateDimensions]);
 
   return (
     <DimensionsContext.Provider value={{ ...dimensions }}>

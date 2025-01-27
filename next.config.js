@@ -123,7 +123,7 @@ const nextConfig = {
   },
   // Static site output:
   output: "export", // Enables static HTML export
-  webpack: (config, options) => {
+  webpack: (config) => {
     config.module.rules.push({
       test: /\.glsl/, // Enable GLSL files
       type: "asset/source",
