@@ -195,15 +195,8 @@ p {
 ::selection {
   /*color: red;
   background-color: red;*/
-  color: var(--token-color-surface-primary);
-  background-color: var(--token-color-surface-contrast);
-}
-@supports (background: -webkit-named-image(i)) {
-  /* Safari bug fix */
-  ::selection {
-    color: var(--token-color-text-primary);
-    background-color: red;
-  }
+  color: var(--token-color-text-primary);
+  background-color: rgba(255, 0, 0, 0.8);
 }
 :focus {
   outline: none;

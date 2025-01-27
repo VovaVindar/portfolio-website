@@ -11,20 +11,32 @@
   display: grid;
   height: 100vh;
   width: 100%;
-  min-height: 600px;
   max-height: min(1440px, 61.706vw);
+  min-height: fit-content;
   grid-template-columns: repeat(
     8,
-    min(calc(9.7222vw + var(--global-padding)), 255px)
+    min(calc(9.7222vw - (var(--global-padding) * 0)), 255px)
   );
   grid-template-rows: repeat(
     5,
-    min(calc(9.5139vw + var(--global-padding)), 249px)
+    min(calc(9.5vw - (var(--global-padding) * 0)), 249px)
   );
-  gap: var(--global-padding);
+  gap: calc(var(--global-padding) * 4);
   justify-content: space-between;
   align-content: space-between;
   position: relative;
+}
+@media all and (min-width: 1860px) {
+  .hero-container .grid {
+    grid-template-columns: repeat(
+      8,
+      min(calc(9.7222vw - (var(--global-padding) * 1)), 255px)
+    );
+    grid-template-rows: repeat(
+      5,
+      min(calc(8.9vw - (var(--global-padding) * 1)), 249px)
+    );
+  }
 }
 .hero-container h1.hero-title {
   margin-left: -3px;
@@ -78,6 +90,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.grid-cell .cell-video {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .grid-cell .cell-video video {
   width: 100%;
