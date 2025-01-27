@@ -23,7 +23,7 @@
   width: 100%;
   text-align: justify;
   text-align-last: left;
-  text-wrap: pretty;
+  text-wrap: wrap;
   padding-bottom: 2rlh;
   height: auto;
   display: block;
