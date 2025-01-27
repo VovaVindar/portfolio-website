@@ -87,7 +87,6 @@ export const useFooterScrollAnimations = () => {
             setHasEntered(true);
           },
           once: FOOTER.SCROLL.ONCE,
-          markers: true,
         });
       }, FOOTER.LOAD.START_DELAY / 1000);
     }

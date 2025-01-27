@@ -13,14 +13,8 @@
   width: 100%;
   max-height: min(1440px, 61.706vw);
   min-height: fit-content;
-  grid-template-columns: repeat(
-    8,
-    min(calc(9.7222vw - (var(--global-padding) * 0)), 255px)
-  );
-  grid-template-rows: repeat(
-    5,
-    min(calc(9.5vw - (var(--global-padding) * 0)), 249px)
-  );
+  grid-template-columns: repeat(8, min(9.7222vw, 255px));
+  grid-template-rows: repeat(5, min(9.5vw, 249px));
   gap: calc(var(--global-padding) * 4);
   justify-content: space-between;
   align-content: space-between;
@@ -151,12 +145,6 @@
     filter 2.1s var(--easing-img-fade-in); /* power2.out */
 }
 
-@media all and (max-width: 1200px) {
-  .hero-container .grid {
-    grid-template-columns: repeat(8, 11.240837vw);
-    grid-template-rows: repeat(5, 11vw);
-  }
-}
 @media all and (max-width: 1060px) {
   .hero-container h1.hero-title {
     font-size: calc(var(--token-font-size-1) * 0.94);
