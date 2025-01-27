@@ -1,5 +1,5 @@
 // Auto-generated media paths
-// Generated on: 1/25/2025, 1:11:11 AM
+// Generated on: 1/26/2025, 5:28:29 PM
 
 export const SITE_IMAGES = [
   "/images/optimized/1260/avif/am_1.avif",
@@ -28,14 +28,6 @@ export const SITE_IMAGES = [
   "/images/optimized/400/avif/mobius_1.avif",
   "/images/optimized/400/avif/paradigm_login.avif",
   "/images/optimized/400/avif/paradigm_product_1.avif",
-  "/images/optimized/400/mp4/am_1.avif",
-  "/images/optimized/400/mp4/app_mockup.avif",
-  "/images/optimized/400/mp4/blackster_logos.avif",
-  "/images/optimized/400/mp4/card_render_1.avif",
-  "/images/optimized/400/mp4/cognition.avif",
-  "/images/optimized/400/mp4/mobius_1.avif",
-  "/images/optimized/400/mp4/paradigm_login.avif",
-  "/images/optimized/400/mp4/paradigm_product_1.avif",
   "/images/optimized/650/avif/am_1.avif",
   "/images/optimized/650/avif/app_mockup.avif",
   "/images/optimized/650/avif/blackster_logos.avif",

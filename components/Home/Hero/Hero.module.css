@@ -153,7 +153,6 @@
 
 @media all and (max-width: 1200px) {
   .hero-container .grid {
-    min-height: 500px;
     grid-template-columns: repeat(8, 11.240837vw);
     grid-template-rows: repeat(5, 11vw);
   }
@@ -182,7 +181,6 @@
       min(calc((100vw - (var(--global-padding) * 5)) / 4), 148.5px)
     );
     gap: var(--global-padding);
-    min-height: fit-content;
     height: auto;
     max-height: auto;
   }
