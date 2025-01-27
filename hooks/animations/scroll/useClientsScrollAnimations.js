@@ -3,27 +3,16 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { CLIENTS as getClients } from "@/constants/animations";
-import { useStart } from "@/context/PreloaderContext";
+import { useTransition } from "@/context/TransitionContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useClientsScrollAnimations = () => {
   const CLIENTS = getClients();
 
-  const { startPageAnimation } = useStart();
-  const timelineRef = useRef(null);
-  const [startScroll, setStartScroll] = useState(false);
   const elementRef = useRef([]);
 
-  useEffect(() => {
-    if (startPageAnimation) {
-      const timer = setTimeout(() => {
-        setStartScroll(true);
-      }, CLIENTS.LOAD.START_DELAY);
-
-      return () => clearTimeout(timer);
-    }
-  }, [startPageAnimation, CLIENTS]);
+  const { globalOnload } = useTransition();
 
   const animConfig = useMemo(
     () => ({
@@ -47,25 +36,21 @@ export const useClientsScrollAnimations = () => {
   useGSAP(() => {
     let batchInstance;
 
-    if (timelineRef.current) {
-      timelineRef.current.kill();
-    }
-
-    timelineRef.current = gsap.timeline();
-
     if (elementRef.current.length) {
-      timelineRef.current.set(elementRef.current, animConfig.hidden);
+      gsap.set(elementRef.current, animConfig.hidden);
 
-      if (startScroll) {
+      // Add the batch scroll trigger creation to the timeline at the desired point
+      globalOnload.add(() => {
         batchInstance = ScrollTrigger.batch(elementRef.current, {
           onEnter: (batch) => {
-            gsap.fromTo(batch, animConfig.hidden, animConfig.visible);
+            // Create and execute the animation only when the scroll trigger fires
+            gsap.to(batch, animConfig.visible);
           },
           once: CLIENTS.SCROLL.ONCE,
           start: CLIENTS.SCROLL.TRIGGER.START,
           end: CLIENTS.SCROLL.TRIGGER.END,
         });
-      }
+      }, CLIENTS.LOAD.START_DELAY / 1000); // Convert ms to seconds for GSAP
     }
 
     return () => {
@@ -76,12 +61,8 @@ export const useClientsScrollAnimations = () => {
           batchInstance.kill();
         }
       }
-      if (timelineRef.current) {
-        timelineRef.current.kill();
-        timelineRef.current = null;
-      }
     };
-  }, [startScroll]);
+  }, [globalOnload, animConfig]);
 
   return elementRef;
 };

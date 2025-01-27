@@ -1,28 +1,18 @@
-import { useRef, useEffect, useState, useMemo } from "react";
+import { useRef, useMemo } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { ABOUT as getAbout } from "@/constants/animations";
-import { useStart } from "@/context/PreloaderContext";
+import { useTransition } from "@/context/TransitionContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useAboutScrollAnimations = () => {
   const ABOUT = getAbout();
 
-  const { startPageAnimation } = useStart();
-  const timelineRef = useRef(null);
-  const [startScroll, setStartScroll] = useState(false);
   const elementRef = useRef([]);
 
-  useEffect(() => {
-    if (startPageAnimation) {
-      const timer = setTimeout(() => {
-        setStartScroll(true);
-      }, ABOUT.LOAD.START_DELAY);
-      return () => clearTimeout(timer);
-    }
-  }, [startPageAnimation, ABOUT]);
+  const { globalOnload } = useTransition();
 
   const animConfig = useMemo(
     () => ({
@@ -46,41 +36,31 @@ export const useAboutScrollAnimations = () => {
   useGSAP(() => {
     let scrollTriggerInstance;
 
-    if (timelineRef.current) {
-      timelineRef.current.kill();
-    }
-    timelineRef.current = gsap.timeline();
+    if (elementRef.current.length && globalOnload) {
+      // Set initial state
+      gsap.set(elementRef.current, animConfig.hidden);
 
-    if (elementRef.current.length) {
-      timelineRef.current.set(elementRef.current, animConfig.hidden);
-
-      if (startScroll) {
+      // Add the scroll trigger creation to the timeline at the desired point
+      globalOnload.add(() => {
+        // Create and store the ScrollTrigger instance
         scrollTriggerInstance = ScrollTrigger.create({
           trigger: elementRef.current,
           start: "top bottom",
-          onEnter: () => {
-            timelineRef.current.fromTo(
-              elementRef.current,
-              animConfig.hidden,
-              animConfig.visible
-            );
-          },
           once: ABOUT.SCROLL.ONCE,
-          fastScrollEnd: true,
+          onEnter: () => {
+            // Create and execute the animation only when the scroll trigger fires
+            gsap.to(elementRef.current, animConfig.visible);
+          },
         });
-      }
+      }, ABOUT.LOAD.START_DELAY / 1000);
     }
 
     return () => {
       if (scrollTriggerInstance) {
         scrollTriggerInstance.kill();
       }
-      if (timelineRef.current) {
-        timelineRef.current.kill();
-        timelineRef.current = null;
-      }
     };
-  }, [startScroll]);
+  }, [globalOnload, animConfig]);
 
   return elementRef;
 };

@@ -1,11 +1,11 @@
-import { useRef, useEffect, useState, useCallback, useMemo } from "react";
+import { useRef, useCallback, useMemo, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { FOOTER as getFooter } from "@/constants/animations";
 import styles from "@/components/Home/Footer/Footer.module.css";
-import { useStart } from "@/context/PreloaderContext";
 import { useWindowDimensions } from "@/context/DimensionsContext";
+import { useTransition } from "@/context/TransitionContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,11 +15,11 @@ export const useFooterScrollAnimations = () => {
   const FOOTER = getFooter();
   const { width } = useWindowDimensions();
 
-  const { startPageAnimation } = useStart();
   const elementRef = useRef([]);
   const socialRef = useRef(null);
-  const timelineRef = useRef(null);
-  const [startScroll, setStartScroll] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+
+  const { globalOnload } = useTransition();
 
   // Stagger calculation functions
   const footerStaggerDesktop = useCallback((index, interval) => {
@@ -35,15 +35,6 @@ export const useFooterScrollAnimations = () => {
     const multipliers = [0, 3, 7, 1, 4, 7, 2, 5, 6, 3, 10, 10];
     return (multipliers[index] ?? 0) * interval;
   }, []);
-
-  useEffect(() => {
-    if (startPageAnimation) {
-      const timer = setTimeout(() => {
-        setStartScroll(true);
-      }, FOOTER.LOAD.START_DELAY);
-      return () => clearTimeout(timer);
-    }
-  }, [startPageAnimation, FOOTER]);
 
   const animConfig = useMemo(
     () => ({
@@ -79,41 +70,34 @@ export const useFooterScrollAnimations = () => {
   useGSAP(() => {
     let scrollTriggerInstance;
 
-    if (timelineRef.current) {
-      timelineRef.current.kill();
-    }
-    timelineRef.current = gsap.timeline();
-
     if (elementRef.current.length) {
-      timelineRef.current.set(elementRef.current, animConfig.hidden);
+      // Only set to hidden state if we haven't entered the viewport yet
+      if (!hasEntered) {
+        gsap.set(elementRef.current, animConfig.hidden);
+      }
 
-      if (startScroll) {
+      // Add the scroll trigger creation to the timeline at the desired point
+      globalOnload.add(() => {
         scrollTriggerInstance = ScrollTrigger.create({
           trigger: elementRef.current,
           start: FOOTER.SCROLL.TRIGGER.START,
           onEnter: () => {
-            timelineRef.current.fromTo(
-              elementRef.current,
-              animConfig.hidden,
-              animConfig.visible
-            );
+            // Create and execute the animation only when the scroll trigger fires
+            gsap.to(elementRef.current, animConfig.visible);
+            setHasEntered(true);
           },
           once: FOOTER.SCROLL.ONCE,
-          fastScrollEnd: true,
+          markers: true,
         });
-      }
+      }, FOOTER.LOAD.START_DELAY / 1000);
     }
 
     return () => {
       if (scrollTriggerInstance) {
         scrollTriggerInstance.kill();
       }
-      if (timelineRef.current) {
-        timelineRef.current.kill();
-        timelineRef.current = null;
-      }
     };
-  }, [startScroll, footerStaggerDesktop, footerStaggerMobile]);
+  }, [globalOnload, animConfig, footerStaggerDesktop, footerStaggerMobile]);
 
   return { elementRef, socialRef };
 };

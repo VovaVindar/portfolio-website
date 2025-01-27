@@ -1,16 +1,17 @@
-import { useRef, useEffect, useState, useLayoutEffect, useMemo } from "react";
+import { useRef, useState, useLayoutEffect, useMemo } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { WORK as getWork } from "@/constants/animations";
 import styles from "@/components/Home/Work/Work.module.css";
-import { useStart } from "@/context/PreloaderContext";
+import { useTransition } from "@/context/TransitionContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useWorkScrollAnimations = () => {
   const WORK = getWork();
-  const { startPageAnimation } = useStart();
+
+  const { globalOnload } = useTransition();
 
   const textRefs = useRef([]);
   const addToTextRefs = (el) => {
@@ -33,17 +34,6 @@ export const useWorkScrollAnimations = () => {
       lineHeight * WORK.SCROLL.PARALLAX.TRIGGER.END_OFFSET_MULTIPLIER
     );
   }, [WORK.SCROLL.PARALLAX.TRIGGER.END_OFFSET_MULTIPLIER]);
-
-  // Handle delayed scroll start
-  const [startScroll, setStartScroll] = useState(false);
-  useEffect(() => {
-    if (startPageAnimation) {
-      const timer = setTimeout(() => {
-        setStartScroll(true);
-      }, WORK.LOAD.START_DELAY);
-      return () => clearTimeout(timer);
-    }
-  }, [startPageAnimation, WORK]);
 
   // Text animation config
   const animConfig = useMemo(
@@ -71,15 +61,14 @@ export const useWorkScrollAnimations = () => {
       text: [],
     };
 
-    //imgRef?.current?.classList.remove(styles["in-view"]);
-
     // Set initial state for all text elements
     textRefs.current.forEach((ref) => {
       gsap.set(ref, animConfig.text.hidden);
     });
 
-    if (startScroll) {
-      // Img animation
+    // Add scroll triggers to the global timeline at the desired point
+    globalOnload.add(() => {
+      // Container/Image animation
       triggers.container = ScrollTrigger.create({
         trigger: imgRef.current,
         start: WORK.SCROLL.CONTAINER.TRIGGER.START,
@@ -93,20 +82,19 @@ export const useWorkScrollAnimations = () => {
           trigger: ref,
           start: WORK.SCROLL.TEXT.TRIGGER.START,
           onEnter: () => {
-            // Create a new timeline for each element
             gsap.to(ref, animConfig.text.visible);
           },
           once: WORK.SCROLL.TEXT.ONCE,
         });
         triggers.text.push(textTrigger);
       });
-    }
+    }, WORK.LOAD.START_DELAY / 1000);
 
     return () => {
       triggers.container?.kill();
       triggers.text.forEach((trigger) => trigger?.kill());
     };
-  }, [startScroll, animConfig]);
+  }, [globalOnload, animConfig]);
 
   // Combined parallax scroll animation
   useGSAP(() => {

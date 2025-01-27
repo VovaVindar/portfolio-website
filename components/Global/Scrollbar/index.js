@@ -105,4 +105,4 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
 
 export default Scrollbar;
 
-Scrollbar.whyDidYouRender = true;
+//Scrollbar.whyDidYouRender = true;
