@@ -15,6 +15,7 @@ const LoadingContext = createContext(null);
 const StartContext = createContext(null);
 const InterfaceContext = createContext(null);
 const LinesStatusContext = createContext(null);
+const StartedLinesContext = createContext(null);
 
 // Track which sizes have been loaded
 const loadedSizesRef = {
@@ -312,7 +313,7 @@ export const PreloaderProvider = ({ children }) => {
     [interfaceState, setTallScreen]
   );
 
-  const linesValue = useMemo(
+  const linesStatusValue = useMemo(
     () => ({
       isOnloadLinesActive,
       completeTransition,
@@ -326,8 +327,10 @@ export const PreloaderProvider = ({ children }) => {
     <LoadingContext.Provider value={loadingValue}>
       <StartContext.Provider value={startValue}>
         <InterfaceContext.Provider value={interfaceValue}>
-          <LinesStatusContext.Provider value={linesValue}>
-            {children}
+          <LinesStatusContext.Provider value={linesStatusValue}>
+            <StartedLinesContext.Provider value={startedLinesValue}>
+              {children}
+            </StartedLinesContext.Provider>
           </LinesStatusContext.Provider>
         </InterfaceContext.Provider>
       </StartContext.Provider>
@@ -364,6 +367,14 @@ export const useLinesStatus = () => {
   const context = useContext(LinesStatusContext);
   if (!context) {
     throw new Error("useLinesStatus must be used within a PreloaderProvider");
+  }
+  return context;
+};
+
+export const useStartedLines = () => {
+  const context = useContext(StartedLinesContext);
+  if (!context) {
+    throw new Error("useStartedLines must be used within a PreloaderProvider");
   }
   return context;
 };

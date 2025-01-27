@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { HERO as getHero } from "@/constants/animations";
-import { useLinesStatus } from "@/context/PreloaderContext";
+import { useStartedLines } from "@/context/PreloaderContext";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useTransition } from "@/context/TransitionContext";
 
@@ -12,7 +12,7 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
 
   const isWideScreen = width > 820;
 
-  const { isStartedLines } = useLinesStatus();
+  const { isStartedLines } = useStartedLines();
   const { globalOnload } = useTransition();
 
   useGSAP(() => {

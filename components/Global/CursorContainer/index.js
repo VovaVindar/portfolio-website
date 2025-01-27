@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import gsap from "gsap";
 import MouseFollower from "@/components/Global/CursorContainer/mouse-follower/src";
-import { useLinesStatus } from "@/context/PreloaderContext";
+//import { useLinesStatus } from "@/context/PreloaderContext";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 
 MouseFollower.registerGSAP(gsap);
@@ -22,10 +22,11 @@ const FAVICON_CONFIG = {
 const CursorContainer = ({ className = "" }) => {
   const isHoverCapable = useHoverCapable();
 
-  const { isOnloadLinesActive } = useLinesStatus();
+  //const { isOnloadLinesActive } = useLinesStatus();
   const cursorRef = useRef(null);
   const rotationDegRef = useRef(0);
   const [currentFavicon, setCurrentFavicon] = useState(FAVICON_TYPES.MAIN);
+  const hasInitialized = useRef(false);
 
   // Favicon management
   const setFavicon = useCallback((baseName) => {
@@ -78,10 +79,11 @@ const CursorContainer = ({ className = "" }) => {
     setFavicon(document.hidden ? hiddenFavicon : currentFavicon);
   }, [currentFavicon, setFavicon]);
 
-  // Initialize cursor
+  // Initialize cursor only once
   useEffect(() => {
-    if (!isHoverCapable) return;
+    if (!isHoverCapable || hasInitialized.current) return;
 
+    hasInitialized.current = true;
     const cursor = new MouseFollower({
       speed: 1.1,
       skewingText: 0,
@@ -106,14 +108,22 @@ const CursorContainer = ({ className = "" }) => {
           duration: 0,
         });
 
-        if (!isOnloadLinesActive) {
-          toggleFavicon();
-        }
+        toggleFavicon();
       }
     });
 
     // Initial cursor animation
     gsap.set(".mf-cursor", { autoAlpha: 0 });
+
+    return () => {
+      cursor.destroy();
+      hasInitialized.current = false;
+    };
+  }, [className, toggleFavicon, isHoverCapable]);
+
+  // Handle cursor visibility based on isOnloadLinesActive
+  /*useEffect(() => {
+    if (!cursorRef.current) return;
 
     if (!isOnloadLinesActive) {
       gsap.to(".mf-cursor", {
@@ -123,9 +133,7 @@ const CursorContainer = ({ className = "" }) => {
         autoAlpha: 1,
       });
     }
-
-    return () => cursor.destroy();
-  }, [className, isOnloadLinesActive, toggleFavicon, isHoverCapable]);
+  }, [isOnloadLinesActive]);*/
 
   // Visibility change listener
   useEffect(() => {

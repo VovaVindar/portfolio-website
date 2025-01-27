@@ -157,3 +157,5 @@ const HeroGrid = memo(({ imgOnload, cellOnload, onHover }) => {
 
 HeroGrid.displayName = "HeroGrid";
 export default HeroGrid;
+
+HeroGrid.whyDidYouRender = true;

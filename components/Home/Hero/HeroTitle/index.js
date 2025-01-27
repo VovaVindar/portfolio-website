@@ -34,3 +34,5 @@ const HeroTitle = ({ customText = "Designing for Permanence." }) => {
 };
 
 export default HeroTitle;
+
+HeroTitle.whyDidYouRender = true;
