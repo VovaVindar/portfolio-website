@@ -145,6 +145,19 @@
     filter 2.1s var(--easing-img-fade-in); /* power2.out */
 }
 
+@media all and (max-width: 1270px) {
+  .hero-container .grid {
+    grid-template-columns: repeat(
+      8,
+      min(calc(9.7222vw + (var(--global-padding) * 2)), 255px)
+    );
+    grid-template-rows: repeat(
+      5,
+      min(calc(9.5vw + (var(--global-padding) * 2)), 249px)
+    );
+    gap: calc(var(--global-padding) * 1);
+  }
+}
 @media all and (max-width: 1060px) {
   .hero-container h1.hero-title {
     font-size: calc(var(--token-font-size-1) * 0.94);
