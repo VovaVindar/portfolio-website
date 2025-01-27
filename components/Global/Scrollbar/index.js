@@ -2,7 +2,7 @@ import { useEffect, useCallback, useRef, useState } from "react";
 import styles from "./Scrollbar.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import Link from "next/link";
-import { useScroll } from "@/context/ScrollContext";
+import { useScroll } from "@/context/ScrollbarContext";
 import { useScrollbarOnloadAnimations } from "@/hooks/animations/onload/useScrollbarOnloadAnimations";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";

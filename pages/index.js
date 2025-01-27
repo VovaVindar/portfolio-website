@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "./Home.module.css";
+import ContactPopup from "@/components/Home/ContactPopup";
 import Hero from "@/components/Home/Hero";
 import About from "@/components/Home/About";
 import SelectedClients from "@/components/Home/SelectedClients";
@@ -14,6 +15,7 @@ export default function Home({}) {
       </Head>
       <div className={`${styles["home-container"]} container`}>
         <div className={`${styles["safari-bug-fix"]}`} />
+        <ContactPopup />
         <Hero />
         <About />
         <SelectedClients />

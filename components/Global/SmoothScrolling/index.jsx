@@ -9,7 +9,7 @@ export const LERP_VALUE = 0.09; // was 0.15
 
 // Regular functions, not hooks
 export const startLenis = () => {
-  lenisRef.current?.lenis?.start();
+  return lenisRef.current?.lenis?.start();
 };
 
 export const stopLenis = () => {

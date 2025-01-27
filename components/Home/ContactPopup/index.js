@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import styles from "./Contact.module.css";
-import Scrollbar from "@/components/Global/Scrollbar";
+import styles from "./ContactPopup.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import { useContactTransition } from "@/hooks/animations/transition/useContactTransitions";
 import { startLenis, stopLenis } from "@/components/Global/SmoothScrolling";
+import { useContact } from "@/context/ScrollbarContext";
 
-export default function Contact({ className }) {
-  const [contactOpen, setContactOpen] = useState(false);
+export default function ContactPopup({ className }) {
+  const { contactOpen, setContactOpen } = useContact();
   const { containerRef, contentRef } = useContactTransition(contactOpen);
   const [copyEmail, setCopyEmail] = useState("vovavindar@gmail.com");
 
@@ -38,6 +38,7 @@ export default function Contact({ className }) {
 
     const handleEscClose = (event) => {
       if (event.key === "Escape" && contactOpen) {
+        startLenis();
         setContactOpen(false);
       }
     };
@@ -50,59 +51,39 @@ export default function Contact({ className }) {
       );
       window.removeEventListener("keydown", handleEscClose);
     };
-  }, [contactOpen]);
+  }, [contactOpen, setContactOpen]);
 
   return (
-    <>
-      {!contactOpen ? (
-        <Scrollbar
-          text={"Contact"}
-          href="mailto:vovavindar@gmail.com"
-          className={className}
-        />
-      ) : (
-        <Scrollbar
-          text={"Close"}
-          onClick={() => {
-            setContactOpen(false);
-            startLenis();
-          }}
-          className={className}
-        />
-      )}
-      <div
-        className={`${styles["contact-container"]} ${className}`}
-        ref={containerRef}
+    <div
+      className={`${styles["contact-container"]} ${className}`}
+      ref={containerRef}
+    >
+      <Magnetic
+        style={{ height: "min-content", width: "min-content" }}
+        type="text"
       >
-        <Magnetic
-          style={{ height: "min-content", width: "min-content" }}
-          type="text"
-        >
-          <button
-            ref={contentRef}
-            className="text-body-3-uppercase mf-exclusion"
-            data-cursor-text="Copy"
-            onClick={(e) => {
-              e.preventDefault();
-              const email = "vovavindar@gmail.com";
-              navigator.clipboard.writeText(email);
-              setCopyEmail("Copied");
+        <button
+          ref={contentRef}
+          className="text-body-3-uppercase mf-exclusion"
+          data-cursor-text="Copy"
+          onClick={(e) => {
+            e.preventDefault();
+            const email = "vovavindar@gmail.com";
+            navigator.clipboard.writeText(email);
+            setCopyEmail("Copied");
 
+            setTimeout(() => {
+              setContactOpen(false);
+              startLenis();
               setTimeout(() => {
-                setContactOpen(false);
-                startLenis();
-                setTimeout(() => {
-                  setCopyEmail("vovavindar@gmail.com");
-                }, 680);
-              }, 400);
-            }}
-          >
-            {copyEmail}
-          </button>
-        </Magnetic>
-      </div>
-    </>
+                setCopyEmail("vovavindar@gmail.com");
+              }, 680);
+            }, 400);
+          }}
+        >
+          {copyEmail}
+        </button>
+      </Magnetic>
+    </div>
   );
 }
-
-Contact.whyDidYouRender = true;

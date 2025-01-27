@@ -9,7 +9,7 @@ import "@/styles/mouse-follower.css";
 import { fonts } from "@/config/fonts";
 import Preloader from "@/components/Onload/Preloader";
 import Lines from "@/components/Onload/Lines";
-import { ScrollProvider } from "@/context/ScrollContext";
+import { ScrollbarProvider } from "@/context/ScrollbarContext";
 import {
   TransitionProvider,
   TransitionLayout,
@@ -18,7 +18,7 @@ import { PreloaderProvider } from "@/context/PreloaderContext";
 import { DimensionsProvider } from "@/context/DimensionsContext";
 import CursorContainer from "@/components/Global/CursorContainer";
 import { usePreventStyleRemoval } from "@/hooks/transition/usePreventStyleRemoval";
-import Contact from "@/components/Home/Contact";
+import CTA from "@/components/Global/CTA";
 
 // Persistent layer that stays mounted
 const PersistentLayer = () => {
@@ -35,7 +35,7 @@ const AppContent = ({ Component, pageProps, router }) => {
   return (
     <>
       <CursorContainer className={fonts.variables} />
-      <Contact className={fonts.variables} />
+      <CTA className={fonts.variables} />
       <TransitionLayout>
         <main key={router.route} className={fonts.variables}>
           <Component {...pageProps} />
@@ -55,7 +55,7 @@ function MyApp({ Component, pageProps, router }) {
       </Head>
       <DimensionsProvider>
         <PreloaderProvider>
-          <ScrollProvider>
+          <ScrollbarProvider>
             <TransitionProvider>
               <>
                 <PersistentLayer />
@@ -67,7 +67,7 @@ function MyApp({ Component, pageProps, router }) {
                 />
               </>
             </TransitionProvider>
-          </ScrollProvider>
+          </ScrollbarProvider>
         </PreloaderProvider>
       </DimensionsProvider>
     </>

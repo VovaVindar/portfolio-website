@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "../SelectedClients.module.css";
-import { useScroll } from "@/context/ScrollContext";
+import { useScroll } from "@/context/ScrollbarContext";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 
 const WIDE_SCREEN_BREAKPOINT = 1060;

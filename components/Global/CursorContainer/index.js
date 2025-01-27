@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import gsap from "gsap";
 import MouseFollower from "@/components/Global/CursorContainer/mouse-follower/src";
-//import { useLinesStatus } from "@/context/PreloaderContext";
+import { useLinesStatus } from "@/context/PreloaderContext";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 
 MouseFollower.registerGSAP(gsap);
@@ -22,7 +22,7 @@ const FAVICON_CONFIG = {
 const CursorContainer = ({ className = "" }) => {
   const isHoverCapable = useHoverCapable();
 
-  //const { isOnloadLinesActive } = useLinesStatus();
+  const { isOnloadLinesActive } = useLinesStatus();
   const cursorRef = useRef(null);
   const rotationDegRef = useRef(0);
   const [currentFavicon, setCurrentFavicon] = useState(FAVICON_TYPES.MAIN);
@@ -122,7 +122,7 @@ const CursorContainer = ({ className = "" }) => {
   }, [className, toggleFavicon, isHoverCapable]);
 
   // Handle cursor visibility based on isOnloadLinesActive
-  /*useEffect(() => {
+  useEffect(() => {
     if (!cursorRef.current) return;
 
     if (!isOnloadLinesActive) {
@@ -133,7 +133,7 @@ const CursorContainer = ({ className = "" }) => {
         autoAlpha: 1,
       });
     }
-  }, [isOnloadLinesActive]);*/
+  }, [isOnloadLinesActive]);
 
   // Visibility change listener
   useEffect(() => {
