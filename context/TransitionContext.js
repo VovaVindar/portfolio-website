@@ -143,6 +143,7 @@ export function TransitionLayout({ children }) {
     }
 
     if (
+      previousRoute &&
       previousRoute !== children.key &&
       children.key !== "/404" &&
       previousRoute !== "/404"
