@@ -160,6 +160,7 @@ export const PreloaderProvider = ({ children }) => {
   // Loading state
   const [loadProgress, setLoadProgress] = useState(0);
   const [startPageAnimation, setStartPageAnimation] = useState(false);
+  const [isStartedLines, setIsStartedLines] = useState(true);
   const [isOnloadLinesActive, setIsOnloadLinesActive] = useState(true);
 
   // Loading config
@@ -170,7 +171,6 @@ export const PreloaderProvider = ({ children }) => {
   const [interfaceState, setInterfaceState] = useState({
     isTallScreen: false,
     isVeryTallScreen: false,
-    isStartedLines: false,
   });
 
   const actualProgressRef = useRef(0);
@@ -263,12 +263,9 @@ export const PreloaderProvider = ({ children }) => {
   }, []);
 
   const startedLines = useCallback(() => {
-    setInterfaceState((prev) => {
-      if (prev.isStartedLines === true) return prev;
-      return {
-        ...prev,
-        isStartedLines: true,
-      };
+    setIsStartedLines((prev) => {
+      if (prev === true) return prev;
+      return true;
     });
   }, []);
 
@@ -310,18 +307,19 @@ export const PreloaderProvider = ({ children }) => {
   const interfaceValue = useMemo(
     () => ({
       ...interfaceState,
-      completeTransition,
       setTallScreen,
-      startedLines,
     }),
-    [interfaceState, completeTransition, setTallScreen, startedLines]
+    [interfaceState, setTallScreen]
   );
 
   const linesValue = useMemo(
     () => ({
       isOnloadLinesActive,
+      completeTransition,
+      isStartedLines,
+      startedLines,
     }),
-    [isOnloadLinesActive]
+    [isOnloadLinesActive, startedLines, isStartedLines, completeTransition]
   );
 
   return (
