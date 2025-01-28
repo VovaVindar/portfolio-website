@@ -9,7 +9,7 @@ const About = () => {
       <div className={`${styles["text-container"]} text-body-3`}>
         <p>
           <span ref={(el) => (elementRef.current[0] = el)}>
-            I&apos;m a detail-oriented designer-developer based in Vancouver,
+            I&apos;m a designer-developer currently based in rainy Vancouver,
             obsessed with creating immersive websites and beautiful digital
             interfaces.
             <span className={`${styles["mobile-breaker"]}`}></span>
