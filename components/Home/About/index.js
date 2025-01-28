@@ -16,17 +16,19 @@ const About = () => {
           </span>{" "}
           <span ref={(el) => (elementRef.current[1] = el)}>
             I&apos;ve had the privilege of working with clients like UNIT9,
-            Twitch, Dolce & Gabbana, Paradigm, and Cognition, delivering web
-            experiences, digital
+            Twitch, Dolce&Gabbana, Paradigm, and Cognition, delivering web
+            experiences and digital
           </span>{" "}
           <span ref={(el) => (elementRef.current[2] = el)}>
-            products, and brand identities, shaping digital presence for
-            established brands, and helping startups secure funding including Y
-            Combinator.
+            products that shape the presence of established brands and helping
+            emerging startups build identities that have secured{" "}
+            <span style={{ whiteSpace: "nowrap" }}>Y Combinator backing.</span>
+            <span className={`${styles["mobile-breaker"]}`}></span>
           </span>{" "}
           <span ref={(el) => (elementRef.current[3] = el)}>
-            In an industry driven by trends, I focus on creating things that
-            stay.
+            In an industry that chases trends, I ground my work in permanent
+            design principles, creating things that remain purposeful and
+            impactful.
           </span>
         </p>
 

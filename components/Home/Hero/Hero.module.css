@@ -33,7 +33,7 @@
   }
 }
 .hero-container h1.hero-title {
-  margin-left: -3px;
+  margin-left: -1px;
   position: absolute;
   width: 100%;
   text-align: center;
@@ -48,6 +48,8 @@
     filter 1s var(--easing-text-fade-in);
   transition-delay: 0s;
   height: auto;
+  text-wrap: nowrap;
+  font-size: calc(var(--token-font-size-1) * 1.105);
 }
 
 .hero-container .hover-text {
@@ -160,7 +162,7 @@
 }
 @media all and (max-width: 1060px) {
   .hero-container h1.hero-title {
-    font-size: calc(var(--token-font-size-1) * 0.94);
+    font-size: calc(var(--token-font-size-1) * 1.02);
   }
 }
 @media all and (max-width: 820px) {
@@ -168,6 +170,7 @@
     transition: opacity 1.6s var(--easing-text-fade-in),
       filter 1.6s var(--easing-text-fade-in);
     transition-delay: 0.1s;
+    font-size: calc(var(--token-font-size-1) * 1.05);
   }
   .hero-container {
     max-width: var(--mobile-max-width);
@@ -193,12 +196,12 @@
 }
 @media all and (max-width: 470px) {
   .hero-container h1.hero-title {
-    font-size: calc(var(--token-font-size-1) * 1.04);
+    font-size: calc(var(--token-font-size-1) * 1.12);
     margin-left: 0px;
   }
 }
 @media all and (max-width: 360px) {
   .hero-container h1.hero-title {
-    font-size: calc(var(--token-font-size-1) * 0.97);
+    font-size: calc(var(--token-font-size-1) * 1.04);
   }
 }

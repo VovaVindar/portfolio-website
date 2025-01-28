@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { useHeroTitleOnloadAnimations } from "@/hooks/animations/onload/useHeroTitleOnloadAnimations";
 import { useHeroTitleScrollAnimations } from "@/hooks/animations/scroll/useHeroTitleScrollAnimations";
 
-const HeroTitle = ({ customText = "Designing for Permanence." }) => {
+const HeroTitle = ({ customText = "Designing Permanence." }) => {
   const heroTitleRef = useRef(null);
   const [loadCompleted, setLoadCompleted] = useState(false);
 

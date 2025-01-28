@@ -82,7 +82,7 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
     filter: `blur(${blur}px)`,
     top:
       isHeightCompatibleRef.current || !isHoverCapable
-        ? `clamp(var(--global-padding), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding-bottom)))`
+        ? `clamp(calc(var(--global-padding) + 1px), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding-bottom)))`
         : "var(--global-padding)",
   };
 

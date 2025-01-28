@@ -7,7 +7,7 @@
 .scrollbar-container button {
   position: fixed;
   right: var(--global-padding);
-  top: var(--global-padding);
+  top: calc(var(--global-padding) + 1px);
   color: var(--token-color-surface-secondary);
   opacity: 1;
   filter: blur(0px);
