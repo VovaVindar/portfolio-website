@@ -11,7 +11,7 @@ export default function Home({}) {
   return (
     <>
       <Head>
-        <title>Vova Vindar — Digital Designer & Developer</title>
+        <title>Vova Vindar - Digital Designer & Developer</title>
       </Head>
       <div className={`${styles["home-container"]} container`}>
         <div className={`${styles["safari-bug-fix"]}`} />

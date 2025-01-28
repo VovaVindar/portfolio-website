@@ -56,7 +56,7 @@ export default function Document() {
         />
         <meta
           property="og:site_name"
-          content="Vova Vindar — Digital Designer & Developer"
+          content="Vova Vindar - Digital Designer & Developer"
         />
         <meta property="og:locale" content="en_US" />
 
