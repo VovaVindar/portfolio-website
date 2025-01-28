@@ -33,6 +33,7 @@ export const GRID_LAYOUT_DESKTOP = {
       scale: 1.14,
       hoverText: "Rove",
       industry: "Airline Mile",
+      link: "https://www.cosmos.so/vovavindar/rove-miles",
     },
     {
       row: 0,
@@ -45,6 +46,7 @@ export const GRID_LAYOUT_DESKTOP = {
       scale: 1.3,
       hoverText: "Rove",
       industry: "Airline Mile",
+      link: "https://www.cosmos.so/vovavindar/rove-miles",
     },
     {
       row: 0,
@@ -57,6 +59,7 @@ export const GRID_LAYOUT_DESKTOP = {
       scale: 1.2,
       hoverText: "Paradigm",
       industry: "AI",
+      link: "https://www.cosmos.so/vovavindar/paradigm",
     },
     {
       row: 0,
@@ -71,6 +74,7 @@ export const GRID_LAYOUT_DESKTOP = {
       className: `${styles["align-card"]}`,
       industry: "Private Equity",
       mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
+      link: "https://www.cosmos.so/vovavindar/align-fund",
     },
     /*{
       row: 0,
@@ -84,6 +88,7 @@ export const GRID_LAYOUT_DESKTOP = {
       hoverText: "Paradigm",
       className: `${styles["wide"]}`,
       industry: "AI",
+url: '',
     },*/
     {
       row: 1,
@@ -97,6 +102,7 @@ export const GRID_LAYOUT_DESKTOP = {
       hoverText: "Dolce & Gabbana",
       industry: "NFT",
       mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
+      link: "https://www.cosmos.so/vovavindar/dolce-gabbana",
     },
     {
       row: 1,
@@ -109,6 +115,7 @@ export const GRID_LAYOUT_DESKTOP = {
       scale: 1.24,
       hoverText: "Aya Muse",
       industry: "Fashion",
+      link: "https://www.cosmos.so/vovavindar/aya-muse",
     },
     {
       row: 1,
@@ -125,6 +132,7 @@ export const GRID_LAYOUT_DESKTOP = {
       },
       industry: "AI",
       mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
+      link: "https://www.cosmos.so/vovavindar/endex",
     },
     {
       row: 2,
@@ -138,6 +146,7 @@ export const GRID_LAYOUT_DESKTOP = {
       hoverText: "Cognition",
       className: `${styles["cognition"]}`,
       industry: "AI",
+      link: "https://www.cosmos.so/vovavindar/cognition",
     },
     {
       row: 2,
@@ -150,6 +159,7 @@ export const GRID_LAYOUT_DESKTOP = {
       scale: 1.38,
       hoverText: "Explorations",
       industry: "3D Art",
+      link: "https://www.cosmos.so/vovavindar/explorations",
     },
     {
       row: 3,
@@ -163,6 +173,7 @@ export const GRID_LAYOUT_DESKTOP = {
       hoverText: "Blackster",
       className: `${styles["blackster"]}`,
       industry: "Private Equity",
+      link: "https://www.cosmos.so/vovavindar/blackster-capital",
     },
     {
       row: 3,
@@ -175,6 +186,7 @@ export const GRID_LAYOUT_DESKTOP = {
       scale: 1.16,
       hoverText: "Paradigm",
       industry: "AI",
+      link: "https://www.cosmos.so/vovavindar/paradigm",
     },
     /*{
       row: 3,
@@ -188,6 +200,7 @@ export const GRID_LAYOUT_DESKTOP = {
       hoverText: "Align Fund",
       className: `${styles["align"]}`,
       industry: "Private Equity",
+url: '',
     },*/
     {
       row: 3,
@@ -202,6 +215,7 @@ export const GRID_LAYOUT_DESKTOP = {
       className: `${styles["paradigm-cube"]}`,
       industry: "AI",
       mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
+      link: "https://www.cosmos.so/vovavindar/paradigm",
     },
     {
       row: 4,
@@ -215,6 +229,7 @@ export const GRID_LAYOUT_DESKTOP = {
       hoverText: "Explorations",
       industry: "3D Art",
       mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
+      link: "https://www.cosmos.so/vovavindar/explorations",
     },
   ],
 };
@@ -234,6 +249,7 @@ export const GRID_LAYOUT_MOBILE = {
       scale: 1.14,
       hoverText: "Rove",
       industry: "Airline Mile",
+      link: "https://www.cosmos.so/vovavindar/rove-miles",
     },
     {
       row: 0,
@@ -246,6 +262,7 @@ export const GRID_LAYOUT_MOBILE = {
       scale: 1.3,
       hoverText: "Rove",
       industry: "Airline Mile",
+      link: "https://www.cosmos.so/vovavindar/rove-miles",
     },
     {
       row: 1,
@@ -259,6 +276,7 @@ export const GRID_LAYOUT_MOBILE = {
       hoverText: "Dolce & Gabbana",
       industry: "NFT",
       mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
+      link: "https://www.cosmos.so/vovavindar/dolce-gabbana",
     },
     {
       row: 1,
@@ -271,6 +289,7 @@ export const GRID_LAYOUT_MOBILE = {
       scale: 1.24,
       hoverText: "Aya Muse",
       industry: "Fashion",
+      link: "https://www.cosmos.so/vovavindar/aya-muse",
     },
     {
       row: 2,
@@ -287,6 +306,7 @@ export const GRID_LAYOUT_MOBILE = {
       },
       industry: "AI",
       mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
+      link: "https://www.cosmos.so/vovavindar/endex",
     },
     {
       row: 3,
@@ -299,6 +319,7 @@ export const GRID_LAYOUT_MOBILE = {
       scale: 1.16,
       hoverText: "Paradigm",
       industry: "AI",
+      link: "https://www.cosmos.so/vovavindar/paradigm",
     },
     {
       row: 4,
@@ -312,6 +333,7 @@ export const GRID_LAYOUT_MOBILE = {
       hoverText: "Explorations",
       industry: "3D Art",
       mimeType: isHEVC ? "video/mp4; codecs=hvc1" : "video/webm; codecs=vp9",
+      link: "https://www.cosmos.so/vovavindar/explorations",
     },
   ],
 };

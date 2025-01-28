@@ -3,8 +3,9 @@ import Magnetic from "@/components/Global/Magnetic";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useVideoPoster } from "@/hooks/utils/useVideoPoster";
 import { useCallback, memo, useMemo } from "react";
+import Link from "next/link";
 
-const MediaContent = memo(function MediaContent({ content, title }) {
+const MediaContent = memo(function MediaContent({ content, title, link }) {
   const { width } = useWindowDimensions();
   const { videoRef } = useVideoPoster();
 
@@ -48,32 +49,39 @@ const MediaContent = memo(function MediaContent({ content, title }) {
       ref={containerRef}
       style={{ width: "100%", height: "100%", overflow: "hidden" }}
     >
-      <Magnetic type="image" scale={1.016} movement={0.035}>
-        {displayContent.type === "video" ? (
-          <video
-            ref={videoRef}
-            key={displayContent.url}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{ objectFit: "cover", width: "100%", height: "100%" }}
-            className={displayContent.className}
-          >
-            <source src={displayContent.url} type={displayContent.mimeType} />
-            Your browser does not support the video tag.
-          </video>
-        ) : (
-          <img
-            src={displayContent.url}
-            alt={title}
-            style={{ objectFit: "cover" }}
-            className={displayContent.className}
-            width={dimensions.width}
-            height={dimensions.height}
-          />
-        )}
-      </Magnetic>
+      <Link
+        href={link}
+        target="_blank"
+        aria-label={`Visit ${title} project page (opens in new tab)`}
+        tabIndex={-1}
+      >
+        <Magnetic type="image" scale={1.016} movement={0.035}>
+          {displayContent.type === "video" ? (
+            <video
+              ref={videoRef}
+              key={displayContent.url}
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              className={displayContent.className}
+            >
+              <source src={displayContent.url} type={displayContent.mimeType} />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <img
+              src={displayContent.url}
+              alt={title}
+              style={{ objectFit: "cover" }}
+              className={displayContent.className}
+              width={dimensions.width}
+              height={dimensions.height}
+            />
+          )}
+        </Magnetic>
+      </Link>
     </div>
   );
 });

@@ -148,7 +148,16 @@ const Footer = () => {
           <div className="text-body-3">
             <p ref={(el) => (elementRef.current[11] = el)}>
               <Magnetic type="small-text">
-                <Link href="/cv">CV</Link>
+                <Link
+                  href="/cv"
+                  style={{
+                    opacity: 0,
+                    userSelect: "none",
+                    pointerEvents: "none",
+                  }}
+                >
+                  CV
+                </Link>
               </Magnetic>
             </p>
           </div>

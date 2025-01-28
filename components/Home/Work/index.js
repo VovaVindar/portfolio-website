@@ -141,16 +141,18 @@ const Work = () => {
             <MediaContent
               content={currentWork.media}
               title={currentWork.title}
+              link={currentWork.link}
             />
           </div>
         </div>
 
         <div className={styles["project-link"]}>
           <Link
-            href="https://dribbble.com/VovaVindar"
+            href={currentWork.link}
             className="text-body-3"
             target="_blank"
             ref={addToTextRefs}
+            aria-label={`Visit ${currentWork.title} project page (opens in new tab)`}
           >
             <Magnetic type="small-text">Open Project</Magnetic>
           </Link>

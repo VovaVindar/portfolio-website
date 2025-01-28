@@ -4,6 +4,7 @@ import { GRID_LAYOUT_DESKTOP, GRID_LAYOUT_MOBILE } from "@/constants/hero-grid";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useVideoPoster } from "@/hooks/utils/useVideoPoster";
 import { memo, useCallback, useMemo } from "react";
+import Link from "next/link";
 
 const MediaRenderer = memo(({ media, currentIndex, handleMediaRef }) => {
   const { width } = useWindowDimensions();
@@ -133,19 +134,26 @@ const HeroGrid = memo(({ imgOnload, cellOnload, onHover }) => {
               ref={media ? (el) => handleCellRef(el, currentIndex) : undefined}
             >
               {media && (
-                <Magnetic
-                  type="image"
-                  data-cursor-text={media.hoverText}
-                  onMouseEnter={() => media && handleMouseEnter(media)}
-                  onMouseLeave={handleMouseLeave}
-                  className={"mf-exclusion"}
+                <Link
+                  href={media.link}
+                  aria-label={`Visit ${media.hoverText} project page (opens in new tab)`}
+                  target="_blank"
+                  tabIndex={-1}
                 >
-                  <MediaRenderer
-                    media={media}
-                    currentIndex={currentIndex}
-                    handleMediaRef={handleMediaRef}
-                  />
-                </Magnetic>
+                  <Magnetic
+                    type="image"
+                    data-cursor-text={media.hoverText}
+                    onMouseEnter={() => media && handleMouseEnter(media)}
+                    onMouseLeave={handleMouseLeave}
+                    className={"mf-exclusion"}
+                  >
+                    <MediaRenderer
+                      media={media}
+                      currentIndex={currentIndex}
+                      handleMediaRef={handleMediaRef}
+                    />
+                  </Magnetic>
+                </Link>
               )}
             </div>
           );

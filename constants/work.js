@@ -21,6 +21,7 @@ export const work = [
   {
     title: "Paradigm",
     year: "2024",
+    link: "https://www.cosmos.so/vovavindar/paradigm",
     media: {
       type: "video",
       url: getResponsivePaths("paradigm_cube", "video"),
@@ -29,8 +30,18 @@ export const work = [
     },
   },
   {
+    title: "Aya Muse",
+    year: "2025",
+    link: "https://www.cosmos.so/vovavindar/aya-muse",
+    media: {
+      type: "image",
+      url: getResponsivePaths("am_1", "image"),
+    },
+  },
+  {
     title: "Dolce & Gabbana",
     year: "2023",
+    link: "https://www.cosmos.so/vovavindar/dolce-gabbana",
     media: {
       type: "video",
       url: getResponsivePaths("dg_animation", "video"),
@@ -38,16 +49,9 @@ export const work = [
     },
   },
   {
-    title: "Aya Muse",
-    year: "2025",
-    media: {
-      type: "image",
-      url: getResponsivePaths("am_1", "image"),
-    },
-  },
-  {
     title: "Endex",
     year: "2024",
+    link: "https://www.cosmos.so/vovavindar/endex",
     media: {
       type: "video",
       url: getResponsivePaths("endex_light", "video"),
@@ -57,6 +61,7 @@ export const work = [
   {
     title: "Rove Miles",
     year: "2023",
+    link: "https://www.cosmos.so/vovavindar/rove-miles",
     media: {
       type: "image",
       url: getResponsivePaths("card_render_1", "image"),
@@ -65,6 +70,7 @@ export const work = [
   {
     title: "Align Fund",
     year: "2024",
+    link: "https://www.cosmos.so/vovavindar/align-fund",
     media: {
       type: "video",
       url: getResponsivePaths("align_2", "video"),
@@ -75,6 +81,7 @@ export const work = [
   {
     title: "Cognition",
     year: "2024",
+    link: "https://www.cosmos.so/vovavindar/cognition",
     media: {
       type: "image",
       url: getResponsivePaths("cognition_grey", "image"),
@@ -83,6 +90,7 @@ export const work = [
   {
     title: "Twitch",
     year: "2023",
+    link: "https://www.cosmos.so/vovavindar/twitch",
     media: {
       type: "video",
       url: getResponsivePaths("twitch_clips", "video"),
@@ -92,6 +100,7 @@ export const work = [
   {
     title: "Jon-Paul Wheatley",
     year: "2022",
+    link: "https://www.cosmos.so/vovavindar/jon-paul-wheatley",
     media: {
       type: "image",
       url: getResponsivePaths("jonpaulsballs", "image"),
@@ -101,6 +110,7 @@ export const work = [
   {
     title: "Blackster",
     year: "2021",
+    link: "https://www.cosmos.so/vovavindar/blackster-capital",
     media: {
       type: "image",
       url: getResponsivePaths("blackster_re", "image"),

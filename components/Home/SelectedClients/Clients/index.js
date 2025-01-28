@@ -3,6 +3,7 @@ import styles from "../SelectedClients.module.css";
 import { CLIENTS } from "@/constants/clients";
 import ChangeText from "@/components/Global/ChangeText";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
+import Link from "next/link";
 
 const ClientItem = forwardRef(({ client }, ref) => {
   const isHoverCapable = useHoverCapable();
@@ -25,13 +26,19 @@ const ClientItem = forwardRef(({ client }, ref) => {
   return (
     <div ref={ref} className={`${styles["client-container"]}`}>
       <div>
-        <h1
-          className={`mf-hidden`}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+        <Link
+          href={client.link}
+          target="_blank"
+          aria-label={`Visit ${client.name} project page (opens in new tab)`}
         >
-          {client.name}
-        </h1>
+          <h1
+            className={`mf-hidden`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {client.name}
+          </h1>
+        </Link>
         <ChangeText text={hoverText} className={"text-header-3 mf-hidden"} />
       </div>
     </div>
@@ -55,3 +62,5 @@ const ClientsList = ({ clientsOnscroll }) => {
 };
 
 export default ClientsList;
+
+ClientsList.whyDidYouRender = true;
