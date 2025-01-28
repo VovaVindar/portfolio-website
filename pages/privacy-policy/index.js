@@ -116,7 +116,11 @@ function Privacy({}) {
             and operating systems. However, this information is not linked to
             any personally identifiable information and is managed by AWS in
             accordance with their{" "}
-            <Link href="https://aws.amazon.com/privacy/" target="_blank">
+            <Link
+              href="https://aws.amazon.com/privacy/"
+              target="_blank"
+              aria-label={`Visit AWS Privacy Policy (opens in new tab)`}
+            >
               privacy policy
             </Link>
             .
@@ -132,7 +136,11 @@ function Privacy({}) {
             This website is hosted on the AWS platform. AWS provides the online
             infrastructure that allows this portfolio to be accessible. For more
             insight into how AWS handles data, please refer to the{" "}
-            <Link href="https://aws.amazon.com/privacy/" target="_blank">
+            <Link
+              href="https://aws.amazon.com/privacy/"
+              target="_blank"
+              aria-label={`Visit AWS Privacy Policy (opens in new tab)`}
+            >
               AWS Privacy Policy
             </Link>
             .
@@ -211,7 +219,10 @@ function Privacy({}) {
             If you have any questions about this Privacy Policy, please contact
             me at{" "}
             <span>
-              <Link href="mailto:vovavindar@gmail.com">
+              <Link
+                href="mailto:vovavindar@gmail.com"
+                aria-label={`Write me an email`}
+              >
                 vovavindar@gmail.com
               </Link>
             </span>

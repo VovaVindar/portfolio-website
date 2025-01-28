@@ -28,11 +28,11 @@ export const useFooterScrollAnimations = () => {
     if (index >= 6 && index <= 7) return 2 * interval;
     if (index == 8) return 3 * interval;
     if (index == 9) return 4 * interval;
-    if (index >= 9) return 6 * interval;
+    if (index >= 10) return 7 * interval;
   }, []);
 
   const footerStaggerMobile = useCallback((index, interval) => {
-    const multipliers = [0, 3, 7, 1, 4, 7, 2, 5, 6, 3, 10, 10];
+    const multipliers = [0, 3, 8, 1, 4, 9, 2, 5, 6, 7, 0, 11, 12];
     return (multipliers[index] ?? 0) * interval;
   }, []);
 

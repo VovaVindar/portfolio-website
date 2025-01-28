@@ -60,6 +60,7 @@ const Footer = () => {
                 href="https://www.linkedin.com/in/vovavindar/"
                 ref={(el) => (elementRef.current[4] = el)}
                 target="_blank"
+                aria-label={`Visit my LinkedIn (opens in new tab)`}
               >
                 LinkedIn,
               </Link>
@@ -77,6 +78,7 @@ const Footer = () => {
                 href="https://www.instagram.com/vovavindar/"
                 ref={(el) => (elementRef.current[7] = el)}
                 target="_blank"
+                aria-label={`Visit my Instagram (opens in new tab)`}
               >
                 Instagram,
               </Link>
@@ -94,8 +96,27 @@ const Footer = () => {
                 href="https://dribbble.com/VovaVindar"
                 ref={(el) => (elementRef.current[8] = el)}
                 target="_blank"
+                aria-label={`Visit my Dribbble (opens in new tab)`}
               >
-                Dribbble<span className={styles["no-mobile"]}>,</span>
+                Dribbble,
+              </Link>
+            </Magnetic>
+          </p>
+          <p
+            onMouseEnter={() => setHoveredLink("cosmos")}
+            onMouseLeave={() => setHoveredLink(null)}
+            className={
+              hoveredLink && hoveredLink !== "cosmos" ? styles["faded"] : ""
+            }
+          >
+            <Magnetic type="text">
+              <Link
+                href="https://www.cosmos.so/vovavindar"
+                ref={(el) => (elementRef.current[9] = el)}
+                target="_blank"
+                aria-label={`Visit my Cosmos (opens in new tab)`}
+              >
+                Cosmos<span className={styles["no-mobile"]}>,</span>
               </Link>
             </Magnetic>
           </p>
@@ -110,9 +131,10 @@ const Footer = () => {
           >
             <Magnetic type="text">
               <button
-                ref={(el) => (elementRef.current[9] = el)}
+                ref={(el) => (elementRef.current[10] = el)}
                 data-cursor-text="Copy"
                 onClick={handleCopyEmail}
+                aria-label={`Copy email`}
               >
                 {copyEmail}
               </button>
@@ -134,7 +156,7 @@ const Footer = () => {
           <div></div>
           <div>
             <div className="text-body-3">
-              <p ref={(el) => (elementRef.current[10] = el)}>
+              <p ref={(el) => (elementRef.current[11] = el)}>
                 <Magnetic type="small-text">
                   <Link scroll={false} href="/privacy-policy">
                     Privacy <span>Policy</span>
@@ -146,7 +168,7 @@ const Footer = () => {
         </div>
         <div>
           <div className="text-body-3">
-            <p ref={(el) => (elementRef.current[11] = el)}>
+            <p ref={(el) => (elementRef.current[12] = el)}>
               <Magnetic type="small-text">
                 <Link
                   href="/cv"
