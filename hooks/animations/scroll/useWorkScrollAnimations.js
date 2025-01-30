@@ -1,4 +1,4 @@
-import { useRef, useState, useLayoutEffect, useMemo } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -28,7 +28,7 @@ export const useWorkScrollAnimations = () => {
   // Calculate lineHeight and endOffset after mount
   const [endOffset, setEndOffset] = useState(0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const lineHeight = parseFloat(
       getComputedStyle(document.documentElement).lineHeight
     );
