@@ -10,9 +10,9 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRouter } from "next/router";
 import { useStart } from "@/context/PreloaderContext";
-import { useScrollPreservation } from "@/hooks/transition/useScrollPreservation";
-import { useRouteTracking } from "@/hooks/transition/useRouteTracking";
-import { usePageTransitions } from "@/hooks/transition/usePageTransitions";
+import { useScrollPreservation } from "@/hooks/navigation/useScrollPreservation";
+import { useRouteTracking } from "@/hooks/navigation/useRouteTracking";
+import { usePageTransitions } from "@/hooks/navigation/usePageTransitions";
 import { useConsoleMessage } from "@/hooks/core/useConsoleMessage";
 import dynamic from "next/dynamic";
 const SecondaryWrapper = dynamic(

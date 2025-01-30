@@ -17,7 +17,7 @@ import {
 import { PreloaderProvider } from "@/context/PreloaderContext";
 import { DimensionsProvider } from "@/context/DimensionsContext";
 import CursorContainer from "@/components/Global/CursorContainer";
-import { usePreventStyleRemoval } from "@/hooks/transition/usePreventStyleRemoval";
+import { usePreventStyleRemoval } from "@/hooks/navigation/usePreventStyleRemoval";
 import CTA from "@/components/Global/CTA";
 import { ReducedMotionProvider } from "@/context/ReducedMotionContext";
 
