@@ -122,7 +122,7 @@ const CursorContainer = ({ className = "" }) => {
       cursor.destroy();
       hasInitialized.current = false;
     };
-  }, [className, toggleFavicon, isHoverCapable]);
+  }, [className, toggleFavicon, isHoverCapable, prefersReducedMotion]);
 
   // Handle cursor visibility based on isOnloadLinesActive
   useEffect(() => {

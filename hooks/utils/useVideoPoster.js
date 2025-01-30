@@ -33,7 +33,7 @@ export const useVideoPoster = () => {
 
     video.addEventListener("loadeddata", generatePoster);
     return () => video.removeEventListener("loadeddata", generatePoster);
-  }, [posterUrl, videoRef]);
+  }, [posterUrl, videoRef, prefersReducedMotion]);
 
   return { videoRef };
 };

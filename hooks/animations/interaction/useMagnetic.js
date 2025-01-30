@@ -64,7 +64,7 @@ export const useMagnetic = (type, passedScale, passedMovement) => {
         duration: MAGNETIC.ANIMATION.DURATION,
       });
     },
-    [MAGNETIC, isHoverCapable]
+    [MAGNETIC, isHoverCapable, prefersReducedMotion]
   );
 
   const calculateParallax = useCallback(
