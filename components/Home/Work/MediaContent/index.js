@@ -1,7 +1,7 @@
 import { useSlideshowAnimations } from "@/hooks/animations/interaction/useSlideshowAnimations";
 import Magnetic from "@/components/Global/Magnetic";
 import { useWindowDimensions } from "@/context/DimensionsContext";
-import { useVideoPoster } from "@/hooks/utils/useVideoPoster";
+import { useVideoPoster } from "@/hooks/core/useVideoPoster";
 import { useCallback, memo, useMemo } from "react";
 import Link from "next/link";
 import { useReducedMotion } from "@/context/ReducedMotionContext";

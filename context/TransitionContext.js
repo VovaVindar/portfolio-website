@@ -13,7 +13,7 @@ import { useStart } from "@/context/PreloaderContext";
 import { useScrollPreservation } from "@/hooks/transition/useScrollPreservation";
 import { useRouteTracking } from "@/hooks/transition/useRouteTracking";
 import { usePageTransitions } from "@/hooks/transition/usePageTransitions";
-import { useConsoleMessage } from "@/hooks/utils/useConsoleMessage";
+import { useConsoleMessage } from "@/hooks/core/useConsoleMessage";
 import dynamic from "next/dynamic";
 const SecondaryWrapper = dynamic(
   () => import("@/components/Global/SecondaryWrapper"),

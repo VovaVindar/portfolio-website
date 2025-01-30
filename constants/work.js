@@ -1,5 +1,5 @@
 import styles from "@/components/Home/Work/Work.module.css";
-import { supportsHEVCAlpha } from "@/hooks/utils/useSupportsHEVC";
+import { supportsHEVCAlpha } from "@/hooks/core/useSupportsHEVC";
 
 const isHEVC = supportsHEVCAlpha();
 
