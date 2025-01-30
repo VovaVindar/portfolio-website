@@ -5,9 +5,11 @@ import { useTransition } from "@/context/TransitionContext";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useCallback, useEffect } from "react";
 import { useLinesStatus } from "@/context/PreloaderContext";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
   const { isOnloadLinesActive } = useLinesStatus();
+  const prefersReducedMotion = useReducedMotion();
 
   const { width } = useWindowDimensions();
   const HERO = getHero();
@@ -56,7 +58,7 @@ export const useHeroOnloadAnimations = (imgOnload, cellOnload) => {
     }
 
     // Cell slide animation
-    if (cellOnload.current?.length) {
+    if (cellOnload.current?.length & !prefersReducedMotion) {
       const containerHeight =
         cellOnload.current[0]?.parentElement?.offsetHeight ?? 0;
 

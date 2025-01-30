@@ -20,8 +20,7 @@ const Preloader = ({ className }) => {
     }
 
     if (loadProgress >= 100) {
-      const hideDelay =
-        (PRELOADER.FADE.DURATION + PRELOADER.FADE.DELAY) * 1000 + 10;
+      const hideDelay = (PRELOADER.FADE.DURATION + PRELOADER.FADE.DELAY) * 1000;
 
       setTimeout(() => {
         setIsLoading(false);

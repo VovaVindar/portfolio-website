@@ -9,6 +9,7 @@ import {
 } from "react";
 import { getMediaForScreenSize } from "@/hooks/utils/useSiteMedia";
 import { useWindowDimensions } from "@/context/DimensionsContext";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 // Create separate contexts for loading and interface states
 const LoadingContext = createContext(null);
@@ -156,6 +157,7 @@ const initiateLoading = async (width, progressCallback) => {
 };
 
 export const PreloaderProvider = ({ children }) => {
+  const prefersReducedMotion = useReducedMotion();
   const { width } = useWindowDimensions();
 
   // Loading state
@@ -165,8 +167,8 @@ export const PreloaderProvider = ({ children }) => {
   const [isOnloadLinesActive, setIsOnloadLinesActive] = useState(true);
 
   // Loading config
-  const [incrementCap] = useState(15);
-  const [interval] = useState(206);
+  const incrementCap = !prefersReducedMotion ? 20 : 25;
+  const interval = !prefersReducedMotion ? 206 : 100;
 
   // Interface state
   const [interfaceState, setInterfaceState] = useState({

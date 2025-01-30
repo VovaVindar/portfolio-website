@@ -4,11 +4,13 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { ABOUT as getAbout } from "@/constants/animations";
 import { useTransition } from "@/context/TransitionContext";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useAboutScrollAnimations = () => {
   const ABOUT = getAbout();
+  const prefersReducedMotion = useReducedMotion();
 
   const elementRef = useRef([]);
 
@@ -34,6 +36,8 @@ export const useAboutScrollAnimations = () => {
   );
 
   useGSAP(() => {
+    if (prefersReducedMotion) return;
+
     let scrollTriggerInstance;
 
     if (elementRef.current.length && globalOnload) {

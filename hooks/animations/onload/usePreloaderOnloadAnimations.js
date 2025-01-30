@@ -2,9 +2,11 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap/dist/gsap";
 import { PRELOADER as getPreloader } from "@/constants/animations";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 export const usePreloaderOnloadAnimations = (loadProgress) => {
   const PRELOADER = getPreloader();
+  const prefersReducedMotion = useReducedMotion();
 
   const containerRef = useRef(null);
   const progressIndicatorRef = useRef(null);
@@ -31,18 +33,20 @@ export const usePreloaderOnloadAnimations = (loadProgress) => {
         ease: PRELOADER.FADE.EASING,
       });
 
-      // Sliding down animation
-      timelineRefs.current.numbersOut
-        .set(containerRef.current, { y: 0 })
-        .to(containerRef.current, {
-          y: isComplete ? PRELOADER.SLIDE.Y_OFFSET : 0,
-          duration: PRELOADER.SLIDE.DURATION,
-          delay: 0,
-          ease: PRELOADER.SLIDE.EASING,
-        });
+      if (!prefersReducedMotion) {
+        // Sliding down animation
+        timelineRefs.current.numbersOut
+          .set(containerRef.current, { y: 0 })
+          .to(containerRef.current, {
+            y: isComplete ? PRELOADER.SLIDE.Y_OFFSET : 0,
+            duration: PRELOADER.SLIDE.DURATION,
+            delay: 0,
+            ease: PRELOADER.SLIDE.EASING,
+          });
+      }
     }
 
-    if (progressIndicatorRef.current) {
+    if (progressIndicatorRef.current && !prefersReducedMotion) {
       // Progress animation
       timelineRefs.current.movement
         .set(progressIndicatorRef.current, {

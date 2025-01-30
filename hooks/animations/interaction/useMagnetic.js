@@ -2,6 +2,7 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import gsap from "gsap";
 import { MAGNETIC as getMagnetic } from "@/constants/animations";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 // Get the appropriate scale based on type
 const getMaxScale = (type, passedScale, MAGNETIC) => {
@@ -22,6 +23,7 @@ const getMaxScale = (type, passedScale, MAGNETIC) => {
 export const useMagnetic = (type, passedScale, passedMovement) => {
   const isHoverCapable = useHoverCapable();
   const MAGNETIC = getMagnetic();
+  const prefersReducedMotion = useReducedMotion();
 
   const magneticAreaRef = useRef(null);
   const timelineRef = useRef(null);
@@ -50,7 +52,7 @@ export const useMagnetic = (type, passedScale, passedMovement) => {
 
   const animate = useCallback(
     (target, props) => {
-      if (!isHoverCapable) return; // Skip animation if hover is not supported
+      if (!isHoverCapable || prefersReducedMotion) return; // Skip animation if hover is not supported
 
       if (timelineRef.current) {
         timelineRef.current.kill();

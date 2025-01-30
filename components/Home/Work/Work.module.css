@@ -66,6 +66,11 @@
   pointer-events: none;
   transition: opacity 1s var(--easing-img-fade-in); /* power2.out */
 }
+@media (prefers-reduced-motion: reduce) {
+  .work .project-image::after {
+    opacity: 0;
+  }
+}
 .work .project-image.in-view::after {
   transition: opacity 3s var(--easing-img-fade-in); /* power2.out */
   opacity: 0;
@@ -109,7 +114,7 @@
   gap: 0.25rlh;
   min-width: 5rlh;
 }
-@media (hover: hover) {
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .work .project-details > div,
   .work .project-link {
     opacity: 0;

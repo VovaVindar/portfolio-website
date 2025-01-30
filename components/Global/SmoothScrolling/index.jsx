@@ -2,6 +2,7 @@ import { ReactLenis, useLenis } from "lenis/react";
 import { useEffect } from "react";
 import { useLinesStatus } from "@/context/PreloaderContext";
 //import gsap from "gsap";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 // Create a shared reference for Lenis
 export const lenisRef = { current: null };
@@ -21,6 +22,7 @@ export const stopLenis = () => {
 };*/
 
 function SmoothScrolling({ children }) {
+  const prefersReducedMotion = useReducedMotion();
   const { isOnloadLinesActive } = useLinesStatus();
 
   const lenis = useLenis(() => {});
@@ -63,7 +65,7 @@ function SmoothScrolling({ children }) {
       ref={lenisRef}
       root
       options={{
-        lerp: LERP_VALUE,
+        lerp: !prefersReducedMotion ? LERP_VALUE : 1,
         touchMultiplier: 0,
         prevent: (node) => node.hasAttribute("data-scroll-locked"),
         //autoRaf: false, // Set to false since we're using GSAP ticker

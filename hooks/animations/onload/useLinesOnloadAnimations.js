@@ -49,11 +49,12 @@ export const useLinesOnloadAnimations = (linesReady) => {
         backgroundColor: LINES.COLORS.START,
       },
       {
-        scaleY: 0,
+        scaleY: LINES.TRANSITION.SCALEY,
         backgroundColor: LINES.COLORS.END,
         duration: LINES.TRANSITION.DURATION,
         delay: LINES.TRANSITION.DELAY,
         ease: LINES.TRANSITION.EASING,
+        opacity: LINES.TRANSITION.OPACITY,
         stagger: {
           each: LINES.TRANSITION.STAGGER,
           from: "start",

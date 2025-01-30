@@ -3,6 +3,7 @@ import gsap from "gsap";
 import MouseFollower from "@/components/Global/CursorContainer/mouse-follower/src";
 import { useLinesStatus } from "@/context/PreloaderContext";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 MouseFollower.registerGSAP(gsap);
 
@@ -20,6 +21,7 @@ const FAVICON_CONFIG = {
 };
 
 const CursorContainer = ({ className = "" }) => {
+  const prefersReducedMotion = useReducedMotion();
   const isHoverCapable = useHoverCapable();
 
   const { isOnloadLinesActive } = useLinesStatus();
@@ -81,7 +83,8 @@ const CursorContainer = ({ className = "" }) => {
 
   // Initialize cursor only once
   useEffect(() => {
-    if (!isHoverCapable || hasInitialized.current) return;
+    if (!isHoverCapable || hasInitialized.current || prefersReducedMotion)
+      return;
 
     hasInitialized.current = true;
     const cursor = new MouseFollower({

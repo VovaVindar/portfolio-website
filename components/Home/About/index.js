@@ -2,11 +2,7 @@ import styles from "./About.module.css";
 import { useAboutScrollAnimations } from "@/hooks/animations/scroll/useAboutScrollAnimations";
 
 const About = () => {
-  const prefersReducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const elementRef = useAboutScrollAnimations(prefersReducedMotion);
+  const elementRef = useAboutScrollAnimations();
 
   return (
     <section className={styles["about-container"]}>

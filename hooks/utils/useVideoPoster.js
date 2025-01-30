@@ -1,14 +1,25 @@
 import { useEffect, useRef } from "react";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 export const useVideoPoster = () => {
   const videoRef = useRef(null);
   const posterUrl = useRef("");
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const generatePoster = () => {
+    const generatePoster = async () => {
+      if (prefersReducedMotion) {
+        // Play briefly to get a good frame
+        await video.play();
+        requestAnimationFrame(() => {
+          video.pause();
+          video.currentTime = 0;
+        });
+      }
+
       const canvas = document.createElement("canvas");
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;

@@ -5,10 +5,12 @@ import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useVideoPoster } from "@/hooks/utils/useVideoPoster";
 import { memo, useCallback, useMemo } from "react";
 import Link from "next/link";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 const MediaRenderer = memo(({ media, handleMediaRef }) => {
   const { width } = useWindowDimensions();
   const { videoRef } = useVideoPoster();
+  const prefersReducedMotion = useReducedMotion();
 
   const getResponsiveUrl = useCallback(
     (urls) => {
@@ -55,10 +57,11 @@ const MediaRenderer = memo(({ media, handleMediaRef }) => {
         <video
           ref={videoRef}
           key={responsiveUrl}
-          autoPlay
+          autoPlay={!prefersReducedMotion}
+          playsInline
+          controls={prefersReducedMotion}
           loop
           muted
-          playsInline
           onError={handleVideoError}
           aria-label={`Video showing: ${media.alt}`}
         >

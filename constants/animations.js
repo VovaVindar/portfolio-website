@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useInterface } from "@/context/PreloaderContext";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 const BaseConstants = () => {
   return useMemo(
@@ -17,6 +18,7 @@ const BaseConstants = () => {
 export const PRELOADER = () => {
   const { isTallScreen, interval, incrementCap, isVeryTallScreen } =
     useInterface();
+  const prefersReducedMotion = useReducedMotion();
 
   return useMemo(
     () => ({
@@ -26,8 +28,8 @@ export const PRELOADER = () => {
       },
 
       FADE: {
-        DURATION: 1.2,
-        DELAY: 0.5,
+        DURATION: !prefersReducedMotion ? 1.2 : 0.25,
+        DELAY: !prefersReducedMotion ? 0.5 : 0.2,
         EASING: "power3.inOut",
         BLUR: {
           ACTIVE: "0px",
@@ -64,27 +66,63 @@ export const PRELOADER = () => {
         },
       },
     }),
-    [isTallScreen, interval, incrementCap, isVeryTallScreen]
+    [
+      isTallScreen,
+      interval,
+      incrementCap,
+      isVeryTallScreen,
+      prefersReducedMotion,
+    ]
   );
 };
 
 export const LINES = () => {
   const { isTallScreen, isVeryTallScreen } = useInterface();
+  const prefersReducedMotion = useReducedMotion();
 
-  return {
-    COLORS: {
-      START: "#0F1010",
-      END: "#C34356",
-    },
+  return useMemo(
+    () => ({
+      COLORS: {
+        START: "#0F1010",
+        END: "#C34356",
+      },
 
-    TRANSITION: {
-      DURATION: isVeryTallScreen ? 1.1 : isTallScreen ? 1.1 : 1.25,
-      DELAY: isVeryTallScreen ? 0.95 : isTallScreen ? 0.95 : 0.71,
-      EASING: "power4.inOut",
-      COMPLETION_DELAY: isVeryTallScreen ? 150 : isTallScreen ? 150 : 780,
-      STAGGER: isVeryTallScreen ? 0.019 : isTallScreen ? 0.024 : 0.037,
-    },
-  };
+      TRANSITION: {
+        SCALEY: !prefersReducedMotion ? 0 : 1,
+        DURATION: !prefersReducedMotion
+          ? isVeryTallScreen
+            ? 1.1
+            : isTallScreen
+            ? 1.1
+            : 1.25
+          : 0.35,
+        DELAY: !prefersReducedMotion
+          ? isVeryTallScreen
+            ? 0.95
+            : isTallScreen
+            ? 0.95
+            : 0.55
+          : 0.35,
+        EASING: "power4.inOut",
+        COMPLETION_DELAY: !prefersReducedMotion
+          ? isVeryTallScreen
+            ? 150
+            : isTallScreen
+            ? 150
+            : 780
+          : 150,
+        STAGGER: !prefersReducedMotion
+          ? isVeryTallScreen
+            ? 0.019
+            : isTallScreen
+            ? 0.024
+            : 0.037
+          : 0,
+        OPACITY: !prefersReducedMotion ? 1 : 0,
+      },
+    }),
+    [isTallScreen, isVeryTallScreen, prefersReducedMotion]
+  );
 };
 
 export const HERO = () => {
@@ -295,13 +333,15 @@ export const FOOTER = () => {
 };
 
 export const SCROLLBAR = () => {
+  const prefersReducedMotion = useReducedMotion();
+
   return useMemo(
     () => ({
       LOAD: {
         INITIAL: {
-          Y: -100,
-          OPACITY: 0,
-          BLUR: 1.5,
+          Y: !prefersReducedMotion ? -100 : 0,
+          OPACITY: !prefersReducedMotion ? 0 : 1,
+          BLUR: !prefersReducedMotion ? 1.5 : 0,
         },
         FINAL: {
           Y: 0,
@@ -310,7 +350,7 @@ export const SCROLLBAR = () => {
         },
       },
     }),
-    []
+    [prefersReducedMotion]
   );
 };
 
@@ -339,17 +379,18 @@ export const MAGNETIC = () => {
 
 export const CHANGE_TEXT = () => {
   const BASE = BaseConstants();
+  const prefersReducedMotion = useReducedMotion();
 
   return useMemo(
     () => ({
       ENTER: {
-        DURATION: BASE.ANIMATION_DURATION - 0.1,
+        DURATION: !prefersReducedMotion ? BASE.ANIMATION_DURATION - 0.1 : 0.1,
         EASING: BASE.ANIMATION_EASING,
         DELAY: -0.0125,
       },
 
       EXIT: {
-        DURATION: 0.5,
+        DURATION: !prefersReducedMotion ? 0.5 : 0.1,
         EASING: "power1.in",
       },
 
@@ -369,54 +410,60 @@ export const CHANGE_TEXT = () => {
         },
       },
     }),
-    [BASE]
+    [BASE, prefersReducedMotion]
   );
 };
 
 export const SLIDESHOW = () => {
-  //return useMemo(() => ({
-  return {
-    ENTER: {
-      DURATION: 3,
-      EASING: "power2.out",
-      //DELAY: -0.0125,
-      DELAY: 0,
-      SCALE: 1.04,
-    },
-    EXIT: {
-      DURATION: 0.5,
-      EASING: "power1.in",
-      SCALE: 1.005,
-    },
-    //}));
-  };
+  const prefersReducedMotion = useReducedMotion();
+
+  return useMemo(
+    () => ({
+      //return {
+      ENTER: {
+        DURATION: !prefersReducedMotion ? 3 : 0.35,
+        EASING: "power2.out",
+        //DELAY: -0.0125,
+        DELAY: 0,
+        SCALE: !prefersReducedMotion ? 1.04 : 1.005,
+      },
+      EXIT: {
+        DURATION: !prefersReducedMotion ? 0.5 : 0.2,
+        EASING: "power1.in",
+        SCALE: 1.005,
+      },
+    }),
+    [prefersReducedMotion]
+  );
+  //};
 };
 
 export const CONTACT = () => {
   const BASE = BaseConstants();
+  const prefersReducedMotion = useReducedMotion();
 
   return useMemo(
     () => ({
       OPEN: {
         CONTAINER: {
-          DURATION: 1.35,
+          DURATION: !prefersReducedMotion ? 1.35 : 0.1,
           EASING: BASE.ANIMATION_EASING,
         },
         CONTENT: {
-          DURATION: BASE.ANIMATION_DURATION,
-          DELAY: 0.3,
+          DURATION: !prefersReducedMotion ? BASE.ANIMATION_DURATION : 0.2,
+          DELAY: !prefersReducedMotion ? 0.3 : 0,
           EASING: BASE.ANIMATION_EASING,
         },
       },
 
       CLOSE: {
         CONTAINER: {
-          DURATION: 1.1,
+          DURATION: !prefersReducedMotion ? 1.1 : 0.1,
           DELAY: 0.15,
           EASING: BASE.ANIMATION_EASING,
         },
         CONTENT: {
-          DURATION: 0.6,
+          DURATION: !prefersReducedMotion ? 0.6 : 0.2,
           EASING: "power1.in",
         },
       },
@@ -432,6 +479,6 @@ export const CONTACT = () => {
         },
       },
     }),
-    [BASE]
+    [BASE, prefersReducedMotion]
   );
 };

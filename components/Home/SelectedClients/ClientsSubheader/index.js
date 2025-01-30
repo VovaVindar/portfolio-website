@@ -2,15 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import styles from "../SelectedClients.module.css";
 import { useScroll } from "@/context/ScrollbarContext";
 import { useWindowDimensions } from "@/context/DimensionsContext";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 const WIDE_SCREEN_BREAKPOINT = 1060;
 const MAX_HEIGHT_FOR_ANIMATION = 2800;
 
 const ClientsSubheader = ({ clientsOnscroll }) => {
   // Add reduced motion check
-  const prefersReducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const prefersReducedMotion = useReducedMotion();
 
   const subheaderRef = useRef(null);
   //const resizeObserverRef = useRef(null);

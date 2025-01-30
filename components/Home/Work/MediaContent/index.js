@@ -4,10 +4,12 @@ import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useVideoPoster } from "@/hooks/utils/useVideoPoster";
 import { useCallback, memo, useMemo } from "react";
 import Link from "next/link";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 const MediaContent = memo(function MediaContent({ content, title, link }) {
   const { width } = useWindowDimensions();
   const { videoRef } = useVideoPoster();
+  const prefersReducedMotion = useReducedMotion();
 
   // Get appropriate URL based on screen width
   const getResponsiveUrl = useCallback(
@@ -61,10 +63,11 @@ const MediaContent = memo(function MediaContent({ content, title, link }) {
             <video
               ref={videoRef}
               key={displayContent.url}
-              autoPlay
+              autoPlay={!prefersReducedMotion}
               loop
               muted
               playsInline
+              controls={prefersReducedMotion}
               style={{ objectFit: "cover", width: "100%", height: "100%" }}
               className={displayContent.className}
               aria-label={`Project preview for ${title}`}

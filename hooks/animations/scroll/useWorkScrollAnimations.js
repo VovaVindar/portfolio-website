@@ -5,11 +5,13 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { WORK as getWork } from "@/constants/animations";
 import styles from "@/components/Home/Work/Work.module.css";
 import { useTransition } from "@/context/TransitionContext";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useWorkScrollAnimations = () => {
   const WORK = getWork();
+  const prefersReducedMotion = useReducedMotion();
 
   const { globalOnload } = useTransition();
 
@@ -56,6 +58,8 @@ export const useWorkScrollAnimations = () => {
 
   // Text and container scroll animations
   useGSAP(() => {
+    if (prefersReducedMotion) return;
+
     let triggers = {
       container: null,
       text: [],
@@ -116,7 +120,7 @@ export const useWorkScrollAnimations = () => {
         const animation = gsap.fromTo(
           ref.current,
           {
-            yPercent: startPercent,
+            yPercent: !prefersReducedMotion ? startPercent : 0,
           },
           {
             yPercent: WORK.SCROLL.PARALLAX.Y_PERCENT.END,

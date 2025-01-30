@@ -3,9 +3,11 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap/dist/gsap";
 import { ABOUT as getAbout } from "@/constants/animations";
 import { useTransition } from "@/context/TransitionContext";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 export const usePrivacyOnloadAnimations = (container, content, CONTACT) => {
   const ABOUT = getAbout();
+  const prefersReducedMotion = useReducedMotion();
 
   const elementRef = useRef([]);
 
@@ -31,23 +33,7 @@ export const usePrivacyOnloadAnimations = (container, content, CONTACT) => {
   );
 
   useGSAP(() => {
-    if (elementRef.current.length && globalOnload) {
-      // Set initial state for container and content
-      /*globalOnload.add(() => {
-        gsap.set(container, {
-          backdropFilter: "blur(4px)",
-          opacity: 1,
-        });
-      }, 0);
-
-      globalOnload.add(() => {
-        gsap.set(content, {
-          autoAlpha: 1,
-          filter: `blur(${CONTACT.STYLES.BLUR.ACTIVE})`,
-          color: CONTACT.STYLES.COLOR.ACTIVE,
-        });
-      }, 0);*/
-
+    if (elementRef.current.length && globalOnload && !prefersReducedMotion) {
       // Handle text elements animation
       globalOnload.add(() => {
         gsap.set(elementRef.current, animConfig.hidden);
@@ -64,10 +50,8 @@ export const usePrivacyOnloadAnimations = (container, content, CONTACT) => {
   }, [globalOnload, animConfig]);
 
   useGSAP(() => {
-    console.log("trying");
     if (container.current && content.current) {
       // Set initial state for container and content
-      console.log("setting");
       globalOnload.add(() => {
         gsap.set(container.current, {
           backdropFilter: "blur(4px)",

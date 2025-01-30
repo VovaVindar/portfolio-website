@@ -7,10 +7,14 @@ import { useScrollbarOnloadAnimations } from "@/hooks/animations/onload/useScrol
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
 import { Router } from "next/router";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 const MAX_HEIGHT_FOR_ANIMATION = 2800;
 
 const Scrollbar = ({ text = "", href, onClick, className }) => {
+  // Add reduced motion check
+  const prefersReducedMotion = useReducedMotion();
+
   const isHoverCapable = useHoverCapable(); // Scrollbar text jitters onscroll on touch devices due to FPS limit
   const { height } = useWindowDimensions();
   const { scrollPosition, setScrollPosition } = useScroll();
@@ -81,7 +85,7 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
     opacity,
     filter: `blur(${blur}px)`,
     top:
-      isHeightCompatibleRef.current || !isHoverCapable
+      isHeightCompatibleRef.current && isHoverCapable && !prefersReducedMotion
         ? `clamp(calc(var(--global-padding) + 1px), calc(${scrollPosition}% - 1lh ), calc(100% - 1lh - var(--global-padding-bottom)))`
         : "var(--global-padding)",
   };

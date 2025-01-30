@@ -4,11 +4,13 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { CLIENTS as getClients } from "@/constants/animations";
 import { useTransition } from "@/context/TransitionContext";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const useClientsScrollAnimations = () => {
   const CLIENTS = getClients();
+  const prefersReducedMotion = useReducedMotion();
 
   const elementRef = useRef([]);
 
@@ -34,6 +36,8 @@ export const useClientsScrollAnimations = () => {
   );
 
   useGSAP(() => {
+    if (prefersReducedMotion) return;
+
     let batchInstance;
 
     if (elementRef.current.length) {

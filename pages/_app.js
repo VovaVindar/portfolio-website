@@ -19,6 +19,7 @@ import { DimensionsProvider } from "@/context/DimensionsContext";
 import CursorContainer from "@/components/Global/CursorContainer";
 import { usePreventStyleRemoval } from "@/hooks/transition/usePreventStyleRemoval";
 import CTA from "@/components/Global/CTA";
+import { ReducedMotionProvider } from "@/context/ReducedMotionContext";
 
 // Persistent layer that stays mounted
 const PersistentLayer = () => {
@@ -53,23 +54,25 @@ function MyApp({ Component, pageProps, router }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <DimensionsProvider>
-        <PreloaderProvider>
-          <ScrollbarProvider>
-            <TransitionProvider>
-              <>
-                <PersistentLayer />
+      <ReducedMotionProvider>
+        <DimensionsProvider>
+          <PreloaderProvider>
+            <ScrollbarProvider>
+              <TransitionProvider>
+                <>
+                  <PersistentLayer />
 
-                <AppContent
-                  Component={Component}
-                  pageProps={pageProps}
-                  router={router}
-                />
-              </>
-            </TransitionProvider>
-          </ScrollbarProvider>
-        </PreloaderProvider>
-      </DimensionsProvider>
+                  <AppContent
+                    Component={Component}
+                    pageProps={pageProps}
+                    router={router}
+                  />
+                </>
+              </TransitionProvider>
+            </ScrollbarProvider>
+          </PreloaderProvider>
+        </DimensionsProvider>
+      </ReducedMotionProvider>
     </>
   );
 }

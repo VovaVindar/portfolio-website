@@ -6,6 +6,7 @@ import { FOOTER as getFooter } from "@/constants/animations";
 import styles from "@/components/Home/Footer/Footer.module.css";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useTransition } from "@/context/TransitionContext";
+import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +15,7 @@ const DESKTOP_BREAKPOINT = 820;
 export const useFooterScrollAnimations = () => {
   const FOOTER = getFooter();
   const { width } = useWindowDimensions();
+  const prefersReducedMotion = useReducedMotion();
 
   const elementRef = useRef([]);
   const socialRef = useRef(null);
@@ -68,6 +70,8 @@ export const useFooterScrollAnimations = () => {
   );
 
   useGSAP(() => {
+    if (prefersReducedMotion) return;
+
     let scrollTriggerInstance;
 
     if (elementRef.current.length) {
