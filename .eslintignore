@@ -1,3 +1,4 @@
 **/mouse-follower/**
 ./components/Global/CursorContainer/mouse-follower/*
 out/*
+public/*
