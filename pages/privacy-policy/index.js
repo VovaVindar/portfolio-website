@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import styles from "./Privacy.module.css";
-import { CONTACT as getContact } from "@/constants/animations";
+import { CONTACT as getContact } from "@/config/animations";
 import Link from "next/link";
 import { usePrivacyOnloadAnimations } from "@/hooks/animations/onload/usePrivacyOnloadAnimations";
 import { useTransition } from "@/context/TransitionContext";

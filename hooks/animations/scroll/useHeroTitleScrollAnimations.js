@@ -2,7 +2,7 @@ import { useRef, useCallback } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { HERO as getHero } from "@/constants/animations";
+import { HERO as getHero } from "@/config/animations";
 import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 gsap.registerPlugin(ScrollTrigger);

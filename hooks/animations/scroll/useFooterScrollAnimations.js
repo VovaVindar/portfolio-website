@@ -2,7 +2,7 @@ import { useRef, useCallback, useMemo, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { FOOTER as getFooter } from "@/constants/animations";
+import { FOOTER as getFooter } from "@/config/animations";
 import styles from "@/components/Home/Footer/Footer.module.css";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useTransition } from "@/context/TransitionContext";

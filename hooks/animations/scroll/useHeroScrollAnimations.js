@@ -3,7 +3,7 @@ import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import styles from "@/components/Home/Hero/Hero.module.css";
-import { HERO as getHero } from "@/constants/animations";
+import { HERO as getHero } from "@/config/animations";
 
 gsap.registerPlugin(ScrollTrigger);
 

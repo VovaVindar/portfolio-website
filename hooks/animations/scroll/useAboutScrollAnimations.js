@@ -2,7 +2,7 @@ import { useRef, useMemo } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { ABOUT as getAbout } from "@/constants/animations";
+import { ABOUT as getAbout } from "@/config/animations";
 import { useTransition } from "@/context/TransitionContext";
 import { useReducedMotion } from "@/context/ReducedMotionContext";
 
