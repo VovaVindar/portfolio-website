@@ -1,8 +1,13 @@
+.safari-bug-fix {
+  position: absolute;
+  mix-blend-mode: difference;
+  z-index: 6;
+}
+
 .home-container {
   display: flex;
   flex-direction: column;
   opacity: 1;
-  padding: 0 1rlh;
   z-index: 2;
   position: relative;
 }

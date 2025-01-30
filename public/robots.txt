@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://vovavindar.com
+
+# Sitemaps
+Sitemap: https://vovavindar.com/sitemap.xml
+Sitemap: https://vovavindar.com/server-sitemap.xml

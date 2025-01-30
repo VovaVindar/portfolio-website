@@ -1,21 +1,55 @@
 {
   "name": "Vova Vindar — Designer & Developer",
   "short_name": "VovaVindar",
+  "description": "Digital Designer & Developer based in Vancouver. Focused on creating immersive websites and beautiful digital interfaces.",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
-      "src": "/web-app-manifest-192x192.png",
+      "src": "/favicon/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/web-app-manifest-512x512.png",
+      "src": "/favicon/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "/favicon/favicon.svg",
+      "sizes": "1000x1000",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ],
-  "theme_color": "#0f1010",
-  "background_color": "#0f1010",
-  "display": "standalone"
+  "screenshots": [
+    {
+      "src": "/images/desktop-screenshot.png",
+      "form_factor": "wide",
+      "sizes": "1920x1080",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/mobile-screenshot.png",
+      "sizes": "792x1540",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#FF0000",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "orientation": "portrait",
+  "dir": "ltr",
+  "categories": [
+    "design",
+    "development",
+    "web",
+    "portfolio",
+    "creative",
+    "frontend",
+    "ui",
+    "motion"
+  ]
 }

@@ -1,0 +1,43 @@
+.privacy-container {
+  background-color: var(--token-color-surface-primary);
+  width: 100%;
+  height: fit-content;
+  min-height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 7rlh var(--global-padding);
+}
+.privacy-container .text {
+  max-width: 22.5rlh;
+  width: 100%;
+}
+.privacy-container .text h1,
+.privacy-container .text h2 {
+  padding: 0;
+  display: block;
+  height: auto;
+  padding-bottom: 1rlh;
+  margin-left: -1px;
+}
+.privacy-container .text p {
+  width: 100%;
+  text-align: justify;
+  text-align-last: left;
+  text-wrap: wrap;
+  padding-bottom: 2rlh;
+  height: auto;
+  display: block;
+  line-height: 117%;
+}
+.privacy-container .text p span {
+  text-transform: uppercase;
+}
+@media (max-width: 820px) {
+  .privacy-container {
+    padding: 5rlh var(--global-padding);
+  }
+  .privacy-container .text {
+    max-width: var(--mobile-max-width);
+  }
+}

@@ -1,0 +1,47 @@
+/* Preloader */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  z-index: 999;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--global-padding);
+  background-color: transparent;
+}
+.preloader .text-container {
+  margin-top: -6px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  position: relative;
+  color: var(--token-color-text-contrast);
+  white-space: pre;
+}
+.preloader .text-container div {
+  width: 100%;
+  padding-left: 1.5ch;
+  position: relative;
+}
+.preloader .text-container div p {
+  width: 3ch;
+  text-align: right;
+  margin-left: -3ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader .text-container div p {
+    padding-left: 1.5ch;
+    text-align: left;
+  }
+}
+@media all and (max-width: 820px) {
+  .preloader .text-container {
+    max-width: var(--mobile-max-width);
+  }
+}

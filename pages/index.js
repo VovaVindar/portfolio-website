@@ -1,67 +1,26 @@
 import Head from "next/head";
 import styles from "./Home.module.css";
-import Hero from "@/components/Sections/Hero";
-import Videos from "@/components/Sections/Videos";
-import SelectedClients from "@/components/Sections/SelectedClients";
-import Work from "@/components/Sections/Work";
-import Footer from "@/components/Sections/Footer";
-import Contact from "@/components/Contact";
-import { useRef, useEffect, useState } from "react";
+import ContactPopup from "@/components/Home/ContactPopup";
+import Hero from "@/components/Home/Hero";
+import About from "@/components/Home/About";
+import SelectedClients from "@/components/Home/SelectedClients";
+import Work from "@/components/Home/Work";
+import Footer from "@/components/Home/Footer";
 
-export default function Home({ isAnimating, numbersProgress, linesCount }) {
-  const [startPageAnimation, setStartPageAnimation] = useState(false);
-  const container = useRef(null);
-
-  var staggerInterval = 0.11;
-  var duration = 0.75;
-  var easing = "power1.in"; // Easing for: text fade in
-
-  useEffect(() => {
-    if (numbersProgress >= 100) {
-      setTimeout(() => setStartPageAnimation(true), 250);
-    }
-  }, [numbersProgress]);
-
+export default function Home({}) {
   return (
     <>
       <Head>
-        <title>Vova Vindar — Digital Designer & Developer</title>
+        <title>Vova Vindar - Digital Designer & Developer</title>
       </Head>
-      {/*<canvas id="gl"></canvas>*/}
-      <div ref={container} className={`${styles["home-container"]} container`}>
-        <Contact
-          isAnimating={isAnimating}
-          easing={easing}
-          duration={duration}
-        />
-        <Hero
-          staggerInterval={staggerInterval}
-          duration={duration}
-          easing={easing}
-          startPageAnimation={startPageAnimation}
-          linesCount={linesCount}
-        />
-        <Videos
-          startPageAnimation={startPageAnimation}
-          linesCount={linesCount}
-        />
-        <SelectedClients
-          staggerInterval={staggerInterval}
-          duration={duration}
-          easing={easing}
-          startPageAnimation={startPageAnimation}
-        />
-        <Work
-          duration={duration}
-          easing={easing}
-          startPageAnimation={startPageAnimation}
-        />
-        <Footer
-          staggerInterval={staggerInterval}
-          duration={duration}
-          easing={easing}
-          startPageAnimation={startPageAnimation}
-        />
+      <div className={`${styles["home-container"]} container`}>
+        <div className={`${styles["safari-bug-fix"]}`} aria-hidden="true" />
+        <ContactPopup />
+        <Hero />
+        <About />
+        <SelectedClients />
+        <Work />
+        <Footer />
       </div>
     </>
   );

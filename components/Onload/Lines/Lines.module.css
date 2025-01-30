@@ -1,0 +1,33 @@
+.line-container {
+  position: absolute;
+  width: 100%;
+  min-height: 110vh;
+  overflow: hidden;
+  z-index: 998;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background-color: var(--token-color-surface-contrast);
+  pointer-events: none;
+  user-select: none;
+}
+.line {
+  width: 100%;
+  /*height: 1rlh;*/
+  height: 23px;
+  transform-origin: bottom;
+  background-color: var(--token-color-surface-contrast);
+}
+
+@media all and (min-width: 1800px) {
+  .line {
+    height: 30px;
+  }
+}
+@media all and (min-width: 2400px) {
+  .line {
+    height: 40px;
+  }
+}
