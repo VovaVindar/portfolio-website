@@ -3,7 +3,6 @@
   "plugins": ["unused-imports"],
   "rules": {
     "@next/next/no-img-element": "off",
-    "@next/next/no-sync-scripts": "off", // Disabled 'useLayoutEffect' warning since I'm building for SSG
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "warn",

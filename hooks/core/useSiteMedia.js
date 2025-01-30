@@ -1,4 +1,4 @@
-import { supportsHEVCAlpha } from "@/hooks/utils/useSupportsHEVC";
+import { supportsHEVCAlpha } from "@/hooks/core/useSupportsHEVC";
 import { SITE_IMAGES, SITE_VIDEOS } from "@/constants/media";
 
 // Separate function for filtering videos

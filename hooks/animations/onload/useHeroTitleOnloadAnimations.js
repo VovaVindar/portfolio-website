@@ -1,7 +1,7 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
-import { HERO as getHero } from "@/constants/animations";
+import { HERO as getHero } from "@/config/animations";
 import { useStartedLines } from "@/context/PreloaderContext";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useTransition } from "@/context/TransitionContext";
@@ -55,7 +55,7 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
   );
   const [transition, setTransition] = useState(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!prefersReducedMotion) {
       setOpacity(0);
       setBlur(HERO.LOAD.TITLE.INITIAL_BLUR);

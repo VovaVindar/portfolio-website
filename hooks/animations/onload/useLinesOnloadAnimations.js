@@ -1,6 +1,6 @@
 import { useRef, useState, useLayoutEffect } from "react";
 import { useGSAP } from "@gsap/react";
-import { LINES as getLines } from "@/constants/animations";
+import { LINES as getLines } from "@/config/animations";
 import { useTransition } from "@/context/TransitionContext";
 import {
   useLinesStatus,

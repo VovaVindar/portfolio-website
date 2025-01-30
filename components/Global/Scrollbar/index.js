@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useScroll } from "@/context/ScrollbarContext";
 import { useScrollbarOnloadAnimations } from "@/hooks/animations/onload/useScrollbarOnloadAnimations";
 import { useWindowDimensions } from "@/context/DimensionsContext";
-import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
+import { useHoverCapable } from "@/hooks/core/useHoverCapable";
 import { Router } from "next/router";
 import { useReducedMotion } from "@/context/ReducedMotionContext";
 

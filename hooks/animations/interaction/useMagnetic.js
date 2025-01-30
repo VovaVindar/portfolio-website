@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import gsap from "gsap";
-import { MAGNETIC as getMagnetic } from "@/constants/animations";
-import { useHoverCapable } from "@/hooks/utils/useHoverCapable";
+import { MAGNETIC as getMagnetic } from "@/config/animations";
+import { useHoverCapable } from "@/hooks/core/useHoverCapable";
 import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 // Get the appropriate scale based on type

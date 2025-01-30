@@ -1,7 +1,7 @@
 import { useRef, useMemo } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap/dist/gsap";
-import { ABOUT as getAbout } from "@/constants/animations";
+import { ABOUT as getAbout } from "@/config/animations";
 import { useTransition } from "@/context/TransitionContext";
 import { useReducedMotion } from "@/context/ReducedMotionContext";
 

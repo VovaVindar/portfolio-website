@@ -7,7 +7,7 @@ import {
   useEffect,
   useMemo,
 } from "react";
-import { getMediaForScreenSize } from "@/hooks/utils/useSiteMedia";
+import { getMediaForScreenSize } from "@/hooks/core/useSiteMedia";
 import { useWindowDimensions } from "@/context/DimensionsContext";
 import { useReducedMotion } from "@/context/ReducedMotionContext";
 

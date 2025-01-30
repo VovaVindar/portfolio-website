@@ -29,7 +29,7 @@ export default function ContactPopup({ className }) {
         setContactOpen(true);
         stopLenis();
         window.removeEventListener("blur", handleBlur);
-      }, 250);
+      }, 25);
     };
 
     const mailtoLinks = document.querySelectorAll('a[href^="mailto"]');

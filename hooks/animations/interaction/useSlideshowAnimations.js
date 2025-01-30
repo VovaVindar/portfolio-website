@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { SLIDESHOW as getSlideshow } from "@/constants/animations";
+import { SLIDESHOW as getSlideshow } from "@/config/animations";
 
 export const useSlideshowAnimations = (content) => {
   const SLIDESHOW = getSlideshow();

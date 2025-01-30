@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect } from "react";
 import { useLinesStatus } from "@/context/PreloaderContext";
-import { SCROLLBAR as getScrollbar } from "@/constants/animations";
+import { SCROLLBAR as getScrollbar } from "@/config/animations";
 
 export const useScrollbarOnloadAnimations = () => {
   const SCROLLBAR = getScrollbar();

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap/dist/gsap";
-import { PRELOADER as getPreloader } from "@/constants/animations";
+import { PRELOADER as getPreloader } from "@/config/animations";
 import { useReducedMotion } from "@/context/ReducedMotionContext";
 
 export const usePreloaderOnloadAnimations = (loadProgress) => {

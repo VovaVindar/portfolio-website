@@ -1,5 +1,5 @@
 import { useGSAP } from "@gsap/react";
-import { HERO as getHero } from "@/constants/animations";
+import { HERO as getHero } from "@/config/animations";
 import styles from "@/components/Home/Hero/Hero.module.css";
 import { useTransition } from "@/context/TransitionContext";
 import { useWindowDimensions } from "@/context/DimensionsContext";

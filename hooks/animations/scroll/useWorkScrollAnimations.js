@@ -1,8 +1,8 @@
-import { useRef, useState, useLayoutEffect, useMemo } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { WORK as getWork } from "@/constants/animations";
+import { WORK as getWork } from "@/config/animations";
 import styles from "@/components/Home/Work/Work.module.css";
 import { useTransition } from "@/context/TransitionContext";
 import { useReducedMotion } from "@/context/ReducedMotionContext";
@@ -28,7 +28,7 @@ export const useWorkScrollAnimations = () => {
   // Calculate lineHeight and endOffset after mount
   const [endOffset, setEndOffset] = useState(0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const lineHeight = parseFloat(
       getComputedStyle(document.documentElement).lineHeight
     );

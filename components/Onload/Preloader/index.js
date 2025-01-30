@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Preloader.module.css";
 import { useLoading } from "@/context/PreloaderContext";
 import { usePreloaderOnloadAnimations } from "@/hooks/animations/onload/usePreloaderOnloadAnimations";
-import { PRELOADER as getPreloader } from "@/constants/animations";
+import { PRELOADER as getPreloader } from "@/config/animations";
 
 const Preloader = ({ className }) => {
   const PRELOADER = getPreloader();

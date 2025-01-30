@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { CHANGE_TEXT as getChangeText } from "@/constants/animations";
+import { CHANGE_TEXT as getChangeText } from "@/config/animations";
 import { useLinesStatus } from "@/context/PreloaderContext";
 
 export const useChangeTextAnimations = (text) => {

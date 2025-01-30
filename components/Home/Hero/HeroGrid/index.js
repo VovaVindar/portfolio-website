@@ -2,7 +2,7 @@ import styles from "../Hero.module.css";
 import Magnetic from "@/components/Global/Magnetic";
 import { GRID_LAYOUT_DESKTOP, GRID_LAYOUT_MOBILE } from "@/constants/hero-grid";
 import { useWindowDimensions } from "@/context/DimensionsContext";
-import { useVideoPoster } from "@/hooks/utils/useVideoPoster";
+import { useVideoPoster } from "@/hooks/core/useVideoPoster";
 import { memo, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { useReducedMotion } from "@/context/ReducedMotionContext";
