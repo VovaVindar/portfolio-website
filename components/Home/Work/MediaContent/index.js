@@ -52,7 +52,8 @@ const MediaContent = memo(function MediaContent({ content, title, link }) {
       <Link
         href={link}
         target="_blank"
-        aria-label={`Visit ${title} project page (opens in new tab)`}
+        aria-label={`Visit ${title} project page`}
+        aria-description="opens in new tab"
         tabIndex={-1}
       >
         <Magnetic type="image" scale={1.016} movement={0.035}>
@@ -66,14 +67,15 @@ const MediaContent = memo(function MediaContent({ content, title, link }) {
               playsInline
               style={{ objectFit: "cover", width: "100%", height: "100%" }}
               className={displayContent.className}
+              aria-label={`Project preview for ${title}`}
             >
               <source src={displayContent.url} type={displayContent.mimeType} />
-              Your browser does not support the video tag.
+              This video shows a preview of the {title} project.
             </video>
           ) : (
             <img
               src={displayContent.url}
-              alt={title}
+              alt={`Project preview for ${title}`}
               style={{ objectFit: "cover" }}
               className={displayContent.className}
               width={dimensions.width}

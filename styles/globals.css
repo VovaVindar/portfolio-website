@@ -96,14 +96,6 @@ ol[role="list"] {
   list-style: none;
 }
 
-/* Balance text wrapping on headings */
-h1,
-h2,
-h3,
-h4 {
-  text-wrap: balance;
-}
-
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
@@ -262,4 +254,15 @@ img {
 .lenis {
   overflow-y: auto;
   height: 100vh;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

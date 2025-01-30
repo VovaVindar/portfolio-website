@@ -34,14 +34,33 @@ const Preloader = ({ className }) => {
   }
 
   return (
-    <div className={`${styles["preloader"]} ${className}`} style={{ opacity }}>
+    <div
+      className={`${styles["preloader"]} ${className}`}
+      style={{ opacity }}
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={loadProgress}
+      aria-label="Page loading progress"
+    >
       <div className={styles["text-container"]} ref={containerRef}>
         <div>
-          <p className="text-body-3" ref={progressIndicatorRef}>
+          <p
+            className="text-body-3"
+            ref={progressIndicatorRef}
+            aria-hidden="true" // Hide from screen readers since we have the progressbar role above
+          >
             {loadProgress}
           </p>
         </div>
       </div>
+
+      {/* Announce completion to screen readers */}
+      {loadProgress >= 100 && (
+        <div role="status" className="sr-only">
+          Loading complete
+        </div>
+      )}
     </div>
   );
 };

@@ -7,14 +7,14 @@ const SelectedClients = () => {
   const clientsOnscroll = useClientsScrollAnimations();
 
   return (
-    <div className={styles["clients"]}>
+    <section className={styles["clients"]}>
       <div className="text-body-1">
         <ClientsSubheader clientsOnscroll={clientsOnscroll} />
       </div>
       <div>
         <Clients clientsOnscroll={clientsOnscroll} />
       </div>
-    </div>
+    </section>
   );
 };
 

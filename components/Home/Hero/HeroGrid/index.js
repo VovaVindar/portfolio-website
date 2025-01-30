@@ -6,7 +6,7 @@ import { useVideoPoster } from "@/hooks/utils/useVideoPoster";
 import { memo, useCallback, useMemo } from "react";
 import Link from "next/link";
 
-const MediaRenderer = memo(({ media, currentIndex, handleMediaRef }) => {
+const MediaRenderer = memo(({ media, handleMediaRef }) => {
   const { width } = useWindowDimensions();
   const { videoRef } = useVideoPoster();
 
@@ -60,9 +60,11 @@ const MediaRenderer = memo(({ media, currentIndex, handleMediaRef }) => {
           muted
           playsInline
           onError={handleVideoError}
+          aria-label={`Video showing: ${media.alt}`}
         >
           <source src={responsiveUrl} type={media.mimeType} />
-          Your browser does not support the video tag.
+          {/* Fallback text if video doesn't load */}
+          Video showing: {media.alt}
         </video>
       </div>
     );
@@ -71,7 +73,8 @@ const MediaRenderer = memo(({ media, currentIndex, handleMediaRef }) => {
   return (
     <img
       src={responsiveUrl}
-      alt={`${media.alt} (Index: ${currentIndex})`}
+      //alt={`${media.alt} (Index: ${currentIndex})`}
+      alt={`${media.alt}`}
       className={`${styles["cell-image"]} ${media.className}`}
       priority="true"
       ref={handleMediaRef}
@@ -136,9 +139,9 @@ const HeroGrid = memo(({ imgOnload, cellOnload, onHover }) => {
               {media && (
                 <Link
                   href={media.link}
-                  aria-label={`Visit ${media.hoverText} project page (opens in new tab)`}
                   target="_blank"
                   tabIndex={-1}
+                  aria-hidden={true}
                 >
                   <Magnetic
                     type="image"

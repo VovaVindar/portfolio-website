@@ -2,17 +2,26 @@ import styles from "./About.module.css";
 import { useAboutScrollAnimations } from "@/hooks/animations/scroll/useAboutScrollAnimations";
 
 const About = () => {
-  const elementRef = useAboutScrollAnimations();
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const elementRef = useAboutScrollAnimations(prefersReducedMotion);
 
   return (
-    <div className={styles["about-container"]}>
+    <section className={styles["about-container"]}>
+      {/* Add visually hidden heading for screen readers */}
+      <h2 id="about-title" className="sr-only">
+        About Me
+      </h2>
+
       <div className={`${styles["text-container"]} text-body-3`}>
         <p>
           <span ref={(el) => (elementRef.current[0] = el)}>
             I&apos;m a designer-developer currently based in rainy Vancouver,
             obsessed with creating immersive websites and beautiful digital
             interfaces.
-            <span className={`${styles["mobile-breaker"]}`}></span>
+            <br className={`${styles["mobile-breaker"]}`} />
           </span>{" "}
           <span ref={(el) => (elementRef.current[1] = el)}>
             I&apos;ve had the privilege of working with clients like UNIT9,
@@ -23,7 +32,7 @@ const About = () => {
             products that shape the presence of established brands and helping
             emerging startups build identities that have secured{" "}
             <span style={{ whiteSpace: "nowrap" }}>Y Combinator backing.</span>
-            <span className={`${styles["mobile-breaker"]}`}></span>
+            <br className={`${styles["mobile-breaker"]}`} />
           </span>{" "}
           <span ref={(el) => (elementRef.current[3] = el)}>
             In an industry that chases trends, I ground my work in permanent
@@ -32,10 +41,10 @@ const About = () => {
           </span>
         </p>
 
-        <div className="text-body-1 left-layout"></div>
-        <div className="text-header-1 right-layout"></div>
+        <div className="text-body-1 left-layout" aria-hidden="true"></div>
+        <div className="text-header-1 right-layout" aria-hidden="true"></div>
       </div>
-    </div>
+    </section>
   );
 };
 

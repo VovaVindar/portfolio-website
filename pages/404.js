@@ -54,5 +54,10 @@ export default function Custom404() {
     }
   }, [router, styles.meme]);
 
-  return null;
+  // Return meaningful content instead of null
+  return (
+    <div role="alert" aria-live="assertive" className="sr-only">
+      Page not found. Redirecting to homepage in a moment.
+    </div>
+  );
 }

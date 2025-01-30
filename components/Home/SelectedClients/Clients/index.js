@@ -16,10 +16,14 @@ const ClientItem = forwardRef(({ client }, ref) => {
       setHoverText("Open Project");
     }
   };
-
   const handleMouseLeave = () => {
     if (isHoverCapable) {
       setHoverText(client.services);
+    }
+  };
+  const handleFocus = () => {
+    if (isHoverCapable) {
+      setHoverText("Open Project");
     }
   };
 
@@ -29,17 +33,20 @@ const ClientItem = forwardRef(({ client }, ref) => {
         <Link
           href={client.link}
           target="_blank"
-          aria-label={`Visit ${client.name} project page (opens in new tab)`}
+          aria-label={`Visit ${client.name} project page`}
+          aria-description="opens in new tab"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onFocus={handleFocus}
+          onBlur={handleMouseLeave}
         >
-          <h1
-            className={`mf-hidden`}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            {client.name}
-          </h1>
+          <h2 className={`mf-hidden text-header-1`}>{client.name}</h2>
         </Link>
-        <ChangeText text={hoverText} className={"text-header-3 mf-hidden"} />
+        <ChangeText
+          text={hoverText}
+          className={"text-header-3 mf-hidden"}
+          aria-live="off"
+        />
       </div>
     </div>
   );

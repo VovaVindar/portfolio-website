@@ -53,7 +53,9 @@ const Lines = () => {
 
       const linesArray = Array(totalLines)
         .fill(null)
-        .map((_, i) => <div key={i} className={`${styles["line"]}`}></div>);
+        .map((_, i) => (
+          <div key={i} className={`${styles["line"]}`} aria-hidden="true"></div>
+        ));
 
       setLines(linesArray);
 
@@ -72,6 +74,8 @@ const Lines = () => {
     <div
       className={`${styles["line-container"]} scroll-block`}
       ref={containerRef}
+      aria-hidden="true"
+      role="presentation" // Indicates this is presentational only
     >
       {lines}
     </div>

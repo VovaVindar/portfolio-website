@@ -12,22 +12,41 @@ const Footer = () => {
   const copyTimeoutRef = useRef(null);
 
   // Handle email copy
-  const handleCopyEmail = (e) => {
+  const handleCopyEmail = async (e) => {
     e.preventDefault();
     if (copyTimeoutRef.current) {
       clearTimeout(copyTimeoutRef.current);
     }
 
-    navigator.clipboard.writeText("vovavindar@gmail.com");
-    setCopyEmail("Copied");
+    try {
+      await navigator.clipboard.writeText("vovavindar@gmail.com");
+      setCopyEmail("Copied");
+      // Add aria-live to announce copy success
+      const message = document.getElementById("copy-message");
+      if (message) message.textContent = "Email copied to clipboard";
 
-    copyTimeoutRef.current = setTimeout(() => {
-      setCopyEmail("Email");
-    }, 850);
+      copyTimeoutRef.current = setTimeout(() => {
+        setCopyEmail("Email");
+        if (message) message.textContent = "";
+      }, 850);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+      // Announce failure to screen readers
+      const message = document.getElementById("copy-message");
+      if (message) message.textContent = "Failed to copy email";
+    }
   };
 
   return (
-    <div className={`${styles["footer-container"]} text-body-1`}>
+    <footer className={`${styles["footer-container"]} text-body-1`}>
+      {/* Add live region for copy feedback */}
+      <div
+        id="copy-message"
+        role="status"
+        aria-live="polite"
+        className="sr-only"
+      ></div>
+
       <div className={styles["footer-top"]}>
         <div>
           <span
@@ -51,6 +70,8 @@ const Footer = () => {
           <p
             onMouseEnter={() => setHoveredLink("linkedin")}
             onMouseLeave={() => setHoveredLink(null)}
+            onFocus={() => setHoveredLink("linkedin")}
+            onBlur={() => setHoveredLink(null)}
             className={
               hoveredLink && hoveredLink !== "linkedin" ? styles["faded"] : ""
             }
@@ -60,7 +81,8 @@ const Footer = () => {
                 href="https://www.linkedin.com/in/vovavindar/"
                 ref={(el) => (elementRef.current[4] = el)}
                 target="_blank"
-                aria-label={`Visit my LinkedIn (opens in new tab)`}
+                aria-label={`Visit my LinkedIn`}
+                aria-description="opens in new tab"
               >
                 LinkedIn,
               </Link>
@@ -69,6 +91,8 @@ const Footer = () => {
           <p
             onMouseEnter={() => setHoveredLink("instagram")}
             onMouseLeave={() => setHoveredLink(null)}
+            onFocus={() => setHoveredLink("instagram")}
+            onBlur={() => setHoveredLink(null)}
             className={
               hoveredLink && hoveredLink !== "instagram" ? styles["faded"] : ""
             }
@@ -78,7 +102,8 @@ const Footer = () => {
                 href="https://www.instagram.com/vovavindar/"
                 ref={(el) => (elementRef.current[7] = el)}
                 target="_blank"
-                aria-label={`Visit my Instagram (opens in new tab)`}
+                aria-label={`Visit my Instagram`}
+                aria-description="opens in new tab"
               >
                 Instagram,
               </Link>
@@ -87,6 +112,8 @@ const Footer = () => {
           <p
             onMouseEnter={() => setHoveredLink("dribbble")}
             onMouseLeave={() => setHoveredLink(null)}
+            onFocus={() => setHoveredLink("dribbble")}
+            onBlur={() => setHoveredLink(null)}
             className={
               hoveredLink && hoveredLink !== "dribbble" ? styles["faded"] : ""
             }
@@ -96,7 +123,8 @@ const Footer = () => {
                 href="https://dribbble.com/VovaVindar"
                 ref={(el) => (elementRef.current[8] = el)}
                 target="_blank"
-                aria-label={`Visit my Dribbble (opens in new tab)`}
+                aria-label={`Visit my Dribbble`}
+                aria-description="opens in new tab"
               >
                 Dribbble,
               </Link>
@@ -105,6 +133,8 @@ const Footer = () => {
           <p
             onMouseEnter={() => setHoveredLink("cosmos")}
             onMouseLeave={() => setHoveredLink(null)}
+            onFocus={() => setHoveredLink("cosmos")}
+            onBlur={() => setHoveredLink(null)}
             className={
               hoveredLink && hoveredLink !== "cosmos" ? styles["faded"] : ""
             }
@@ -114,7 +144,8 @@ const Footer = () => {
                 href="https://www.cosmos.so/vovavindar"
                 ref={(el) => (elementRef.current[9] = el)}
                 target="_blank"
-                aria-label={`Visit my Cosmos (opens in new tab)`}
+                aria-label={`Visit my Cosmos`}
+                aria-description="opens in new tab"
               >
                 Cosmos<span className={styles["no-mobile"]}>,</span>
               </Link>
@@ -123,6 +154,8 @@ const Footer = () => {
           <p
             onMouseEnter={() => setHoveredLink("email")}
             onMouseLeave={() => setHoveredLink(null)}
+            onFocus={() => setHoveredLink("email")}
+            onBlur={() => setHoveredLink(null)}
             className={`${
               hoveredLink && hoveredLink !== "email"
                 ? `${styles["faded"]} ${styles["no-mobile"]}`
@@ -185,7 +218,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

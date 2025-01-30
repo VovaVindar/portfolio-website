@@ -10,12 +10,12 @@
 }
 .clients .subheader {
   margin-bottom: calc(-2 * (1rlh - var(--small-text-line-height)));
-  margin-top: -0.155rlh;
+  margin-top: 0.155rlh;
 }
 /*.clients .subheader::after {
   content: "";
   position: absolute;
-  bottom: -7px;
+  bottom: -1px;
   left: 0;
   width: 105vw;
   transform: translateX(-1vw);
@@ -36,20 +36,14 @@
 .clients .client-container div {
   display: flex;
 }
-.clients .client-container h1 {
+.clients .client-container h2 {
   cursor: pointer;
 }
-/*.clients .client-container.in-view div {
-  transition: all 0.4s var(--easing-text-fade-in);
-}
-.clients .client-container.in-view .faded {
-  transition: all 0.65s var(--easing-text-fade-out);
-  opacity: 0.25 !important;
-  color: red !important;
-  filter: blur(6px) !important;
-}*/
 .clients .client-container:first-of-type {
   padding-top: 0;
+}
+.clients .client-container:last-of-type {
+  padding-bottom: 0;
 }
 /*.clients .client-container:first-of-type::before {
   content: "";
@@ -60,11 +54,8 @@
   transform: translateX(-35%);
   height: 1px;
   background-color: black;
-}*/
-.clients .client-container:last-of-type {
-  padding-bottom: 0;
 }
-/*.clients .client-container:last-of-type::after {
+.clients .client-container:last-of-type::after {
   content: "";
   position: absolute;
   bottom: 0;

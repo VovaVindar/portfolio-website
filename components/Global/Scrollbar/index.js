@@ -87,8 +87,9 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
   };
 
   return (
-    <div
+    <nav
       className={`${styles["scrollbar-container"]} text-body-3 mf-hidden ${className}`}
+      aria-label="Page navigation"
     >
       {href ? (
         <Link href={href} style={elementStyle} scroll={false}>
@@ -99,7 +100,7 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
           <Magnetic type="small-text">{text}</Magnetic>
         </button>
       )}
-    </div>
+    </nav>
   );
 };
 

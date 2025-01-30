@@ -7,6 +7,11 @@ const WIDE_SCREEN_BREAKPOINT = 1060;
 const MAX_HEIGHT_FOR_ANIMATION = 2800;
 
 const ClientsSubheader = ({ clientsOnscroll }) => {
+  // Add reduced motion check
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const subheaderRef = useRef(null);
   //const resizeObserverRef = useRef(null);
   const { width, height } = useWindowDimensions();
@@ -102,23 +107,25 @@ const ClientsSubheader = ({ clientsOnscroll }) => {
   };
 
   // Style calculation
-  const pStyle = {
-    position,
-    top:
-      top === false && isWideScreen && isHeightCompatible
-        ? `clamp(var(--global-padding), calc(${scrollPosition}% - 0.83rlh), calc(100% - 1lh - var(--global-padding)))`
-        : top,
-    bottom,
-  };
+  const pStyle = prefersReducedMotion
+    ? {}
+    : {
+        position,
+        top:
+          top === false && isWideScreen && isHeightCompatible
+            ? `clamp(var(--global-padding), calc(${scrollPosition}% - 0.85rlh), calc(100% - 1lh - var(--global-padding)))`
+            : top,
+        bottom,
+      };
 
   return (
     <div className="text-body-1" ref={subheaderRef} style={pStyle}>
-      <p
+      <h3
         ref={(el) => (clientsOnscroll.current[0] = el)}
         className={styles["subheader"]}
       >
         Selected Clients:
-      </p>
+      </h3>
     </div>
   );
 };

@@ -10,6 +10,11 @@ import Magnetic from "@/components/Global/Magnetic";
 const AUTOPLAY_DELAY = 5500;
 
 const Work = () => {
+  // Add reduced motion check
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const { imgRef, addToTextRefs, sectionRef } = useWorkScrollAnimations();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [arrowUpdate, setArrowUpdate] = useState(0);
@@ -24,13 +29,13 @@ const Work = () => {
       clearInterval(intervalRef.current);
     }
 
-    if (isInViewRef.current && !hoverRef.current) {
+    if (isInViewRef.current && !hoverRef.current && !prefersReducedMotion) {
       intervalRef.current = setInterval(() => {
         setArrowUpdate((prev) => prev + 1);
         setCurrentIndex((prev) => (prev === work.length - 1 ? 0 : prev + 1));
       }, AUTOPLAY_DELAY);
     }
-  }, []);
+  }, [prefersReducedMotion]);
 
   const handleNavigation = useCallback(
     (direction) => {
@@ -111,24 +116,36 @@ const Work = () => {
   }, [resetInterval]);
 
   return (
-    <div className={styles["work-container"]}>
+    <section
+      className={styles["work-container"]}
+      aria-label="Featured Work Projects. Use left and right arrow keys to navigate between projects"
+    >
+      <div aria-live="polite" className="sr-only">
+        Currently showing {currentWork.title} project, {currentIndex + 1} of{" "}
+        {work.length}
+      </div>
+
       <div className={`${styles["work"]} mf-exclusion`} ref={sectionRef}>
-        <div ref={addToTextRefs} className={styles["project-details"]}>
+        <dl ref={addToTextRefs} className={styles["project-details"]}>
           <div>
-            <span className="text-header-3">Client:</span>
-            <ChangeText
-              text={currentWork.title}
-              className={`${styles["info"]} text-body-1`}
-            />
+            <dt className="text-header-3">Client:</dt>
+            <dd>
+              <ChangeText
+                text={currentWork.title}
+                className={`${styles["info"]} text-body-1`}
+              />
+            </dd>
           </div>
           <div>
-            <span className="text-header-3">Year:</span>
-            <ChangeText
-              text={currentWork.year}
-              className={`${styles["info"]} text-body-1`}
-            />
+            <dt className="text-header-3">Year:</dt>
+            <dd>
+              <ChangeText
+                text={currentWork.year}
+                className={`${styles["info"]} text-body-1`}
+              />
+            </dd>
           </div>
-        </div>
+        </dl>
 
         <div className={styles["image-container"]}>
           <div
@@ -152,7 +169,8 @@ const Work = () => {
             className="text-body-3"
             target="_blank"
             ref={addToTextRefs}
-            aria-label={`Visit ${currentWork.title} project page (opens in new tab)`}
+            aria-label={`Visit ${currentWork.title} project page`}
+            aria-description="opens in new tab"
           >
             <Magnetic type="small-text">Open Project</Magnetic>
           </Link>
@@ -166,10 +184,10 @@ const Work = () => {
           arrowUpdate={arrowUpdate}
         />
 
-        <div className="text-body-1 left-layout" />
-        <div className="text-header-1 right-layout" />
+        <div className="text-body-1 left-layout" aria-hidden="true" />
+        <div className="text-header-1 right-layout" aria-hidden="true" />
       </div>
-    </div>
+    </section>
   );
 };
 
@@ -192,10 +210,12 @@ const ClickAreas = memo(function ClickAreas({
   );
 
   return (
-    <div className={styles["clicks"]}>
+    <div
+      className={styles["clicks"]}
+      aria-hidden="true" // Since these are supplementary mouse-only controls
+    >
       <button
         type="button"
-        aria-label="Previous"
         onClick={onPrevious}
         className={styles["click-area"]}
         data-cursor-text={getLoopedIndex(currentIndex - 1)}
@@ -204,7 +224,6 @@ const ClickAreas = memo(function ClickAreas({
       />
       <button
         type="button"
-        aria-label="Next"
         onClick={onNext}
         className={styles["click-area"]}
         data-cursor-text={getLoopedIndex(currentIndex + 1)}

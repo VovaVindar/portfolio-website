@@ -20,6 +20,9 @@ export default function SecondaryWrapper({ children }) {
   return (
     <FocusLock returnFocus={true}>
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Page Content"
         style={{
           position: "fixed",
           top: 0,
@@ -31,6 +34,7 @@ export default function SecondaryWrapper({ children }) {
         }}
         data-scroll-locked
       >
+        <div className="sr-only">Press Escape to return to main page</div>
         <ReactLenis
           options={{
             lerp: 0.09,

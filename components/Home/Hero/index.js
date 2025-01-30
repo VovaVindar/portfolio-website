@@ -18,7 +18,7 @@ const Hero = ({}) => {
   const [hoverText, setHoverText] = useState("");
 
   return (
-    <div className={styles["hero-container"]} ref={containerRef}>
+    <section className={styles["hero-container"]} ref={containerRef}>
       <HeroTitle />
       <div className={`${styles["hover-text"]}`}>
         <ChangeText text={hoverText} className={"text-header-3"} />
@@ -28,7 +28,7 @@ const Hero = ({}) => {
         cellOnload={cellOnload}
         onHover={setHoverText}
       />
-    </div>
+    </section>
   );
 };
 

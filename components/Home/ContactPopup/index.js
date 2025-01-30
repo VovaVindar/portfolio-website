@@ -9,6 +9,7 @@ export default function ContactPopup({ className }) {
   const { contactOpen, setContactOpen } = useContact();
   const { containerRef, contentRef } = useContactTransition(contactOpen);
   const [copyEmail, setCopyEmail] = useState("vovavindar@gmail.com");
+  const [copyStatus, setCopyStatus] = useState(""); // For screen reader announcements
 
   useEffect(() => {
     const handleMailtoClick = (event) => {
@@ -53,11 +54,42 @@ export default function ContactPopup({ className }) {
     };
   }, [contactOpen, setContactOpen]);
 
+  const handleCopyEmail = async (e) => {
+    e.preventDefault();
+    const email = "vovavindar@gmail.com";
+
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopyEmail("Copied");
+      setCopyStatus("Email copied to clipboard");
+
+      setTimeout(() => {
+        setContactOpen(false);
+        startLenis();
+        setTimeout(() => {
+          setCopyEmail("vovavindar@gmail.com");
+          setCopyStatus("");
+        }, 680);
+      }, 400);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+      setCopyStatus("Failed to copy email");
+    }
+  };
+
   return (
     <div
       className={`${styles["contact-container"]} ${className}`}
       ref={containerRef}
+      role="dialog"
+      aria-label="Copy email address"
+      aria-modal="true"
     >
+      {/* Status message for screen readers */}
+      <div role="status" className="sr-only" aria-live="polite">
+        {copyStatus}
+      </div>
+
       <Magnetic
         style={{ height: "min-content", width: "min-content" }}
         type="text"
@@ -66,20 +98,8 @@ export default function ContactPopup({ className }) {
           ref={contentRef}
           className="text-body-3-uppercase mf-exclusion"
           data-cursor-text="Copy"
-          onClick={(e) => {
-            e.preventDefault();
-            const email = "vovavindar@gmail.com";
-            navigator.clipboard.writeText(email);
-            setCopyEmail("Copied");
-
-            setTimeout(() => {
-              setContactOpen(false);
-              startLenis();
-              setTimeout(() => {
-                setCopyEmail("vovavindar@gmail.com");
-              }, 680);
-            }, 400);
-          }}
+          onClick={handleCopyEmail}
+          aria-label="Copy email address to clipboard"
         >
           {copyEmail}
         </button>

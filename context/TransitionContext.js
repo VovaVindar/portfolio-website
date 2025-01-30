@@ -179,7 +179,14 @@ export function TransitionLayout({ children }) {
   ]);
 
   return (
+    // Add region for live announcements of page transitions
     <>
+      <div className="sr-only" role="status" aria-live="polite">
+        {router.pathname === "/"
+          ? "Opened home page"
+          : `Navigated to ${router.pathname}`}
+      </div>
+
       {!homeChildren && notFoundChildren}
       {homeChildren && <SmoothScrolling>{homeChildren}</SmoothScrolling>}
       {secondaryChildren && (

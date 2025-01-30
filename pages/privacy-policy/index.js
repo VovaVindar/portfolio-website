@@ -78,9 +78,17 @@ function Privacy({}) {
     <>
       <Head>
         <title>Vova Vindar | Privacy Policy</title>
+        <meta
+          name="description"
+          content="Privacy policy for Vova Vindar's portfolio - digital designer and developer based in Vancouver."
+        />
       </Head>
 
-      <div ref={containerRef} className={styles["privacy-container"]}>
+      <div
+        ref={containerRef}
+        className={styles["privacy-container"]}
+        aria-label="Privacy Policy"
+      >
         <div ref={contentRef} className={styles["text"]}>
           <p className="text-body-3" ref={(el) => (elementRef.current[0] = el)}>
             Your privacy is important to me.
@@ -119,7 +127,8 @@ function Privacy({}) {
             <Link
               href="https://aws.amazon.com/privacy/"
               target="_blank"
-              aria-label={`Visit AWS Privacy Policy (opens in new tab)`}
+              aria-label={`Visit AWS Privacy Policy`}
+              aria-description="opens in new tab"
             >
               privacy policy
             </Link>
@@ -139,7 +148,8 @@ function Privacy({}) {
             <Link
               href="https://aws.amazon.com/privacy/"
               target="_blank"
-              aria-label={`Visit AWS Privacy Policy (opens in new tab)`}
+              aria-label={`Visit AWS Privacy Policy`}
+              aria-description="opens in new tab"
             >
               AWS Privacy Policy
             </Link>
@@ -229,6 +239,11 @@ function Privacy({}) {
             . This policy is effective as of January 25, 2025.
           </p>
         </div>
+
+        {/* Add skip link back to main content if needed */}
+        <Link href="/" className="sr-only" aria-label="Return to homepage">
+          Return to homepage
+        </Link>
       </div>
     </>
   );

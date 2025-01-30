@@ -18,6 +18,7 @@ const LocalTime = forwardRef((props, ref) => {
           .map((part) => part.trim());
         setTime({ hours, minutes });
       } catch (error) {
+        console.warn("Error updating time:", error);
         setTime({ hours: "--", minutes: "--" });
       }
     };
@@ -42,10 +43,16 @@ const LocalTime = forwardRef((props, ref) => {
   }, []); // Empty dependency array since updateTime is now inside
 
   return (
-    <span ref={ref}>
+    <span
+      ref={ref}
+      role="timer" // Indicates this is a time display
+    >
       {time.hours}
-      <span>:</span>
-      {time.minutes},
+      <span aria-hidden="true">:</span>
+      {/* Hide colon from screen readers */}
+      {time.minutes}
+      <span aria-hidden="true">,</span>
+      {/* Hide comma from screen readers */}
     </span>
   );
 });

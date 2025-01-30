@@ -1,6 +1,6 @@
 import { useChangeTextAnimations } from "@/hooks/animations/interaction/useChangeTextAnimations";
 
-const ChangeText = ({ text = "", className }) => {
+const ChangeText = ({ text = "", className, ...props }) => {
   const { elementRef, displayText } = useChangeTextAnimations(text);
 
   return (
@@ -10,6 +10,7 @@ const ChangeText = ({ text = "", className }) => {
       style={{
         width: "fit-content",
       }}
+      {...props}
     >
       {displayText}
     </span>

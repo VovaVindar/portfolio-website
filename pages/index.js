@@ -14,7 +14,7 @@ export default function Home({}) {
         <title>Vova Vindar - Digital Designer & Developer</title>
       </Head>
       <div className={`${styles["home-container"]} container`}>
-        <div className={`${styles["safari-bug-fix"]}`} />
+        <div className={`${styles["safari-bug-fix"]}`} aria-hidden="true" />
         <ContactPopup />
         <Hero />
         <About />

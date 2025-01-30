@@ -4,7 +4,7 @@
   z-index: 2;
 }
 .work {
-  height: calc(33rlh - 1px);
+  height: calc(31rlh - 1px);
   width: fit-content;
   background-color: var(--token-color-surface-secondary);
   display: flex;
@@ -47,8 +47,8 @@
 }
 .work .project-image {
   z-index: 3;
-  width: 25rlh;
-  height: 25rlh;
+  width: 24rlh;
+  height: 24rlh;
   overflow: hidden;
   background-color: black;
   cursor: pointer;
