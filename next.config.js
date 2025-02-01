@@ -120,17 +120,11 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     scrollRestoration: false, // Disable scroll restoration on arrow (pop) navigation
+
+    reactCompiler: false,
   },
   // Static site output:
   output: "export", // Enables static HTML export
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.glsl/, // Enable GLSL files
-      type: "asset/source",
-    });
-
-    return config;
-  },
 };
 
 // Chain the configurations
