@@ -166,9 +166,14 @@ export const PreloaderProvider = ({ children }) => {
   const [isStartedLines, setIsStartedLines] = useState(false);
   const [isOnloadLinesActive, setIsOnloadLinesActive] = useState(true);
 
-  // Loading config
-  const incrementCap = !prefersReducedMotion ? 20 : 25;
-  const interval = !prefersReducedMotion ? 206 : 100;
+  // Loading config using refs to avoid unnecessary re-renders
+  const incrementCapRef = useRef(!prefersReducedMotion ? 20 : 25);
+  const intervalRef = useRef(!prefersReducedMotion ? 206 : 100);
+
+  useEffect(() => {
+    incrementCapRef.current = !prefersReducedMotion ? 20 : 25;
+    intervalRef.current = !prefersReducedMotion ? 206 : 100;
+  }, [prefersReducedMotion]);
 
   // Interface state
   const [interfaceState, setInterfaceState] = useState({
@@ -179,6 +184,7 @@ export const PreloaderProvider = ({ children }) => {
   const actualProgressRef = useRef(0);
   const isLoadingInitiatedRef = useRef(false);
   const previousWidthRef = useRef(width);
+  const debounceTimeoutRef = useRef(null);
 
   // Initial loading
   useEffect(() => {
@@ -206,29 +212,42 @@ export const PreloaderProvider = ({ children }) => {
     }
   }, [loadProgress]);
 
-  // Watch for width changes
+  // Watch for width changes with debounce
   useEffect(() => {
-    const prevWidth = previousWidthRef.current;
-    const thresholds = [420, 1520];
-
-    const crossedThreshold = thresholds.some(
-      (threshold) =>
-        (prevWidth < threshold && width >= threshold) ||
-        (prevWidth >= threshold && width < threshold)
-    );
-
-    if (crossedThreshold) {
-      loadNewSizes();
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
     }
 
-    previousWidthRef.current = width;
+    debounceTimeoutRef.current = setTimeout(() => {
+      const prevWidth = previousWidthRef.current;
+      const thresholds = [420, 1520];
+
+      const crossedThreshold = thresholds.some(
+        (threshold) =>
+          (prevWidth < threshold && width >= threshold) ||
+          (prevWidth >= threshold && width < threshold)
+      );
+
+      if (crossedThreshold) {
+        loadNewSizes();
+      }
+
+      previousWidthRef.current = width;
+    }, 300); // 300ms debounce delay
+
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
   }, [width]);
 
-  // Progress update effect
+  // Progress update effect with refs and proper cleanup for event listener
   useEffect(() => {
-    window.addEventListener("unhandledrejection", (event) => {
+    const rejectionHandler = (event) => {
       console.warn("Unhandled promise rejection:", event);
-    });
+    };
+    window.addEventListener("unhandledrejection", rejectionHandler);
 
     let currentProgress = 0;
     let timeoutId = null;
@@ -237,27 +256,28 @@ export const PreloaderProvider = ({ children }) => {
       if (currentProgress < 100) {
         const increment = Math.min(
           actualProgressRef.current - currentProgress,
-          incrementCap
+          incrementCapRef.current
         );
         currentProgress += increment;
 
         setLoadProgress(parseFloat(currentProgress.toFixed(0)));
 
-        timeoutId = setTimeout(updateProgress, interval);
+        timeoutId = setTimeout(updateProgress, intervalRef.current);
       } else if (actualProgressRef.current >= 100 && currentProgress <= 100) {
         setLoadProgress(100);
         setStartPageAnimation(true);
       }
     }
 
-    timeoutId = setTimeout(updateProgress, interval);
+    timeoutId = setTimeout(updateProgress, intervalRef.current);
 
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
+      window.removeEventListener("unhandledrejection", rejectionHandler);
     };
-  }, [incrementCap, interval]);
+  }, []);
 
-  // Interface callbacks
+  // Interface callbacks with early return to avoid unnecessary state updates
   const completeTransition = useCallback(() => {
     setIsOnloadLinesActive((prev) => {
       if (prev === false) return prev; // If already false, don't update
