@@ -22,7 +22,7 @@ const times = localFont({
       style: "italic",
     },
   ],
-  adjustFontFallback: "Times",
+  adjustFontFallback: "Times New Roman",
   preload: true,
   display: "swap",
   variable: "--times",
