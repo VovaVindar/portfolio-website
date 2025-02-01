@@ -1,9 +1,30 @@
-© 2024 Volodymyr Budkevych. All rights reserved.
+[vovavindar.com](https://vovavindar.com/)
 
-This code repository is the exclusive property of Volodymyr Budkevych. No part of this codebase may be reproduced, distributed, or transmitted in any form or by any means, including copying, pasting, or other electronic or mechanical methods, without the prior written permission of the owner.
+## Tech Stack
+- [Next.js 15.1](https://nextjs.org/) - React framework with Pages Router
+- [GSAP](https://greensock.com/gsap/) - Animations
+- [Lenis](https://github.com/studio-freight/lenis) - Smooth scroll library
+- [PWA Support](https://github.com/shadowwalker/next-pwa) - Progressive Web App capabilities
 
-For inquiries about usage, please contact vovavindar@gmail.com
+## Performance Optimizations
+- Custom build cleanup script
+- Image optimization with Sharp
+- PWA implementation
+- Sitemap generation
+- Performance monitoring with why-did-you-render
 
----
+## Development
+### Install dependencies 
+npm install
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Run development
+server npm run dev
+
+### Build for production
+npm run build
+
+### Serve production build 
+npm run serve
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
