@@ -49,39 +49,39 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
   }, [onLoadComplete]);
 
   // Blur & Opacity animation:
-  const [opacity, setOpacity] = useState(!prefersReducedMotion && 0);
-  const [blur, setBlur] = useState(
-    !prefersReducedMotion && HERO.LOAD.TITLE.INITIAL_BLUR
-  );
-  const [transition, setTransition] = useState(null);
+  const [titleStyles, setTitleStyles] = useState({
+    opacity: HERO.LOAD.TITLE.INITIAL_OPACITY,
+    blur: HERO.LOAD.TITLE.INITIAL_BLUR,
+    transition: null,
+  });
 
   useEffect(() => {
-    if (!prefersReducedMotion) {
-      setOpacity(0);
-      setBlur(HERO.LOAD.TITLE.INITIAL_BLUR);
+    if (isStartedLines) {
+      if (
+        HERO.LOAD.TITLE.INITIAL_DELAY - globalOnload.time() >
+        -1 * HERO.LOAD.TITLE.INITIAL_DELAY
+      ) {
+        const totalDelay =
+          (HERO.LOAD.TITLE.INITIAL_DELAY - globalOnload.time()) * 1000;
 
-      if (isStartedLines) {
-        if (
-          HERO.LOAD.TITLE.INITIAL_DELAY - globalOnload.time() >
-          -1 * HERO.LOAD.TITLE.INITIAL_DELAY
-        ) {
-          const totalDelay =
-            (HERO.LOAD.TITLE.INITIAL_DELAY - globalOnload.time()) * 1000;
+        const timer = setTimeout(() => {
+          setTitleStyles({
+            opacity: 1,
+            blur: 0,
+            transition: titleStyles.transition,
+          });
+        }, totalDelay);
 
-          const timer = setTimeout(() => {
-            setOpacity(1);
-            setBlur(0);
-          }, totalDelay);
-
-          return () => clearTimeout(timer);
-        } else {
-          setTransition("none");
-          setOpacity(1);
-          setBlur(0);
-        }
+        return () => clearTimeout(timer);
+      } else {
+        setTitleStyles({
+          opacity: 1,
+          blur: 0,
+          transition: "none",
+        });
       }
     }
-  }, [isStartedLines, globalOnload, HERO, prefersReducedMotion]);
+  }, [isStartedLines, globalOnload, HERO]);
 
-  return { opacity, blur, transition };
+  return titleStyles;
 };
