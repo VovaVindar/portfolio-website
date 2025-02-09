@@ -68,7 +68,7 @@ export const useHeroTitleOnloadAnimations = (titleRef, onLoadComplete) => {
           setTitleStyles({
             opacity: 1,
             blur: 0,
-            transition: titleStyles.transition,
+            transition: null,
           });
         }, totalDelay);
 
