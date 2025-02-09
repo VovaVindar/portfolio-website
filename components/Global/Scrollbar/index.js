@@ -28,7 +28,7 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
     const documentHeight = document.documentElement.scrollHeight;
 
     setScrollHeight(documentHeight);
-  }, [height]);
+  }, []);
 
   // Initial setup and route change handling
   useEffect(() => {
@@ -42,7 +42,7 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
 
       Router.events.off("routeChangeComplete", updateScrollHeight);
     };
-  }, []);
+  }, [updateScrollHeight]);
 
   const isHeightCompatibleRef = useRef(true);
 
@@ -68,7 +68,7 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
       Math.max(0, (scrollTop / maxScroll) * 100)
     );
     setScrollPosition(scrollPercent);
-  }, [setScrollPosition, isHoverCapable, scrollHeight]);
+  }, [setScrollPosition, isHoverCapable, scrollHeight, height]);
 
   // Add scroll listener
   useEffect(() => {
