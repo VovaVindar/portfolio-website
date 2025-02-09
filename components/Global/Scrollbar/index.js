@@ -24,39 +24,51 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
   );
 
   // Set scroll height
-  const updateScrollHeight = () => {
-    setTimeout(() => {
-      setScrollHeight(document.documentElement.scrollHeight);
-    }, 100);
-  };
+  const updateScrollHeight = useCallback(() => {
+    const documentHeight = document.documentElement.scrollHeight;
+
+    setScrollHeight(documentHeight);
+  }, [height]);
+
+  // Initial setup and route change handling
   useEffect(() => {
-    updateScrollHeight();
+    // Initial delay to let content render
+    const initialTimer = setTimeout(updateScrollHeight, 150);
 
     Router.events.on("routeChangeComplete", updateScrollHeight);
 
     return () => {
+      clearTimeout(initialTimer);
+
       Router.events.off("routeChangeComplete", updateScrollHeight);
     };
   }, []);
 
-  const documentHeightRef = useRef(0);
   const isHeightCompatibleRef = useRef(true);
 
-  const updateDocumentHeight = useCallback(() => {
-    documentHeightRef.current = scrollHeight - height;
-    isHeightCompatibleRef.current = height < MAX_HEIGHT_FOR_ANIMATION;
-  }, [height, scrollHeight]);
-
   const updateScrollPosition = useCallback(() => {
-    if (!isHeightCompatibleRef.current || !isHoverCapable) {
+    const isHeightCompatible = height < MAX_HEIGHT_FOR_ANIMATION;
+
+    if (!isHeightCompatible || !isHoverCapable || !scrollHeight) {
       setScrollPosition(0);
       return;
     }
 
     const scrollTop = scrollYRef.current;
-    const scrollPercent = (scrollTop / documentHeightRef.current) * 100;
+    const maxScroll = Math.max(0, scrollHeight - height);
+
+    // Prevent division by zero and ensure positive scroll range
+    if (maxScroll <= 0) {
+      setScrollPosition(0);
+      return;
+    }
+
+    const scrollPercent = Math.min(
+      100,
+      Math.max(0, (scrollTop / maxScroll) * 100)
+    );
     setScrollPosition(scrollPercent);
-  }, [setScrollPosition, isHoverCapable]);
+  }, [setScrollPosition, isHoverCapable, scrollHeight]);
 
   // Add scroll listener
   useEffect(() => {
@@ -69,10 +81,6 @@ const Scrollbar = ({ text = "", href, onClick, className }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [updateScrollPosition]);
-
-  useEffect(() => {
-    updateDocumentHeight();
-  }, [updateDocumentHeight]);
 
   useEffect(() => {
     updateScrollPosition();

@@ -126,6 +126,8 @@ export const LINES = () => {
 };
 
 export const HERO = () => {
+  const prefersReducedMotion = useReducedMotion();
+
   return useMemo(
     () => ({
       EASING: "power2.out",
@@ -137,7 +139,8 @@ export const HERO = () => {
             END: 1,
           },
           DURATION: 3,
-          INITIAL_BLUR: 7,
+          INITIAL_OPACITY: !prefersReducedMotion ? 0 : 1,
+          INITIAL_BLUR: !prefersReducedMotion ? 7 : 0,
           SCROLLTRIGGER_START_DELAY: 50,
           INITIAL_DELAY: 2.4,
         },
@@ -167,7 +170,7 @@ export const HERO = () => {
         },
       },
     }),
-    []
+    [prefersReducedMotion]
   );
 };
 
