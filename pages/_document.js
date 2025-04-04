@@ -4,6 +4,13 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        {/* Analytics */}
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="b1bb98c7-3281-40f8-8d6d-60c0550bac45"
+        ></script>
+
         {/* Favicons */}
         <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
         <link
